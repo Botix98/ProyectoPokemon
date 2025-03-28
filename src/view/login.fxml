@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+      <AnchorPane prefHeight="402.0" prefWidth="600.0">
+         <children>
+            <ImageView fx:id="imgFondo" fitHeight="462.0" fitWidth="712.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/loguin/dynamax-battle.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgLogo" fitHeight="150.0" fitWidth="200.0" layoutX="255.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/loguin/pngegg%20(1).png" />
+               </image>
+            </ImageView>
+            <Label id="lbUser" fx:id="lbUsuario" layoutX="236.0" layoutY="160.0" text="USUARIO" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField id="txtUsuario" fx:id="txtUsuario" layoutX="327.0" layoutY="156.0" />
+            <PasswordField id="txtPassord" fx:id="txtContrasena" layoutX="327.0" layoutY="193.0" />
+            <Label id="lbPass" fx:id="lbContrasena" layoutX="236.0" layoutY="197.0" text="CONTRASEÑA" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Button id="btnAceptar" fx:id="btnAceptar" layoutX="326.0" layoutY="228.0" mnemonicParsing="false" onAction="#aceptarLoguin" text="Aceptar" />
+            <Button id="btnCancelar" fx:id="btnCancelar" layoutX="415.0" layoutY="228.0" mnemonicParsing="false" onAction="#salir" text="Cancelar" />
+            <Button id="btnRegistrar" fx:id="btnRegistrar" layoutX="326.0" layoutY="267.0" mnemonicParsing="false" onAction="#registrarUsuario" prefHeight="26.0" prefWidth="150.0" text="Registrar" />
+            <Label id="lbError" fx:id="lbError" layoutX="235.0" layoutY="232.0" text="ERROR" textFill="RED" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

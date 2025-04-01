@@ -44,6 +44,11 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
+            <ImageView id="Sonido" fx:id="imgSonido" fitHeight="106.0" fitWidth="150.0" layoutX="14.0" layoutY="286.0" onMouseClicked="#activarDesactivarSonido" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/conSonido.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

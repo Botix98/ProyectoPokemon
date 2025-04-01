@@ -1,16 +1,25 @@
 package controller;
 
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import model.Entrenador;
 
 public class LoginController {
 
+	//PRUEBA
+	Entrenador entrenador = new Entrenador("Carlos", "123456", 1000);
+	
 	public Stage stage;
 	
     @FXML
@@ -45,7 +54,34 @@ public class LoginController {
 
     @FXML
     void aceptarLoguin(ActionEvent event) {
-
+    	if (txtUsuario.getText().isEmpty()) {
+    		lbError.setText("Error: Insertar nombre usuario");
+    		lbError.setVisible(true);
+    		
+    		//CON EL JOptionPane.showMessageDialog muestra una ventana emergente con el mensaje
+    		JOptionPane.showMessageDialog(null, "Error: escribe nombre de usuario");
+    	} else if (txtContrasena.getText().isEmpty()) {
+    		lbError.setText("Error: Insertar contraseña");
+    		lbError.setVisible(true);
+    	} else {
+    		String usuario = txtUsuario.getText();
+    		String pass = txtContrasena.getText();
+    		
+    		if (entrenador.getUsuario().equals(usuario)) {
+    			if (entrenador.getPass().equals(pass)) {
+    				lbError.setText("Correcto");
+    	    		lbError.setVisible(true);
+    	    		
+    	    		abrirPantallaMenu(entrenador);
+    			} else {
+    				lbError.setText("Error: contraseña incorrecta");
+    	    		lbError.setVisible(true);
+    			}
+    		} else {
+    			lbError.setText("Error: Usuario no existe");
+        		lbError.setVisible(true);
+    		}
+    	}
     }
 
     @FXML
@@ -55,10 +91,41 @@ public class LoginController {
 
     @FXML
     void salir(ActionEvent event) {
-
+    	Stage stage = (Stage) btnCancelar.getScene().getWindow();
+    	stage.close();
     }
 
     public void setStage(Stage primaryStage) {
     	stage = primaryStage;
+    }
+    
+    private void abrirPantallaMenu(Entrenador entr) {
+    	try {
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/menu.fxml"));
+	    	Parent root = loader.load();
+	    	
+	    	MenuController menuController = loader.getController();
+	    	
+	    	Scene scene = new Scene(root);
+	    	Stage stage = new Stage();
+	    	
+	    	stage.setTitle("Menu");
+	    	stage.setScene(scene);
+	    	
+	    	menuController.init(entr, stage, this);
+	    	
+	    	stage.show();
+	    	
+	    	this.stage.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public void show() {
+    	stage.show();
+    	lbError.setVisible(false);
+    	txtUsuario.setText("");
+    	txtContrasena.setText("");
     }
 }

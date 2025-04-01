@@ -17,9 +17,9 @@ public class Main extends Application {
     	
     	primaryStage.setTitle("Pokemon Abogado");
     	primaryStage.setScene(scene);
-    	/*
+    	
     	LoginController controller = loader.getController();
-    	controller.setStage(primaryStage);*/
+    	controller.setStage(primaryStage);
     	primaryStage.show();
     }
 

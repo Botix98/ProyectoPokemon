@@ -18,6 +18,8 @@ public class MenuController {
 	private LoginController loginController;
 	private CentroPokemonController centroPokemonController;
 	private CrianzaController crianzaController;
+	private CapturaController capturaController;
+	private EquipoController equipoController;
 	
     @FXML
     private Button btnCaptura;
@@ -58,12 +60,14 @@ public class MenuController {
     @FXML
     private Label lbTiPokedolares;
 
-    public void init(Entrenador entr, Stage stage, LoginController loginController, CentroPokemonController centroPokemonController, CrianzaController crianzaController) {
+    public void init(Entrenador entr, Stage stage, LoginController loginController, CentroPokemonController centroPokemonController, CrianzaController crianzaController, CapturaController capturaController, EquipoController equipoController) {
         this.entrenador = entr;
         this.stage = stage;
         this.loginController = loginController;
         this.centroPokemonController = centroPokemonController;
         this.crianzaController = crianzaController;
+        this.capturaController = capturaController;
+        this.equipoController = equipoController;
         
         lbJugador.setText(entrenador.getUsuario());
         lbPokedolares.setText(Integer.toString(entrenador.getPokedolares()));
@@ -111,6 +115,48 @@ public class MenuController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    @FXML
+    void irEquipo(ActionEvent event) {
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Equipo.fxml"));
+            Parent root = loader.load();
+
+            EquipoController equipoController = loader.getController();
+
+            // Inicializamos la pantalla de Equipo
+            equipoController.init(this.entrenador, this.stage, this.loginController, this); 
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+	        stage.setTitle("Equipo");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    
+    @FXML
+    void irCaptura(ActionEvent event) {
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Captura.fxml"));
+            Parent root = loader.load();
+
+            CapturaController capturaController = loader.getController();
+
+            // Inicializamos la pantalla de Captura
+            capturaController.init(this.entrenador, this.stage, this.loginController, this); 
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+	        stage.setTitle("Captura");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
     
 	@FXML

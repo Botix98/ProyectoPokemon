@@ -136,7 +136,7 @@ public class LoginController {
 	    	stage.setTitle("Menu");
 	    	stage.setScene(scene);
 	    	
-	    	menuController.init(entr, stage, this, null, null);
+	    	menuController.init(entr, stage, this, null, null, null, null);
 	    	
 	    	stage.show();
 	    	

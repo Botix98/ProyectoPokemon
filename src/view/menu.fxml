@@ -54,10 +54,10 @@
                   <Image url="@../../img/loguin/pngegg%20(1).png" />
                </image>
             </ImageView>
-            <Button fx:id="btnEquipo" layoutX="191.0" layoutY="261.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="133.0" text="Equipo" />
+            <Button fx:id="btnEquipo" layoutX="191.0" layoutY="261.0" mnemonicParsing="false" onAction="#irEquipo" prefHeight="54.0" prefWidth="133.0" text="Equipo" />
             <Button fx:id="btnCombate" layoutX="191.0" layoutY="357.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="133.0" text="Combate" />
             <Button fx:id="btnCentroPokemon" layoutX="191.0" layoutY="450.0" mnemonicParsing="false" onAction="#irCentroPokemon" prefHeight="54.0" prefWidth="133.0" text="Centro Pokémon" />
-            <Button fx:id="btnCaptura" layoutX="496.0" layoutY="261.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="133.0" text="Captura" />
+            <Button fx:id="btnCaptura" layoutX="496.0" layoutY="261.0" mnemonicParsing="false" onAction="#irCaptura" prefHeight="54.0" prefWidth="133.0" text="Captura" />
             <Button fx:id="btnCrianza" layoutX="496.0" layoutY="357.0" mnemonicParsing="false" onAction="#irCrianaza" prefHeight="54.0" prefWidth="133.0" text="Crianza" />
             <Button fx:id="btnEntrenamiento" layoutX="496.0" layoutY="450.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="133.0" text="Entrenamiento" />
             <Label fx:id="lbTiJugador" layoutX="144.0" layoutY="60.0" text="Jugador" textFill="RED">

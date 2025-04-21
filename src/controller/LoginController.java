@@ -71,7 +71,7 @@ public class LoginController {
     		//CON EL JOptionPane.showMessageDialog muestra una ventana emergente con el mensaje
     		JOptionPane.showMessageDialog(null, "Error: escribe nombre de usuario");
     	} else if (txtContrasena.getText().isEmpty()) {
-    		lbError.setText("Error: Insertar contraseña");
+    		lbError.setText("Error: Insertar contraseï¿½a");
     		lbError.setVisible(true);
     	} else {
     		String usuario = txtUsuario.getText();
@@ -84,7 +84,7 @@ public class LoginController {
     	    		
     	    		abrirPantallaMenu(entrenador);
     			} else {
-    				lbError.setText("Error: contraseña incorrecta");
+    				lbError.setText("Error: contraseï¿½a incorrecta");
     	    		lbError.setVisible(true);
     			}
     		} else {
@@ -136,7 +136,7 @@ public class LoginController {
 	    	stage.setTitle("Menu");
 	    	stage.setScene(scene);
 	    	
-	    	menuController.init(entr, stage, this);
+	    	menuController.init(entr, stage, this, null, null);
 	    	
 	    	stage.show();
 	    	

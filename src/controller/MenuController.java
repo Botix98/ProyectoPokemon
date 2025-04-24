@@ -20,6 +20,8 @@ public class MenuController {
 	private CrianzaController crianzaController;
 	private CapturaController capturaController;
 	private EquipoController equipoController;
+	private CombateController combateController;
+	private EntrenamientoController entrenamientoController;
 	
     @FXML
     private Button btnCaptura;
@@ -60,7 +62,7 @@ public class MenuController {
     @FXML
     private Label lbTiPokedolares;
 
-    public void init(Entrenador entr, Stage stage, LoginController loginController, CentroPokemonController centroPokemonController, CrianzaController crianzaController, CapturaController capturaController, EquipoController equipoController) {
+    public void init(Entrenador entr, Stage stage, LoginController loginController, CentroPokemonController centroPokemonController, CrianzaController crianzaController, CapturaController capturaController, EquipoController equipoController, EntrenamientoController entrenamientoController, CombateController combateController) {
         this.entrenador = entr;
         this.stage = stage;
         this.loginController = loginController;
@@ -68,6 +70,8 @@ public class MenuController {
         this.crianzaController = crianzaController;
         this.capturaController = capturaController;
         this.equipoController = equipoController;
+        this.entrenamientoController = entrenamientoController;
+        this.combateController = combateController;
         
         lbJugador.setText(entrenador.getUsuario());
         lbPokedolares.setText(Integer.toString(entrenador.getPokedolares()));
@@ -157,6 +161,46 @@ public class MenuController {
             e.printStackTrace();
         }
 
+    }
+    
+    @FXML
+    void irEntrenamiento(ActionEvent event) {
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/entrenamiento.fxml"));
+            Parent root = loader.load();
+
+            EntrenamientoController entrenamientoController = loader.getController();
+
+            // Inicializamos la pantalla de Entrenamiento
+            entrenamientoController.init(this.entrenador, this.stage, this.loginController, this); 
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+	        stage.setTitle("Entrenamiento");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    void irCombate(ActionEvent event) {
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/combate.fxml"));
+            Parent root = loader.load();
+
+            CombateController combateController = loader.getController();
+
+            // Inicializamos la pantalla de Combate
+            combateController.init(this.entrenador, this.stage, this.loginController, this); 
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+	        stage.setTitle("Combate");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 	@FXML

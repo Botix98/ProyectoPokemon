@@ -6,69 +6,109 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Entrenador;
 
-public class CentroPokemonController {
+public class EntrenamientoController {
 
-	private Stage stage;
 	private Entrenador entrenador;
-	private MenuController menuController;
+	private Stage stage;
 	private LoginController loginController;
+	private MenuController menuController;
 	
     @FXML
-    private Button btnAtras;
+    private Button btnAtacar;
 
     @FXML
-    private Button btnCurarEquipo;
+    private Button btnAtaque1;
 
     @FXML
-    private ImageView imgEnfermera;
+    private Button btnAtaque2;
+
+    @FXML
+    private Button btnAtaque3;
+
+    @FXML
+    private Button btnAtaque4;
+
+    @FXML
+    private Button btnHuir;
+
+    @FXML
+    private ImageView imgCuadricula;
+
+    @FXML
+    private ImageView imgEstadoPokemonEntrenador;
+
+    @FXML
+    private ImageView imgEstadoPokemonRival;
 
     @FXML
     private ImageView imgFondo;
 
     @FXML
-    private ImageView imgPokemon1;
+    private ImageView imgInfoPokemonEntrenador;
 
     @FXML
-    private ImageView imgPokemon2;
+    private ImageView imgInfoPokemonRival;
 
     @FXML
-    private ImageView imgPokemon3;
+    private ImageView imgPokemonEntrenador;
 
     @FXML
-    private ImageView imgPokemon4;
+    private ImageView imgPokemonRival;
 
     @FXML
-    private ImageView imgPokemon5;
+    private ImageView imgSeleccionAccion;
 
     @FXML
-    private ImageView imgPokemon6;
+    private ImageView imgSeleccionAtaque;
+
+    @FXML
+    private ImageView imgSexoPokemonEntrenador;
+
+    @FXML
+    private ImageView imgSexoPokemonRival;
 
     @FXML
     private ImageView imgSonido;
 
     @FXML
-    private ProgressBar pbPokemon1;
+    private ProgressBar imgVidaPokemonRival;
 
     @FXML
-    private ProgressBar pbPokemon2;
+    private Label lblNivelPokemonEntrenador;
 
     @FXML
-    private ProgressBar pbPokemon3;
+    private Label lblNivelPokemonRival;
 
     @FXML
-    private ProgressBar pbPokemon4;
+    private Label lblNombrePokemonEntrenador;
 
     @FXML
-    private ProgressBar pbPokemon5;
+    private Label lblNombrePokemonRival;
 
     @FXML
-    private ProgressBar pbPokemon6;
+    private Label lblPP;
+
+    @FXML
+    private Label lblTexto;
+
+    @FXML
+    private Label lblType;
+
+    @FXML
+    private Label lblVidaPokemonEntrenador;
+
+    @FXML
+    private ProgressBar pbVidaPokemonEntrenador;
+
+    @FXML
+    private ProgressBar pbXpPokemonEntrenador;
 
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
         this.entrenador = entr;
@@ -76,15 +116,9 @@ public class CentroPokemonController {
         this.loginController = loginController;
         this.menuController = menuController;
     }
-
     
     @FXML
-    void activarDesactivarSonido(MouseEvent event) {
-    	
-    }
-    
-    @FXML
-    void salir(ActionEvent event) {
+    void hiur(ActionEvent event) {
     	try {
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
@@ -100,9 +134,10 @@ public class CentroPokemonController {
     	    e.printStackTrace();
     	}
     }
+    
+    @FXML
+    void activarDesactivarSonido(MouseEvent event) {
 
-	public void setStage(Stage primaryStage) {
-		stage = primaryStage;
-		
-	}
+    }
+
 }

@@ -64,7 +64,7 @@ public class CapturaController {
     	    Parent root = loader.load();
 
     	    MenuController menuController = loader.getController();
-    	    menuController.init(entrenador, stage, loginController, null, null, null, null);
+    	    menuController.init(entrenador, stage, loginController, null, null, null, null, null, null);
 
     	    Scene scene = new Scene(root);
     	    stage.setScene(scene);

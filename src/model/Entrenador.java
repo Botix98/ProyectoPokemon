@@ -4,16 +4,19 @@ public class Entrenador {
 	private String usuario;
 	private String pass;
 	private int pokedolares;
+	private Pokemon pokemon;
+	
 	/**
 	 * @param usuario
 	 * @param pass
 	 * @param pokedolares
 	 */
-	public Entrenador(String usuario, String pass, int pokedolares) {
+	public Entrenador(String usuario, String pass, int pokedolares, Pokemon pokemon) {
 		super();
 		this.usuario = usuario;
 		this.pass = pass;
 		this.pokedolares = pokedolares;
+		this.pokemon = pokemon;
 	}
 	/**
 	 * @return the usuario
@@ -51,10 +54,22 @@ public class Entrenador {
 	public void setPokedolares(int pokedolares) {
 		this.pokedolares = pokedolares;
 	}
+	
+	/**
+	 * @return the pokemon
+	 */
+	public Pokemon getPokemon() {
+		return pokemon;
+	}
+	/**
+	 * @param pokemon the pokemon to set
+	 */
+	public void setPokemon(Pokemon pokemon) {
+		this.pokemon = pokemon;
+	}
 	@Override
 	public String toString() {
-		return "Entrenador [usuario=" + usuario + ", pass=" + pass + ", pokedolares=" + pokedolares + "]";
+		return "Entrenador [usuario=" + usuario + ", pass=" + pass + ", pokedolares=" + pokedolares + ", " + pokemon.toString() + "]";
 	}
-	
 	
 }

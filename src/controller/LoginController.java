@@ -20,11 +20,19 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import model.Entrenador;
+import model.Movimiento;
+import model.Pokemon;
 
 public class LoginController {
 
 	//PRUEBA
-	Entrenador entrenador = new Entrenador("Carlos", "123456", 1000);
+	Movimiento movimiento1 = new Movimiento("Lanza llamas", 1, "Ataque", 100, "Fuego", 1, 90);
+	Movimiento movimiento2 = new Movimiento("Llama confusa", 15, "Especial", 0, "Fuego", 1, 100);
+	Movimiento movimiento3 = new Movimiento("Llama llameante", 10, "Ataque", 125, "Fuego", 1, 80);
+	Movimiento movimiento4 = new Movimiento("Te quemoooo", 10, "Ataque", 100, "Fuego", 1, 90);
+	Entrenador entrenador = new Entrenador("Carlos", "123456", 1000, new Pokemon("Charidard", 360, 293, 348, 280, 295, 328, 100, null,
+			movimiento1, movimiento2, movimiento3, movimiento4));
+	
 	public Stage stage;
 	public boolean sonido = false;
 	public MediaPlayer mediaPlayer;

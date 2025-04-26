@@ -76,43 +76,43 @@
                   <Image url="@../../img/combateEntrenamiento/cajetinBase.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgSeleccionAccion" fitHeight="120.0" fitWidth="334.0" layoutX="866.0" layoutY="573.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+            <ImageView fx:id="imgSeleccionAccion" fitHeight="120.0" fitWidth="334.0" layoutX="866.0" layoutY="573.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5" visible="false">
                <image>
                   <Image url="@../../img/combateEntrenamiento/cajetinOpciones.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnAtacar" layoutX="815.0" layoutY="572.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="204.0" text="Atacar" />
-            <Button fx:id="btnRendirse" layoutX="1042.0" layoutY="572.0" mnemonicParsing="false" onAction="#rendirse" prefHeight="120.0" prefWidth="204.0" text="Rendirse" />
-            <ImageView fx:id="imgSeleccionAtaque" fitHeight="139.0" fitWidth="526.0" layoutX="132.0" layoutY="573.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+            <Button fx:id="btnAtacar" layoutX="815.0" layoutY="572.0" mnemonicParsing="false" onAction="#atacar" prefHeight="120.0" prefWidth="204.0" text="Atacar" visible="false" />
+            <Button fx:id="btnRendirse" layoutX="1042.0" layoutY="572.0" mnemonicParsing="false" onAction="#rendirse" prefHeight="120.0" prefWidth="204.0" text="Rendirse" visible="false" />
+            <ImageView fx:id="imgSeleccionAtaque" fitHeight="139.0" fitWidth="526.0" layoutX="132.0" layoutY="573.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5" visible="false">
                <image>
                   <Image url="@../../img/combateEntrenamiento/cajetinAtaques.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnAtaque1" layoutX="45.0" layoutY="572.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="320.0" text="Ataque 1" />
-            <Button fx:id="btnAtaque3" layoutX="45.0" layoutY="642.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="320.0" text="Ataque 3" />
-            <Button fx:id="btnAtaque2" layoutX="425.0" layoutY="572.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="320.0" text="Ataque 2" />
-            <Button fx:id="btnAtaque4" layoutX="425.0" layoutY="642.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="320.0" text="Ataque 4" />
-            <ImageView fx:id="imgInfoPokemonEntrenador" fitHeight="164.0" fitWidth="448.0" layoutX="823.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="btnAtaque1" layoutX="45.0" layoutY="572.0" mnemonicParsing="false" onAction="#ataque1" onMouseEntered="#entrarAtaque1" onMouseExited="#salirAtaque1" prefHeight="50.0" prefWidth="320.0" text="Ataque 1" visible="false" />
+            <Button fx:id="btnAtaque3" layoutX="45.0" layoutY="642.0" mnemonicParsing="false" onAction="#ataque3" onMouseEntered="#entrarAtaque3" onMouseExited="#salirAtaque3" prefHeight="50.0" prefWidth="320.0" text="Ataque 3" visible="false" />
+            <Button fx:id="btnAtaque2" layoutX="425.0" layoutY="572.0" mnemonicParsing="false" onAction="#ataque2" onMouseEntered="#entrarAtaque2" onMouseExited="#salirAtaque2" prefHeight="50.0" prefWidth="320.0" text="Ataque 2" visible="false" />
+            <Button fx:id="btnAtaque4" layoutX="425.0" layoutY="642.0" mnemonicParsing="false" onAction="#ataque4" onMouseEntered="#entrarAtaque4" onMouseExited="#salirAtaque4" prefHeight="50.0" prefWidth="320.0" text="Ataque 4" visible="false" />
+            <ImageView fx:id="imgInfoPokemonEntrenador" fitHeight="164.0" fitWidth="448.0" layoutX="823.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@../../img/combateEntrenamiento/infoPokemonJugador.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblNombrePokemonEntrenador" layoutX="881.0" layoutY="406.0" prefHeight="38.0" prefWidth="197.0" text="Nombre Pokemon">
+            <Label fx:id="lblNombrePokemonEntrenador" layoutX="881.0" layoutY="406.0" prefHeight="38.0" prefWidth="197.0" text="Nombre Pokemon" visible="false">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <ImageView fx:id="imgSexoPokemonEntrenador" fitHeight="38.0" fitWidth="35.0" layoutX="1085.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgSexoPokemonEntrenador" fitHeight="38.0" fitWidth="35.0" layoutX="1085.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@imgHembra.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblNivelPokemonEntrenador" layoutX="1183.0" layoutY="406.0" prefHeight="38.0" prefWidth="46.0" text="LVL">
+            <Label fx:id="lblNivelPokemonEntrenador" layoutX="1183.0" layoutY="406.0" prefHeight="38.0" prefWidth="46.0" text="LVL" visible="false">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="lblVidaPokemonEntrenador" layoutX="1134.0" layoutY="477.0" prefHeight="38.0" prefWidth="94.0" text="321/340">
+            <Label fx:id="lblVidaPokemonEntrenador" layoutX="1134.0" layoutY="477.0" prefHeight="38.0" prefWidth="94.0" text="321/340" visible="false">
                <font>
                   <Font size="24.0" />
                </font>
@@ -122,14 +122,14 @@
                   <Image url="@estado.png" />
                </image>
             </ImageView>
-            <ProgressBar fx:id="pbVidaPokemonEntrenador" layoutX="1024.0" layoutY="457.0" prefHeight="14.0" prefWidth="204.0" progress="0.0" />
-            <ProgressBar fx:id="pbXpPokemonEntrenador" layoutX="956.0" layoutY="525.0" prefHeight="10.0" prefWidth="271.0" progress="0.0" />
-            <ImageView fx:id="imgInfoPokemonRival" fitHeight="131.0" fitWidth="441.0" layoutX="42.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+            <ProgressBar fx:id="pbVidaPokemonEntrenador" layoutX="1024.0" layoutY="457.0" prefHeight="14.0" prefWidth="204.0" progress="0.0" visible="false" />
+            <ProgressBar fx:id="pbXpPokemonEntrenador" layoutX="956.0" layoutY="525.0" prefHeight="10.0" prefWidth="271.0" progress="0.0" visible="false" />
+            <ImageView fx:id="imgInfoPokemonRival" fitHeight="131.0" fitWidth="441.0" layoutX="42.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@../../img/combateEntrenamiento/infoPokemonEnemigo.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblNombrePokemonRival" layoutX="68.0" layoutY="53.0" prefHeight="38.0" prefWidth="197.0" text="Nombre Pokemon">
+            <Label fx:id="lblNombrePokemonRival" layoutX="68.0" layoutY="53.0" prefHeight="38.0" prefWidth="197.0" text="Nombre Pokemon" visible="false">
                <font>
                   <Font size="24.0" />
                </font>
@@ -139,7 +139,7 @@
                   <Image url="@imgMacho.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblNivelPokemonRival" layoutX="372.0" layoutY="52.0" prefHeight="38.0" prefWidth="46.0" text="LVL">
+            <Label fx:id="lblNivelPokemonRival" layoutX="372.0" layoutY="52.0" prefHeight="38.0" prefWidth="46.0" text="LVL" visible="false">
                <font>
                   <Font size="24.0" />
                </font>
@@ -149,7 +149,7 @@
                   <Image url="@estado.png" />
                </image>
             </ImageView>
-            <ProgressBar fx:id="imgVidaPokemonRival" layoutX="210.0" layoutY="105.0" prefHeight="14.0" prefWidth="204.0" progress="0.0" />
+            <ProgressBar fx:id="pbVidaPokemonRival" layoutX="210.0" layoutY="105.0" prefHeight="14.0" prefWidth="204.0" progress="0.0" visible="false" />
             <Label fx:id="lblPP" layoutX="823.0" layoutY="572.0" prefHeight="50.0" prefWidth="414.0" text="PP: 230554/239482398" visible="false">
                <font>
                   <Font size="24.0" />
@@ -160,7 +160,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="lblTexto" layoutX="45.0" layoutY="572.0" prefHeight="120.0" prefWidth="701.0" text="TEXTO QUE SALE CUANDO DICES COSAS POR EJEMPLO NS ME ESTAN METIENDO PRISA">
+            <Label fx:id="lblTexto" layoutX="45.0" layoutY="572.0" prefHeight="120.0" prefWidth="702.0" text="TEXTO QUE SALE CUANDO DICES COSAS POR EJEMPLO NS ME ESTAN METIENDO PRISA" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="24.0" />
                </font>

@@ -331,7 +331,14 @@ public class CombateController {
 
     @FXML
     void ataque2(ActionEvent event) {
+    	LinkedList<Pokemon> pokedex = new LinkedList<Pokemon>();
+    	Connection con = ConexionBD.getConnection();
     	
+    	pokedex = PokedexDAO.cargarPokedex(con);
+    	
+    	for (Pokemon pokemon : pokedex) {
+			System.out.println(pokemon.toString());
+		}
     }
 
     @FXML

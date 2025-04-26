@@ -17,6 +17,8 @@ public class Pokemon {
 	private String sexo;
 	private String estado;
 	private int equipo;
+	private String tipo1;
+	private String tipo2;
 	private Movimiento movimiento1;
 	private Movimiento movimiento2;
 	private Movimiento movimiento3;
@@ -75,11 +77,13 @@ public class Pokemon {
 	 * @param movimiento3
 	 * @param movimiento4
 	 * @param iD_POKEMON
+	 * @param tipo1
+	 * @param tipo2
 	 */
 	public Pokemon(String nombre, int idPokemon, int idEntrenador, String mote, int vitalidadMax,
 			int ataque, int ataqueEspecial, int defensa, int defensaEspecial, int velocidad, int nivel, int fertilidad,
 			String sexo, String estado, int equipo, Movimiento movimiento1, Movimiento movimiento2,
-			Movimiento movimiento3, Movimiento movimiento4) {
+			Movimiento movimiento3, Movimiento movimiento4, String tipo1, String tipo2) {
 		super();
 		this.nombre = nombre;
 		this.idPokemon = idPokemon;
@@ -101,6 +105,8 @@ public class Pokemon {
 		this.movimiento2 = movimiento2;
 		this.movimiento3 = movimiento3;
 		this.movimiento4 = movimiento4;
+		this.tipo1 = tipo1;
+		this.tipo2 = tipo2;
 	}
 
 	/**
@@ -389,6 +395,34 @@ public class Pokemon {
 	public void setEquipo(int equipo) {
 		this.equipo = equipo;
 	}
+	
+	/**
+	 * @return the tipo1
+	 */
+	public String getTipo1() {
+		return tipo1;
+	}
+
+	/**
+	 * @param tipo1 the tipo1 to set
+	 */
+	public void setTipo1(String tipo1) {
+		this.tipo1 = tipo1;
+	}
+
+	/**
+	 * @return the tipo2
+	 */
+	public String getTipo2() {
+		return tipo2;
+	}
+
+	/**
+	 * @param tipo2 the tipo2 to set
+	 */
+	public void setTipo2(String tipo2) {
+		this.tipo2 = tipo2;
+	}
 
 	@Override
 	public String toString() {
@@ -396,8 +430,8 @@ public class Pokemon {
 				+ mote + ", vitalidadMax=" + vitalidadMax + ", vitalidadActual=" + vitalidadActual + ", ataque="
 				+ ataque + ", ataqueEspecial=" + ataqueEspecial + ", defensa=" + defensa + ", defensaEspecial="
 				+ defensaEspecial + ", velocidad=" + velocidad + ", nivel=" + nivel + ", fertilidad=" + fertilidad
-				+ ", sexo=" + sexo + ", estado=" + estado + ", equipo=" + equipo + ", movimiento1=" + movimiento1
-				+ ", movimiento2=" + movimiento2 + ", movimiento3=" + movimiento3 + ", movimiento4=" + movimiento4
-				+ "]";
+				+ ", sexo=" + sexo + ", estado=" + estado + ", equipo=" + equipo + ", tipo1=" + tipo1 + ", tipo2="
+				+ tipo2 + ", movimiento1=" + movimiento1 + ", movimiento2=" + movimiento2 + ", movimiento3="
+				+ movimiento3 + ", movimiento4=" + movimiento4 + "]";
 	}
 }

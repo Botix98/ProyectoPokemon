@@ -13,8 +13,9 @@ public class PokedexDAO {
 	
 	public static LinkedList<Pokemon> cargarPokedex(Connection con) {
 		LinkedList<Pokemon> listaPokemon = new LinkedList<>();
-
-		String query = "SELECT NUM_POKEDEX, " + "NOM_POKEMON, " + "NIVEL_EVO, " + "TIPO1, " + "TIPO2 "
+		
+		String query = "SELECT NUM_POKEDEX, " + "NOM_POKEMON, " + "NIVEL_EVO, " + "TIPO1, " + "TIPO2, " + "VITALIDAD, "
+				+ "ATAQUE, " + "AT_ESPECIAL, " + "DEFENSA, " + "DEF_ESPECIAL, " + "VELOCIDAD "
 				+ "FROM POKEDEX";
 		Pokemon pokemon;
 
@@ -27,6 +28,15 @@ public class PokedexDAO {
 				pokemon.setIdPokemon(rs.getInt("NUM_POKEDEX"));
 				pokemon.setNombre(rs.getString("NOM_POKEMON"));
 				pokemon.setNivel(rs.getInt("NIVEL_EVO"));
+				pokemon.setTipo1(rs.getString("TIPO1"));
+				pokemon.setTipo2(rs.getString("TIPO2"));
+				pokemon.setVitalidadMax(rs.getInt("VITALIDAD"));
+				pokemon.setVitalidadActual(pokemon.getVitalidadMax());
+				pokemon.setAtaque(rs.getInt("ATAQUE"));
+				pokemon.setAtaqueEspecial(rs.getInt("AT_ESPECIAL"));
+				pokemon.setDefensa(rs.getInt("DEFENSA"));
+				pokemon.setDefensaEspecial(rs.getInt("DEF_ESPECIAL"));
+				pokemon.setVelocidad(rs.getInt("VELOCIDAD"));
 				
 				listaPokemon.add(pokemon);
 			}

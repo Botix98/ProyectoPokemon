@@ -1,7 +1,11 @@
 package controller;
 
 import java.io.File;
+import java.sql.Connection;
+import java.util.LinkedList;
 
+import dao.ConexionBD;
+import dao.PokedexDAO;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
@@ -12,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
@@ -247,7 +252,13 @@ public class CombateController {
     
     @FXML
     void activarDesactivarSonido(MouseEvent event) {
-
+    	loginController.sonido();
+    	if (loginController.sonido) {
+    		imgSonido.setImage(new Image(new File("./img/conSonido.png").toURI().toString()));
+    	}
+    	else {
+    		imgSonido.setImage(new Image(new File("./img/sinSonido.png").toURI().toString()));
+    	}
     }
     
     @FXML
@@ -320,7 +331,7 @@ public class CombateController {
 
     @FXML
     void ataque2(ActionEvent event) {
-
+    	
     }
 
     @FXML

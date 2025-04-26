@@ -2,6 +2,9 @@ package model;
 
 public class Pokemon {
 	private String nombre;
+	private int idPokemon;
+	private int idEntrenador;
+	private String mote;
 	private int vitalidadMax;
 	private int vitalidadActual;
 	private int ataque;
@@ -10,7 +13,10 @@ public class Pokemon {
 	private int defensaEspecial;
 	private int velocidad;
 	private int nivel;
+	private int fertilidad;
+	private String sexo;
 	private String estado;
+	private int equipo;
 	private Movimiento movimiento1;
 	private Movimiento movimiento2;
 	private Movimiento movimiento3;
@@ -43,6 +49,65 @@ public class Pokemon {
 		this.movimiento2 = movimiento2;
 		this.movimiento3 = movimiento3;
 		this.movimiento4 = movimiento4;
+	}
+	
+	
+
+	/**
+	 * @param nombre
+	 * @param idPokemon
+	 * @param idEntrenador
+	 * @param mote
+	 * @param vitalidadMax
+	 * @param vitalidadActual
+	 * @param ataque
+	 * @param ataqueEspecial
+	 * @param defensa
+	 * @param defensaEspecial
+	 * @param velocidad
+	 * @param nivel
+	 * @param fertilidad
+	 * @param sexo
+	 * @param estado
+	 * @param equipo
+	 * @param movimiento1
+	 * @param movimiento2
+	 * @param movimiento3
+	 * @param movimiento4
+	 * @param iD_POKEMON
+	 */
+	public Pokemon(String nombre, int idPokemon, int idEntrenador, String mote, int vitalidadMax,
+			int ataque, int ataqueEspecial, int defensa, int defensaEspecial, int velocidad, int nivel, int fertilidad,
+			String sexo, String estado, int equipo, Movimiento movimiento1, Movimiento movimiento2,
+			Movimiento movimiento3, Movimiento movimiento4) {
+		super();
+		this.nombre = nombre;
+		this.idPokemon = idPokemon;
+		this.idEntrenador = idEntrenador;
+		this.mote = mote;
+		this.vitalidadMax = vitalidadMax;
+		this.vitalidadActual = vitalidadMax;
+		this.ataque = ataque;
+		this.ataqueEspecial = ataqueEspecial;
+		this.defensa = defensa;
+		this.defensaEspecial = defensaEspecial;
+		this.velocidad = velocidad;
+		this.nivel = nivel;
+		this.fertilidad = fertilidad;
+		this.sexo = sexo;
+		this.estado = estado;
+		this.equipo = equipo;
+		this.movimiento1 = movimiento1;
+		this.movimiento2 = movimiento2;
+		this.movimiento3 = movimiento3;
+		this.movimiento4 = movimiento4;
+	}
+
+	/**
+	 * 
+	 */
+	public Pokemon() {
+		super();
 	}
 
 	/**
@@ -241,12 +306,98 @@ public class Pokemon {
 		this.movimiento4 = movimiento4;
 	}
 
+	/**
+	 * @return the idPokemon
+	 */
+	public int getIdPokemon() {
+		return idPokemon;
+	}
+
+	/**
+	 * @param idPokemon the idPokemon to set
+	 */
+	public void setIdPokemon(int idPokemon) {
+		this.idPokemon = idPokemon;
+	}
+
+	/**
+	 * @return the idEntrenador
+	 */
+	public int getIdEntrenador() {
+		return idEntrenador;
+	}
+
+	/**
+	 * @param idEntrenador the idEntrenador to set
+	 */
+	public void setIdEntrenador(int idEntrenador) {
+		this.idEntrenador = idEntrenador;
+	}
+
+	/**
+	 * @return the mote
+	 */
+	public String getMote() {
+		return mote;
+	}
+
+	/**
+	 * @param mote the mote to set
+	 */
+	public void setMote(String mote) {
+		this.mote = mote;
+	}
+
+	/**
+	 * @return the fertilidad
+	 */
+	public int getFertilidad() {
+		return fertilidad;
+	}
+
+	/**
+	 * @param fertilidad the fertilidad to set
+	 */
+	public void setFertilidad(int fertilidad) {
+		this.fertilidad = fertilidad;
+	}
+
+	/**
+	 * @return the sexo
+	 */
+	public String getSexo() {
+		return sexo;
+	}
+
+	/**
+	 * @param sexo the sexo to set
+	 */
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	/**
+	 * @return the equipo
+	 */
+	public int getEquipo() {
+		return equipo;
+	}
+
+	/**
+	 * @param equipo the equipo to set
+	 */
+	public void setEquipo(int equipo) {
+		this.equipo = equipo;
+	}
+
 	@Override
 	public String toString() {
-		return "Pokemon [nombre=" + nombre + ", vitalidadMax=" + vitalidadMax + ", vitalidadActual=" + vitalidadActual
-				+ ", ataque=" + ataque + ", ataqueEspecial=" + ataqueEspecial + ", defensa=" + defensa
-				+ ", defensaEspecial=" + defensaEspecial + ", velocidad=" + velocidad + ", nivel=" + nivel + ", estado="
-				+ estado + ", movimiento1=" + movimiento1 + ", movimiento2=" + movimiento2 + ", movimiento3="
-				+ movimiento3 + ", movimiento4=" + movimiento4 + "]";
+		return "Pokemon [nombre=" + nombre + ", idPokemon=" + idPokemon + ", idEntrenador=" + idEntrenador + ", mote="
+				+ mote + ", vitalidadMax=" + vitalidadMax + ", vitalidadActual=" + vitalidadActual + ", ataque="
+				+ ataque + ", ataqueEspecial=" + ataqueEspecial + ", defensa=" + defensa + ", defensaEspecial="
+				+ defensaEspecial + ", velocidad=" + velocidad + ", nivel=" + nivel + ", fertilidad=" + fertilidad
+				+ ", sexo=" + sexo + ", estado=" + estado + ", equipo=" + equipo + ", movimiento1=" + movimiento1
+				+ ", movimiento2=" + movimiento2 + ", movimiento3=" + movimiento3 + ", movimiento4=" + movimiento4
+				+ "]";
 	}
 }

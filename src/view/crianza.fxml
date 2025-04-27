@@ -32,6 +32,8 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.Image?>
@@ -43,45 +45,48 @@
   <children>
     <AnchorPane maxHeight="720.0" maxWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
       <children>
-            <ImageView fx:id="imgFondo" fitHeight="880.0" fitWidth="1382.0" pickOnBounds="true">
+            <ImageView fx:id="imgFondo" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true">
                <image>
                   <Image url="@../../img/crianza/fondo.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnMacho" layoutX="266.0" layoutY="479.0" mnemonicParsing="false" prefHeight="128.0" prefWidth="208.0" text="Pokemon macho" />
-            <Button fx:id="btnAtras" layoutX="1033.0" layoutY="724.0" mnemonicParsing="false" onAction="#Salir" prefHeight="110.0" prefWidth="314.0" text="Atras" />
-            <ProgressBar fx:id="pbFusion" layoutX="266.0" layoutY="724.0" prefHeight="110.0" prefWidth="736.0" progress="0.0" />
-            <ImageView fx:id="imgAdn1" fitHeight="128.0" fitWidth="415.0" layoutX="293.0" layoutY="715.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="btnMacho" layoutX="183.0" layoutY="428.0" mnemonicParsing="false" prefHeight="128.0" prefWidth="208.0" text="Pokemon macho" />
+            <Button fx:id="btnAtras" layoutX="937.0" layoutY="584.0" mnemonicParsing="false" onAction="#Salir" prefHeight="110.0" prefWidth="314.0" text="Atras" />
+            <ProgressBar fx:id="pbFusion" layoutX="183.0" layoutY="584.0" prefHeight="110.0" prefWidth="708.0" progress="0.0" />
+            <ImageView fx:id="imgAdn1" fitHeight="128.0" fitWidth="415.0" layoutX="204.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/crianza/adn.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgAdn3" fitHeight="128.0" fitWidth="415.0" layoutX="606.0" layoutY="715.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgAdn3" fitHeight="128.0" fitWidth="415.0" layoutX="520.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/crianza/adn.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgAdn2" fitHeight="128.0" fitWidth="415.0" layoutX="447.0" layoutY="715.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgAdn2" fitHeight="128.0" fitWidth="415.0" layoutX="363.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/crianza/adn.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgAdn4" fitHeight="128.0" fitWidth="415.0" layoutX="763.0" layoutY="715.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgAdn4" fitHeight="128.0" fitWidth="415.0" layoutX="674.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/crianza/adn.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnHembra" layoutX="794.0" layoutY="479.0" mnemonicParsing="false" prefHeight="128.0" prefWidth="208.0" text="Pokemon hembra" />
-            <Button fx:id="btnIncubadora" layoutX="530.0" layoutY="201.0" mnemonicParsing="false" onAction="#habrirIncubadora" prefHeight="128.0" prefWidth="208.0" text="Huevo en incubadora" />
-            <ImageView fx:id="idSonido" fitHeight="99.0" fitWidth="84.0" layoutX="50.0" layoutY="40.0" onMouseClicked="#activarDesactivarSonido" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="btnHembra" layoutX="683.0" layoutY="428.0" mnemonicParsing="false" prefHeight="128.0" prefWidth="208.0" text="Pokemon hembra" />
+            <Button fx:id="btnIncubadora" layoutX="442.0" layoutY="214.0" mnemonicParsing="false" onAction="#habrirIncubadora" prefHeight="128.0" prefWidth="208.0" text="Huevo en incubadora" />
+            <ImageView fx:id="imgSonido" fitHeight="99.0" fitWidth="84.0" layoutX="50.0" layoutY="40.0" onMouseClicked="#activarDesactivarSonido" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/conSonido.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgCable1" fitHeight="150.0" fitWidth="200.0" layoutX="474.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgCable2" fitHeight="150.0" fitWidth="200.0" layoutX="594.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="idHuevo" fitHeight="150.0" fitWidth="200.0" layoutX="534.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true" visible="false" />
-            <ImageView fx:id="imgFusionar" fitHeight="118.0" fitWidth="142.0" layoutX="108.0" layoutY="720.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgCable1" fitHeight="150.0" fitWidth="200.0" layoutX="187.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgCable2" fitHeight="150.0" fitWidth="200.0" layoutX="687.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgHuevo" fitHeight="150.0" fitWidth="200.0" layoutX="446.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
+               <rotationAxis>
+                  <Point3D />
+               </rotationAxis></ImageView>
+            <ImageView fx:id="imgFusionar" fitHeight="118.0" fitWidth="142.0" layoutX="50.0" layoutY="580.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/crianza/unir.jpeg" />
                </image>
@@ -89,4 +94,7 @@
       </children>
     </AnchorPane>
   </children>
+   <padding>
+      <Insets bottom="-100.0" />
+   </padding>
 </VBox>

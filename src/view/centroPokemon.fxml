@@ -43,31 +43,31 @@
   <children>
     <AnchorPane maxHeight="720.0" maxWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
       <children>
-            <ImageView fx:id="imgFondo" fitWidth="1440.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgFondo" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/centroPoke/fondo.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="btnCurarEquipo" layoutX="92.0" layoutY="690.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="886.0" text="Curar equipo" />
-            <Button fx:id="btnAtras" layoutX="1036.0" layoutY="690.0" mnemonicParsing="false" onAction="#salir" prefHeight="110.0" prefWidth="314.0" text="Atras" />
-            <ProgressBar fx:id="pbPokemon1" layoutX="157.0" layoutY="260.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
-            <ProgressBar fx:id="pbPokemon2" layoutX="451.0" layoutY="260.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
-            <ProgressBar fx:id="pbPokemon3" layoutX="720.0" layoutY="260.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
-            <ProgressBar fx:id="pbPokemon4" layoutX="719.0" layoutY="464.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
-            <ProgressBar fx:id="pbPokemon5" layoutX="438.0" layoutY="464.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
-            <ProgressBar fx:id="pbPokemon6" layoutX="157.0" layoutY="464.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
+            <Button fx:id="btnCurarEquipo" layoutX="79.0" layoutY="585.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="815.0" text="Curar equipo" />
+            <Button fx:id="btnAtras" layoutX="934.0" layoutY="585.0" mnemonicParsing="false" onAction="#salir" prefHeight="110.0" prefWidth="314.0" text="Atras" />
+            <ProgressBar fx:id="pbPokemon1" layoutX="106.0" layoutY="151.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
+            <ProgressBar fx:id="pbPokemon2" layoutX="396.0" layoutY="151.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
+            <ProgressBar fx:id="pbPokemon3" layoutX="700.0" layoutY="151.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
+            <ProgressBar fx:id="pbPokemon4" layoutX="700.0" layoutY="342.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
+            <ProgressBar fx:id="pbPokemon5" layoutX="397.0" layoutY="342.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
+            <ProgressBar fx:id="pbPokemon6" layoutX="106.0" layoutY="342.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
             <ImageView fx:id="imgSonido" fitHeight="99.0" fitWidth="84.0" layoutX="50.0" layoutY="40.0" onMouseClicked="#activarDesactivarSonido" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/conSonido.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgPokemon6" fitHeight="150.0" fitWidth="208.0" layoutX="713.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgPokemon5" fitHeight="150.0" fitWidth="208.0" layoutX="411.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgPokemon4" fitHeight="150.0" fitWidth="208.0" layoutX="144.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgPokemon3" fitHeight="150.0" fitWidth="208.0" layoutX="707.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgPokemon2" fitHeight="150.0" fitWidth="208.0" layoutX="438.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgPokemon1" fitHeight="150.0" fitWidth="208.0" layoutX="144.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgEnfermera" fitHeight="400.0" fitWidth="386.0" layoutX="1036.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgPokemon6" fitHeight="150.0" fitWidth="208.0" layoutX="686.0" layoutY="376.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgPokemon5" fitHeight="150.0" fitWidth="208.0" layoutX="383.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgPokemon4" fitHeight="150.0" fitWidth="208.0" layoutX="92.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgPokemon3" fitHeight="150.0" fitWidth="208.0" layoutX="693.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgPokemon2" fitHeight="150.0" fitWidth="208.0" layoutX="383.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgPokemon1" fitHeight="150.0" fitWidth="208.0" layoutX="92.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgEnfermera" fitHeight="400.0" fitWidth="386.0" layoutX="934.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/centroPoke/image-removebg-preview.png" />
                </image>

@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.File;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -32,10 +35,10 @@ public class CrianzaController {
     private Button btnMacho;
 
     @FXML
-    private ImageView idHuevo;
+    private ImageView imgHuevo;
 
     @FXML
-    private ImageView idSonido;
+    private ImageView imgSonido;
 
     @FXML
     private ImageView imgAdn1;
@@ -91,7 +94,13 @@ public class CrianzaController {
 
     @FXML
     void activarDesactivarSonido(MouseEvent event) {
-
+    	loginController.sonido();
+    	if (loginController.sonido) {
+    		imgSonido.setImage(new Image(new File("./img/conSonido.png").toURI().toString()));
+    	}
+    	else {
+    		imgSonido.setImage(new Image(new File("./img/sinSonido.png").toURI().toString()));
+    	}
     }
 
     @FXML

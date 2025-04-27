@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.File;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -54,7 +57,13 @@ public class CapturaController {
 
     @FXML
     void activarDesactivarSonido(MouseEvent event) {
-
+    	loginController.sonido();
+    	if (loginController.sonido) {
+    		imgSonido.setImage(new Image(new File("./img/conSonido.png").toURI().toString()));
+    	}
+    	else {
+    		imgSonido.setImage(new Image(new File("./img/sinSonido.png").toURI().toString()));
+    	}
     }
 
     @FXML

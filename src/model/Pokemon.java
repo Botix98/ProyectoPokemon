@@ -19,10 +19,7 @@ public class Pokemon {
 	private int equipo;
 	private String tipo1;
 	private String tipo2;
-	private Movimiento movimiento1;
-	private Movimiento movimiento2;
-	private Movimiento movimiento3;
-	private Movimiento movimiento4;
+	private Movimiento[] movimientos;
 	
 	/**
 	 * @param nombre
@@ -36,7 +33,7 @@ public class Pokemon {
 	 * @param estado
 	 */
 	public Pokemon(String nombre, int vitalidadMax, int ataque, int ataqueEspecial, int defensa, int defensaEspecial,
-			int velocidad, int nivel, String estado, Movimiento movimiento1, Movimiento movimiento2, Movimiento movimiento3, Movimiento movimiento4) {
+			int velocidad, int nivel, String estado, Movimiento[] listaMovimientos) {
 		this.nombre = nombre;
 		this.vitalidadMax = vitalidadMax;
 		this.vitalidadActual = vitalidadMax;
@@ -47,10 +44,10 @@ public class Pokemon {
 		this.velocidad = velocidad;
 		this.nivel = nivel;
 		this.estado = estado;
-		this.movimiento1 = movimiento1;
-		this.movimiento2 = movimiento2;
-		this.movimiento3 = movimiento3;
-		this.movimiento4 = movimiento4;
+		this.movimientos = new Movimiento[4];
+		for (int i = 0; i < this.movimientos.length; i++) {
+			this.movimientos[i] = listaMovimientos[i];
+		}
 	}
 	
 	
@@ -82,8 +79,7 @@ public class Pokemon {
 	 */
 	public Pokemon(String nombre, int idPokemon, int idEntrenador, String mote, int vitalidadMax,
 			int ataque, int ataqueEspecial, int defensa, int defensaEspecial, int velocidad, int nivel, int fertilidad,
-			String sexo, String estado, int equipo, Movimiento movimiento1, Movimiento movimiento2,
-			Movimiento movimiento3, Movimiento movimiento4, String tipo1, String tipo2) {
+			String sexo, String estado, int equipo, Movimiento[] listaMovimientos, String tipo1, String tipo2) {
 		super();
 		this.nombre = nombre;
 		this.idPokemon = idPokemon;
@@ -101,10 +97,10 @@ public class Pokemon {
 		this.sexo = sexo;
 		this.estado = estado;
 		this.equipo = equipo;
-		this.movimiento1 = movimiento1;
-		this.movimiento2 = movimiento2;
-		this.movimiento3 = movimiento3;
-		this.movimiento4 = movimiento4;
+		this.movimientos = new Movimiento[4];
+		for (int i = 0; i < this.movimientos.length; i++) {
+			this.movimientos[i] = listaMovimientos[i];
+		}
 		this.tipo1 = tipo1;
 		this.tipo2 = tipo2;
 	}
@@ -256,60 +252,22 @@ public class Pokemon {
 		this.vitalidadActual = vitalidadActual;
 	}
 
-	/**
-	 * @return the movimiento1
-	 */
-	public Movimiento getMovimiento1() {
-		return movimiento1;
-	}
+	
 
 	/**
-	 * @param movimiento1 the movimiento1 to set
+	 * @return the movimientos
 	 */
-	public void setMovimiento1(Movimiento movimiento1) {
-		this.movimiento1 = movimiento1;
+	public Movimiento getMovimiento(int n) {
+		return movimientos[n];
 	}
 
-	/**
-	 * @return the movimiento2
-	 */
-	public Movimiento getMovimiento2() {
-		return movimiento2;
-	}
+
 
 	/**
-	 * @param movimiento2 the movimiento2 to set
+	 * @param movimientos the movimientos to set
 	 */
-	public void setMovimiento2(Movimiento movimiento2) {
-		this.movimiento2 = movimiento2;
-	}
-
-	/**
-	 * @return the movimiento3
-	 */
-	public Movimiento getMovimiento3() {
-		return movimiento3;
-	}
-
-	/**
-	 * @param movimiento3 the movimiento3 to set
-	 */
-	public void setMovimiento3(Movimiento movimiento3) {
-		this.movimiento3 = movimiento3;
-	}
-
-	/**
-	 * @return the movimiento4
-	 */
-	public Movimiento getMovimiento4() {
-		return movimiento4;
-	}
-
-	/**
-	 * @param movimiento4 the movimiento4 to set
-	 */
-	public void setMovimiento4(Movimiento movimiento4) {
-		this.movimiento4 = movimiento4;
+	public void setMovimiento(Movimiento movimiento, int n) {
+		this.movimientos[n] = movimiento;
 	}
 
 	/**
@@ -431,7 +389,7 @@ public class Pokemon {
 				+ ataque + ", ataqueEspecial=" + ataqueEspecial + ", defensa=" + defensa + ", defensaEspecial="
 				+ defensaEspecial + ", velocidad=" + velocidad + ", nivel=" + nivel + ", fertilidad=" + fertilidad
 				+ ", sexo=" + sexo + ", estado=" + estado + ", equipo=" + equipo + ", tipo1=" + tipo1 + ", tipo2="
-				+ tipo2 + ", movimiento1=" + movimiento1 + ", movimiento2=" + movimiento2 + ", movimiento3="
-				+ movimiento3 + ", movimiento4=" + movimiento4 + "]";
+				+ tipo2 + ", movimiento1=" + movimientos[0] + ", movimiento2=" + movimientos[1] + ", movimiento3="
+				+ movimientos[2] + ", movimiento4=" + movimientos[3] + "]";
 	}
 }

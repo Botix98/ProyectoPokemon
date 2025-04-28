@@ -32,6 +32,19 @@ public class Movimiento {
 		this.probabilidad = probabilidad;
 	}
 	
+	public Movimiento(Movimiento m) {
+		super();
+		this.nombre = m.nombre;
+		this.ppMax = m.ppMax;
+		this.ppActuales = m.ppMax;
+		this.tipoMov = m.tipoMov;
+		this.potencia = m.potencia;
+		this.tipo = m.tipo;
+		this.turnos = m.turnos;
+		this.probabilidad = m.probabilidad;
+	}
+
+
 	/**
 	 * @return the nombre
 	 */

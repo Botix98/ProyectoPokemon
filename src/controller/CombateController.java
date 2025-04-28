@@ -147,16 +147,20 @@ public class CombateController {
     
     private void prepararCombate() {
     	//PRUEBA
-    	Movimiento movimiento1 = new Movimiento("Mira mi cuchara", 10, "Ataque", 70, "Psiquico", 1, 100);
-    	Movimiento movimiento2 = new Movimiento("Ahora me ves, ahora ya no", 15, "Especial", 0, "Psiquico", 1, 100);
-    	Movimiento movimiento3 = new Movimiento("Cuidao que te tropiezas", 10, "Ataque", 125, "Psiquico", 1, 80);
-    	rival = new Rival("Luisre", new Pokemon("Mewtwo", 416, 350, 447, 306, 306, 394, 100, null, movimiento1, movimiento2, movimiento3, null));
+    	Movimiento[] movimientos = {new Movimiento("Mira mi cuchara", 10, "Ataque", 70, "Psiquico", 1, 100),
+    			new Movimiento("Ahora me ves, ahora ya no", 15, "Especial", 0, "Psiquico", 1, 100),
+    			new Movimiento("Cuidao que te tropiezas", 10, "Ataque", 125, "Psiquico", 1, 80),
+    			null};
+
+    	Pokemon[] equipo = {new Pokemon("Mewtwo", 416, 350, 447, 306, 306, 1, 100, null, movimientos), null, null, null, null, null};
+    	
+    	rival = new Rival("Luisre", equipo);
     	
     	lblTexto.setText(rival.getNombre() + " te ha retado a un combate pokemon!");
     	
     	PauseTransition primeraPausa = new PauseTransition(Duration.seconds(1));
     	primeraPausa.setOnFinished(event -> {
-            lblTexto.setText(rival.getNombre() + " saca a " + rival.getPokemon().getNombre());
+            lblTexto.setText(rival.getNombre() + " saca a " + rival.getPokemon(0).getNombre());
         });
     	
     	PauseTransition segundaPausa = new PauseTransition(Duration.seconds(1));
@@ -164,16 +168,16 @@ public class CombateController {
             imgRival.setVisible(false);
             imgPokemonRival.setVisible(true);
             imgInfoPokemonRival.setVisible(true);
-            lblNombrePokemonRival.setText(rival.getPokemon().getNombre());
+            lblNombrePokemonRival.setText(rival.getPokemon(0).getNombre());
             lblNombrePokemonRival.setVisible(true);
-            lblNivelPokemonRival.setText(Integer.toString(rival.getPokemon().getNivel()));
+            lblNivelPokemonRival.setText(Integer.toString(rival.getPokemon(0).getNivel()));
             lblNivelPokemonRival.setVisible(true);
             pbVidaPokemonRival.setVisible(true);
         });
     	
     	PauseTransition terceraPausa = new PauseTransition(Duration.seconds(1));
     	terceraPausa.setOnFinished(event -> {
-            lblTexto.setText(entrenador.getUsuario() + " saca a " + entrenador.getPokemon().getNombre());
+            lblTexto.setText(entrenador.getUsuario() + " saca a " + entrenador.getPokemon(0).getNombre());
         });
     	
     	PauseTransition cuartaPausa = new PauseTransition(Duration.seconds(1));
@@ -181,13 +185,15 @@ public class CombateController {
             imgEntrenador.setVisible(false);
             imgPokemonEntrenador.setVisible(true);
             imgInfoPokemonEntrenador.setVisible(true);
-            lblNombrePokemonEntrenador.setText(entrenador.getPokemon().getNombre());
+            lblVidaPokemonEntrenador.setText(entrenador.getPokemon(0).getVitalidadActual() + "/" + entrenador.getPokemon(0).getVitalidadMax());
+            lblVidaPokemonEntrenador.setVisible(true);
+            lblNombrePokemonEntrenador.setText(entrenador.getPokemon(0).getNombre());
             lblNombrePokemonEntrenador.setVisible(true);
-            lblNivelPokemonEntrenador.setText(Integer.toString(entrenador.getPokemon().getNivel()));
+            lblNivelPokemonEntrenador.setText(Integer.toString(entrenador.getPokemon(0).getNivel()));
             lblNivelPokemonEntrenador.setVisible(true);
             pbVidaPokemonEntrenador.setVisible(true);
             pbXpPokemonEntrenador.setVisible(true);
-            lblVidaPokemonEntrenador.setText(entrenador.getPokemon().getVitalidadActual() + "/" + entrenador.getPokemon().getVitalidadMax());
+            lblVidaPokemonEntrenador.setText(entrenador.getPokemon(0).getVitalidadActual() + "/" + entrenador.getPokemon(0).getVitalidadMax());
         });
     	
     	PauseTransition quintaPausa = new PauseTransition(Duration.seconds(1));
@@ -263,26 +269,26 @@ public class CombateController {
     
     @FXML
     void entrarAtaque1(MouseEvent event) {
-    	lblPP.setText("PP: " + entrenador.getPokemon().getMovimiento1().getPpActuales() + "/" + entrenador.getPokemon().getMovimiento1().getPpMax());
-    	lblType.setText("Type: " + entrenador.getPokemon().getMovimiento1().getTipo());
+    	lblPP.setText("PP: " + entrenador.getPokemon(0).getMovimiento(0).getPpActuales() + "/" + entrenador.getPokemon(0).getMovimiento(1).getPpMax());
+    	lblType.setText("Type: " + entrenador.getPokemon(0).getMovimiento(0).getTipo());
     }
 
     @FXML
     void entrarAtaque2(MouseEvent event) {
-    	lblPP.setText("PP: " + entrenador.getPokemon().getMovimiento2().getPpActuales() + "/" + entrenador.getPokemon().getMovimiento2().getPpMax());
-    	lblType.setText("Type: " + entrenador.getPokemon().getMovimiento1().getTipo());
+    	lblPP.setText("PP: " + entrenador.getPokemon(0).getMovimiento(1).getPpActuales() + "/" + entrenador.getPokemon(0).getMovimiento(1).getPpMax());
+    	lblType.setText("Type: " + entrenador.getPokemon(0).getMovimiento(1).getTipo());
     }
 
     @FXML
     void entrarAtaque3(MouseEvent event) {
-    	lblPP.setText("PP: " + entrenador.getPokemon().getMovimiento3().getPpActuales() + "/" + entrenador.getPokemon().getMovimiento3().getPpMax());
-    	lblType.setText("Type: " + entrenador.getPokemon().getMovimiento1().getTipo());
+    	lblPP.setText("PP: " + entrenador.getPokemon(0).getMovimiento(2).getPpActuales() + "/" + entrenador.getPokemon(0).getMovimiento(2).getPpMax());
+    	lblType.setText("Type: " + entrenador.getPokemon(0).getMovimiento(2).getTipo());
     }
 
     @FXML
     void entrarAtaque4(MouseEvent event) {
-    	lblPP.setText("PP: " + entrenador.getPokemon().getMovimiento4().getPpActuales() + "/" + entrenador.getPokemon().getMovimiento4().getPpMax());
-    	lblType.setText("Type: " + entrenador.getPokemon().getMovimiento1().getTipo());
+    	lblPP.setText("PP: " + entrenador.getPokemon(0).getMovimiento(3).getPpActuales() + "/" + entrenador.getPokemon(0).getMovimiento(3).getPpMax());
+    	lblType.setText("Type: " + entrenador.getPokemon(0).getMovimiento(3).getTipo());
     }
     
     @FXML
@@ -312,24 +318,18 @@ public class CombateController {
     
     @FXML
     void ataque1(ActionEvent event) {
-    	if (entrenador.getPokemon().getMovimiento1().getPpActuales() > 0) {
+    	if (entrenador.getPokemon(0).getMovimiento(0).getPpActuales() > 0) {
     		desactivarBotonesAtaque();
+    		realizarAtaque(0, 0);
     		
-    		entrenador.getPokemon().getMovimiento1().setPpActuales(entrenador.getPokemon().getMovimiento1().getPpActuales() - 1);
-    		lblTexto.setText("Has golpeado al enemigo!");
     		
-    		PauseTransition pausa = new PauseTransition(Duration.seconds(1));
-        	pausa.setOnFinished(evento -> {
-                activarBotonesAtaque();
-            });
-        	pausa.play();
     	}
     	else {
-    		sinPPs(entrenador.getPokemon().getMovimiento1().getNombre());
+    		sinPPs(entrenador.getPokemon(0).getMovimiento(0).getNombre());
     	}
     }
 
-    @FXML
+	@FXML
     void ataque2(ActionEvent event) {
     	LinkedList<Pokemon> pokedex = new LinkedList<Pokemon>();
     	Connection con = ConexionBD.getConnection();
@@ -372,13 +372,13 @@ public class CombateController {
     	lblPP.setVisible(true);
     	lblType.setText("Type: ");
     	lblType.setVisible(true);
-    	btnAtaque1.setText(entrenador.getPokemon().getMovimiento1().getNombre());
+    	btnAtaque1.setText(entrenador.getPokemon(0).getMovimiento(0).getNombre());
     	btnAtaque1.setVisible(true);
-    	btnAtaque2.setText(entrenador.getPokemon().getMovimiento2().getNombre());
+    	btnAtaque2.setText(entrenador.getPokemon(0).getMovimiento(1).getNombre());
     	btnAtaque2.setVisible(true);
-    	btnAtaque3.setText(entrenador.getPokemon().getMovimiento3().getNombre());
+    	btnAtaque3.setText(entrenador.getPokemon(0).getMovimiento(2).getNombre());
     	btnAtaque3.setVisible(true);
-    	btnAtaque4.setText(entrenador.getPokemon().getMovimiento4().getNombre());
+    	btnAtaque4.setText(entrenador.getPokemon(0).getMovimiento(3).getNombre());
     	btnAtaque4.setVisible(true);
     }
     
@@ -393,4 +393,111 @@ public class CombateController {
         });
     	pausa.play();
     }
+    
+    private void realizarAtaque(int numPok, int numMov) {
+    	entrenador.getPokemon(numPok).getMovimiento(numMov).setPpActuales(entrenador.getPokemon(numPok).getMovimiento(numMov).getPpActuales() - 1);
+    	
+    	//Seleccionar ataque del pokemon rival
+    	Movimiento movRival = seleccionarAtaqueRival();
+    	
+    	//Comprobar las velocidades de los pokemon. Ataca el mas rapido
+    	if (entrenador.getPokemon(numPok).getVelocidad() >= rival.getPokemon(0).getVelocidad()) {
+    		ataqueEntrenador(numPok, numMov);
+    		
+    		if (rival.getPokemon(0).getVitalidadActual() == 0) {
+    			//El pokemon rival sa matao
+    			//Hacer tremendo break con un return 0
+    		}
+    		else {
+    			ataqueRival(numPok, numMov);
+    			
+    			if (entrenador.getPokemon(numPok).getVitalidadActual() == 0) {
+    				//El pokemon del enrtenador sa matao
+        			//Hacer tremendo break con un return 0
+    			}
+    		}
+    	}
+    	else {
+    		ataqueRival(numPok, numMov);
+    		
+    		if (entrenador.getPokemon(numPok).getVitalidadActual() == 0) {
+    			//El pokemon del entrenador sa matao
+    			//Hacer tremendo break con un return 0
+    		}
+    		else {
+    			ataqueEntrenador(numPok, numMov);
+    			
+    			if (rival.getPokemon(0).getVitalidadActual() == 0) {
+    				//El pokemon rival sa matao
+        			//Hacer tremendo break con un return 0
+    			}
+    		}
+    	}
+    	
+    	
+    	
+    	
+    	//Se comprueba si el ataque golpea y se le quita la vida o aplica el efecto al pokemon objetivo
+    	//Comprobar si el pokemon objetivo sigue vivo. En ese caso realiza su ataque
+    	//Realiza el ataque el otro pokmemon.
+    	
+    	//Si alguno de los dos muere hacer un break
+    	//Si no tiene más pokemon terminar batalla
+    	//Si tiene mas pokemon sacar otro
+    	
+		lblTexto.setText("Has golpeado al enemigo!");
+		
+		PauseTransition pausa = new PauseTransition(Duration.seconds(1));
+    	pausa.setOnFinished(evento -> {
+            activarBotonesAtaque();
+        });
+    	pausa.play();
+	}
+
+	private Movimiento seleccionarAtaqueRival() {
+		int n = (int) (Math.random() * 4) + 1;
+    	
+    	Movimiento movimiento = null;
+    	
+    	switch (n) {
+			case 1:
+				movimiento = rival.getPokemon(0).getMovimiento(0);
+				break;
+			case 2:
+				movimiento = rival.getPokemon(0).getMovimiento(1);
+				break;
+			case 3:
+				movimiento = rival.getPokemon(0).getMovimiento(2);
+				break;
+			case 4:
+				movimiento = rival.getPokemon(0).getMovimiento(3);
+				break;
+		}
+    	
+    	return movimiento;
+	}
+	
+	private void ataqueEntrenador(int numPok, int numMov) {
+		int num = (int) (Math.random() * 100) + 1;
+		
+		if (entrenador.getPokemon(numPok).getMovimiento(numMov).getProbabilidad() >= num) {
+			rival.getPokemon(0).setVitalidadActual(rival.getPokemon(0).getVitalidadActual() - entrenador.getPokemon(numPok).getMovimiento(numMov).getPotencia());
+			if (rival.getPokemon(0).getVitalidadActual() < 0) {
+				rival.getPokemon(0).setVitalidadActual(0);
+			}
+		}
+	}
+	
+	private void ataqueRival(int numPok, int numMov) {
+		int num = (int) (Math.random() * 100) + 1;
+		
+		if (rival.getPokemon(0).getMovimiento(0).getProbabilidad() >= num) {
+			entrenador.getPokemon(numPok).setVitalidadActual(entrenador.getPokemon(numPok).getVitalidadActual() - rival.getPokemon(0).getMovimiento(0).getPotencia());
+			if (entrenador.getPokemon(numPok).getVitalidadActual() < 0) {
+				entrenador.getPokemon(numPok).setVitalidadActual(0);
+			}
+			
+			System.out.println(entrenador.getPokemon(numPok).getVitalidadActual() + "/" + entrenador.getPokemon(numPok).getVitalidadMax());
+		}
+	}
 }

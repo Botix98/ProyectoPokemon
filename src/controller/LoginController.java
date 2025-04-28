@@ -26,12 +26,13 @@ import model.Pokemon;
 public class LoginController {
 
 	//PRUEBA
-	Movimiento movimiento1 = new Movimiento("Lanza llamas", 1, "Ataque", 100, "Fuego", 1, 90);
-	Movimiento movimiento2 = new Movimiento("Llama confusa", 15, "Especial", 0, "Fuego", 1, 100);
-	Movimiento movimiento3 = new Movimiento("Llama llameante", 10, "Ataque", 125, "Fuego", 1, 80);
-	Movimiento movimiento4 = new Movimiento("Te quemoooo", 10, "Ataque", 100, "Fuego", 1, 90);
-	Entrenador entrenador = new Entrenador("Carlos", "123456", 1000, new Pokemon("Charidard", 360, 293, 348, 280, 295, 328, 100, null,
-			movimiento1, movimiento2, movimiento3, movimiento4));
+	Movimiento movimientos[] = {new Movimiento("Lanza llamas", 10, "Ataque", 100, "Fuego", 1, 90),
+			new Movimiento("Llama confusa", 15, "Especial", 0, "Fuego", 1, 100),
+			new Movimiento("Llama llameante", 10, "Ataque", 125, "Fuego", 1, 80),
+			new Movimiento("Te quemoooo", 10, "Ataque", 100, "Fuego", 1, 90)};
+	
+	Pokemon[] pokemon = {new Pokemon("Charidard", 360, 293, 348, 280, 295, 328, 100, null, movimientos), null, null, null, null, null};
+	Entrenador entrenador = new Entrenador("Carlos", "123456", 1000, pokemon);
 	
 	public Stage stage;
 	public boolean sonido = false;

@@ -63,9 +63,14 @@ public class CapturaController {
         this.menuController = menuController;
     }
 
+    //esto está mal luego se usará par los fondos pero es un prototipo
     void imagenFondo(ActionEvent event) {
-    imgFondo.setImage(new Image(new File("./img/conSonido.png").toURI().toString()));
-    
+    imgFondo.setImage(new Image(new File("./img/fondoHierba.png").toURI().toString()));
+    imgFondo.setImage(new Image(new File("./img/fondoCascada.png").toURI().toString()));
+    imgFondo.setImage(new Image(new File("./img/fondoPiedra.png").toURI().toString()));
+    imgFondo.setImage(new Image(new File("./img/fondoPlaya.png").toURI().toString()));
+    imgFondo.setImage(new Image(new File("./img/fondoVolcan.png").toURI().toString()));
+    imgFondo.setImage(new Image(new File("./img/fondoNoche.png").toURI().toString()));
     }
     
 

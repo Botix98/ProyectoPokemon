@@ -22,6 +22,15 @@ public class CapturaController {
 	private MenuController menuController;
 	private LoginController loginController;
 
+	 @FXML
+	 private Button btnCaja;
+
+	@FXML
+	private Button btnCambiarPokémon;
+
+	@FXML
+	private Button btnCambiarZona;
+	
 	@FXML
     private Button btnCapturar;
 
@@ -54,6 +63,11 @@ public class CapturaController {
         this.menuController = menuController;
     }
 
+    void imagenFondo(ActionEvent event) {
+    imgFondo.setImage(new Image(new File("./img/conSonido.png").toURI().toString()));
+    
+    }
+    
 
     @FXML
     void activarDesactivarSonido(MouseEvent event) {

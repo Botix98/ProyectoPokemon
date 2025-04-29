@@ -145,6 +145,18 @@ public class CajaController {
     @FXML
     private Label lblCaja1;
 
+    public void init(Entrenador entrenador, Stage stage, LoginController loginController, MenuController menuController) {
+		this.entrenador = entrenador;
+        this.stage = stage;
+        this.loginController = loginController;
+        this.menuController = menuController;
+		
+	}
+    
+    public void initialize() {
+    	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Equipo.mp3");
+    }
+    
     @FXML
     void activarDesactivarSonido(MouseEvent event) {
     	loginController.sonido();
@@ -159,6 +171,7 @@ public class CajaController {
     @FXML
     void salir(ActionEvent event) {
     	try {
+    		SonidoController.detener();
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 
@@ -174,13 +187,5 @@ public class CajaController {
     	}
 
     }
-
-	public void init(Entrenador entrenador, Stage stage, LoginController loginController, MenuController menuController) {
-		this.entrenador = entrenador;
-        this.stage = stage;
-        this.loginController = loginController;
-        this.menuController = menuController;
-		
-	}
 
 }

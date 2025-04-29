@@ -117,9 +117,14 @@ public class EntrenamientoController {
         this.menuController = menuController;
     }
     
+    public void initialize() {
+    	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Entrenamiento.mp3");
+    }
+    
     @FXML
     void hiur(ActionEvent event) {
     	try {
+    		SonidoController.detener();
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 

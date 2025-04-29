@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.File;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -128,6 +127,10 @@ public class CapturaController {
     	}
     }
     
+    public void initialize() {
+    	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Captura.mp3");
+    }
+    
     @FXML
     void cambiarFondoCascada(ActionEvent event) {
     	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoCascada.png").toURI().toString()));
@@ -161,6 +164,7 @@ public class CapturaController {
     @FXML
     void salir(ActionEvent event) {
     	try {
+    		SonidoController.detener();
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 

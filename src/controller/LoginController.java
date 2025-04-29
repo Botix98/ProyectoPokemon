@@ -36,7 +36,6 @@ public class LoginController {
 	
 	public Stage stage;
 	public boolean sonido = false;
-	public MediaPlayer mediaPlayer;
 	
 	@FXML
     private ImageView imgSonido;
@@ -110,6 +109,7 @@ public class LoginController {
 
     @FXML
     void salir(ActionEvent event) {
+    	SonidoController.detener();
     	Stage stage = (Stage) btnCancelar.getScene().getWindow();
     	stage.close();
     }
@@ -121,10 +121,7 @@ public class LoginController {
     
     @FXML
     public void initialize() {
-    	String rutaSonido = "./sonidos/Opening.mp3";
-		Media sound = new Media(new File(rutaSonido).toURI().toString());
-		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+    	SonidoController.reproducir("./sonidos/Opening.mp3");
     	sonido();
     }
 
@@ -134,6 +131,7 @@ public class LoginController {
     
     private void abrirPantallaMenu(Entrenador entr) {
     	try {
+    		SonidoController.detener();
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/menu.fxml"));
 	    	Parent root = loader.load();
 	    	
@@ -164,12 +162,12 @@ public class LoginController {
     
     public void sonido() {
     	if (!this.sonido) {
-    		mediaPlayer.play();
+    		SonidoController.continuar();
     		
     		imgSonido.setImage(new Image(new File("./img/conSonido.png").toURI().toString()));
     		this.sonido = true;
     	} else {
-    		mediaPlayer.pause();
+    		SonidoController.pausar();
     		this.sonido = false;
     		imgSonido.setImage(new Image(new File("./img/sinSonido.png").toURI().toString()));
     	}

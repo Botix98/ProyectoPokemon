@@ -142,6 +142,7 @@ public class CombateController {
     
     @FXML
     public void initialize() {
+        	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Combate.mp3");
     	prepararCombate();
     }
     
@@ -198,7 +199,7 @@ public class CombateController {
     	
     	PauseTransition quintaPausa = new PauseTransition(Duration.seconds(1));
     	quintaPausa.setOnFinished(event -> {
-            lblTexto.setText("Elige una opción");
+            lblTexto.setText("Elige una opciï¿½n");
             imgSeleccionAccion.setVisible(true);
             btnAtacar.setVisible(true);
             btnRendirse.setVisible(true);
@@ -215,6 +216,7 @@ public class CombateController {
     
     @FXML
     void rendirse(ActionEvent event) {
+    	SonidoController.detener();
     	desactivarBotonesAtaque();
     	btnAtacar.setVisible(false);
     	btnRendirse.setVisible(false);
@@ -234,7 +236,7 @@ public class CombateController {
         pbVidaPokemonEntrenador.setVisible(false);
         pbXpPokemonEntrenador.setVisible(false);
     	
-    	lblTexto.setText("Ha ha ha ha ha! Cómo te atreves a huir! Cobarde!! No te mereces aprobar el Proyecto Pokemon!");
+    	lblTexto.setText("Ha ha ha ha ha! Cï¿½mo te atreves a huir! Cobarde!! No te mereces aprobar el Proyecto Pokemon!");
     	
     	PauseTransition pausa = new PauseTransition(Duration.seconds(5));
     	pausa.setOnFinished(evento -> {
@@ -442,7 +444,7 @@ public class CombateController {
     	//Realiza el ataque el otro pokmemon.
     	
     	//Si alguno de los dos muere hacer un break
-    	//Si no tiene más pokemon terminar batalla
+    	//Si no tiene mï¿½s pokemon terminar batalla
     	//Si tiene mas pokemon sacar otro
     	
 		lblTexto.setText("Has golpeado al enemigo!");

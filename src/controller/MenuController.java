@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import model.Entrenador;
 
 public class MenuController {
-
+	
 	private Entrenador entrenador;
 	private Stage stage;
 	private LoginController loginController;
@@ -229,6 +229,7 @@ public class MenuController {
     
 	@FXML
     void salir(ActionEvent event) {
+		SonidoController.detener();
 		loginController.show();
 		this.stage.close();
     }

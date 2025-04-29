@@ -80,7 +80,11 @@ public class CentroPokemonController {
         this.loginController = loginController;
         this.menuController = menuController;
     }
-
+    
+    // se nos ocurrirá alguna manera de que con el botón de cambiar de centroPokemon a tienda que cambie la musica pero de momento lo pongo al iniciar la vista hasta que lo termines porque todas has ido asi (lo puso david b)
+    public void initialize() {
+    	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/CentroPokemon.mp3");
+    }
     
     @FXML
     void activarDesactivarSonido(MouseEvent event) {
@@ -96,6 +100,7 @@ public class CentroPokemonController {
     @FXML
     void salir(ActionEvent event) {
     	try {
+    		SonidoController.detener();
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 

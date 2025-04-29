@@ -22,38 +22,59 @@ public class CapturaController {
 	private MenuController menuController;
 	private LoginController loginController;
 
-	 @FXML
-	 private Button btnCaja;
-
 	@FXML
 	private Button btnCambiarPokémon;
 
 	@FXML
 	private Button btnCambiarZona;
 	
-	@FXML
-    private Button btnCapturar;
-
     @FXML
     private Button btnSalir;
+    
+    @FXML
+    private ImageView imgCambiarPokemon;
 
     @FXML
     private ImageView imgFondo;
+    
+    @FXML
+    private ImageView imgPokeball;
 
     @FXML
     private ImageView imgPokemon;
 
     @FXML
-    private ImageView imgSexoPokemon;
+    private ImageView imgSonido;
+    
+    @FXML
+    private ImageView imgSuperball;
 
     @FXML
-    private ImageView imgSonido;
+    private ImageView imgUltraball;
 
     @FXML
     private Label lblNivelPokemon;
 
     @FXML
     private Label lblNombrePokemon;
+    
+    @FXML
+    private Label lblNumeroPokeballs;
+
+    @FXML
+    private Label lblNumeroSuperballs;
+
+    @FXML
+    private Label lblNumeroUltraballs;
+
+    @FXML
+    private Label lblRatioCatchPokeball;
+
+    @FXML
+    private Label lblRatioCatchSuperball;
+
+    @FXML
+    private Label lblRatioCatchUltraballs;
 
     
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {

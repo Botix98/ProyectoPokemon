@@ -6,8 +6,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="1247.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CapturaController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CapturaController">
    <children>
       <AnchorPane maxHeight="720.0" maxWidth="1280.0" prefHeight="720.0" prefWidth="1280.0">
          <children>
@@ -16,28 +17,53 @@
                   <Image url="@../../img/captura/fondoHierba.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnSalir" layoutX="988.0" layoutY="415.0" mnemonicParsing="false" onAction="#salir" prefHeight="99.0" prefWidth="180.0" text="Salir" />
+            <Button fx:id="btnSalir" layoutX="1010.0" layoutY="377.0" mnemonicParsing="false" onAction="#salir" prefHeight="99.0" prefWidth="180.0" text="Salir" />
             <ImageView fx:id="imgPokemon" fitHeight="487.0" fitWidth="478.0" layoutX="408.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../ProyectoPokemon/img/Pokemon/Front/70.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnCapturar" layoutX="106.0" layoutY="415.0" mnemonicParsing="false" prefHeight="99.0" prefWidth="180.0" text="Capturar" />
             <ImageView fx:id="imgSonido" fitHeight="99.0" fitWidth="84.0" layoutX="52.0" layoutY="31.0" onMouseClicked="#activarDesactivarSonido" preserveRatio="true">
                <image>
                   <Image url="@../../img/conSonido.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblNombrePokemon" layoutX="552.0" layoutY="158.0" prefHeight="37.0" prefWidth="64.0" text="Nombre" />
-            <Label fx:id="lblNivelPokemon" layoutX="678.0" layoutY="164.0" prefHeight="26.0" prefWidth="34.0" text="Nivel" />
-            <ImageView fx:id="imgSexoPokemon" fitHeight="26.0" fitWidth="16.0" layoutX="647.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+            <Label fx:id="lblNombrePokemon" layoutX="545.0" layoutY="152.0" prefHeight="51.0" prefWidth="124.0" text="Nombre">
+               <font>
+                  <Font size="21.0" />
+               </font></Label>
+            <Label fx:id="lblNivelPokemon" layoutX="680.0" layoutY="162.0" prefHeight="31.0" prefWidth="56.0" text="Nivel">
+               <font>
+                  <Font size="21.0" />
+               </font></Label>
+            <Button fx:id="btnCambiarZona" layoutX="102.0" layoutY="377.0" mnemonicParsing="false" prefHeight="99.0" prefWidth="180.0" text="Cambiar zona" />
+            <Button fx:id="btnCambiarPokémon" alignment="CENTER" contentDisplay="CENTER" layoutX="736.0" layoutY="189.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="71.0" style="-fx-background-color: rgba(0,0,0,0);" textAlignment="JUSTIFY" wrapText="true" />
+            <ImageView fx:id="imgPokeball" fitHeight="150.0" fitWidth="200.0" layoutX="333.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../Users/David/Downloads/imgHembra.png" />
+                  <Image url="@../../img/objetos/pokeball.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnCaja" layoutX="106.0" layoutY="249.0" mnemonicParsing="false" prefHeight="99.0" prefWidth="180.0" text="Caja" />
-            <Button fx:id="btnCambiarZona" layoutX="988.0" layoutY="249.0" mnemonicParsing="false" prefHeight="99.0" prefWidth="180.0" text="Cambiar zona" />
-            <Button fx:id="btnCambiarPokémon" alignment="CENTER" contentDisplay="CENTER" layoutX="787.0" layoutY="189.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="71.0" text="Cambiar  Pokémon" textAlignment="JUSTIFY" wrapText="true" />
+            <ImageView fx:id="imgSuperball" fitHeight="150.0" fitWidth="150.0" layoutX="545.0" layoutY="545.0">
+               <image>
+                  <Image url="@../../img/objetos/superball.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgUltraball" fitHeight="150.0" fitWidth="150.0" layoutX="776.0" layoutY="545.0">
+               <image>
+                  <Image url="@../../img/objetos/ultraball.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblNumeroPokeballs" layoutX="329.0" layoutY="528.0" text="Las que tengas" />
+            <Label fx:id="lblRatioCatchPokeball" layoutX="430.0" layoutY="528.0" text="Ratio captura" />
+            <Label fx:id="lblNumeroSuperballs" layoutX="545.0" layoutY="528.0" text="Las que tengas" />
+            <Label fx:id="lblRatioCatchSuperball" layoutX="660.0" layoutY="528.0" text="Ratio captura" />
+            <Label fx:id="lblNumeroUltraballs" layoutX="776.0" layoutY="528.0" text="Las que tengas" />
+            <Label fx:id="lblRatioCatchUltraballs" layoutX="877.0" layoutY="528.0" text="Ratio captura" />
+            <ImageView fx:id="imgCambiarPokemon" fitHeight="55.0" fitWidth="63.0" layoutX="753.0" layoutY="200.0">
+               <image>
+                  <Image url="@../../img/flechasBucle.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

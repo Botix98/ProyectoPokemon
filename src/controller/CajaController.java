@@ -1,0 +1,142 @@
+package controller;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+
+public class CajaController {
+
+    @FXML
+    private Button btnSalir;
+
+    @FXML
+    private ImageView imgPokemonCaja1;
+
+    @FXML
+    private ImageView imgPokemonCaja10;
+
+    @FXML
+    private ImageView imgPokemonCaja11;
+
+    @FXML
+    private ImageView imgPokemonCaja12;
+
+    @FXML
+    private ImageView imgPokemonCaja13;
+
+    @FXML
+    private ImageView imgPokemonCaja14;
+
+    @FXML
+    private ImageView imgPokemonCaja15;
+
+    @FXML
+    private ImageView imgPokemonCaja16;
+
+    @FXML
+    private ImageView imgPokemonCaja17;
+
+    @FXML
+    private ImageView imgPokemonCaja18;
+
+    @FXML
+    private ImageView imgPokemonCaja19;
+
+    @FXML
+    private ImageView imgPokemonCaja2;
+
+    @FXML
+    private ImageView imgPokemonCaja20;
+
+    @FXML
+    private ImageView imgPokemonCaja21;
+
+    @FXML
+    private ImageView imgPokemonCaja22;
+
+    @FXML
+    private ImageView imgPokemonCaja23;
+
+    @FXML
+    private ImageView imgPokemonCaja24;
+
+    @FXML
+    private ImageView imgPokemonCaja25;
+
+    @FXML
+    private ImageView imgPokemonCaja26;
+
+    @FXML
+    private ImageView imgPokemonCaja27;
+
+    @FXML
+    private ImageView imgPokemonCaja28;
+
+    @FXML
+    private ImageView imgPokemonCaja29;
+
+    @FXML
+    private ImageView imgPokemonCaja3;
+
+    @FXML
+    private ImageView imgPokemonCaja30;
+
+    @FXML
+    private ImageView imgPokemonCaja4;
+
+    @FXML
+    private ImageView imgPokemonCaja5;
+
+    @FXML
+    private ImageView imgPokemonCaja6;
+
+    @FXML
+    private ImageView imgPokemonCaja7;
+
+    @FXML
+    private ImageView imgPokemonCaja8;
+
+    @FXML
+    private ImageView imgPokemonCaja9;
+
+    @FXML
+    private ImageView imgPokemonEquipo1;
+
+    @FXML
+    private ImageView imgPokemonEquipo2;
+
+    @FXML
+    private ImageView imgPokemonEquipo3;
+
+    @FXML
+    private ImageView imgPokemonEquipo4;
+
+    @FXML
+    private ImageView imgPokemonEquipo5;
+
+    @FXML
+    private ImageView imgPokemonEquipo6;
+
+    @FXML
+    private ImageView imgPokemonGrande;
+
+    @FXML
+    private ImageView imgSonido;
+
+    @FXML
+    private Label lblCaja1;
+
+    @FXML
+    void activarDesactivarSonido(MouseEvent event) {
+
+    }
+
+    @FXML
+    void salir(ActionEvent event) {
+
+    }
+
+}

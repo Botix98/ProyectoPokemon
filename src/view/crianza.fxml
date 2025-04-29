@@ -74,7 +74,7 @@
                </image>
             </ImageView>
             <Button fx:id="btnHembra" layoutX="683.0" layoutY="428.0" mnemonicParsing="false" prefHeight="128.0" prefWidth="208.0" text="Pokemon hembra" />
-            <Button fx:id="btnIncubadora" layoutX="442.0" layoutY="214.0" mnemonicParsing="false" onAction="#habrirIncubadora" prefHeight="128.0" prefWidth="208.0" text="Huevo en incubadora" />
+            <Button fx:id="btnIncubadora" layoutX="442.0" layoutY="214.0" mnemonicParsing="false" onAction="#abrirIncubadora" prefHeight="128.0" prefWidth="208.0" text="Huevo en incubadora" />
             <ImageView fx:id="imgSonido" fitHeight="99.0" fitWidth="84.0" layoutX="50.0" layoutY="40.0" onMouseClicked="#activarDesactivarSonido" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/conSonido.png" />

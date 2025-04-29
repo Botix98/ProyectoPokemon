@@ -22,6 +22,7 @@ public class MenuController {
 	private EquipoController equipoController;
 	private CombateController combateController;
 	private EntrenamientoController entrenamientoController;
+	private TiendaController tiendaController;
 	
 	@FXML
     private Button btnCaja;
@@ -65,7 +66,7 @@ public class MenuController {
     @FXML
     private Label lbTiPokedolares;
 
-    public void init(Entrenador entr, Stage stage, LoginController loginController, CentroPokemonController centroPokemonController, CrianzaController crianzaController, CapturaController capturaController, EquipoController equipoController, EntrenamientoController entrenamientoController, CombateController combateController) {
+    public void init(Entrenador entr, Stage stage, LoginController loginController, CentroPokemonController centroPokemonController, CrianzaController crianzaController, CapturaController capturaController, EquipoController equipoController, EntrenamientoController entrenamientoController, CombateController combateController, TiendaController tiendaController) {
         this.entrenador = entr;
         this.stage = stage;
         this.loginController = loginController;
@@ -75,6 +76,7 @@ public class MenuController {
         this.equipoController = equipoController;
         this.entrenamientoController = entrenamientoController;
         this.combateController = combateController;
+        this.tiendaController = tiendaController;
         
         lbJugador.setText(entrenador.getUsuario());
         lbPokedolares.setText(Integer.toString(entrenador.getPokedolares()));
@@ -93,7 +95,7 @@ public class MenuController {
 	        CentroPokemonController centroPokeController = loader.getController();
 
 	        //inicializar la pantalla
-	        centroPokeController.init(this.entrenador, this.stage, this.loginController, this); 
+	        centroPokeController.init(this.entrenador, this.stage, this.loginController, this, null); 
 
 	        Scene scene = new Scene(root);
 	        stage.setScene(scene);

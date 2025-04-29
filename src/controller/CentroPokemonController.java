@@ -22,12 +22,19 @@ public class CentroPokemonController {
 	private Entrenador entrenador;
 	private MenuController menuController;
 	private LoginController loginController;
+	private TiendaController tiendaController;
 	
     @FXML
     private Button btnAtras;
 
     @FXML
+    private Button btnBucle;
+    
+    @FXML
     private Button btnCurarEquipo;
+    
+    @FXML
+    private ImageView imgBucle;
 
     @FXML
     private ImageView imgEnfermera;
@@ -74,11 +81,12 @@ public class CentroPokemonController {
     @FXML
     private ProgressBar pbPokemon6;
 
-    public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
+    public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController, TiendaController tiendaController) {
         this.entrenador = entr;
         this.stage = stage;
         this.loginController = loginController;
         this.menuController = menuController;
+        this.tiendaController = tiendaController;
     }
     
     // se nos ocurrirá alguna manera de que con el botón de cambiar de centroPokemon a tienda que cambie la musica pero de momento lo pongo al iniciar la vista hasta que lo termines porque todas has ido asi (lo puso david b)
@@ -98,6 +106,31 @@ public class CentroPokemonController {
     }
     
     @FXML
+    void cambio(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Tienda.fxml"));
+            Parent root = loader.load();
+
+            TiendaController tiendaController = loader.getController();
+            tiendaController.init(entrenador, stage, loginController, menuController, this);
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Tienda");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    void curarEquipo(ActionEvent event) {
+    	for(int i = 0; i < 6; i++) {
+    	entrenador.getPokemon(i).setVitalidadActual(entrenador.getPokemon(i).getVitalidadMax());
+    	}
+    }
+    
+    @FXML
     void salir(ActionEvent event) {
     	try {
     		SonidoController.detener();
@@ -105,7 +138,7 @@ public class CentroPokemonController {
     	    Parent root = loader.load();
 
     	    MenuController menuController = loader.getController();
-    	    menuController.init(entrenador, stage, loginController, null, null, null, null, null, null);
+    	    menuController.init(entrenador, stage, loginController, null, null, null, null, null, null, null);
 
     	    Scene scene = new Scene(root);
     	    stage.setScene(scene);

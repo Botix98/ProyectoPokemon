@@ -48,7 +48,7 @@
                   <Image url="@../../img/centroPoke/fondo.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="btnCurarEquipo" layoutX="79.0" layoutY="585.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="815.0" text="Curar equipo" />
+            <Button fx:id="btnCurarEquipo" layoutX="79.0" layoutY="585.0" mnemonicParsing="false" onAction="#curarEquipo" prefHeight="110.0" prefWidth="815.0" text="Curar equipo" />
             <Button fx:id="btnAtras" layoutX="934.0" layoutY="585.0" mnemonicParsing="false" onAction="#salir" prefHeight="110.0" prefWidth="314.0" text="Atras" />
             <ProgressBar fx:id="pbPokemon1" layoutX="106.0" layoutY="151.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
             <ProgressBar fx:id="pbPokemon2" layoutX="396.0" layoutY="151.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
@@ -72,6 +72,15 @@
                   <Image url="@../../img/centroPoke/image-removebg-preview.png" />
                </image>
             </ImageView>
+            <Button fx:id="btnBucle" layoutX="1029.0" layoutY="82.0" mnemonicParsing="false" onAction="#cambio" prefHeight="130.0" prefWidth="123.0" style="-fx-background-color: rgba(0,0,0,0);">
+               <graphic>
+                  <ImageView fx:id="imgBucle" fitHeight="93.0" fitWidth="97.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../img/flechasBucle.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
       </children>
     </AnchorPane>
   </children>

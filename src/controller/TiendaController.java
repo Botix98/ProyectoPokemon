@@ -8,98 +8,59 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Entrenador;
 
-public class EquipoController {
-	
+public class TiendaController {
+
 	private Stage stage;
 	private Entrenador entrenador;
 	private MenuController menuController;
 	private LoginController loginController;
+	private CentroPokemonController centroPokemonController;
+
+	
+    @FXML
+    private Button btnCambiar;
 
     @FXML
     private Button btnSalir;
 
     @FXML
+    private ImageView imgCambio;
+
+    @FXML
     private ImageView imgFondo;
-
-    @FXML
-    private ImageView imgPokemon1;
-
-    @FXML
-    private ImageView imgPokemon2;
-
-    @FXML
-    private ImageView imgPokemon3;
-
-    @FXML
-    private ImageView imgPokemon4;
-
-    @FXML
-    private ImageView imgPokemon5;
-
-    @FXML
-    private ImageView imgPokemon6;
-
-    @FXML
-    private ImageView imgPokemonGrande;
 
     @FXML
     private ImageView imgSonido;
 
     @FXML
-    private Label lblEquipo;
+    private ScrollPane sbMochila;
 
     @FXML
-    private Label lblMote;
+    private ScrollPane sbTienda;
 
     @FXML
-    private Label lblNivel;
+    private Text txtMochila;
 
     @FXML
-    private Label lblNombrePokemonGrande;
-
-    @FXML
-    private Label lblPokemon;
-
-    @FXML
-    private ProgressBar pbPokemon2;
-
-    @FXML
-    private ProgressBar pbPokemon3;
-
-    @FXML
-    private ProgressBar pbPokemon4;
-
-    @FXML
-    private ProgressBar pbPokemon5;
-
-    @FXML
-    private ProgressBar pbPokemon6;
-
-    @FXML
-    private ProgressBar pbVidaPokemon1;
-
-    @FXML
-    private ProgressBar pbVidaPokemonGrande;
+    private Text txtTienda;
     
-    //el método inciar
-    public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
+    public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController, CentroPokemonController centroPokemonController) {
         this.entrenador = entr;
         this.stage = stage;
         this.loginController = loginController;
         this.menuController = menuController;
+        this.centroPokemonController = centroPokemonController;
     }
-    public void initialize() {
-    	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Equipo.mp3");
-    }
-    
+
+
     @FXML
     void activarDesactivarSonido(MouseEvent event) {
     	loginController.sonido();
@@ -110,12 +71,28 @@ public class EquipoController {
     		imgSonido.setImage(new Image(new File("./img/sinSonido.png").toURI().toString()));
     	}
     }
-    
-    //método salir
+
+    @FXML
+    void cambio(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/CentroPokemon.fxml"));
+            Parent root = loader.load();
+
+            CentroPokemonController centroPokemonController = loader.getController();
+            centroPokemonController.init(entrenador, stage, loginController, menuController, this);
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Centro Pokémon");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     void salir(ActionEvent event) {
     	try {
-    		SonidoController.detener();
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 

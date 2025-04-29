@@ -26,13 +26,46 @@ public class CapturaController {
 	private Button btnCambiarPokémon;
 
 	@FXML
-	private Button btnCambiarZona;
+    private Button btnCambioCascada;
+
+    @FXML
+    private Button btnCambioHierba;
+
+    @FXML
+    private Button btnCambioNoche;
+
+    @FXML
+    private Button btnCambioPiedra;
+
+    @FXML
+    private Button btnCambioPlaya;
+
+    @FXML
+    private Button btnCambioVolcan;
 	
     @FXML
     private Button btnSalir;
     
     @FXML
     private ImageView imgCambiarPokemon;
+    
+    @FXML
+    private ImageView imgCambioCascada;
+
+    @FXML
+    private ImageView imgCambioHierba;
+
+    @FXML
+    private ImageView imgCambioNoche;
+
+    @FXML
+    private ImageView imgCambioPiedra;
+
+    @FXML
+    private ImageView imgCambioPlaya;
+
+    @FXML
+    private ImageView imgCambioVolcan;
 
     @FXML
     private ImageView imgFondo;
@@ -84,17 +117,6 @@ public class CapturaController {
         this.menuController = menuController;
     }
 
-    //esto está mal luego se usará par los fondos pero es un prototipo
-    void imagenFondo(ActionEvent event) {
-    imgFondo.setImage(new Image(new File("./img/fondoHierba.png").toURI().toString()));
-    imgFondo.setImage(new Image(new File("./img/fondoCascada.png").toURI().toString()));
-    imgFondo.setImage(new Image(new File("./img/fondoPiedra.png").toURI().toString()));
-    imgFondo.setImage(new Image(new File("./img/fondoPlaya.png").toURI().toString()));
-    imgFondo.setImage(new Image(new File("./img/fondoVolcan.png").toURI().toString()));
-    imgFondo.setImage(new Image(new File("./img/fondoNoche.png").toURI().toString()));
-    }
-    
-
     @FXML
     void activarDesactivarSonido(MouseEvent event) {
     	loginController.sonido();
@@ -104,6 +126,36 @@ public class CapturaController {
     	else {
     		imgSonido.setImage(new Image(new File("./img/sinSonido.png").toURI().toString()));
     	}
+    }
+    
+    @FXML
+    void cambiarFondoCascada(ActionEvent event) {
+    	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoCascada.png").toURI().toString()));
+    }
+
+    @FXML
+    void cambiarFondoHierba(ActionEvent event) {
+    	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoHierba.png").toURI().toString()));
+    }
+
+    @FXML
+    void cambiarFondoNoche(ActionEvent event) {
+    	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoNoche.png").toURI().toString()));
+    }
+
+    @FXML
+    void cambiarFondoPiedra(ActionEvent event) {
+    	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoPiedra.png").toURI().toString()));
+    }
+
+    @FXML
+    void cambiarFondoPlaya(ActionEvent event) {
+    	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoPlaya.png").toURI().toString()));
+    }
+
+    @FXML
+    void cambiarFondoVolcan(ActionEvent event) {
+    	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoVolcan.png").toURI().toString()));
     }
 
     @FXML

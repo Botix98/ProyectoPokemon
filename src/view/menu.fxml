@@ -44,7 +44,7 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="900.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
          <children>
-            <ImageView fx:id="imgFondo" fitHeight="900.0" fitWidth="900.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgFondo" fitHeight="900.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/fondo.png" />
                </image>
@@ -73,6 +73,7 @@
             <Label fx:id="lbJugador" layoutX="144.0" layoutY="116.0" text="Label" />
             <Label fx:id="lbPokedolares" layoutX="620.0" layoutY="125.0" text="Label" />
             <Button fx:id="btnSalir" layoutX="707.0" layoutY="651.0" mnemonicParsing="false" onAction="#salir" text="Salir" />
+            <Button fx:id="btnCaja" layoutX="191.0" layoutY="546.0" mnemonicParsing="false" onAction="#irCaja" prefHeight="54.0" prefWidth="133.0" text="Caja" />
          </children>
     </AnchorPane>
   </children>

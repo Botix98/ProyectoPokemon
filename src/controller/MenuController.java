@@ -23,6 +23,9 @@ public class MenuController {
 	private CombateController combateController;
 	private EntrenamientoController entrenamientoController;
 	
+	@FXML
+    private Button btnCaja;
+	
     @FXML
     private Button btnCaptura;
 
@@ -201,6 +204,27 @@ public class MenuController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    @FXML
+    void irCaja(ActionEvent event) {
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Caja.fxml"));
+            Parent root = loader.load();
+
+            CajaController cajaController = loader.getController();
+
+            // Inicializamos la pantalla de Caja
+            cajaController.init(this.entrenador, this.stage, this.loginController, this); 
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+	        stage.setTitle("Caja");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
     
 	@FXML

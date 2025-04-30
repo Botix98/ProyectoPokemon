@@ -89,7 +89,6 @@ public class CentroPokemonController {
         this.tiendaController = tiendaController;
     }
     
-    // se nos ocurrirá alguna manera de que con el botón de cambiar de centroPokemon a tienda que cambie la musica pero de momento lo pongo al iniciar la vista hasta que lo termines porque todas has ido asi (lo puso david b)
     public void initialize() {
     	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/CentroPokemon.mp3");
     }
@@ -108,6 +107,8 @@ public class CentroPokemonController {
     @FXML
     void cambio(ActionEvent event) {
         try {
+        	SonidoController.detener(null);
+        	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Tienda.mp3");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Tienda.fxml"));
             Parent root = loader.load();
 
@@ -125,6 +126,7 @@ public class CentroPokemonController {
     
     @FXML
     void curarEquipo(ActionEvent event) {
+    	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/CurarPokemon.mp3");
     	for(int i = 0; i < 6; i++) {
     	entrenador.getPokemon(i).setVitalidadActual(entrenador.getPokemon(i).getVitalidadMax());
     	}
@@ -133,7 +135,7 @@ public class CentroPokemonController {
     @FXML
     void salir(ActionEvent event) {
     	try {
-    		SonidoController.detener();
+    		SonidoController.detener(null);
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 

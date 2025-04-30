@@ -231,7 +231,7 @@ public class MenuController {
     
 	@FXML
     void salir(ActionEvent event) {
-		SonidoController.detener();
+		SonidoController.detener(null);
 		loginController.show();
 		this.stage.close();
     }

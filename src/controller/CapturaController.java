@@ -164,7 +164,7 @@ public class CapturaController {
     @FXML
     void salir(ActionEvent event) {
     	try {
-    		SonidoController.detener();
+    		SonidoController.detener("C:/ProyectoPokemon/sonidos/Captura.mp3");
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 

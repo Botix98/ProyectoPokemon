@@ -216,7 +216,7 @@ public class CombateController {
     
     @FXML
     void rendirse(ActionEvent event) {
-    	SonidoController.detener();
+    	SonidoController.detener("C:/ProyectoPokemon/sonidos/Combate.mp3");
     	desactivarBotonesAtaque();
     	btnAtacar.setVisible(false);
     	btnRendirse.setVisible(false);

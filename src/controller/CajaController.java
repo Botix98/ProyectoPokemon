@@ -171,7 +171,7 @@ public class CajaController {
     @FXML
     void salir(ActionEvent event) {
     	try {
-    		SonidoController.detener();
+    		SonidoController.detener("C:/ProyectoPokemon/sonidos/Equipo.mp3");
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 

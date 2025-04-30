@@ -124,7 +124,7 @@ public class EntrenamientoController {
     @FXML
     void hiur(ActionEvent event) {
     	try {
-    		SonidoController.detener();
+    		SonidoController.detener("C:/ProyectoPokemon/sonidos/Entrenamiento.mp3");
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 

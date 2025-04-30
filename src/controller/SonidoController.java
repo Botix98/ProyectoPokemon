@@ -21,21 +21,23 @@ public class SonidoController {
         mediaPlayer.play();
     }
 
-    public static void detener() {
+    public static void detener(String string) {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
     }
 
-    public static void pausar() {
+    public static void pausar(String string) {
         if (mediaPlayer != null) {
             mediaPlayer.pause();
         }
     }
 
-    public static void continuar() {
+    public static void continuar(String string) {
         if (mediaPlayer != null) {
             mediaPlayer.play();
         }
     }
 }
+
+//hay que hacer algo para que se pueda pausar el sonido y poder continuarlo

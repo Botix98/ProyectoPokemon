@@ -48,7 +48,7 @@ public class EquipoController {
     private ImageView imgPokemon6;
 
     @FXML
-    private ImageView imgPokemonGrande;
+    private ImageView imgPokemonSeleccionado;
 
     @FXML
     private ImageView imgSonido;
@@ -69,8 +69,11 @@ public class EquipoController {
     private Label lblPokemon;
 
     @FXML
-    private ProgressBar pbPokemon2;
+    private ProgressBar pbPokemon1;
 
+    @FXML
+    private ProgressBar pbPokemon2;
+    
     @FXML
     private ProgressBar pbPokemon3;
 
@@ -82,12 +85,9 @@ public class EquipoController {
 
     @FXML
     private ProgressBar pbPokemon6;
-
+    
     @FXML
-    private ProgressBar pbVidaPokemon1;
-
-    @FXML
-    private ProgressBar pbVidaPokemonGrande;
+    private ProgressBar pbPokemonSeleccionado;
     
     //el método inciar
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
@@ -95,8 +95,51 @@ public class EquipoController {
         this.stage = stage;
         this.loginController = loginController;
         this.menuController = menuController;
+        pbPokemonSeleccionado.setVisible(false);
     }
-    public void initialize() {
+    
+        //falta comprobar cuantos pokemon hay en el equipo
+    	//ponerle lo de invisible hasta que onclick
+           
+        @FXML
+        void hacerGrande(MouseEvent event) {
+            ImageView origen = (ImageView) event.getSource();
+            Image imagen = origen.getImage();
+            imgPokemonSeleccionado.setImage(imagen);
+            pbPokemonSeleccionado.setVisible(true);
+            
+            
+            if (origen == imgPokemon1) {
+            	pbPokemonSeleccionado.setProgress(pbPokemon1.getProgress());
+            	pbPokemon1.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());
+                
+            } else if (origen == imgPokemon2) {
+            	pbPokemonSeleccionado.setProgress(pbPokemon2.getProgress());
+            	pbPokemon2.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());     
+                
+            } else if (origen == imgPokemon3) {
+            	pbPokemonSeleccionado.setProgress(pbPokemon3.getProgress());
+            	pbPokemon3.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());
+            
+            } else if (origen == imgPokemon4) {
+            	pbPokemonSeleccionado.setProgress(pbPokemon4.getProgress());
+            	pbPokemon4.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());
+            
+            } else if (origen == imgPokemon5) {
+            	pbPokemonSeleccionado.setProgress(pbPokemon5.getProgress());
+            	pbPokemon5.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());
+            
+            } else if (origen == imgPokemon6) {
+            	pbPokemonSeleccionado.setProgress(pbPokemon6.getProgress());
+            	pbPokemon6.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());
+            }      
+     }
+    //este método hace que la barra sea visible o invisible con true o false
+    public final void setVisible​(boolean value) {
+    	
+    }
+
+	public void initialize() {
     	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Equipo.mp3");
     }
     

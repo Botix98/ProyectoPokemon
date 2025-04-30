@@ -26,7 +26,7 @@ import model.Pokemon;
 public class LoginController {
 
 	//PRUEBA
-	Movimiento movimientos[] = {new Movimiento("Lanza llamas", 10, "Ataque", 100, "Fuego", 1, 90),
+	Movimiento movimientos[] = {new Movimiento("Lanza llamas", 20, "Ataque", 100, "Fuego", 1, 100),
 			new Movimiento("Llama confusa", 15, "Especial", 0, "Fuego", 1, 100),
 			new Movimiento("Llama llameante", 10, "Ataque", 125, "Fuego", 1, 80),
 			new Movimiento("Te quemoooo", 10, "Ataque", 100, "Fuego", 1, 90)};

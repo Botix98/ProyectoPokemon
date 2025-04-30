@@ -31,7 +31,88 @@ public class PokedexDAO {
 				pokemon.setTipo1(rs.getString("TIPO1"));
 				pokemon.setTipo2(rs.getString("TIPO2"));
 				pokemon.setVitalidadMax(rs.getInt("VITALIDAD"));
-				pokemon.setVitalidadActual(pokemon.getVitalidadMax());
+				pokemon.setAtaque(rs.getInt("ATAQUE"));
+				pokemon.setAtaqueEspecial(rs.getInt("AT_ESPECIAL"));
+				pokemon.setDefensa(rs.getInt("DEFENSA"));
+				pokemon.setDefensaEspecial(rs.getInt("DEF_ESPECIAL"));
+				pokemon.setVelocidad(rs.getInt("VELOCIDAD"));
+				
+				listaPokemon.add(pokemon);
+			}
+		} catch (SQLException e) {
+			ConexionBD.printSQLException(e);
+		}
+
+		return listaPokemon;
+	}
+	
+	public static LinkedList<Pokemon> cargarPorUnTipo(Connection con, String tipo) {
+		LinkedList<Pokemon> listaPokemon = new LinkedList<>();
+		
+		String query = "SELECT NUM_POKEDEX, " + "NOM_POKEMON, " + "NIVEL_EVO, " + "TIPO1, " + "TIPO2, " + "VITALIDAD, "
+				+ "ATAQUE, " + "AT_ESPECIAL, " + "DEFENSA, " + "DEF_ESPECIAL, " + "VELOCIDAD "
+				+ "FROM POKEDEX "
+				+ "WHERE TIPO1 = ? "
+				+ "OR TIPO2 = ?";
+		Pokemon pokemon;
+
+		try {
+			PreparedStatement pt = con.prepareStatement(query);
+			pt.setString(1, tipo);
+			pt.setString(2, tipo);
+			ResultSet rs = pt.executeQuery();
+
+			while (rs.next()) {
+				pokemon = new Pokemon();
+				pokemon.setIdPokemon(rs.getInt("NUM_POKEDEX"));
+				pokemon.setNombre(rs.getString("NOM_POKEMON"));
+				pokemon.setNivel(rs.getInt("NIVEL_EVO"));
+				pokemon.setTipo1(rs.getString("TIPO1"));
+				pokemon.setTipo2(rs.getString("TIPO2"));
+				pokemon.setVitalidadMax(rs.getInt("VITALIDAD"));
+				pokemon.setAtaque(rs.getInt("ATAQUE"));
+				pokemon.setAtaqueEspecial(rs.getInt("AT_ESPECIAL"));
+				pokemon.setDefensa(rs.getInt("DEFENSA"));
+				pokemon.setDefensaEspecial(rs.getInt("DEF_ESPECIAL"));
+				pokemon.setVelocidad(rs.getInt("VELOCIDAD"));
+				
+				listaPokemon.add(pokemon);
+			}
+		} catch (SQLException e) {
+			ConexionBD.printSQLException(e);
+		}
+
+		return listaPokemon;
+	}
+	
+	public static LinkedList<Pokemon> cargarPorVariosTipos(Connection con, String tipo1, String tipo2) {
+		LinkedList<Pokemon> listaPokemon = new LinkedList<>();
+		
+		String query = "SELECT NUM_POKEDEX, " + "NOM_POKEMON, " + "NIVEL_EVO, " + "TIPO1, " + "TIPO2, " + "VITALIDAD, "
+				+ "ATAQUE, " + "AT_ESPECIAL, " + "DEFENSA, " + "DEF_ESPECIAL, " + "VELOCIDAD "
+				+ "FROM POKEDEX "
+				+ "WHERE TIPO1 = ? "
+				+ "OR TIPO2 = ? "
+				+ "OR TIPO1 = ? "
+				+ "OR TIPO2 = ?";
+		Pokemon pokemon;
+
+		try {
+			PreparedStatement pt = con.prepareStatement(query);
+			pt.setString(1, tipo1);
+			pt.setString(2, tipo1);
+			pt.setString(3, tipo2);
+			pt.setString(4, tipo2);
+			ResultSet rs = pt.executeQuery();
+
+			while (rs.next()) {
+				pokemon = new Pokemon();
+				pokemon.setIdPokemon(rs.getInt("NUM_POKEDEX"));
+				pokemon.setNombre(rs.getString("NOM_POKEMON"));
+				pokemon.setNivel(rs.getInt("NIVEL_EVO"));
+				pokemon.setTipo1(rs.getString("TIPO1"));
+				pokemon.setTipo2(rs.getString("TIPO2"));
+				pokemon.setVitalidadMax(rs.getInt("VITALIDAD"));
 				pokemon.setAtaque(rs.getInt("ATAQUE"));
 				pokemon.setAtaqueEspecial(rs.getInt("AT_ESPECIAL"));
 				pokemon.setDefensa(rs.getInt("DEFENSA"));

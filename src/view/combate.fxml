@@ -122,7 +122,7 @@
                   <Image url="@estado.png" />
                </image>
             </ImageView>
-            <ProgressBar fx:id="pbVidaPokemonEntrenador" layoutX="1024.0" layoutY="457.0" prefHeight="14.0" prefWidth="204.0" progress="0.0" visible="false" />
+            <ProgressBar fx:id="pbVidaPokemonEntrenador" layoutX="1024.0" layoutY="457.0" prefHeight="14.0" prefWidth="204.0" progress="1.0" visible="false" />
             <ProgressBar fx:id="pbXpPokemonEntrenador" layoutX="956.0" layoutY="525.0" prefHeight="10.0" prefWidth="271.0" progress="0.0" visible="false" />
             <ImageView fx:id="imgInfoPokemonRival" fitHeight="131.0" fitWidth="441.0" layoutX="42.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
@@ -149,7 +149,7 @@
                   <Image url="@estado.png" />
                </image>
             </ImageView>
-            <ProgressBar fx:id="pbVidaPokemonRival" layoutX="210.0" layoutY="105.0" prefHeight="14.0" prefWidth="204.0" progress="0.0" visible="false" />
+            <ProgressBar fx:id="pbVidaPokemonRival" layoutX="210.0" layoutY="105.0" prefHeight="14.0" prefWidth="204.0" progress="1.0" visible="false" />
             <Label fx:id="lblPP" layoutX="823.0" layoutY="572.0" prefHeight="50.0" prefWidth="414.0" text="PP: 230554/239482398" visible="false">
                <font>
                   <Font size="24.0" />
@@ -170,6 +170,9 @@
                   <Image url="@../../../ProyectoPokemon/img/conSonido.png" />
                </image>
             </ImageView>
+            <Button fx:id="btnCambiarPokemon" layoutX="815.0" layoutY="572.0" mnemonicParsing="false" onAction="#cambiarPokemon" prefHeight="120.0" prefWidth="204.0" text="Cambiar" visible="false" />
+            <Button fx:id="btnMantenerPokemon" layoutX="1042.0" layoutY="572.0" mnemonicParsing="false" onAction="#mantenerPokemon" prefHeight="120.0" prefWidth="204.0" text="Mantener" visible="false" />
+            <Button fx:id="btnCancelarAccion" layoutX="1042.0" layoutY="572.0" mnemonicParsing="false" onAction="#cancelarAccion" prefHeight="120.0" prefWidth="204.0" text="Cancelar" visible="false" />
          </children>
     </AnchorPane>
   </children>

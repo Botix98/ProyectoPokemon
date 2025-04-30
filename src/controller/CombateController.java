@@ -158,18 +158,9 @@ public class CombateController {
         this.stage = stage;
         this.loginController = loginController;
         this.menuController = menuController;
-<<<<<<< Updated upstream
-    }
-    
-    @FXML
-    public void initialize() {
-        	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Combate.mp3");
-    	prepararCombate();
-=======
         
         prepararCombate();
         calcularPokemonVivos();
->>>>>>> Stashed changes
     }
     
     private void prepararCombate() {
@@ -231,7 +222,7 @@ public class CombateController {
     	
     	PauseTransition quintaPausa = new PauseTransition(Duration.seconds(2));
     	quintaPausa.setOnFinished(event -> {
-            lblTexto.setText("Elige una opciï¿½n");
+            lblTexto.setText("Elige una opción");
             imgSeleccionAccion.setVisible(true);
             btnAtacar.setVisible(true);
             btnRendirse.setVisible(true);
@@ -266,11 +257,10 @@ public class CombateController {
     
     @FXML
     void rendirse(ActionEvent event) {
-    	SonidoController.detener("C:/ProyectoPokemon/sonidos/Combate.mp3");
     	desactivarBotonesAtaque();
     	uiFinalCombate();
     	
-    	lblTexto.setText("Ha ha ha ha ha! Cï¿½mo te atreves a huir! Cobarde!! No te mereces aprobar el Proyecto Pokemon!");
+    	lblTexto.setText("Ha ha ha ha ha! Cómo te atreves a huir! Cobarde!! No te mereces aprobar el Proyecto Pokemon!");
     	
     	volverAlMenu();
     }
@@ -767,126 +757,4 @@ public class CombateController {
     	btnAtaque4.setText(entrenador.getPokemon(pokActEntr).getMovimiento(3).getNombre());
     	btnAtaque4.setVisible(true);
     }
-<<<<<<< Updated upstream
-    
-    private void sinPPs(String movimiento) {
-    	desactivarBotonesAtaque();
-		
-    	lblTexto.setText("El ataque " + movimiento + " no tiene PPs");
-    	
-    	PauseTransition pausa = new PauseTransition(Duration.seconds(1));
-    	pausa.setOnFinished(evento -> {
-            activarBotonesAtaque();
-        });
-    	pausa.play();
-    }
-    
-    private void realizarAtaque(int numPok, int numMov) {
-    	entrenador.getPokemon(numPok).getMovimiento(numMov).setPpActuales(entrenador.getPokemon(numPok).getMovimiento(numMov).getPpActuales() - 1);
-    	
-    	//Seleccionar ataque del pokemon rival
-    	Movimiento movRival = seleccionarAtaqueRival();
-    	
-    	//Comprobar las velocidades de los pokemon. Ataca el mas rapido
-    	if (entrenador.getPokemon(numPok).getVelocidad() >= rival.getPokemon(0).getVelocidad()) {
-    		ataqueEntrenador(numPok, numMov);
-    		
-    		if (rival.getPokemon(0).getVitalidadActual() == 0) {
-    			//El pokemon rival sa matao
-    			//Hacer tremendo break con un return 0
-    		}
-    		else {
-    			ataqueRival(numPok, numMov);
-    			
-    			if (entrenador.getPokemon(numPok).getVitalidadActual() == 0) {
-    				//El pokemon del enrtenador sa matao
-        			//Hacer tremendo break con un return 0
-    			}
-    		}
-    	}
-    	else {
-    		ataqueRival(numPok, numMov);
-    		
-    		if (entrenador.getPokemon(numPok).getVitalidadActual() == 0) {
-    			//El pokemon del entrenador sa matao
-    			//Hacer tremendo break con un return 0
-    		}
-    		else {
-    			ataqueEntrenador(numPok, numMov);
-    			
-    			if (rival.getPokemon(0).getVitalidadActual() == 0) {
-    				//El pokemon rival sa matao
-        			//Hacer tremendo break con un return 0
-    			}
-    		}
-    	}
-    	
-    	
-    	
-    	
-    	//Se comprueba si el ataque golpea y se le quita la vida o aplica el efecto al pokemon objetivo
-    	//Comprobar si el pokemon objetivo sigue vivo. En ese caso realiza su ataque
-    	//Realiza el ataque el otro pokmemon.
-    	
-    	//Si alguno de los dos muere hacer un break
-    	//Si no tiene mï¿½s pokemon terminar batalla
-    	//Si tiene mas pokemon sacar otro
-    	
-		lblTexto.setText("Has golpeado al enemigo!");
-		
-		PauseTransition pausa = new PauseTransition(Duration.seconds(1));
-    	pausa.setOnFinished(evento -> {
-            activarBotonesAtaque();
-        });
-    	pausa.play();
-	}
-
-	private Movimiento seleccionarAtaqueRival() {
-		int n = (int) (Math.random() * 4) + 1;
-    	
-    	Movimiento movimiento = null;
-    	
-    	switch (n) {
-			case 1:
-				movimiento = rival.getPokemon(0).getMovimiento(0);
-				break;
-			case 2:
-				movimiento = rival.getPokemon(0).getMovimiento(1);
-				break;
-			case 3:
-				movimiento = rival.getPokemon(0).getMovimiento(2);
-				break;
-			case 4:
-				movimiento = rival.getPokemon(0).getMovimiento(3);
-				break;
-		}
-    	
-    	return movimiento;
-	}
-	
-	private void ataqueEntrenador(int numPok, int numMov) {
-		int num = (int) (Math.random() * 100) + 1;
-		
-		if (entrenador.getPokemon(numPok).getMovimiento(numMov).getProbabilidad() >= num) {
-			rival.getPokemon(0).setVitalidadActual(rival.getPokemon(0).getVitalidadActual() - entrenador.getPokemon(numPok).getMovimiento(numMov).getPotencia());
-			if (rival.getPokemon(0).getVitalidadActual() < 0) {
-				rival.getPokemon(0).setVitalidadActual(0);
-			}
-		}
-	}
-	
-	private void ataqueRival(int numPok, int numMov) {
-		int num = (int) (Math.random() * 100) + 1;
-		
-		if (rival.getPokemon(0).getMovimiento(0).getProbabilidad() >= num) {
-			entrenador.getPokemon(numPok).setVitalidadActual(entrenador.getPokemon(numPok).getVitalidadActual() - rival.getPokemon(0).getMovimiento(0).getPotencia());
-			if (entrenador.getPokemon(numPok).getVitalidadActual() < 0) {
-				entrenador.getPokemon(numPok).setVitalidadActual(0);
-			}
-			
-			System.out.println(entrenador.getPokemon(numPok).getVitalidadActual() + "/" + entrenador.getPokemon(numPok).getVitalidadMax());
-		}
-	}
-=======
->>>>>>> Stashed changes
 }

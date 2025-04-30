@@ -36,7 +36,14 @@
                <font>
                   <Font size="21.0" />
                </font></Label>
-            <Button fx:id="btnCambiarPokémon" alignment="CENTER" contentDisplay="CENTER" layoutX="736.0" layoutY="196.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="62.0" style="-fx-background-color: rgba(0,0,0,0);" textAlignment="JUSTIFY" wrapText="true" />
+            <Button fx:id="btnCambiarPokémon" alignment="CENTER" contentDisplay="CENTER" layoutX="767.0" layoutY="229.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="62.0" style="-fx-background-color: rgba(0,0,0,0);" textAlignment="JUSTIFY" wrapText="true">
+               <graphic>
+                  <ImageView fx:id="imgCambiarPokemon" fitHeight="51.0" fitWidth="56.0">
+                     <image>
+                        <Image url="@../../img/flechasBucle.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             <ImageView fx:id="imgPokeball" fitHeight="150.0" fitWidth="200.0" layoutX="333.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/objetos/pokeball.png" />
@@ -58,11 +65,6 @@
             <Label fx:id="lblRatioCatchSuperball" layoutX="660.0" layoutY="528.0" text="Ratio captura" />
             <Label fx:id="lblNumeroUltraballs" layoutX="776.0" layoutY="528.0" text="Las que tengas" />
             <Label fx:id="lblRatioCatchUltraballs" layoutX="877.0" layoutY="528.0" text="Ratio captura" />
-            <ImageView fx:id="imgCambiarPokemon" fitHeight="51.0" fitWidth="56.0" layoutX="770.0" layoutY="230.0">
-               <image>
-                  <Image url="@../../img/flechasBucle.png" />
-               </image>
-            </ImageView>
             <Button fx:id="btnCambioNoche" layoutX="194.0" layoutY="439.0" mnemonicParsing="false" onAction="#cambiarFondoNoche" prefHeight="59.0" prefWidth="114.0">
                <graphic>
                   <ImageView fx:id="imgCambioNoche" fitHeight="74.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">

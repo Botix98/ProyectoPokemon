@@ -135,7 +135,7 @@ public class EquipoController {
             }      
      }
     //este método hace que la barra sea visible o invisible con true o false
-    public final void setVisible​(boolean value) {
+    public final void setVisible(boolean value) {
     	
     }
 

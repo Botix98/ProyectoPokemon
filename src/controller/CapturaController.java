@@ -22,7 +22,7 @@ public class CapturaController {
 	private LoginController loginController;
 
 	@FXML
-	private Button btnCambiarPokémon;
+	private Button btnCambiarPokemon;
 
 	@FXML
     private Button btnCambioCascada;

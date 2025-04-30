@@ -154,7 +154,7 @@ public class CajaController {
 	}
     
     public void initialize() {
-    	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Equipo.mp3");
+    	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Caja.mp3");
     }
     
     @FXML
@@ -171,7 +171,7 @@ public class CajaController {
     @FXML
     void salir(ActionEvent event) {
     	try {
-    		SonidoController.detener("C:/ProyectoPokemon/sonidos/Equipo.mp3");
+    		SonidoController.detener("C:/ProyectoPokemon/sonidos/Caja.mp3");
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 

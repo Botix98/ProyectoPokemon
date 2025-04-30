@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConexionBD {
 	public static Connection con;
 
-	private static String url = "jdbc:mysql://localhost:3306/prueba";
+	private static String url = "jdbc:mysql://localhost:3306/proyectoPokemon";
 	private static String login = "root";
 	private static String password = "";
 	
@@ -15,7 +15,7 @@ public class ConexionBD {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(url, login, password);
-			System.out.println("Conexión establecida");
+			System.out.println("Conexiï¿½n establecida");
 
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();

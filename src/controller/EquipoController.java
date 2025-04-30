@@ -89,7 +89,6 @@ public class EquipoController {
     @FXML
     private ProgressBar pbPokemonSeleccionado;
     
-    //el método inciar
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
         this.entrenador = entr;
         this.stage = stage;
@@ -98,9 +97,8 @@ public class EquipoController {
         pbPokemonSeleccionado.setVisible(false);
     }
     
-        //falta comprobar cuantos pokemon hay en el equipo
-    	//ponerle lo de invisible hasta que onclick
-           
+        //falta comprobar cuantos pokemon hay en el equipo o por lo menos eso dijo carlos
+
         @FXML
         void hacerGrande(MouseEvent event) {
             ImageView origen = (ImageView) event.getSource();
@@ -108,33 +106,33 @@ public class EquipoController {
             imgPokemonSeleccionado.setImage(imagen);
             pbPokemonSeleccionado.setVisible(true);
             
+            double progreso = 0;
             
             if (origen == imgPokemon1) {
-            	pbPokemonSeleccionado.setProgress(pbPokemon1.getProgress());
             	pbPokemon1.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());
                 
             } else if (origen == imgPokemon2) {
-            	pbPokemonSeleccionado.setProgress(pbPokemon2.getProgress());
-            	pbPokemon2.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());     
+            	pbPokemon2.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());   
                 
-            } else if (origen == imgPokemon3) {
-            	pbPokemonSeleccionado.setProgress(pbPokemon3.getProgress());
-            	pbPokemon3.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());
+            } else if (origen == imgPokemon2) {
+                progreso = ((double) entrenador.getPokemon(1).getVitalidadActual()) / entrenador.getPokemon(1).getVitalidadMax();
+                pbPokemon3.setProgress(progreso);
             
-            } else if (origen == imgPokemon4) {
-            	pbPokemonSeleccionado.setProgress(pbPokemon4.getProgress());
-            	pbPokemon4.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());
+            } else if (origen == imgPokemon2) {
+                progreso = ((double) entrenador.getPokemon(1).getVitalidadActual()) / entrenador.getPokemon(1).getVitalidadMax();
+                pbPokemon4.setProgress(progreso);
             
-            } else if (origen == imgPokemon5) {
-            	pbPokemonSeleccionado.setProgress(pbPokemon5.getProgress());
-            	pbPokemon5.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());
+            } else if (origen == imgPokemon2) {
+                progreso = ((double) entrenador.getPokemon(1).getVitalidadActual()) / entrenador.getPokemon(1).getVitalidadMax();
+                pbPokemon5.setProgress(progreso);
             
-            } else if (origen == imgPokemon6) {
-            	pbPokemonSeleccionado.setProgress(pbPokemon6.getProgress());
-            	pbPokemon6.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());
-            }      
-     }
-    //este método hace que la barra sea visible o invisible con true o false
+            } else if (origen == imgPokemon2) {
+                progreso = ((double) entrenador.getPokemon(1).getVitalidadActual()) / entrenador.getPokemon(1).getVitalidadMax();
+                pbPokemon6.setProgress(progreso);     
+            }
+     
+        }
+    //hace que la barra sea visible o invisible con true o false
     public final void setVisible(boolean value) {
     	
     }
@@ -154,7 +152,6 @@ public class EquipoController {
     	}
     }
     
-    //método salir
     @FXML
     void salir(ActionEvent event) {
     	try {

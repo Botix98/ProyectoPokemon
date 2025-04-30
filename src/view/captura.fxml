@@ -36,7 +36,7 @@
                <font>
                   <Font size="21.0" />
                </font></Label>
-            <Button fx:id="btnCambiarPokémon" alignment="CENTER" contentDisplay="CENTER" layoutX="767.0" layoutY="229.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="62.0" style="-fx-background-color: rgba(0,0,0,0);" textAlignment="JUSTIFY" wrapText="true">
+            <Button fx:id="btnCambiarPokemon" alignment="CENTER" contentDisplay="CENTER" layoutX="767.0" layoutY="229.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="62.0" style="-fx-background-color: rgba(0,0,0,0);" textAlignment="JUSTIFY" wrapText="true">
                <graphic>
                   <ImageView fx:id="imgCambiarPokemon" fitHeight="51.0" fitWidth="56.0">
                      <image>

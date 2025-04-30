@@ -1,13 +1,14 @@
 package model;
 
 public class Objeto {
+	
 	private int  idObjeto;
 	private String nomObjeto;
-	private float ataque;
-	private float ataqueEsp;
-	private float defensa;
-	private float defensaEsp;
-	private float velocidad;
+    private int ataque;
+    private int ataqueEsp;
+    private int defensa;
+    private int defensaEsp;
+    private int velocidad;
 	private int precio;
 	
 	/**
@@ -20,8 +21,8 @@ public class Objeto {
 	 * @param velocidad
 	 * @param precio
 	 */
-	public Objeto(int idObjeto, String nomObjeto, float ataque, float ataqueEsp, float defensa, float defensaEsp,
-			float velocidad, int precio) {
+	public Objeto(int idObjeto, String nomObjeto, int ataque, int ataqueEsp, int defensa, int defensaEsp, int velocidad,
+			int precio) {
 		super();
 		this.idObjeto = idObjeto;
 		this.nomObjeto = nomObjeto;
@@ -32,7 +33,7 @@ public class Objeto {
 		this.velocidad = velocidad;
 		this.precio = precio;
 	}
-	
+
 	public Objeto() {
 		super();
 		this.idObjeto = 0;
@@ -44,8 +45,6 @@ public class Objeto {
 		this.velocidad = 0;
 		this.precio = 0;
 	}
-
-
 
 	/**
 	 * @return the idObjeto
@@ -78,70 +77,70 @@ public class Objeto {
 	/**
 	 * @return the ataque
 	 */
-	public float getAtaque() {
+	public int getAtaque() {
 		return ataque;
 	}
 
 	/**
 	 * @param ataque the ataque to set
 	 */
-	public void setAtaque(float ataque) {
+	public void setAtaque(int ataque) {
 		this.ataque = ataque;
 	}
 
 	/**
 	 * @return the ataqueEsp
 	 */
-	public float getAtaqueEsp() {
+	public int getAtaqueEsp() {
 		return ataqueEsp;
 	}
 
 	/**
 	 * @param ataqueEsp the ataqueEsp to set
 	 */
-	public void setAtaqueEsp(float ataqueEsp) {
+	public void setAtaqueEsp(int ataqueEsp) {
 		this.ataqueEsp = ataqueEsp;
 	}
 
 	/**
 	 * @return the defensa
 	 */
-	public float getDefensa() {
+	public int getDefensa() {
 		return defensa;
 	}
 
 	/**
 	 * @param defensa the defensa to set
 	 */
-	public void setDefensa(float defensa) {
+	public void setDefensa(int defensa) {
 		this.defensa = defensa;
 	}
 
 	/**
 	 * @return the defensaEsp
 	 */
-	public float getDefensaEsp() {
+	public int getDefensaEsp() {
 		return defensaEsp;
 	}
 
 	/**
 	 * @param defensaEsp the defensaEsp to set
 	 */
-	public void setDefensaEsp(float defensaEsp) {
+	public void setDefensaEsp(int defensaEsp) {
 		this.defensaEsp = defensaEsp;
 	}
 
 	/**
 	 * @return the velocidad
 	 */
-	public float getVelocidad() {
+	public int getVelocidad() {
 		return velocidad;
 	}
 
 	/**
 	 * @param velocidad the velocidad to set
 	 */
-	public void setVelocidad(float velocidad) {
+	public void setVelocidad(int velocidad) {
 		this.velocidad = velocidad;
 	}
 

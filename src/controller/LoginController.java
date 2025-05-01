@@ -26,10 +26,10 @@ import model.Pokemon;
 public class LoginController {
 
 	//PRUEBA
-	Movimiento movimientos[] = {new Movimiento("Lanza llamas", 20, "Ataque", 100, "Fuego", 1, 100),
-			new Movimiento("Llama confusa", 15, "Especial", 0, "Fuego", 1, 100),
-			new Movimiento("Llama llameante", 10, "Ataque", 125, "Fuego", 1, 80),
-			new Movimiento("Te quemoooo", 10, "Ataque", 100, "Fuego", 1, 90)};
+	Movimiento movimientos[] = {new Movimiento("Lanza llamas", 20, 0, 0, 0, "Ataque", 100, "Fuego", null, 1, null, 100),
+			new Movimiento("Llama confusa", 15, 0, 0, 0, "Especial", 0, "Fuego", null, 1, null, 100),
+			new Movimiento("Llama llameante", 10, 0, 0, 0, "Ataque", 125, "Fuego", null, 1, null, 80),
+			new Movimiento("Te quemoooo", 10, 0, 0, 0, "Ataque", 100, "Fuego", null, 1, null, 90)};
 	
 	Pokemon[] pokemon = {new Pokemon("Charidard", 360, 293, 348, 280, 295, 328, 100, null, movimientos), null, null, null, null, null};
 	Entrenador entrenador = new Entrenador("Carlos", "123456", 1000, pokemon);

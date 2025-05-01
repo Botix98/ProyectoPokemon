@@ -165,13 +165,13 @@ public class CombateController {
     
     private void prepararCombate() {
     	//PRUEBA
-    	Movimiento[] movimientos = {new Movimiento("Mira mi cuchara", 10, "Ataque", 10, "Psiquico", 1, 100),
-    			new Movimiento("Ahora me ves, ahora ya no", 15, "Especial",10, "Psiquico", 1, 100),
-    			new Movimiento("Cuidao que te tropiezas", 10, "Ataque", 10, "Psiquico", 1, 80),
+    	Movimiento[] movimientos = {new Movimiento("Mira mi cuchara", 10, contPausas, contPausas, contPausas, "Ataque", 10, "Psiquico", null, 1, null, 100),
+    			new Movimiento("Ahora me ves, ahora ya no", 15, contPausas, contPausas, contPausas, "Especial",10, "Psiquico", null, 1, null, 100),
+    			new Movimiento("Cuidao que te tropiezas", 10, contPausas, contPausas, contPausas, "Ataque", 10, "Psiquico", null, 1, null, 80),
     			null};
     	
-    	Movimiento[] movimientos2 = {new Movimiento("Esto esta mal", 10, "Ataque", 1000, "Psiquico", 1, 100),
-    			new Movimiento("Ya no se que hacer", 15, "Especial",10, "Psiquico", 1, 100),
+    	Movimiento[] movimientos2 = {new Movimiento("Esto esta mal", 10, contPausas, contPausas, contPausas, "Ataque", 1000, "Psiquico", null, 1, null, 100),
+    			new Movimiento("Ya no se que hacer", 15, contPausas, contPausas, contPausas, "Especial",10, "Psiquico", null, 1, null, 100),
     			null,
     			null};
 
@@ -222,7 +222,7 @@ public class CombateController {
     	
     	PauseTransition quintaPausa = new PauseTransition(Duration.seconds(2));
     	quintaPausa.setOnFinished(event -> {
-            lblTexto.setText("Elige una opción");
+            lblTexto.setText("Elige una opciï¿½n");
             imgSeleccionAccion.setVisible(true);
             btnAtacar.setVisible(true);
             btnRendirse.setVisible(true);
@@ -260,7 +260,7 @@ public class CombateController {
     	desactivarBotonesAtaque();
     	uiFinalCombate();
     	
-    	lblTexto.setText("Ha ha ha ha ha! Cómo te atreves a huir! Cobarde!! No te mereces aprobar el Proyecto Pokemon!");
+    	lblTexto.setText("Ha ha ha ha ha! Cï¿½mo te atreves a huir! Cobarde!! No te mereces aprobar el Proyecto Pokemon!");
     	
     	volverAlMenu();
     }
@@ -476,7 +476,7 @@ public class CombateController {
                 			}
                 			else {
                 				pokActRival++;
-                				lblTexto.setText(rival.getNombre() + " va a sacar a " + rival.getPokemon(pokActRival).getNombre() + ". ¿Quieres cambiar de pokemon?");
+                				lblTexto.setText(rival.getNombre() + " va a sacar a " + rival.getPokemon(pokActRival).getNombre() + ". ï¿½Quieres cambiar de pokemon?");
                 				
                 		    	btnCambiarPokemon.setVisible(true);
                 		    	btnMantenerPokemon.setText("Mantener");
@@ -523,7 +523,7 @@ public class CombateController {
                     	    				desactivarBotonesAtaque();
                     	    				uiFinalCombate();
                     	    				
-                    	    				lblTexto.setText("Lo he intentado todo pero desde el principio sabía que no eras merecedor de la matrícula. No me queda más remedio que darsela a Adriano.");
+                    	    				lblTexto.setText("Lo he intentado todo pero desde el principio sabï¿½a que no eras merecedor de la matrï¿½cula. No me queda mï¿½s remedio que darsela a Adriano.");
                     	    				volverAlMenu();
                     	    			}
                     	    			else {
@@ -584,7 +584,7 @@ public class CombateController {
                 				desactivarBotonesAtaque();
                 				uiFinalCombate();
                 				
-                				lblTexto.setText("Lo he intentado todo pero desde el principio sabía que no eras merecedor de la matrícula. No me queda más remedio que darsela a Adriano.");
+                				lblTexto.setText("Lo he intentado todo pero desde el principio sabï¿½a que no eras merecedor de la matrï¿½cula. No me queda mï¿½s remedio que darsela a Adriano.");
                 				volverAlMenu();
                 			}
                 			else {
@@ -639,7 +639,7 @@ public class CombateController {
                     	    			}
                     	    			else {
                     	    				pokActRival++;
-                    	    				lblTexto.setText(rival.getNombre() + " va a sacar a " + rival.getPokemon(pokActRival).getNombre() + ". ¿Quieres cambiar de pokemon?");
+                    	    				lblTexto.setText(rival.getNombre() + " va a sacar a " + rival.getPokemon(pokActRival).getNombre() + ". ï¿½Quieres cambiar de pokemon?");
                     	    				
                     	    		    	btnCambiarPokemon.setVisible(true);
                     	    		    	btnMantenerPokemon.setText("Mantener");

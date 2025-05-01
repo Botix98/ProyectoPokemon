@@ -114,19 +114,19 @@ public class EquipoController {
             } else if (origen == imgPokemon2) {
             	pbPokemon2.setProgress(((double) (entrenador.getPokemon(0).getVitalidadActual())) / entrenador.getPokemon(0).getVitalidadMax());   
                 
-            } else if (origen == imgPokemon2) {
+            } else if (origen == imgPokemon3) {
                 progreso = ((double) entrenador.getPokemon(1).getVitalidadActual()) / entrenador.getPokemon(1).getVitalidadMax();
                 pbPokemon3.setProgress(progreso);
             
-            } else if (origen == imgPokemon2) {
+            } else if (origen == imgPokemon4) {
                 progreso = ((double) entrenador.getPokemon(1).getVitalidadActual()) / entrenador.getPokemon(1).getVitalidadMax();
                 pbPokemon4.setProgress(progreso);
             
-            } else if (origen == imgPokemon2) {
+            } else if (origen == imgPokemon5) {
                 progreso = ((double) entrenador.getPokemon(1).getVitalidadActual()) / entrenador.getPokemon(1).getVitalidadMax();
                 pbPokemon5.setProgress(progreso);
             
-            } else if (origen == imgPokemon2) {
+            } else if (origen == imgPokemon6) {
                 progreso = ((double) entrenador.getPokemon(1).getVitalidadActual()) / entrenador.getPokemon(1).getVitalidadMax();
                 pbPokemon6.setProgress(progreso);     
             }

@@ -23,27 +23,20 @@
                   <Image url="@../../../ProyectoPokemon/img/Pokemon/Front/70.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgSonido" fitHeight="99.0" fitWidth="84.0" layoutX="52.0" layoutY="31.0" onMouseClicked="#activarDesactivarSonido" preserveRatio="true">
+            <ImageView fx:id="imgSonido" fitHeight="99.0" fitWidth="84.0" layoutX="52.0" layoutY="23.0" onMouseClicked="#activarDesactivarSonido" preserveRatio="true">
                <image>
                   <Image url="@../../img/conSonido.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblNombrePokemon" layoutX="545.0" layoutY="178.0" prefHeight="51.0" prefWidth="124.0" text="Nombre">
+            <Label fx:id="lblNombrePokemon" layoutX="545.0" layoutY="219.0" prefHeight="51.0" prefWidth="124.0" text="Nombre">
                <font>
                   <Font size="21.0" />
                </font></Label>
-            <Label fx:id="lblNivelPokemon" layoutX="680.0" layoutY="189.0" prefHeight="31.0" prefWidth="56.0" text="Nivel">
+            <Label fx:id="lblNivelPokemon" layoutX="683.0" layoutY="229.0" prefHeight="31.0" prefWidth="56.0" text="Nivel">
                <font>
                   <Font size="21.0" />
                </font></Label>
-            <Button fx:id="btnCambiarPokemon" alignment="CENTER" contentDisplay="CENTER" layoutX="767.0" layoutY="229.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="62.0" style="-fx-background-color: rgba(0,0,0,0);" textAlignment="JUSTIFY" wrapText="true">
-               <graphic>
-                  <ImageView fx:id="imgCambiarPokemon" fitHeight="51.0" fitWidth="56.0">
-                     <image>
-                        <Image url="@../../img/flechasBucle.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
+            <Button fx:id="btnCambiarPokemon" alignment="CENTER" contentDisplay="CENTER" layoutX="767.0" layoutY="229.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="62.0" style="-fx-background-color: rgba(0,0,0,0);" textAlignment="JUSTIFY" wrapText="true" />
             <ImageView fx:id="imgPokeball" fitHeight="150.0" fitWidth="200.0" layoutX="333.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/objetos/pokeball.png" />
@@ -65,7 +58,7 @@
             <Label fx:id="lblRatioCatchSuperball" layoutX="660.0" layoutY="528.0" text="Ratio captura" />
             <Label fx:id="lblNumeroUltraballs" layoutX="776.0" layoutY="528.0" text="Las que tengas" />
             <Label fx:id="lblRatioCatchUltraballs" layoutX="877.0" layoutY="528.0" text="Ratio captura" />
-            <Button fx:id="btnCambioNoche" layoutX="194.0" layoutY="439.0" mnemonicParsing="false" onAction="#cambiarFondoNoche" prefHeight="59.0" prefWidth="114.0">
+            <Button fx:id="btnCambioNoche" layoutX="194.0" layoutY="427.0" mnemonicParsing="false" onAction="#cambiarFondoNoche" prefHeight="59.0" prefWidth="114.0">
                <graphic>
                   <ImageView fx:id="imgCambioNoche" fitHeight="74.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -74,11 +67,11 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnCambioCascada" layoutX="193.0" layoutY="203.0" mnemonicParsing="false" onAction="#cambiarFondoCascada" prefHeight="74.0" prefWidth="115.0">
+            <Button fx:id="btnCambioNube" layoutX="192.0" layoutY="221.0" mnemonicParsing="false" onAction="#cambiarFondoNube" prefHeight="74.0" prefWidth="115.0">
                <graphic>
-                  <ImageView fx:id="imgCambioCascada" fitHeight="67.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgCambioNube" fitHeight="67.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../img/captura/fondoCascada.png" />
+                        <Image url="@../../img/captura/fondoNube.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -101,7 +94,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnCambioVolcan" layoutX="65.0" layoutY="439.0" mnemonicParsing="false" onAction="#cambiarFondoVolcan" prefHeight="74.0" prefWidth="115.0">
+            <Button fx:id="btnCambioVolcan" layoutX="65.0" layoutY="427.0" mnemonicParsing="false" onAction="#cambiarFondoVolcan" prefHeight="74.0" prefWidth="115.0">
                <graphic>
                   <ImageView fx:id="imgCambioVolcan" fitHeight="64.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -110,7 +103,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnCambioHierba" layoutX="65.0" layoutY="204.0" mnemonicParsing="false" onAction="#cambiarFondoHierba" prefHeight="59.0" prefWidth="114.0">
+            <Button fx:id="btnCambioHierba" layoutX="65.0" layoutY="222.0" mnemonicParsing="false" onAction="#cambiarFondoHierba" prefHeight="59.0" prefWidth="114.0">
                <graphic>
                   <ImageView fx:id="imgCambioHierba" fitHeight="74.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -119,6 +112,29 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button fx:id="btnCambioCueva" layoutX="193.0" layoutY="121.0" mnemonicParsing="false" onAction="#cambiarFondoCueva" prefHeight="74.0" prefWidth="115.0">
+               <graphic>
+                  <ImageView fx:id="imgCambioCueva" fitHeight="64.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/captura/fondoCueva.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnCambioNieve" layoutX="65.0" layoutY="121.0" mnemonicParsing="false" onAction="#cambiarFondoNieve" prefHeight="74.0" prefWidth="115.0">
+               <graphic>
+                  <ImageView fx:id="imgCambioNieve" fitHeight="64.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/captura/fondoNieve.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <ImageView fx:id="imgCambiarPokemon" fitHeight="51.0" fitWidth="56.0" layoutX="770.0" layoutY="260.0">
+               <image>
+                  <Image url="@../../img/flechasBucle.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

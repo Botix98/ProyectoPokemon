@@ -8,11 +8,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Entrenador;
+import java.util.List;
+import java.util.Arrays;
 
 public class CapturaController {
 	
@@ -20,28 +23,36 @@ public class CapturaController {
 	private Entrenador entrenador;
 	private MenuController menuController;
 	private LoginController loginController;
-
+	private List<ImageView> imageViews;
+	
+	
 	@FXML
 	private Button btnCambiarPokemon;
 
+	  @FXML
+	  private Button btnCambioCueva;
+
+	  @FXML
+	  private Button btnCambioHierba;
+
+	  @FXML
+	  private Button btnCambioNieve;
+
+	  @FXML
+	  private Button btnCambioNoche;
+
+	  @FXML
+	  private Button btnCambioNube;
+
 	@FXML
-    private Button btnCambioCascada;
+	private Button btnCambioPiedra;
 
-    @FXML
-    private Button btnCambioHierba;
+	@FXML
+	private Button btnCambioPlaya;
 
-    @FXML
-    private Button btnCambioNoche;
+	@FXML
+	private Button btnCambioVolcan;
 
-    @FXML
-    private Button btnCambioPiedra;
-
-    @FXML
-    private Button btnCambioPlaya;
-
-    @FXML
-    private Button btnCambioVolcan;
-	
     @FXML
     private Button btnSalir;
     
@@ -126,14 +137,44 @@ public class CapturaController {
     		imgSonido.setImage(new Image(new File("./img/sinSonido.png").toURI().toString()));
     	}
     }
-    
+     
+    @FXML
     public void initialize() {
     	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Captura.mp3");
+        imageViews = Arrays.asList(imgPokeball, imgSuperball, imgUltraball);
+
+      //hacer oscuras las otras bolas
+        for (ImageView imageView : imageViews) {
+            imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+            	ponerOscuridad(imageView);
+            });
+
+            imageView.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
+            	quitarOscuridad();
+            });
+        }
+    }
+
+    private void ponerOscuridad(ImageView hoveredImageView) {
+        for (ImageView imageView : imageViews) {
+            if (imageView != hoveredImageView) {
+                //ajustar la oscuridad
+                ColorAdjust colorAdjust = new ColorAdjust();
+                colorAdjust.setBrightness(-0.7);
+                imageView.setEffect(colorAdjust);
+            }
+        }
+    }
+
+    private void quitarOscuridad() {
+        for (ImageView imageView : imageViews) {
+            imageView.setEffect(null);
+        }
     }
     
     @FXML
-    void cambiarFondoCascada(ActionEvent event) {
-    	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoCascada.png").toURI().toString()));
+    void cambiarFondoCueva(ActionEvent event) {
+    	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoCueva.png").toURI().toString()));
     }
 
     @FXML
@@ -146,6 +187,11 @@ public class CapturaController {
     	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoNoche.png").toURI().toString()));
     }
 
+    @FXML
+    void cambiarFondoNube(ActionEvent event) {
+    	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoNube.png").toURI().toString()));
+    	}
+    
     @FXML
     void cambiarFondoPiedra(ActionEvent event) {
     	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoPiedra.png").toURI().toString()));
@@ -161,6 +207,12 @@ public class CapturaController {
     	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoVolcan.png").toURI().toString()));
     }
 
+
+@FXML
+void cambiarFondoNieve(ActionEvent event) {
+	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoNieve.png").toURI().toString()));
+	}
+    
     @FXML
     void salir(ActionEvent event) {
     	try {

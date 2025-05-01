@@ -4,10 +4,12 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 public class Entrenador {
+	
 	private String usuario;
 	private String pass;
 	private int pokedolares;
 	private Pokemon[] equipo;
+	private int IdEntrenador;
 	
 	/**
 	 * @param usuario
@@ -93,9 +95,16 @@ public class Entrenador {
 		this.equipo = equipo;
 	}
 	
+	public int getIdEntrenador() {
+		return IdEntrenador;
+	}
+	public void setIdEntrenador(int idEntrenador) {
+		IdEntrenador = idEntrenador;
+	}
 	@Override
 	public String toString() {
 		return "Entrenador [usuario=" + usuario + ", pass=" + pass + ", pokedolares=" + pokedolares + ", equipo="
 				+ Arrays.toString(equipo) + "]";
 	}
+
 }

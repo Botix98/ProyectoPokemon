@@ -10,25 +10,27 @@ public class MovimientoDAO {
         LinkedList<Movimiento> lista = new LinkedList<>();
         String query = "SELECT * FROM MOVIMIENTO";
 
-        try (Statement st = con.createStatement();
+        try
+        	(Statement st = con.createStatement();
              ResultSet rs = st.executeQuery(query)) {
 
-            while (rs.next()) {
-                Movimiento m = new Movimiento(query, 0, 0, 0, 0, query, 0, query, query, 0, query, 0);
-                m.setIdMovimiento(rs.getInt("ID_MOVIMIENTO"));
-                m.setNombre(rs.getString("NOM_MOVIMIENTO"));
-                m.setNivelAprendizaje(rs.getInt("NIVEL_APRENDIZAJE"));
-                m.setPpMax(rs.getInt("PP_MAX"));
-                m.setTipo(rs.getString("TIPO"));
-                m.setPotencia(rs.getInt("POTENCIA"));
-                m.setTipoMov(rs.getString("TIPO_MOV"));
-                m.setEstado(rs.getString("ESTADO"));
-                m.setTurnos(rs.getInt("TURNOS"));
-                m.setMejora(rs.getString("MEJORA"));
-                m.setProbabilidad(rs.getInt("PROBABILIDAD"));
+        	while (rs.next()) {
+        	    Movimiento m = new Movimiento();
+        	    m.setIdMovimiento(rs.getInt("ID_MOVIMIENTO"));
+        	    m.setNombre(rs.getString("NOM_MOVIMIENTO"));
+        	    m.setNivelAprendizaje(rs.getInt("NIVEL_APRENDIZAJE"));
+        	    m.setPpMax(rs.getInt("PP_MAX"));
+        	    m.setTipo(rs.getString("TIPO"));
+        	    m.setPotencia(rs.getInt("POTENCIA"));
+        	    m.setTipoMov(rs.getString("TIPO_MOV"));
+        	    m.setEstado(rs.getString("ESTADO"));
+        	    m.setTurnos(rs.getInt("TURNOS"));
+        	    m.setMejora(rs.getString("MEJORA"));
+        	    m.setProbabilidad(rs.getInt("PROBABILIDAD"));
+        	    m.setPpActuales(m.getPpMax());
 
-                lista.add(m);
-            }
+        	    lista.add(m);
+        	}
         } catch (SQLException e) {
             ConexionBD.printSQLException(e);
         }
@@ -40,12 +42,13 @@ public class MovimientoDAO {
         String query = "SELECT * FROM MOVIMIENTO WHERE ID_MOVIMIENTO = ?";
         Movimiento m = null;
 
-        try (PreparedStatement ps = con.prepareStatement(query)) {
+        try
+        	(PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                m = new Movimiento(m);
+                m = new Movimiento();
                 m.setIdMovimiento(rs.getInt("ID_MOVIMIENTO"));
                 m.setNombre(rs.getString("NOM_MOVIMIENTO"));
                 m.setNivelAprendizaje(rs.getInt("NIVEL_APRENDIZAJE"));
@@ -57,7 +60,9 @@ public class MovimientoDAO {
                 m.setTurnos(rs.getInt("TURNOS"));
                 m.setMejora(rs.getString("MEJORA"));
                 m.setProbabilidad(rs.getInt("PROBABILIDAD"));
+                m.setPpActuales(m.getPpMax());
             }
+            
         } catch (SQLException e) {
             ConexionBD.printSQLException(e);
         }
@@ -69,12 +74,13 @@ public class MovimientoDAO {
         LinkedList<Movimiento> lista = new LinkedList<>();
         String query = "SELECT * FROM MOVIMIENTO WHERE TIPO_MOV = ?";
 
-        try (PreparedStatement ps = con.prepareStatement(query)) {
+        try
+        	(PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, tipoMov);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Movimiento m = new Movimiento(query, 0, 0, 0, 0, query, 0, query, query, 0, query, 0);
+                Movimiento m = new Movimiento();
                 m.setIdMovimiento(rs.getInt("ID_MOVIMIENTO"));
                 m.setNombre(rs.getString("NOM_MOVIMIENTO"));
                 m.setNivelAprendizaje(rs.getInt("NIVEL_APRENDIZAJE"));
@@ -86,6 +92,7 @@ public class MovimientoDAO {
                 m.setTurnos(rs.getInt("TURNOS"));
                 m.setMejora(rs.getString("MEJORA"));
                 m.setProbabilidad(rs.getInt("PROBABILIDAD"));
+                m.setPpActuales(m.getPpMax());
 
                 lista.add(m);
             }
@@ -101,7 +108,8 @@ public class MovimientoDAO {
     public static boolean insertarMovimiento(Connection con, Movimiento m) {
         String query = "INSERT INTO MOVIMIENTO (ID_MOVIMIENTO, NOM_MOVIMIENTO, NIVEL_APRENDIZAJE, PP_MAX, TIPO, POTENCIA, TIPO_MOV, ESTADO, TURNOS, MEJORA, PROBABILIDAD) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement ps = con.prepareStatement(query)) {
+        try
+        	(PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, m.getIdMovimiento());
             ps.setString(2, m.getNombre());
             ps.setInt(3, m.getNivelAprendizaje());
@@ -125,7 +133,8 @@ public class MovimientoDAO {
     public static boolean actualizarMovimiento(Connection con, Movimiento m) {
         String query = "UPDATE MOVIMIENTO SET NOM_MOVIMIENTO = ?, NIVEL_APRENDIZAJE = ?, PP_MAX = ?, TIPO = ?, POTENCIA = ?, TIPO_MOV = ?, ESTADO = ?, TURNOS = ?, MEJORA = ?, PROBABILIDAD = ? WHERE ID_MOVIMIENTO = ?";
 
-        try (PreparedStatement ps = con.prepareStatement(query)) {
+        try
+        	(PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, m.getNombre());
             ps.setInt(2, m.getNivelAprendizaje());
             ps.setInt(3, m.getPpMax());
@@ -149,7 +158,8 @@ public class MovimientoDAO {
     public static boolean eliminarMovimiento(Connection con, int id) {
         String query = "DELETE FROM MOVIMIENTO WHERE ID_MOVIMIENTO = ?";
 
-        try (PreparedStatement ps = con.prepareStatement(query)) {
+        try
+        	(PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, id);
             int filasAfectadas = ps.executeUpdate();
             return filasAfectadas > 0;

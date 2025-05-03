@@ -16,6 +16,15 @@ public class Entrenador {
 	 * @param pass
 	 * @param pokedolares
 	 */
+	
+	public Entrenador() {
+	    this.usuario = "";
+	    this.pass = "";
+	    this.pokedolares = 0;
+	    this.equipo = new Pokemon[6];
+	    this.IdEntrenador = 0;
+	}
+	
 	public Entrenador(String usuario, String pass, int pokedolares, Pokemon[] listaPokemon) {
 		super();
 		this.usuario = usuario;

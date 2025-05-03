@@ -28,6 +28,21 @@ public class Movimiento {
 	 * @param probabilidad
 	 */
 	
+	public Movimiento() {
+	    this.nombre = "";
+	    this.IdMovimiento = 0;
+	    this.NivelAprendizaje = 0;
+	    this.ppMax = 0;
+	    this.ppActuales = 0;
+	    this.tipoMov = "";
+	    this.potencia = 0;
+	    this.tipo = "";
+	    this.estado = "";
+	    this.turnos = 0;
+	    this.mejora = "";
+	    this.probabilidad = 0;
+	}
+
 	public Movimiento(String nombre, int idMovimiento, int nivelAprendizaje, int ppMax, int ppActuales, String tipoMov,
 			int potencia, String tipo, String estado, int turnos, String mejora, int probabilidad) {
 		super();

@@ -1,27 +1,14 @@
 package model;
 
-import java.util.Arrays;
-
 public class Rival {
 	private String nombre;
-	private Pokemon[] equipo;
+	private int idRival;
+	private String fraseVictoria;
+	private String fraseDerrota;
+	private String fraseRendicion;
 	
-	/**
-	 * @param nombre
-	 * @param pokemon
-	 */
-	public Rival(String nombre, Pokemon listaPokemon[]) {
-		super();
-		this.nombre = nombre;
-		this.equipo = new Pokemon[6];
-		for (int i = 0; i < this.equipo.length; i++) {
-			if (listaPokemon[i] != null) {
-				this.equipo[i] = listaPokemon[i];
-			}
-			else {
-				this.equipo[i] = null;
-			}
-		}
+	public Rival() {
+		
 	}
 
 	/**
@@ -39,35 +26,64 @@ public class Rival {
 	}
 
 	/**
-	 * @return the pokemon
+	 * @return the idRival
 	 */
-	public Pokemon getPokemon(int n) {
-		return equipo[n];
+	public int getIdRival() {
+		return idRival;
 	}
 
 	/**
-	 * @param pokemon the pokemon to set
+	 * @param idRival the idRival to set
 	 */
-	public void setPokemon(Pokemon pokemon, int n) {
-		this.equipo[n] = pokemon;
-	}
-	
-	/**
-	 * @return the equipo
-	 */
-	public Pokemon[] getEquipo() {
-		return equipo;
+	public void setIdRival(int idRival) {
+		this.idRival = idRival;
 	}
 
 	/**
-	 * @param equipo the equipo to set
+	 * @return the fraseVictoria
 	 */
-	public void setEquipo(Pokemon[] equipo) {
-		this.equipo = equipo;
+	public String getFraseVictoria() {
+		return fraseVictoria;
+	}
+
+	/**
+	 * @param fraseVictoria the fraseVictoria to set
+	 */
+	public void setFraseVictoria(String fraseVictoria) {
+		this.fraseVictoria = fraseVictoria;
+	}
+
+	/**
+	 * @return the fraseDerrota
+	 */
+	public String getFraseDerrota() {
+		return fraseDerrota;
+	}
+
+	/**
+	 * @param fraseDerrota the fraseDerrota to set
+	 */
+	public void setFraseDerrota(String fraseDerrota) {
+		this.fraseDerrota = fraseDerrota;
+	}
+
+	/**
+	 * @return the fraseRendicion
+	 */
+	public String getFraseRendicion() {
+		return fraseRendicion;
+	}
+
+	/**
+	 * @param fraseRendicion the fraseRendicion to set
+	 */
+	public void setFraseRendicion(String fraseRendicion) {
+		this.fraseRendicion = fraseRendicion;
 	}
 
 	@Override
 	public String toString() {
-		return "Rival [nombre=" + nombre + ", equipo=" + Arrays.toString(equipo) + "]";
+		return "Rival [nombre=" + nombre + ", idRival=" + idRival + ", fraseVictoria=" + fraseVictoria
+				+ ", fraseDerrota=" + fraseDerrota + ", fraseRendicion=" + fraseRendicion + "]";
 	}
 }

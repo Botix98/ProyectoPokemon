@@ -36,6 +36,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -81,8 +82,10 @@
                   <Image url="@../../img/combateEntrenamiento/cajetinOpciones.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnAtacar" layoutX="815.0" layoutY="572.0" mnemonicParsing="false" onAction="#atacar" prefHeight="120.0" prefWidth="204.0" text="Atacar" visible="false" />
-            <Button fx:id="btnRendirse" layoutX="1042.0" layoutY="572.0" mnemonicParsing="false" onAction="#rendirse" prefHeight="120.0" prefWidth="204.0" text="Rendirse" visible="false" />
+            <Button fx:id="btnAtacar" layoutX="815.0" layoutY="572.0" mnemonicParsing="false" onAction="#atacar" prefHeight="50.0" prefWidth="204.0" text="Atacar" visible="false" />
+            <Button fx:id="btnAccionCambiarPokemon" layoutX="1042.0" layoutY="572.0" mnemonicParsing="false" onAction="#accionCambiarPokemon" prefHeight="50.0" prefWidth="204.0" text="Cambiar Pokemon" visible="false" />
+            <Button fx:id="btnMochila" layoutX="815.0" layoutY="642.0" mnemonicParsing="false" onAction="#irAMochila" prefHeight="50.0" prefWidth="204.0" text="Mochila" visible="false" />
+            <Button fx:id="btnRendirse" layoutX="1042.0" layoutY="642.0" mnemonicParsing="false" onAction="#rendirse" prefHeight="50.0" prefWidth="204.0" text="Rendirse" visible="false" />
             <ImageView fx:id="imgSeleccionAtaque" fitHeight="139.0" fitWidth="526.0" layoutX="132.0" layoutY="573.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5" visible="false">
                <image>
                   <Image url="@../../img/combateEntrenamiento/cajetinAtaques.png" />
@@ -112,7 +115,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="lblVidaPokemonEntrenador" layoutX="1134.0" layoutY="477.0" prefHeight="38.0" prefWidth="94.0" text="321/340" visible="false">
+            <Label fx:id="lblVidaPokemonEntrenador" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="1126.0" layoutY="477.0" prefHeight="38.0" prefWidth="94.0" text="321/340">
                <font>
                   <Font size="24.0" />
                </font>
@@ -170,9 +173,14 @@
                   <Image url="@../../../ProyectoPokemon/img/conSonido.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnCambiarPokemon" layoutX="815.0" layoutY="572.0" mnemonicParsing="false" onAction="#cambiarPokemon" prefHeight="120.0" prefWidth="204.0" text="Cambiar" visible="false" />
+            <Button fx:id="btnCambiarPokemon" layoutX="815.0" layoutY="572.0" mnemonicParsing="false" onAction="#accionCambiarPokemon" prefHeight="120.0" prefWidth="204.0" text="Cambiar" visible="false" />
             <Button fx:id="btnMantenerPokemon" layoutX="1042.0" layoutY="572.0" mnemonicParsing="false" onAction="#mantenerPokemon" prefHeight="120.0" prefWidth="204.0" text="Mantener" visible="false" />
             <Button fx:id="btnCancelarAccion" layoutX="1042.0" layoutY="572.0" mnemonicParsing="false" onAction="#cancelarAccion" prefHeight="120.0" prefWidth="204.0" text="Cancelar" visible="false" />
+            <ScrollPane fx:id="sbMostrarInformacion" layoutX="963.0" layoutY="276.0" prefHeight="266.0" prefWidth="316.0" vbarPolicy="ALWAYS" visible="false">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </ScrollPane>
          </children>
     </AnchorPane>
   </children>

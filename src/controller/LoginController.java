@@ -1,9 +1,12 @@
 package controller;
 
 import java.io.File;
+import java.sql.Connection;
 
 import javax.swing.JOptionPane;
 
+import dao.ConexionBD;
+import dao.EntrenadorDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,18 +27,13 @@ import model.Movimiento;
 import model.Pokemon;
 
 public class LoginController {
-
 	//PRUEBA
-	Movimiento movimientos[] = {new Movimiento("Lanza llamas", 20, 0, 0, 0, "Ataque", 100, "Fuego", null, 1, null, 100),
-			new Movimiento("Llama confusa", 15, 0, 0, 0, "Especial", 0, "Fuego", null, 1, null, 100),
-			new Movimiento("Llama llameante", 10, 0, 0, 0, "Ataque", 125, "Fuego", null, 1, null, 80),
-			new Movimiento("Te quemoooo", 10, 0, 0, 0, "Ataque", 100, "Fuego", null, 1, null, 90)};
-	
-	Pokemon[] pokemon = {new Pokemon("Charidard", 360, 293, 348, 280, 295, 328, 100, null, movimientos), null, null, null, null, null};
-	Entrenador entrenador = new Entrenador("Carlos", "123456", 1000, pokemon);
+	Entrenador entrenador;
 	
 	public Stage stage;
 	public boolean sonido = false;
+	
+	Connection con;
 	
 	@FXML
     private ImageView imgSonido;
@@ -85,18 +83,30 @@ public class LoginController {
     		String usuario = txtUsuario.getText();
     		String pass = txtContrasena.getText();
     		
-    		if (entrenador.getUsuario().equals(usuario)) {
-    			if (entrenador.getPass().equals(pass)) {
-    				lbError.setText("Correcto");
-    	    		lbError.setVisible(true);
-    	    		
-    	    		abrirPantallaMenu(entrenador);
-    			} else {
-    				lbError.setText("Error: contrase�a incorrecta");
-    	    		lbError.setVisible(true);
-    			}
-    		} else {
-    			lbError.setText("Error: Usuario no existe");
+    		entrenador = EntrenadorDAO.buscarPorUsuario(con, usuario, pass);
+    		
+    		if (entrenador != null) {
+    			lbError.setText("Correcto");
+	    		lbError.setVisible(true);
+	    		
+	    		abrirPantallaMenu(entrenador);
+    			/*if (entrenador.getUsuario().equals(usuario)) {
+        			if (entrenador.getPass().equals(pass)) {
+        				lbError.setText("Correcto");
+        	    		lbError.setVisible(true);
+        	    		
+        	    		abrirPantallaMenu(entrenador);
+        			} else {
+        				lbError.setText("Error: contrase�a incorrecta");
+        	    		lbError.setVisible(true);
+        			}
+        		} else {
+        			lbError.setText("Error: Usuario no existe");
+            		lbError.setVisible(true);
+        		}*/
+    		}
+    		else {
+    			lbError.setText("Error: Usuario o contrasexa erroneas");
         		lbError.setVisible(true);
     		}
     	}
@@ -123,6 +133,7 @@ public class LoginController {
     public void initialize() {
     	SonidoController.reproducir("./sonidos/Opening.mp3");
     	sonido();
+    	con = ConexionBD.getConnection();
     }
 
     public void setStage(Stage primaryStage) {

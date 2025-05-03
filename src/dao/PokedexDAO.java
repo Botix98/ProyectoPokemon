@@ -7,54 +7,100 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+import model.Pokedex;
 import model.Pokemon;
 
 public class PokedexDAO {
 	
-	public static LinkedList<Pokemon> cargarPokedex(Connection con) {
-		LinkedList<Pokemon> listaPokemon = new LinkedList<>();
+	public static LinkedList<Pokedex> cargarPokedexCompleta(Connection con) {
+		LinkedList<Pokedex> pokedex = new LinkedList<>();
 		
-		String query = "SELECT NUM_POKEDEX, " + "NOM_POKEMON, " + "NIVEL_EVO, " + "TIPO1, " + "TIPO2, " + "VITALIDAD, "
-				+ "ATAQUE, " + "AT_ESPECIAL, " + "DEFENSA, " + "DEF_ESPECIAL, " + "VELOCIDAD "
-				+ "FROM POKEDEX";
-		Pokemon pokemon;
-
+		String query = "SELECT NUM_POKEDEX, "
+							+ "NOM_POKEMON, "
+							+ "NIVEL_EVO, "
+							+ "TIPO1, "
+							+ "TIPO2, "
+							+ "VITALIDAD, "
+							+ "ATAQUE, "
+							+ "AT_ESPECIAL, "
+							+ "DEFENSA, "
+							+ "DEF_ESPECIAL, "
+							+ "VELOCIDAD "
+						+ "FROM POKEDEX";
+		
 		try {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 
-			while (rs.next()) {
-				pokemon = new Pokemon();
-				pokemon.setIdPokemon(rs.getInt("NUM_POKEDEX"));
-				pokemon.setNombre(rs.getString("NOM_POKEMON"));
-				pokemon.setNivel(rs.getInt("NIVEL_EVO"));
-				pokemon.setTipo1(rs.getString("TIPO1"));
-				pokemon.setTipo2(rs.getString("TIPO2"));
-				pokemon.setVitalidadMax(rs.getInt("VITALIDAD"));
-				pokemon.setAtaque(rs.getInt("ATAQUE"));
-				pokemon.setAtaqueEspecial(rs.getInt("AT_ESPECIAL"));
-				pokemon.setDefensa(rs.getInt("DEFENSA"));
-				pokemon.setDefensaEspecial(rs.getInt("DEF_ESPECIAL"));
-				pokemon.setVelocidad(rs.getInt("VELOCIDAD"));
-				
-				listaPokemon.add(pokemon);
-			}
+			recorrerRS(pokedex, rs);
 		} catch (SQLException e) {
 			ConexionBD.printSQLException(e);
 		}
 
-		return listaPokemon;
+		return pokedex;
 	}
 	
-	public static LinkedList<Pokemon> cargarPorUnTipo(Connection con, String tipo) {
-		LinkedList<Pokemon> listaPokemon = new LinkedList<>();
+	public static Pokedex cargarPorNumPokedex(Connection con, int numPokedex) {
 		
-		String query = "SELECT NUM_POKEDEX, " + "NOM_POKEMON, " + "NIVEL_EVO, " + "TIPO1, " + "TIPO2, " + "VITALIDAD, "
-				+ "ATAQUE, " + "AT_ESPECIAL, " + "DEFENSA, " + "DEF_ESPECIAL, " + "VELOCIDAD "
-				+ "FROM POKEDEX "
-				+ "WHERE TIPO1 = ? "
-				+ "OR TIPO2 = ?";
-		Pokemon pokemon;
+		String query = "SELECT NUM_POKEDEX, "
+							+ "NOM_POKEMON, "
+							+ "NIVEL_EVO, "
+							+ "TIPO1, "
+							+ "TIPO2, "
+							+ "VITALIDAD, "
+							+ "ATAQUE, "
+							+ "AT_ESPECIAL, "
+							+ "DEFENSA, "
+							+ "DEF_ESPECIAL, "
+							+ "VELOCIDAD "
+						+ "FROM POKEDEX "
+						+ "WHERE NUM_POKEDEX = ? ";
+		
+		Pokedex pokedex = new Pokedex();
+
+		try {
+			PreparedStatement pt = con.prepareStatement(query);
+			pt.setInt(1, numPokedex);
+			ResultSet rs = pt.executeQuery();
+			
+			if (rs.next()) {
+				pokedex.setNumPokedex(rs.getInt("NUM_POKEDEX"));
+				pokedex.setNomPokemon(rs.getString("NOM_POKEMON"));
+				pokedex.setNivelEvo(rs.getInt("NIVEL_EVO"));
+				pokedex.setTipo(0, rs.getString("TIPO1"));
+				pokedex.setTipo(1, rs.getString("TIPO2"));
+				pokedex.setVitalidad(rs.getInt("VITALIDAD"));
+				pokedex.setAtaque(rs.getInt("ATAQUE"));
+				pokedex.setAtEspecial(rs.getInt("AT_ESPECIAL"));
+				pokedex.setDefensa(rs.getInt("DEFENSA"));
+				pokedex.setDefEspecial(rs.getInt("DEF_ESPECIAL"));
+				pokedex.setVelocidad(rs.getInt("VELOCIDAD"));
+			}
+
+		} catch (SQLException e) {
+			ConexionBD.printSQLException(e);
+		}
+
+		return pokedex;
+	}
+	
+	public static LinkedList<Pokedex> cargarPorUnTipo(Connection con, String tipo) {
+		LinkedList<Pokedex> pokedex = new LinkedList<>();
+		
+		String query = "SELECT NUM_POKEDEX, "
+							+ "NOM_POKEMON, "
+							+ "NIVEL_EVO, "
+							+ "TIPO1, "
+							+ "TIPO2, "
+							+ "VITALIDAD, "
+							+ "ATAQUE, "
+							+ "AT_ESPECIAL, "
+							+ "DEFENSA, "
+							+ "DEF_ESPECIAL, "
+							+ "VELOCIDAD "
+						+ "FROM POKEDEX "
+						+ "WHERE TIPO1 = ? "
+						+ "OR TIPO2 = ?";
 
 		try {
 			PreparedStatement pt = con.prepareStatement(query);
@@ -62,40 +108,35 @@ public class PokedexDAO {
 			pt.setString(2, tipo);
 			ResultSet rs = pt.executeQuery();
 
-			while (rs.next()) {
-				pokemon = new Pokemon();
-				pokemon.setIdPokemon(rs.getInt("NUM_POKEDEX"));
-				pokemon.setNombre(rs.getString("NOM_POKEMON"));
-				pokemon.setNivel(rs.getInt("NIVEL_EVO"));
-				pokemon.setTipo1(rs.getString("TIPO1"));
-				pokemon.setTipo2(rs.getString("TIPO2"));
-				pokemon.setVitalidadMax(rs.getInt("VITALIDAD"));
-				pokemon.setAtaque(rs.getInt("ATAQUE"));
-				pokemon.setAtaqueEspecial(rs.getInt("AT_ESPECIAL"));
-				pokemon.setDefensa(rs.getInt("DEFENSA"));
-				pokemon.setDefensaEspecial(rs.getInt("DEF_ESPECIAL"));
-				pokemon.setVelocidad(rs.getInt("VELOCIDAD"));
-				
-				listaPokemon.add(pokemon);
-			}
+			recorrerRS(pokedex, rs);
 		} catch (SQLException e) {
 			ConexionBD.printSQLException(e);
 		}
 
-		return listaPokemon;
+		return pokedex;
 	}
 	
-	public static LinkedList<Pokemon> cargarPorVariosTipos(Connection con, String tipo1, String tipo2) {
-		LinkedList<Pokemon> listaPokemon = new LinkedList<>();
+	public static LinkedList<Pokedex> cargarPorVariosTipos(Connection con, String tipo1, String tipo2) {
+		LinkedList<Pokedex> pokedex = new LinkedList<>();
 		
-		String query = "SELECT NUM_POKEDEX, " + "NOM_POKEMON, " + "NIVEL_EVO, " + "TIPO1, " + "TIPO2, " + "VITALIDAD, "
-				+ "ATAQUE, " + "AT_ESPECIAL, " + "DEFENSA, " + "DEF_ESPECIAL, " + "VELOCIDAD "
-				+ "FROM POKEDEX "
-				+ "WHERE TIPO1 = ? "
-				+ "OR TIPO2 = ? "
-				+ "OR TIPO1 = ? "
-				+ "OR TIPO2 = ?";
-		Pokemon pokemon;
+		String query = "SELECT NUM_POKEDEX, "
+							+ "NOM_POKEMON, "
+							+ "NIVEL_EVO, "
+							+ "TIPO1, "
+							+ "TIPO2, "
+							+ "VITALIDAD, "
+							+ "ATAQUE, "
+							+ "AT_ESPECIAL, "
+							+ "DEFENSA, "
+							+ "DEF_ESPECIAL, "
+							+ "VELOCIDAD "
+						+ "FROM POKEDEX "
+						+ "WHERE TIPO1 = ? "
+						+ "OR TIPO2 = ? "
+						+ "OR TIPO1 = ? "
+						+ "OR TIPO2 = ?";
+		
+		Pokedex pokemon;
 
 		try {
 			PreparedStatement pt = con.prepareStatement(query);
@@ -105,136 +146,32 @@ public class PokedexDAO {
 			pt.setString(4, tipo2);
 			ResultSet rs = pt.executeQuery();
 
-			while (rs.next()) {
-				pokemon = new Pokemon();
-				pokemon.setIdPokemon(rs.getInt("NUM_POKEDEX"));
-				pokemon.setNombre(rs.getString("NOM_POKEMON"));
-				pokemon.setNivel(rs.getInt("NIVEL_EVO"));
-				pokemon.setTipo1(rs.getString("TIPO1"));
-				pokemon.setTipo2(rs.getString("TIPO2"));
-				pokemon.setVitalidadMax(rs.getInt("VITALIDAD"));
-				pokemon.setAtaque(rs.getInt("ATAQUE"));
-				pokemon.setAtaqueEspecial(rs.getInt("AT_ESPECIAL"));
-				pokemon.setDefensa(rs.getInt("DEFENSA"));
-				pokemon.setDefensaEspecial(rs.getInt("DEF_ESPECIAL"));
-				pokemon.setVelocidad(rs.getInt("VELOCIDAD"));
-				
-				listaPokemon.add(pokemon);
-			}
+			recorrerRS(pokedex, rs);
 		} catch (SQLException e) {
 			ConexionBD.printSQLException(e);
 		}
 
-		return listaPokemon;
+		return pokedex;
 	}
 	
-	/*public static LinkedList<Pokemon> cargarPokedex(Connection con) {
-		LinkedList<Pokemon> listadoPokemon = new LinkedList<>();
-
-		String query = "SELECT ID_POKEMON," + "ID_ENTRENADOR, " + "MOTE, " + "VITALIDAD, " + "ATAQUE, " + "AT_ESPECIAL, "
-				+ "DEFENSA, " + "DEF_ESPECIAL, " + "VELOCIDAD, " + "NIVEL, " + "FERTILIDAD, " + "SEXO, " + "ESTADO, " + "EQUIPO "
-				+ "FROM POKEMON";
-		Pokemon pokemon;
-
-		try {
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery(query);
-
-			while (rs.next()) {
-				pokemon = new Pokemon();
-				pokemon.setIdPokemon(rs.getInt("ID_POKEMON"));
-				pokemon.setIdEntrenador(rs.getInt("ID_ENTRENADOR"));
-				pokemon.setMote(rs.getString("MOTE"));
-				pokemon.setVitalidadMax(rs.getInt("VITALIDAD"));
-				pokemon.setVitalidadActual(pokemon.getVitalidadMax());
-				pokemon.setAtaque(rs.getInt("ATAQUE"));
-				pokemon.setAtaqueEspecial(rs.getInt("AT_ESPECIAL"));
-				pokemon.setDefensa(rs.getInt("DEFENSA"));
-				pokemon.setDefensaEspecial(rs.getInt("DEF_ESPECIAL"));
-				pokemon.setVelocidad(rs.getInt("VELOCIDAD"));
-				pokemon.setNivel(rs.getInt("NIVEL"));
-				pokemon.setFertilidad(rs.getInt("FERTILIDAD"));
-				pokemon.setSexo(rs.getString("SEXO"));
-				pokemon.setEstado(rs.getString("ESTADO"));
-				pokemon.setEquipo(rs.getInt("EQUIPO"));
-
-				listadoPokemon.add(pokemon);
-			}
-		} catch (SQLException e) {
-			ConexionBD.printSQLException(e);
+	private static void recorrerRS(LinkedList<Pokedex> pokedex, ResultSet rs) throws SQLException {
+		Pokedex pokemon;
+		
+		while (rs.next()) {
+			pokemon = new Pokedex();
+			pokemon.setNumPokedex(rs.getInt("NUM_POKEDEX"));
+			pokemon.setNomPokemon(rs.getString("NOM_POKEMON"));
+			pokemon.setNivelEvo(rs.getInt("NIVEL_EVO"));
+			pokemon.setTipo(0, rs.getString("TIPO1"));
+			pokemon.setTipo(1, rs.getString("TIPO2"));
+			pokemon.setVitalidad(rs.getInt("VITALIDAD"));
+			pokemon.setAtaque(rs.getInt("ATAQUE"));
+			pokemon.setAtEspecial(rs.getInt("AT_ESPECIAL"));
+			pokemon.setDefensa(rs.getInt("DEFENSA"));
+			pokemon.setDefEspecial(rs.getInt("DEF_ESPECIAL"));
+			pokemon.setVelocidad(rs.getInt("VELOCIDAD"));
+			
+			pokedex.add(pokemon);
 		}
-
-		return listadoPokemon;
 	}
-	
-	public static Pokemon seleccionarPokemon(Connection con, int idPokemon) {
-
-		Pokemon pokemon = new Pokemon();
-
-		String query = "SELECT ID_POKEMON," + "ID_ENTRENADOR, " + "MOTE, " + "VITALIDAD, " + "ATAQUE, " + "AT_ESPECIAL, "
-				+ "DEFENSA, " + "DEF_ESPECIAL, " + "VELOCIDAD, " + "NIVEL, " + "FERTILIDAD, " + "SEXO, " + "ESTADO, " + "EQUIPO "
-				+ "FROM POKEMON WHERE ID_POKEMON = ?";
-
-		try {
-			PreparedStatement pt = con.prepareStatement(query);
-			pt.setInt(1, idPokemon);
-			ResultSet rs = pt.executeQuery();
-
-			while (rs.next()) {
-				pokemon.setIdPokemon(rs.getInt("ID_POKEMON"));
-				pokemon.setIdEntrenador(rs.getInt("ID_ENTRENADOR"));
-				pokemon.setNombre(rs.getString("NOM_POKEMON"));
-				pokemon.setMote(rs.getString("MOTE"));
-				pokemon.setVitalidadMax(rs.getInt("VITALIDAD"));
-				pokemon.setVitalidadActual(pokemon.getVitalidadMax());
-				pokemon.setAtaque(rs.getInt("ATAQUE"));
-				pokemon.setAtaqueEspecial(rs.getInt("AT_ESPECIAL"));
-				pokemon.setDefensa(rs.getInt("DEFENSA"));
-				pokemon.setDefensaEspecial(rs.getInt("DEF_ESPECIAL"));
-				pokemon.setVelocidad(rs.getInt("VELOCIDAD"));
-				pokemon.setNivel(rs.getInt("NIVEL"));
-				pokemon.setFertilidad(rs.getInt("FERTILIDAD"));
-				pokemon.setSexo(rs.getString("SEXO"));
-				pokemon.setEstado(rs.getString("ESTADO"));
-				pokemon.setEquipo(rs.getInt("EQUIPO"));
-			}
-
-		} catch (SQLException e) {
-			ConexionBD.printSQLException(e);
-		}
-
-		return pokemon;
-	}
-	
-	public static boolean anyadirPokemon(Connection con, Pokemon pokemon) {
-		String query = "INSERT INTO POKEMON(ID_ENTRENADO, MOTE, VITALIDAD, ATAQUE, AT_ESPECIAL, "
-				+ "DEFENSA, DEF_ESPECIAL, VELOCIDAD, NIVEL, FERTILIDAD, SEXO, ESTADO, EQUIPO) " + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
-		try {
-			PreparedStatement ps = con.prepareStatement(query);
-			ps.setInt(1, pokemon.getIdEntrenador());
-			ps.setString(2, pokemon.getMote());
-			ps.setInt(3, pokemon.getVitalidadMax());
-			ps.setInt(4, pokemon.getAtaque());
-			ps.setInt(5, pokemon.getAtaqueEspecial());
-			ps.setInt(6, pokemon.getDefensa());
-			ps.setInt(7, pokemon.getDefensaEspecial());
-			ps.setInt(8, pokemon.getVelocidad());
-			ps.setInt(9, pokemon.getNivel());
-			ps.setInt(10, pokemon.getFertilidad());
-			ps.setString(11, pokemon.getSexo());
-			ps.setString(12, pokemon.getEstado());
-			ps.setInt(13, pokemon.getEquipo());
-
-			int filasAfectadas = ps.executeUpdate();
-
-			if (filasAfectadas > 0) {
-				return true;
-			}
-
-		} catch (SQLException e) {
-			ConexionBD.printSQLException(e);
-		}
-		return false;
-	}*/
 }

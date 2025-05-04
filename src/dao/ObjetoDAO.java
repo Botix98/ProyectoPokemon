@@ -24,9 +24,9 @@ public class ObjetoDAO {
                 objeto.setIdObjeto(rs.getInt("ID_OBJETO"));
                 objeto.setNomObjeto(rs.getString("NOM_OBJETO"));
                 objeto.setAtaque(rs.getInt("ATAQUE"));
-                objeto.setAtaqueEsp(rs.getInt("AT_ESP"));
+                objeto.setAtaqueEsp(rs.getInt("AT_ESPECIAL"));
                 objeto.setDefensa(rs.getInt("DEFENSA"));
-                objeto.setDefensaEsp(rs.getInt("DEF_ESP"));
+                objeto.setDefensaEsp(rs.getInt("DEF_ESPECIAL"));
                 objeto.setVelocidad(rs.getInt("VELOCIDAD"));
                 objeto.setPrecio(rs.getInt("PRECIO"));
                 
@@ -54,9 +54,9 @@ public class ObjetoDAO {
                 objeto.setIdObjeto(rs.getInt("ID_OBJETO"));
                 objeto.setNomObjeto(rs.getString("NOM_OBJETO"));
                 objeto.setAtaque(rs.getInt("ATAQUE"));
-                objeto.setAtaqueEsp(rs.getInt("AT_ESP"));
+                objeto.setAtaqueEsp(rs.getInt("AT_ESPECIAL"));
                 objeto.setDefensa(rs.getInt("DEFENSA"));
-                objeto.setDefensaEsp(rs.getInt("DEF_ESP"));
+                objeto.setDefensaEsp(rs.getInt("DEF_ESPECIAL"));
                 objeto.setVelocidad(rs.getInt("VELOCIDAD"));
                 objeto.setPrecio(rs.getInt("PRECIO"));
             }
@@ -69,7 +69,7 @@ public class ObjetoDAO {
 
     // Método para insertar un objeto (insert)
     public static boolean insertarObjeto(Connection con, Objeto objeto) {
-        String query = "INSERT INTO OBJETO (NOM_OBJETO, ATAQUE, AT_ESP, DEFENSA, DEF_ESP, VELOCIDAD, PRECIO) "
+        String query = "INSERT INTO OBJETO (NOM_OBJETO, ATAQUE, AT_ESPECIAL, DEFENSA, DEF_ESPECIAL, VELOCIDAD, PRECIO) "
                      + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         try (
@@ -92,7 +92,7 @@ public class ObjetoDAO {
 
     // Método para actualizar un objeto (update)
     public static boolean actualizarObjeto(Connection con, Objeto objeto) {
-        String query = "UPDATE OBJETO SET NOM_OBJETO = ?, ATAQUE = ?, AT_ESP = ?, DEFENSA = ?, DEF_ESP = ?, "
+        String query = "UPDATE OBJETO SET NOM_OBJETO = ?, ATAQUE = ?, AT_ESPECIAL = ?, DEFENSA = ?, DEF_ESPECIAL = ?, "
                      + "VELOCIDAD = ?, PRECIO = ? WHERE ID_OBJETO = ?";
         
         try (PreparedStatement ps = con.prepareStatement(query)) {

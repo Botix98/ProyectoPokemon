@@ -82,4 +82,26 @@ public class MochilaDAO {
             return false;
         }
     }
+    
+    public static Mochila buscarObjetoEnMochila(Connection con, int idEntrenador, int idObjeto) {
+        Mochila mochila = null;
+        String sql = "SELECT * FROM mochila WHERE id_entrenador = ? AND id_objeto = ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, idEntrenador);
+            stmt.setInt(2, idObjeto);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                mochila = new Mochila(
+                    rs.getInt("id_entrenador"),
+                    rs.getInt("id_objeto"),
+                    rs.getInt("cantidad")
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mochila;
+    }
 }

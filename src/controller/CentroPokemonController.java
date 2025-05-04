@@ -1,7 +1,13 @@
 package controller;
 
 import java.io.File;
+import java.sql.Connection;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
+import dao.ConexionBD;
+import dao.PokemonDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import model.Entrenador;
+import model.Pokemon;
 
 public class CentroPokemonController {
 
@@ -23,6 +30,7 @@ public class CentroPokemonController {
 	private MenuController menuController;
 	private LoginController loginController;
 	private TiendaController tiendaController;
+	private LinkedList<Pokemon> equipo;
 	
     @FXML
     private Button btnAtras;
@@ -80,13 +88,18 @@ public class CentroPokemonController {
 
     @FXML
     private ProgressBar pbPokemon6;
+    
+    Connection con = ConexionBD.getConnection();
 
+
+    
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController, TiendaController tiendaController) {
         this.entrenador = entr;
         this.stage = stage;
         this.loginController = loginController;
         this.menuController = menuController;
         this.tiendaController = tiendaController;
+
     }
     
     public void initialize() {
@@ -127,8 +140,12 @@ public class CentroPokemonController {
     @FXML
     void curarEquipo(ActionEvent event) {
     	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/CurarPokemon.mp3");
+    	List<Pokemon> equipo = Arrays.asList(entrenador.getEquipo());
     	for(int i = 0; i < 6; i++) {
-    	entrenador.getPokemon(i).setVitalidadActual(entrenador.getPokemon(i).getVitalidadMax());
+    		if (equipo.get(i) != null) {
+    			PokemonDAO.actualizarVitalidadPokemon(con, equipo.get(i));
+    			PokemonDAO.actualizarEstadoPokemon(con, equipo.get(i));
+    		}
     	}
     }
     

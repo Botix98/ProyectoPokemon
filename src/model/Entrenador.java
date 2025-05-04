@@ -22,7 +22,7 @@ public class Entrenador {
 	    this.pass = "";
 	    this.pokedolares = 0;
 	    this.equipo = new Pokemon[6];
-	    this.IdEntrenador = 0;
+	    this.IdEntrenador = 1;
 	}
 	
 	public Entrenador(String usuario, String pass, int pokedolares, Pokemon[] listaPokemon) {

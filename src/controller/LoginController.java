@@ -119,7 +119,7 @@ public class LoginController {
 
     @FXML
     void salir(ActionEvent event) {
-    	SonidoController.detener("./sonidos/Opening.mp3");
+    	SonidoController.detenerFondo("./sonidos/Opening.mp3");
     	Stage stage = (Stage) btnCancelar.getScene().getWindow();
     	stage.close();
     }
@@ -131,7 +131,7 @@ public class LoginController {
     
     @FXML
     public void initialize() {
-    	SonidoController.reproducir("./sonidos/Opening.mp3");
+    	SonidoController.reproducirFondo("./sonidos/Opening.mp3");
     	sonido();
     	con = ConexionBD.getConnection();
     }
@@ -142,7 +142,7 @@ public class LoginController {
     
     private void abrirPantallaMenu(Entrenador entr) {
     	try {
-    		SonidoController.detener("./sonidos/Opening.mp3");
+    		SonidoController.detenerFondo("./sonidos/Opening.mp3");
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/menu.fxml"));
 	    	Parent root = loader.load();
 	    	
@@ -173,12 +173,12 @@ public class LoginController {
     
     public void sonido() {
     	if (!this.sonido) {
-    		SonidoController.continuar("./sonidos/Opening.mp3");
+    		SonidoController.continuarFondo("./sonidos/Opening.mp3");
     		
     		imgSonido.setImage(new Image(new File("./img/conSonido.png").toURI().toString()));
     		this.sonido = true;
     	} else {
-    		SonidoController.pausar("./sonidos/Opening.mp3");
+    		SonidoController.detenerFondo("./sonidos/Opening.mp3");
     		this.sonido = false;
     		imgSonido.setImage(new Image(new File("./img/sinSonido.png").toURI().toString()));
     	}

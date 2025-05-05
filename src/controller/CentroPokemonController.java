@@ -103,7 +103,7 @@ public class CentroPokemonController {
     }
     
     public void initialize() {
-    	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/CentroPokemon.mp3");
+    	SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/CentroPokemon.mp3");
     }
     
     @FXML
@@ -120,8 +120,8 @@ public class CentroPokemonController {
     @FXML
     void cambio(ActionEvent event) {
         try {
-        	SonidoController.detener(null);
-        	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Tienda.mp3");
+        	SonidoController.detenerFondo("C:/ProyectoPokemon/sonidos/CurarPokemon.mp3");
+        	SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/Tienda.mp3");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Tienda.fxml"));
             Parent root = loader.load();
 
@@ -139,7 +139,7 @@ public class CentroPokemonController {
     
     @FXML
     void curarEquipo(ActionEvent event) {
-    	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/CurarPokemon.mp3");
+    	SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/CurarPokemon.mp3");
     	List<Pokemon> equipo = Arrays.asList(entrenador.getEquipo());
     	for(int i = 0; i < 6; i++) {
     		if (equipo.get(i) != null) {
@@ -152,7 +152,7 @@ public class CentroPokemonController {
     @FXML
     void salir(ActionEvent event) {
     	try {
-    		SonidoController.detener(null);
+    		SonidoController.detenerFondo("C:/ProyectoPokemon/sonidos/CurarPokemon.mp3");
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 

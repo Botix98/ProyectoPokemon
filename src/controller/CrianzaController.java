@@ -75,13 +75,13 @@ public class CrianzaController {
     }
 
     public void initialize() {
-    	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Crianza.mp3");
+    	SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/Crianza.mp3");
     }
     
     @FXML
     void Salir(ActionEvent event) {
     	try {
-    		SonidoController.detener("C:/ProyectoPokemon/sonidos/Crianza.mp3");
+    		SonidoController.detenerFondo("C:/ProyectoPokemon/sonidos/Crianza.mp3");
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 

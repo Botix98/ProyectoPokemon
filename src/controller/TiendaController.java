@@ -238,7 +238,7 @@ public class TiendaController {
     @FXML
     void salir(ActionEvent event) {
     	try {
-    		SonidoController.detener("C:/ProyectoPokemon/sonidos/Tienda.mp3");
+    		SonidoController.detenerFondo("C:/ProyectoPokemon/sonidos/Tienda.mp3");
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 

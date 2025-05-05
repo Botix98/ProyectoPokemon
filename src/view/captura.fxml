@@ -23,7 +23,7 @@
                   <Image url="@../../../ProyectoPokemon/img/Pokemon/Front/70.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgSonido" fitHeight="99.0" fitWidth="84.0" layoutX="52.0" layoutY="23.0" onMouseClicked="#activarDesactivarSonido" preserveRatio="true">
+            <ImageView fx:id="imgSonido" fitHeight="92.0" fitWidth="99.0" layoutX="49.0" layoutY="14.0" onMouseClicked="#activarDesactivarSonido" preserveRatio="true">
                <image>
                   <Image url="@../../img/conSonido.png" />
                </image>
@@ -36,34 +36,14 @@
                <font>
                   <Font size="21.0" />
                </font></Label>
-            <Button fx:id="btnCambiarPokemon" alignment="CENTER" contentDisplay="CENTER" layoutX="767.0" layoutY="259.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="62.0" style="-fx-background-color: rgba(0,0,0,0);" textAlignment="JUSTIFY" wrapText="true" />
-            <Button fx:id="btnPokeball" layoutX="325.0" layoutY="554.0" mnemonicParsing="false" onAction="#usarPokeball" prefHeight="140.0" prefWidth="134.0" style="-fx-background-color: rgba(0,0,0,0);">
+            <Button fx:id="btnCambiarPokemon" alignment="CENTER" contentDisplay="CENTER" layoutX="767.0" layoutY="259.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="62.0" style="-fx-background-color: rgba(0,0,0,0);" textAlignment="JUSTIFY" wrapText="true">
                <graphic>
-                  <ImageView fx:id="imgPokeball" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgCambiarPokemon" fitHeight="51.0" fitWidth="56.0">
                      <image>
-                        <Image url="@../../img/objetos/pokeball.png" />
+                        <Image url="@../../img/flechasBucle.png" />
                      </image>
                   </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="btnSuperball" layoutX="557.0" layoutY="554.0" mnemonicParsing="false" onAction="#usarSuperball" style="-fx-background-color: rgba(0,0,0,0);">
-               <graphic>
-                  <ImageView fx:id="imgSuperball" fitHeight="150.0" fitWidth="150.0">
-                     <image>
-                        <Image url="@../../img/objetos/superball.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="btnUltraball" layoutX="788.0" layoutY="554.0" mnemonicParsing="false" onAction="#usarUltraball" style="-fx-background-color: rgba(0,0,0,0);">
-               <graphic>
-                  <ImageView fx:id="imgUltraball" fitHeight="150.0" fitWidth="150.0">
-                     <image>
-                        <Image url="@../../img/objetos/ultraball.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
+               </graphic></Button>
             <Label fx:id="lblNumeroPokeballs" layoutX="329.0" layoutY="528.0" text="Las que tengas" />
             <Label fx:id="lblRatioCatchPokeball" layoutX="430.0" layoutY="528.0" text="RatioCapturaPokeball" />
             <Label fx:id="lblNumeroSuperballs" layoutX="545.0" layoutY="528.0" text="Las que tengas" />
@@ -142,9 +122,19 @@
                   </ImageView>
                </graphic>
             </Button>
-            <ImageView fx:id="imgCambiarPokemon" fitHeight="51.0" fitWidth="56.0" layoutX="770.0" layoutY="263.0">
+            <ImageView fx:id="imgUltraball" fitHeight="150.0" fitWidth="150.0" layoutX="780.0" layoutY="555.0" onMouseClicked="#usarUltraball">
                <image>
-                  <Image url="@../../img/flechasBucle.png" />
+                  <Image url="@../../img/objetos/ultraball.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgSuperball" fitHeight="150.0" fitWidth="150.0" layoutX="576.0" layoutY="555.0" onMouseClicked="#usarSuperball">
+               <image>
+                  <Image url="@../../img/objetos/superball.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgPokeball" fitHeight="150.0" fitWidth="200.0" layoutX="374.0" layoutY="545.0" onMouseClicked="#usarPokeball" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/objetos/pokeball.png" />
                </image>
             </ImageView>
          </children>

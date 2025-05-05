@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.File;
+import java.sql.Connection;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +14,21 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Entrenador;
 import java.util.List;
 import java.util.Arrays;
+import java.util.LinkedList;
+
+import dao.MochilaDAO;
+import dao.ObjetoDAO;
+import dao.EntrenadorDAO;
+import dao.ConexionBD;
+import model.Entrenador;
+import model.Mochila;
+import model.Objeto;
+
 
 public class CapturaController {
 	
@@ -117,7 +130,16 @@ public class CapturaController {
     private Label lblRatioCatchSuperball;
 
     @FXML
-    private Label lblRatioCatchUltraballs;
+    private Label lblRatioCatchUltraball;
+    
+    @FXML
+    private Button btnPokeball;
+
+    @FXML
+    private Button btnSuperball;
+
+    @FXML
+    private Button btnUltraball;
 
     
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
@@ -125,9 +147,75 @@ public class CapturaController {
         this.stage = stage;
         this.loginController = loginController;
         this.menuController = menuController;
+        
+        cargarObjetosMochila();
+    }
+    
+    //el 0.X es el ratio de captura
+    @FXML
+    void usarPokeball(ActionEvent event) {
+    	double ratio = 0.3;
+    	lblRatioCatchPokeball.setText("Ratio de captura: " + ratio);
+    	lanzarBolas(1, 0.3, "Pokéball");
     }
 
     @FXML
+    void usarSuperball(ActionEvent event) {
+    	double ratio = 0.5;
+    	lblRatioCatchSuperball.setText("Ratio de captura: " + ratio);
+    	lanzarBolas(2, 0.5, "Superball");
+    }
+
+    @FXML
+    void usarUltraball(ActionEvent event) {
+    	double ratio = 0.7;
+    	lblRatioCatchUltraball.setText("Ratio de captura: " + ratio);
+    	lanzarBolas(3, 0.7, "Ultraball");
+    }
+    
+    private void cargarObjetosMochila() {
+        Connection con = ConexionBD.getConnection();
+        List<Mochila> mochila = MochilaDAO.cargarMochilaPorEntrenador(con, entrenador.getIdEntrenador());
+
+        for (Mochila m : mochila) {
+        	int idObjeto = m.getIdObjeto();
+            int cantidad = m.getCantidad();
+
+            switch (idObjeto) {
+                case 1:
+                    lblNumeroPokeballs.setText("x" + cantidad);
+                    break;
+                case 2:
+                    lblNumeroSuperballs.setText("x" + cantidad);
+                    break;
+                case 3:
+                    lblNumeroUltraballs.setText("x" + cantidad);
+                    break;
+            }
+        }
+    }
+    
+    private void lanzarBolas(int idObjeto, double ratioExito, String nombreBall) {
+        Connection con = ConexionBD.getConnection();
+
+        if (MochilaDAO.usarObjeto(con, entrenador.getIdEntrenador(), idObjeto)) {
+            if (Math.random() < ratioExito) {
+                capturarPokemon();
+                lblNombrePokemon.setText("¡Capturado con " + nombreBall + "!");
+            } else {
+                lblNombrePokemon.setText("¡Se escapó! (" + nombreBall + ")");
+            }
+            cargarObjetosMochila();
+        } else {
+            lblNombrePokemon.setText("¡No tienes " + nombreBall + "s!");
+        }
+    }
+    
+    private void capturarPokemon() {
+    	System.out.println ("sa capturao");
+	}
+
+	@FXML
     void activarDesactivarSonido(MouseEvent event) {
     	loginController.sonido();
     	if (loginController.sonido) {
@@ -137,7 +225,7 @@ public class CapturaController {
     		imgSonido.setImage(new Image(new File("./img/sinSonido.png").toURI().toString()));
     	}
     }
-     
+	    
     @FXML
     public void initialize() {
     	SonidoController.reproducir("C:/ProyectoPokemon/sonidos/Captura.mp3");
@@ -155,6 +243,7 @@ public class CapturaController {
         }
     }
 
+    //aqui tengo que poner lo de este metodo al boton tambien
     private void ponerOscuridad(ImageView hoveredImageView) {
         for (ImageView imageView : imageViews) {
             if (imageView != hoveredImageView) {

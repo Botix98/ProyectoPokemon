@@ -61,7 +61,7 @@
                   <Font name="Arial Black" size="30.0" />
                </font>
             </Label>
-            <Button fx:id="btnSalir" layoutX="1013.0" layoutY="589.0" mnemonicParsing="false" onAction="#salir" prefHeight="76.0" prefWidth="170.0" text="Salir" />
+            <Button fx:id="btnSalir" layoutX="1058.0" layoutY="595.0" mnemonicParsing="false" onAction="#salir" prefHeight="76.0" prefWidth="170.0" text="Salir" />
             <Label fx:id="lblNombrePokemonGrande" layoutX="912.0" layoutY="159.0" text="Nombre Pokemon">
                <font>
                   <Font name="Arial" size="20.0" />
@@ -123,6 +123,7 @@
                   <Image url="@../../img/conSonido.png" />
                </image>
             </ImageView>
+            <Button fx:id="btnCaja" layoutX="869.0" layoutY="595.0" mnemonicParsing="false" onAction="#irCaja" prefHeight="76.0" prefWidth="170.0" text="Caja" />
       </children>
     </AnchorPane>
   </children>

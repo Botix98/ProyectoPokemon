@@ -18,7 +18,7 @@
                </image>
             </ImageView>
             <Button fx:id="btnSalir" layoutX="1009.0" layoutY="377.0" mnemonicParsing="false" onAction="#salir" prefHeight="99.0" prefWidth="180.0" text="Salir" />
-            <ImageView fx:id="imgPokemon" fitHeight="441.0" fitWidth="443.0" layoutX="430.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgPokemon" fitHeight="441.0" fitWidth="443.0" layoutX="431.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../ProyectoPokemon/img/Pokemon/Front/70.png" />
                </image>
@@ -44,12 +44,21 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Label fx:id="lblNumeroPokeballs" layoutX="329.0" layoutY="528.0" text="Las que tengas" />
-            <Label fx:id="lblRatioCatchPokeball" layoutX="430.0" layoutY="528.0" text="RatioCapturaPokeball" />
-            <Label fx:id="lblNumeroSuperballs" layoutX="545.0" layoutY="528.0" text="Las que tengas" />
-            <Label fx:id="lblRatioCatchSuperball" layoutX="660.0" layoutY="528.0" text="RatioCapturaSuperball" />
-            <Label fx:id="lblNumeroUltraballs" layoutX="776.0" layoutY="528.0" text="Las que tengas" />
-            <Label fx:id="lblRatioCatchUltraball" layoutX="877.0" layoutY="528.0" text="RatioCapturaUltraball" />
+            <Label fx:id="lblNumeroPokeballs" layoutX="430.0" layoutY="528.0" prefHeight="17.0" prefWidth="63.0" text="Tienes+NP" />
+            <Label fx:id="lblRatioCatchPokeball" layoutX="419.0" layoutY="510.0" prefHeight="17.0" prefWidth="98.0" text="CRP">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="lblNumeroSuperballs" layoutX="626.0" layoutY="528.0" prefHeight="17.0" prefWidth="63.0" text="Tienes+NS" />
+            <Label fx:id="lblRatioCatchSuperball" layoutX="619.0" layoutY="510.0" prefHeight="17.0" prefWidth="107.0" text="CRS">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="lblNumeroUltraballs" layoutX="813.0" layoutY="528.0" prefHeight="17.0" prefWidth="63.0" text="Tienes+NU" />
+            <Label fx:id="lblRatioCatchUltraball" layoutX="803.0" layoutY="510.0" prefHeight="17.0" prefWidth="92.0" text="CRU">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
             <Button fx:id="btnCambioNoche" layoutX="194.0" layoutY="427.0" mnemonicParsing="false" onAction="#cambiarFondoNoche" prefHeight="59.0" prefWidth="114.0">
                <graphic>
                   <ImageView fx:id="imgCambioNoche" fitHeight="74.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
@@ -122,17 +131,17 @@
                   </ImageView>
                </graphic>
             </Button>
-            <ImageView fx:id="imgUltraball" fitHeight="150.0" fitWidth="150.0" layoutX="780.0" layoutY="555.0" onMouseClicked="#usarUltraball">
+            <ImageView fx:id="imgUltraball" fitHeight="150.0" fitWidth="150.0" layoutX="768.0" layoutY="545.0" onMouseClicked="#usarUltraball">
                <image>
                   <Image url="@../../img/objetos/ultraball.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgSuperball" fitHeight="150.0" fitWidth="150.0" layoutX="576.0" layoutY="555.0" onMouseClicked="#usarSuperball">
+            <ImageView fx:id="imgSuperball" fitHeight="150.0" fitWidth="150.0" layoutX="576.0" layoutY="545.0" onMouseClicked="#usarSuperball">
                <image>
                   <Image url="@../../img/objetos/superball.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgPokeball" fitHeight="150.0" fitWidth="200.0" layoutX="374.0" layoutY="545.0" onMouseClicked="#usarPokeball" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgPokeball" fitHeight="150.0" fitWidth="200.0" layoutX="384.0" layoutY="545.0" onMouseClicked="#usarPokeball" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/objetos/pokeball.png" />
                </image>

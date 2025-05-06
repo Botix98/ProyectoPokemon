@@ -143,6 +143,15 @@ public class CapturaController {
         this.loginController = loginController;
         this.menuController = menuController;
         cargarObjetosMochila();
+        
+        //FALTA QUE BAJE LA CANTIDAD DE BOLAS AL USARLAS
+        lblNumeroPokeballs.setText("Tienes: " + MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), 8).getCantidad());
+        lblNumeroSuperballs.setText("Tienes: " + MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), 9).getCantidad());
+        lblNumeroUltraballs.setText("Tienes: " + MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), 10).getCantidad());
+
+        lblRatioCatchPokeball.setText("Captura: 30%");
+        lblRatioCatchSuperball.setText("Captura: 50%");
+        lblRatioCatchUltraball.setText("Captura: 80%");
     }
     
     @FXML
@@ -161,25 +170,19 @@ public class CapturaController {
             });
         }
     }
-    //el 0.X es el ratio de captura
+    //el numero es el id en BD, y el 0,X es el ratio de captura
     @FXML
     void usarPokeball(MouseEvent event) {
-    	double ratio = 0.3;
-    	lblRatioCatchPokeball.setText("Ratio de captura: " + ratio);
     	lanzarBolas(8, 0.3, "Pokéball");
     }
 
     @FXML
     void usarSuperball(MouseEvent event) {
-    	double ratio = 0.5;
-    	lblRatioCatchSuperball.setText("Ratio de captura: " + ratio);
     	lanzarBolas(9, 0.5, "Superball");
     }
 
     @FXML
     void usarUltraball(MouseEvent event) {
-    	double ratio = 0.7;
-    	lblRatioCatchUltraball.setText("Ratio de captura: " + ratio);
     	lanzarBolas(10, 0.7, "Ultraball");
     }
     
@@ -235,7 +238,7 @@ public class CapturaController {
         }
         SonidoController.continuarFondo("C:/ProyectoPokemon/sonidos/Captura.mp3");
     }
-	    
+	    //que vaya a la caja y no al equipo al ser capturado
     private void capturarPokemon() {
     	 System.out.println("esto es que ha funcionado ahora hay que hacer que se vayan al equipo");
 	}

@@ -153,6 +153,13 @@ public class CajaController {
 		
 	}
     
+	public void init(Entrenador entrenador2, Stage stage2, LoginController loginController2,
+			EquipoController equipoController) {
+		// TODO Auto-generated method stub
+		
+	}
+    
+    
     public void initialize() {
     	SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/Caja.mp3");
     }
@@ -187,5 +194,5 @@ public class CajaController {
     	}
 
     }
-
+    
 }

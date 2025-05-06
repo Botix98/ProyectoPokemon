@@ -24,6 +24,9 @@ public class EquipoController {
 	private LoginController loginController;
 
     @FXML
+    private Button btnCaja;
+    
+    @FXML
     private Button btnSalir;
 
     @FXML
@@ -151,6 +154,26 @@ public class EquipoController {
     		imgSonido.setImage(new Image(new File("./img/sinSonido.png").toURI().toString()));
     	}
     }
+    
+    @FXML
+    void irCaja(ActionEvent event) {
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Caja.fxml"));
+            Parent root = loader.load();
+
+            CajaController cajaController = loader.getController();
+            cajaController.init(this.entrenador, this.stage, this.loginController, this); 
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+	        stage.setTitle("Caja");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    
     
     @FXML
     void salir(ActionEvent event) {

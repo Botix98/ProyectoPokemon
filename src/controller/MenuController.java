@@ -217,7 +217,7 @@ public class MenuController {
             CajaController cajaController = loader.getController();
 
             // Inicializamos la pantalla de Caja
-            cajaController.init(this.entrenador, this.stage, this.loginController, this); 
+            cajaController.init(this.entrenador, this.stage, this.loginController, this, equipoController); 
 
             Scene scene = new Scene(root);
             stage.setScene(scene);

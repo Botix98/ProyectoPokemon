@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -16,6 +17,9 @@
                <image>
                   <Image url="@../../img/caja/fondoCaja.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="59.0" layoutY="167.0" prefHeight="42.0" prefWidth="227.0" text="Equipo" textAlignment="CENTER">
                <font>
@@ -57,160 +61,250 @@
                   <Image url="@../../img/Pokemon/Front/50.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblCaja1" alignment="CENTER" layoutX="353.0" layoutY="63.0" prefHeight="42.0" prefWidth="646.0" text="Caja 1">
+            <Label fx:id="lblCaja1" alignment="CENTER" layoutX="353.0" layoutY="63.0" prefHeight="42.0" prefWidth="646.0" text="Caja">
                <font>
                   <Font size="21.0" />
                </font>
             </Label>
-            <ImageView fx:id="imgPokemonCaja1" layoutX="372.0" layoutY="174.0">
+            <ImageView fx:id="imgPokemonCaja1" layoutX="372.0" layoutY="174.0" pickOnBounds="true">
                <image>
                   <Image url="@../../img/Pokemon/Front/69.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja2" layoutX="468.0" layoutY="174.0">
+            <ImageView fx:id="imgPokemonCaja2" layoutX="468.0" layoutY="174.0" pickOnBounds="true">
                <image>
                   <Image url="@../../img/Pokemon/Front/69.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja3" layoutX="564.0" layoutY="174.0">
+            <ImageView fx:id="imgPokemonCaja3" layoutX="564.0" layoutY="174.0" pickOnBounds="true">
                <image>
                   <Image url="@../../img/Pokemon/Front/69.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja4" layoutX="660.0" layoutY="174.0">
+            <ImageView fx:id="imgPokemonCaja4" layoutX="660.0" layoutY="174.0" pickOnBounds="true">
                <image>
                   <Image url="@../../img/Pokemon/Front/69.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja5" layoutX="756.0" layoutY="174.0">
+            <ImageView fx:id="imgPokemonCaja5" layoutX="756.0" layoutY="174.0" pickOnBounds="true">
                <image>
                   <Image url="@../../img/Pokemon/Front/69.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja6" layoutX="852.0" layoutY="174.0">
+            <ImageView fx:id="imgPokemonCaja6" layoutX="852.0" layoutY="174.0" pickOnBounds="true">
                <image>
                   <Image url="@../../img/Pokemon/Front/69.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja7" layoutX="372.0" layoutY="258.0">
+            <ImageView fx:id="imgPokemonCaja7" layoutX="372.0" layoutY="258.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/23.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja13" layoutX="372.0" layoutY="354.0">
+            <ImageView fx:id="imgPokemonCaja13" layoutX="372.0" layoutY="354.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/129.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja19" layoutX="372.0" layoutY="445.0">
+            <ImageView fx:id="imgPokemonCaja19" layoutX="372.0" layoutY="445.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/109.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja25" layoutX="372.0" layoutY="540.0">
+            <ImageView fx:id="imgPokemonCaja25" layoutX="372.0" layoutY="540.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/43.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja8" layoutX="468.0" layoutY="258.0">
+            <ImageView fx:id="imgPokemonCaja8" layoutX="468.0" layoutY="258.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/23.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja9" layoutX="564.0" layoutY="258.0">
+            <ImageView fx:id="imgPokemonCaja9" layoutX="564.0" layoutY="258.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/23.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja10" layoutX="660.0" layoutY="258.0">
+            <ImageView fx:id="imgPokemonCaja10" layoutX="660.0" layoutY="258.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/23.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja11" layoutX="756.0" layoutY="258.0">
+            <ImageView fx:id="imgPokemonCaja11" layoutX="756.0" layoutY="258.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/23.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja12" layoutX="852.0" layoutY="258.0">
+            <ImageView fx:id="imgPokemonCaja12" layoutX="852.0" layoutY="258.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/23.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja14" layoutX="468.0" layoutY="354.0">
+            <ImageView fx:id="imgPokemonCaja14" layoutX="468.0" layoutY="354.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/129.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja20" layoutX="468.0" layoutY="445.0">
+            <ImageView fx:id="imgPokemonCaja20" layoutX="468.0" layoutY="445.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/109.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja26" layoutX="468.0" layoutY="540.0">
+            <ImageView fx:id="imgPokemonCaja26" layoutX="468.0" layoutY="540.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/43.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja15" layoutX="564.0" layoutY="354.0">
+            <ImageView fx:id="imgPokemonCaja15" layoutX="564.0" layoutY="354.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/129.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja21" layoutX="564.0" layoutY="445.0">
+            <ImageView fx:id="imgPokemonCaja21" layoutX="564.0" layoutY="445.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/109.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja16" layoutX="660.0" layoutY="354.0">
+            <ImageView fx:id="imgPokemonCaja16" layoutX="660.0" layoutY="354.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/129.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja17" layoutX="756.0" layoutY="354.0">
+            <ImageView fx:id="imgPokemonCaja17" layoutX="756.0" layoutY="354.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/129.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja18" layoutX="852.0" layoutY="354.0">
+            <ImageView fx:id="imgPokemonCaja18" layoutX="852.0" layoutY="354.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/129.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja22" layoutX="660.0" layoutY="445.0">
+            <ImageView fx:id="imgPokemonCaja22" layoutX="660.0" layoutY="445.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/109.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja27" layoutX="564.0" layoutY="540.0">
+            <ImageView fx:id="imgPokemonCaja27" layoutX="564.0" layoutY="540.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/43.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja28" layoutX="660.0" layoutY="540.0">
+            <ImageView fx:id="imgPokemonCaja28" layoutX="660.0" layoutY="540.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/43.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja23" layoutX="756.0" layoutY="445.0">
+            <ImageView fx:id="imgPokemonCaja23" layoutX="756.0" layoutY="445.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/109.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja24" layoutX="852.0" layoutY="445.0">
+            <ImageView fx:id="imgPokemonCaja24" layoutX="852.0" layoutY="445.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/109.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja29" layoutX="756.0" layoutY="540.0">
+            <ImageView fx:id="imgPokemonCaja29" layoutX="756.0" layoutY="540.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/43.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="imgPokemonCaja30" layoutX="852.0" layoutY="540.0">
+            <ImageView fx:id="imgPokemonCaja30" layoutX="852.0" layoutY="540.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/69.png" />
+                  <Image url="@../../img/Pokemon/Front/43.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="imgSonido" fitHeight="99.0" fitWidth="84.0" layoutX="28.0" layoutY="30.0" onMouseClicked="#activarDesactivarSonido" preserveRatio="true">
                <image>
@@ -218,6 +312,8 @@
                </image>
             </ImageView>
             <Button fx:id="btnSalir" layoutX="135.0" layoutY="30.0" mnemonicParsing="false" onAction="#salir" prefHeight="84.0" prefWidth="174.0" text="Salir" />
+            <Button fx:id="btnSalir1" layoutX="482.0" layoutY="55.0" mnemonicParsing="false" onAction="#salir" prefHeight="58.0" prefWidth="142.0" text="Equipo a caja" />
+            <Button fx:id="btnSalir11" layoutX="733.0" layoutY="55.0" mnemonicParsing="false" onAction="#salir" prefHeight="58.0" prefWidth="142.0" text="Caja a equipo" />
          </children>
       </AnchorPane>
    </children>

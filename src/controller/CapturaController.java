@@ -207,36 +207,48 @@ public class CapturaController {
         }
     }
     
-    //TODAVIA NO HE CONSEGUIDO QUE FUNCIONE QUE SE PARE LA MUSICA, SE ACTIVE EL EFECTO Y CUANDO TERMINE EL EFECTO QUE CONTINUE LA MUSICA DE FONDO
     private void lanzarBolas(int idObjeto, double ratioExito, String nombreBall) {
         Mochila m = MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), idObjeto);
 
-        
         if (m != null && m.getCantidad() > 0) {
             // Disminuir la cantidad y actualizarla
             m.setCantidad(m.getCantidad() - 1);
             if (m.getCantidad() > 0) {
                 MochilaDAO.actualizarCantidad(con, m);
             } else {
-            	//si hay 0 se elimina
+                // si hay 0 se elimina
                 MochilaDAO.eliminarDeMochila(con, m.getIdEntrenador(), m.getIdObjeto());
             }
-            SonidoController.pausarFondo("C:/ProyectoPokemon/sonidos/Captura.mp3");
+
+            SonidoController.pausarFondo(null);
+
             // Intentar capturar
-            if (Math.random() < ratioExito) {
-            	SonidoController.reproducirEfecto("C:/ProyectoPokemon/sonidos/PokemonCapturado.mp3");
+            boolean capturado = Math.random() < ratioExito;
+            String rutaEfecto;
+
+            if (capturado) {
                 capturarPokemon();
-                lblNombrePokemon.setText("¡Capturado con " + nombreBall + "!");
+                lblNombrePokemon.setText("¡Capturado!");
+                rutaEfecto = "C:/ProyectoPokemon/sonidos/PokemonCapturado.mp3";
             } else {
-            	SonidoController.reproducirEfecto("C:/ProyectoPokemon/sonidos/PokemonNoCapturado.mp3");
-                lblNombrePokemon.setText("¡Se escapó! (" + nombreBall + ")");
+                lblNombrePokemon.setText("¡Se escapó!");
+                rutaEfecto = "C:/ProyectoPokemon/sonidos/PokemonNoCapturado.mp3";
             }
+
+            // Reproducir efecto y al finalizar continuar musica de fondo
+            Runnable continuarMusica = new Runnable() {
+                @Override
+                public void run() {
+                    SonidoController.continuarFondo(null);
+                }
+            };
+
+            SonidoController.reproducirEfecto(rutaEfecto, continuarMusica);
 
             cargarObjetosMochila();
         } else {
             lblNombrePokemon.setText("¡No tienes " + nombreBall + "s!");
         }
-        SonidoController.continuarFondo("C:/ProyectoPokemon/sonidos/Captura.mp3");
     }
 	    //que vaya a la caja y no al equipo al ser capturado
     private void capturarPokemon() {

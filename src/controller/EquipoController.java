@@ -162,7 +162,7 @@ public class EquipoController {
             Parent root = loader.load();
 
             CajaController cajaController = loader.getController();
-            cajaController.init(this.entrenador, this.stage, this.loginController, this); 
+            cajaController.init(this.entrenador, this.stage, this.loginController, menuController, this); 
 
             Scene scene = new Scene(root);
             stage.setScene(scene);

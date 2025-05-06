@@ -11,12 +11,17 @@ public class SonidoController {
     private static String rutaActualFondo;
     private static boolean sonidoActivo = true;
 
-    public static void reproducirEfecto(String rutaSonidoEfecto) {
+    public static void reproducirEfecto(String rutaSonidoEfecto, Runnable onFinish) {
         if (!sonidoActivo) return;
 
         Media media = new Media(new File(rutaSonidoEfecto).toURI().toString());
         MediaPlayer efecto = new MediaPlayer(media);
         efecto.setVolume(1);
+
+        if (onFinish != null) {
+            efecto.setOnEndOfMedia(onFinish);
+        }
+
         efecto.play();
     }
 

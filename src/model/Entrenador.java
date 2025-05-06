@@ -8,7 +8,6 @@ public class Entrenador {
 	private String usuario;
 	private String pass;
 	private int pokedolares;
-	private Pokemon[] equipo;
 	private int IdEntrenador;
 	
 	/**
@@ -21,24 +20,14 @@ public class Entrenador {
 	    this.usuario = "";
 	    this.pass = "";
 	    this.pokedolares = 0;
-	    this.equipo = new Pokemon[6];
 	    this.IdEntrenador = 1;
 	}
 	
-	public Entrenador(String usuario, String pass, int pokedolares, Pokemon[] listaPokemon) {
+	public Entrenador(String usuario, String pass, int pokedolares) {
 		super();
 		this.usuario = usuario;
 		this.pass = pass;
 		this.pokedolares = pokedolares;
-		this.equipo = new Pokemon[6];
-		for (int i = 0; i < this.equipo.length; i++) {
-			if (listaPokemon[i] != null) {
-				this.equipo[i] = listaPokemon[i];
-			}
-			else {
-				this.equipo[i] = null;
-			}
-		}
 	}
 	/**
 	 * @return the usuario
@@ -77,33 +66,6 @@ public class Entrenador {
 		this.pokedolares = pokedolares;
 	}
 	
-	/**
-	 * @return the equipo
-	 */
-	public Pokemon getPokemon(int n) {
-		return equipo[n];
-	}
-	/**
-	 * @param equipo the equipo to set
-	 */
-	public void setPokemon(Pokemon pokemon, int n) {
-		this.equipo[n] = pokemon;
-	}
-	
-	/**
-	 * @return the equipo
-	 */
-	public Pokemon[] getEquipo() {
-		return equipo;
-	}
-	
-	/**
-	 * @param equipo the equipo to set
-	 */
-	public void setEquipo(Pokemon[] equipo) {
-		this.equipo = equipo;
-	}
-	
 	public int getIdEntrenador() {
 		return IdEntrenador;
 	}
@@ -112,8 +74,6 @@ public class Entrenador {
 	}
 	@Override
 	public String toString() {
-		return "Entrenador [usuario=" + usuario + ", pass=" + pass + ", pokedolares=" + pokedolares + ", equipo="
-				+ Arrays.toString(equipo) + "]";
+		return "Entrenador [usuario=" + usuario + ", pass=" + pass + ", pokedolares=" + pokedolares + "]";
 	}
-
 }

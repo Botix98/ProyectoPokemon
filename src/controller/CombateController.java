@@ -1,17 +1,19 @@
 package controller;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
 import dao.ConexionBD;
-import dao.EntrenadorDAO;
 import dao.MovimientoDAO;
 import dao.MovimientoPokemonDAO;
-import dao.PokedexDAO;
 import dao.PokemonDAO;
 import dao.RivalDAO;
-import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
@@ -24,19 +26,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import model.Entrenador;
 import model.Movimiento;
 import model.MovimientoPokemon;
-import model.Pokedex;
 import model.Rival;
+import model.Turno;
 import model.Pokemon;
 
 public class CombateController {
@@ -51,14 +53,20 @@ public class CombateController {
 	private int numPokVivosEntr;
 	private int numPokVivosRival;
 	
+	private int indicePokSeleccionado;
+	
 	private Rival rival;
 	
-	Connection con;
+	private Connection con;
 	
-	LinkedList<Pokemon> equipoEntrenador;
-	LinkedList<Pokemon> equipoRival;
-	LinkedList<MovimientoPokemon> listaMovPokEntr;
-	LinkedList<MovimientoPokemon> listaMovPokRival;
+	private LinkedList<Turno> registroCombate;
+	private LinkedList<Pokemon> equipoEntrenador;
+	private LinkedList<Pokemon> equipoRival;
+	private LinkedList<MovimientoPokemon> listaMovPokEntr;
+	private LinkedList<MovimientoPokemon> listaMovPokRival;
+
+	@FXML
+    private Button btnAccionCambiarPokemon;
 
     @FXML
     private Button btnAtacar;
@@ -76,13 +84,37 @@ public class CombateController {
     private Button btnAtaque4;
 
     @FXML
-    private Button btnRendirse;
-    
+    private Button btnCambiarPokemon;
+
+    @FXML
+    private Button btnCancelarAccion;
+
+    @FXML
+    private Button btnMantenerPokemon;
+
     @FXML
     private Button btnMochila;
-    
+
     @FXML
-    private Button btnAccionCambiarPokemon;
+    private Button btnPokemonEquipo1;
+
+    @FXML
+    private Button btnPokemonEquipo2;
+
+    @FXML
+    private Button btnPokemonEquipo3;
+
+    @FXML
+    private Button btnPokemonEquipo4;
+
+    @FXML
+    private Button btnPokemonEquipo5;
+
+    @FXML
+    private Button btnPokemonEquipo6;
+
+    @FXML
+    private Button btnRendirse;
 
     @FXML
     private ImageView imgCuadricula;
@@ -100,6 +132,24 @@ public class CombateController {
     private ImageView imgFondo;
 
     @FXML
+    private ImageView imgFondoEquipo1;
+
+    @FXML
+    private ImageView imgFondoEquipo2;
+
+    @FXML
+    private ImageView imgFondoEquipo3;
+
+    @FXML
+    private ImageView imgFondoEquipo4;
+
+    @FXML
+    private ImageView imgFondoEquipo5;
+
+    @FXML
+    private ImageView imgFondoEquipo6;
+
+    @FXML
     private ImageView imgInfoPokemonEntrenador;
 
     @FXML
@@ -107,6 +157,24 @@ public class CombateController {
 
     @FXML
     private ImageView imgPokemonEntrenador;
+
+    @FXML
+    private ImageView imgPokemonEquipo1;
+
+    @FXML
+    private ImageView imgPokemonEquipo2;
+
+    @FXML
+    private ImageView imgPokemonEquipo3;
+
+    @FXML
+    private ImageView imgPokemonEquipo4;
+
+    @FXML
+    private ImageView imgPokemonEquipo5;
+
+    @FXML
+    private ImageView imgPokemonEquipo6;
 
     @FXML
     private ImageView imgPokemonRival;
@@ -130,7 +198,22 @@ public class CombateController {
     private ImageView imgSonido;
 
     @FXML
-    private ProgressBar pbVidaPokemonRival;
+    private Label lblInfoPokemon1;
+    
+    @FXML
+    private Label lblInfoPokemon2;
+
+    @FXML
+    private Label lblInfoPokemon3;
+
+    @FXML
+    private Label lblInfoPokemon4;
+
+    @FXML
+    private Label lblInfoPokemon5;
+
+    @FXML
+    private Label lblInfoPokemon6;
 
     @FXML
     private Label lblNivelPokemonEntrenador;
@@ -160,23 +243,26 @@ public class CombateController {
     private ProgressBar pbVidaPokemonEntrenador;
 
     @FXML
+    private ProgressBar pbVidaPokemonRival;
+
+    @FXML
     private ProgressBar pbXpPokemonEntrenador;
-    
-    @FXML
-    private Button btnCambiarPokemon;
 
     @FXML
-    private Button btnMantenerPokemon;
+    private VBox vBoxEquipo;
     
     @FXML
-    private Button btnCancelarAccion;
+    private Button btnCancelarCambio;
 
+    @FXML
+    private Button btnConfirmarCambio;
+    
     @FXML
     public void initialize() {
     	con = ConexionBD.getConnection();
+    	registroCombate = new LinkedList<Turno>();
     }
 
-    
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
         this.entrenador = entr;
         this.stage = stage;
@@ -293,6 +379,13 @@ public class CombateController {
     }
 
 	private void volverAlMenu() {
+		for (Pokemon pokemon : equipoEntrenador) {
+			PokemonDAO.actualizarEstadoPokemon(con, pokemon);
+			PokemonDAO.actualizarVitalidadPokemon(con, pokemon);
+		}
+		
+		logCombate();
+		
 		PauseTransition pausa = new PauseTransition(Duration.seconds(5));
     	pausa.setOnFinished(evento -> {
     		try {
@@ -311,6 +404,27 @@ public class CombateController {
         	}
         });
     	pausa.play();
+	}
+
+
+	private void logCombate() {
+		File fs = new File("C:/ProyectoPokemon/logs/" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMDDhhmmss")) + ".txt");
+		try {
+			FileWriter fw = new FileWriter(fs);
+			BufferedWriter bw = new BufferedWriter(fw);
+			
+			for (int i = 0; i < registroCombate.size(); i++) {
+				bw.write("Turno: " + registroCombate.get(i).getNumeroTurno());
+				bw.write("\n");
+				bw.write("Entrenador: " + registroCombate.get(i).getAccionEntrenador());
+				bw.write("\n");
+				bw.write("Rival: " + registroCombate.get(i).getAccionRival());
+				bw.write("\n");
+			}
+		if (bw!=null) bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
     
     @FXML
@@ -375,45 +489,42 @@ public class CombateController {
     
     @FXML
     void ataque1(ActionEvent event) {
-    	if (listaMovPokEntr.get(0).getPpActuales() > 0) {
-    		listaMovPokEntr.get(0).setPpActuales(listaMovPokEntr.get(0).getPpActuales() - 1);
-    		
-    		desactivarBotonesAtaque();
-    		
-    		int ataqueRival = seleccionarAtaqueRival();
-    		
-    		realizarAtaque(0, ataqueRival);
-    	}
-    	else {
-    		sinPPs(MovimientoDAO.buscarPorId(con, listaMovPokEntr.get(0).getIdMovimiento()).getNombre());
-    	}
+    	llamarAtaque(0);
     }
-
+    
 	@FXML
     void ataque2(ActionEvent event) {
-    	LinkedList<Pokedex> pokedex = new LinkedList<Pokedex>();
-    	Connection con = ConexionBD.getConnection();
-    	
-    	pokedex = PokedexDAO.cargarPokedexCompleta(con);
-    	
-    	for (Pokedex pokemon : pokedex) {
-			System.out.println(pokemon.toString());
-		}
+		llamarAtaque(1);
     }
 
     @FXML
     void ataque3(ActionEvent event) {
-
+    	llamarAtaque(2);
     }
 
     @FXML
     void ataque4(ActionEvent event) {
-
+    	llamarAtaque(3);
     }
+    
+    private void llamarAtaque(int numMov) {
+		if (listaMovPokEntr.get(numMov).getPpActuales() > 0) {
+    		listaMovPokEntr.get(numMov).setPpActuales(listaMovPokEntr.get(numMov).getPpActuales() - 1);
+    		
+    		desactivarBotonesAtaque();
+    		
+    		realizarAtaque(numMov, seleccionarAtaqueRival());
+    	}
+    	else {
+    		sinPPs(MovimientoDAO.buscarPorId(con, listaMovPokEntr.get(numMov).getIdMovimiento()).getNombre());
+    	}
+	}
     
     @FXML
     void cancelarAccion(ActionEvent event) {
     	desactivarBotonesAtaque();
+    	
+    	vBoxEquipo.setVisible(false);
     	
     	btnAtacar.setVisible(true);
     	btnRendirse.setVisible(true);
@@ -424,33 +535,106 @@ public class CombateController {
     
     @FXML
     void accionCambiarPokemon(ActionEvent event) {
-    	btnMantenerPokemon.setVisible(false);
-    	btnCambiarPokemon.setVisible(false);
+    	//btnMantenerPokemon.setVisible(false);
+    	//btnCambiarPokemon.setVisible(false);
+    	btnRendirse.setVisible(false);
+    	btnAtacar.setVisible(false);
+    	btnAccionCambiarPokemon.setVisible(false);
+    	btnMochila.setVisible(false);
     	
-    	//MANDAR A LA VENTANA DE EQUIPO
-    	//EL RIVAL SACA UN POKEMON
+    	btnCancelarAccion.setVisible(true);
+    	
+    	//MOSTRAR LA TABLA DE LOS EQUIPOS
+    	vBoxEquipo.setVisible(true);
+    	
+    	prepararPokemonEquipo();
     }
+    
+    private void prepararPokemonEquipo() {
+		for (int i = 0; i < equipoEntrenador.size(); i++) {
+        	String infoPokemon = "Nombre: " + equipoEntrenador.get(i).getMote()
+    				+ "\nVida: " + equipoEntrenador.get(i).getVitalidadAct() + "/" + equipoEntrenador.get(i).getVitalidadMax()
+    				+ "\nEstado: " + equipoEntrenador.get(i).getEstado();
+        	switch (i) {
+        	case 0:
+        		imgPokemonEquipo1.setImage(new Image(new File("./img/Pokemon/Front/" + equipoEntrenador.get(i).getNumPokedex() + ".png").toURI().toString()));
+        		lblInfoPokemon1.setText(infoPokemon);
+        		break;
+        	case 1:
+        		imgPokemonEquipo2.setImage(new Image(new File("./img/Pokemon/Front/" + equipoEntrenador.get(i).getNumPokedex() + ".png").toURI().toString()));
+        		lblInfoPokemon2.setText(infoPokemon);
+        		break;
+        	case 2:
+        		imgPokemonEquipo3.setImage(new Image(new File("./img/Pokemon/Front/" + equipoEntrenador.get(i).getNumPokedex() + ".png").toURI().toString()));
+        		lblInfoPokemon3.setText(infoPokemon);
+        		break;
+        	case 3:
+        		imgPokemonEquipo4.setImage(new Image(new File("./img/Pokemon/Front/" + equipoEntrenador.get(i).getNumPokedex() + ".png").toURI().toString()));
+        		lblInfoPokemon4.setText(infoPokemon);
+        		break;
+        	case 4:
+        		imgPokemonEquipo5.setImage(new Image(new File("./img/Pokemon/Front/" + equipoEntrenador.get(i).getNumPokedex() + ".png").toURI().toString()));
+        		lblInfoPokemon5.setText(infoPokemon);
+        		break;
+        	case 5:
+        		imgPokemonEquipo6.setImage(new Image(new File("./img/Pokemon/Front/" + equipoEntrenador.get(i).getNumPokedex() + ".png").toURI().toString()));
+        		lblInfoPokemon6.setText(infoPokemon);
+        		break;
+        	}
+        }
+	}
     
     @FXML
     void mantenerPokemon(ActionEvent event) {
-    	btnMantenerPokemon.setVisible(false);
-    	btnCambiarPokemon.setVisible(false);
-    	imgSeleccionAccion.setVisible(false);
-    	
-    	//EL RIVAL SACA UN POKEMON
-    	lblTexto.setText(rival.getNombre() + " ha sacado a " + equipoRival.get(pokActRival).getMote());
-    	
-		imgPokemonRival.setImage(new Image(new File("./img/Pokemon/Front/" + equipoRival.get(pokActRival).getNumPokedex() + ".png").toURI().toString()));
-    	
-    	pbVidaPokemonRival.setStyle("-fx-accent: green;");
-    	pbVidaPokemonRival.setProgress(equipoRival.get(pokActRival).getVitalidadAct() / equipoRival.get(pokActRival).getVitalidadMax());
-    	
-		PauseTransition pausa1 = new PauseTransition(Duration.seconds(2));
-    	pausa1.setOnFinished(event1 -> {
-    		activarBotonesAtaque();
-    	});
-		pausa1.play();
+    	if (btnMantenerPokemon.getText().equals("Rendirse")) {
+    		btnMantenerPokemon.setVisible(false);
+        	btnCambiarPokemon.setVisible(false);
+    		
+    		desactivarBotonesAtaque();
+        	uiFinalCombate();
+        	
+        	lblTexto.setText("Ha ha ha ha ha! Como te atreves a huir! Cobarde!! No te mereces aprobar el Proyecto Pokemon!");
+        	
+        	volverAlMenu();
+    	}
+    	else {
+	    	btnMantenerPokemon.setVisible(false);
+	    	btnCambiarPokemon.setVisible(false);
+	    	imgSeleccionAccion.setVisible(false);
+	    	
+	    	btnAtacar.setVisible(false);
+	    	btnRendirse.setVisible(false);
+	    	btnMochila.setVisible(false);
+	    	btnAccionCambiarPokemon.setVisible(false);
+	    	
+	    	//EL RIVAL SACA UN POKEMON
+	    	rivalSacaPokemon();
+    	}
     }
+
+	private void rivalSacaPokemon() {
+		pokActRival++;
+        listaMovPokRival = MovimientoPokemonDAO.buscarPorIdPokemon(con, equipoRival.get(pokActRival).getIdPokemon());
+		
+		lblTexto.setText(rival.getNombre() + " ha sacado a " + equipoRival.get(pokActRival).getMote());
+		
+		imgPokemonRival.setImage(new Image(new File("./img/Pokemon/Front/" + equipoRival.get(pokActRival).getNumPokedex() + ".png").toURI().toString()));
+		
+		pbVidaPokemonRival.setStyle("-fx-accent: green;");
+		pbVidaPokemonRival.setProgress(equipoRival.get(pokActRival).getVitalidadAct() / equipoRival.get(pokActRival).getVitalidadMax());
+		
+		PauseTransition pausa1 = new PauseTransition(Duration.seconds(2));
+		pausa1.setOnFinished(event1 -> {
+			lblTexto.setText("Elige una accion");
+			lblTexto.setVisible(true);
+			btnAtacar.setVisible(true);
+			btnRendirse.setVisible(true);
+			btnAccionCambiarPokemon.setVisible(true);
+			btnMochila.setVisible(true);
+			imgSeleccionAccion.setVisible(true);
+		});
+		pausa1.play();
+	}
     
     @FXML
     void irAMochila(ActionEvent event) {
@@ -479,6 +663,10 @@ public class CombateController {
         } else {
             realizarAtaquePokemon(movRival, movEntr, equipoRival.get(pokActRival), equipoEntrenador.get(pokActEntr), false, true);
         }
+        
+        registroCombate.add(new Turno(0, registroCombate.size() + 1,
+        		equipoEntrenador.get(pokActEntr).getMote() + " usa " + MovimientoDAO.buscarPorId(con, MovimientoPokemonDAO.buscarPorIdPokemon(con, equipoEntrenador.get(pokActEntr).getIdPokemon()).get(movPokEntrenador).getIdMovimiento()).getNombre(),
+        		equipoRival.get(pokActRival).getMote() + " usa " + MovimientoDAO.buscarPorId(con, MovimientoPokemonDAO.buscarPorIdPokemon(con, equipoRival.get(pokActRival).getIdPokemon()).get(movPokRival).getIdMovimiento()).getNombre()));
     }
 
     private void realizarAtaquePokemon(Movimiento movAtacante, Movimiento movDefensor, Pokemon atacante, Pokemon defensor, boolean esTurnoEntrenador, boolean primeraParte) {
@@ -504,6 +692,13 @@ public class CombateController {
                 pausa2.play();
             } else {
                 lblTexto.setText(atacante.getMote() + " ha fallado!");
+                if (primeraParte) {
+                	PauseTransition pausa2 = new PauseTransition(Duration.seconds(2));
+                    pausa2.setOnFinished(event2 -> {
+                    	realizarAtaquePokemon(movDefensor, movAtacante, defensor, atacante, esTurnoEntrenador ? false : true, false);
+                    });
+                    pausa2.play();
+                }
             }
         });
         pausa1.play();
@@ -546,6 +741,12 @@ public class CombateController {
 			);
 			timeline.setCycleCount(movAtacante.getPotencia());
 			timeline.play();
+			
+			PauseTransition pausa1 = new PauseTransition(Duration.seconds(1));
+	        pausa1.setOnFinished(event1 -> {
+	        	lblVidaPokemonEntrenador.setText(defensor.getVitalidadAct() + " / " + defensor.getVitalidadMax());
+	        });
+			pausa1.play();
 		}
 	}
     
@@ -578,15 +779,15 @@ public class CombateController {
 
     private void cambiarPokemon(boolean esTurnoEntrenador) {
         if (esTurnoEntrenador) {
-            pokActRival++;
             lblTexto.setText(rival.getNombre() + " va a sacar a " + equipoRival.get(pokActRival).getMote() + ". Quieres cambiar de pokemon?");
+            btnMantenerPokemon.setText("Mantener");
         } else {
             lblTexto.setText("Quieres sacar otro pokemon?");
+            btnMantenerPokemon.setText("Rendirse");
         }
 
-        btnCambiarPokemon.setVisible(true);
-        btnMantenerPokemon.setText("Mantener");
         btnMantenerPokemon.setVisible(true);
+        btnCambiarPokemon.setVisible(true);
         imgSeleccionAccion.setVisible(true);
     }
 
@@ -628,6 +829,138 @@ public class CombateController {
         });
     	pausa.play();
     }
+	
+	@FXML
+    void seleccionarPokemonEquipo1(ActionEvent event) {
+		indicePokSeleccionado = 0;
+		cambiarPokemonSeleccionado();
+    }
+
+	@FXML
+    void seleccionarPokemonEquipo2(ActionEvent event) {
+		indicePokSeleccionado = 1;
+		cambiarPokemonSeleccionado();
+    }
+
+    @FXML
+    void seleccionarPokemonEquipo3(ActionEvent event) {
+    	indicePokSeleccionado = 2;
+		cambiarPokemonSeleccionado();
+    }
+
+    @FXML
+    void seleccionarPokemonEquipo4(ActionEvent event) {
+    	indicePokSeleccionado = 3;
+		cambiarPokemonSeleccionado();
+    }
+
+    @FXML
+    void seleccionarPokemonEquipo5(ActionEvent event) {
+    	indicePokSeleccionado = 4;
+		cambiarPokemonSeleccionado();
+    }
+
+    @FXML
+    void seleccionarPokemonEquipo6(ActionEvent event) {
+    	indicePokSeleccionado = 5;
+		cambiarPokemonSeleccionado();
+    }
+    
+    private void cambiarPokemonSeleccionado() {
+    	lblTexto.setVisible(true);
+    	
+    	if (imgPokemonEquipo1.getImage() != null) {
+			if (pokActEntr == indicePokSeleccionado) {
+				lblTexto.setText("El pokemon seleccionado ya esta en combate");
+			}
+			else {
+				if (equipoEntrenador.get(indicePokSeleccionado).getVitalidadAct() == 0) {
+					lblTexto.setText("El pokemon seleccionado esta debilitado");
+				}
+		    	else{
+					lblTexto.setText("Seguro que quieres cambiar a " + equipoEntrenador.get(indicePokSeleccionado).getMote() + "?");
+					vBoxEquipo.setVisible(false);
+					btnCancelarCambio.setVisible(true);
+					btnConfirmarCambio.setVisible(true);
+					imgSeleccionAccion.setVisible(true);
+				}
+			}
+		}
+	}
+    
+    @FXML
+    void cancelarCambio(ActionEvent event) {
+    	if (btnCancelarCambio.getText().equals("Cancelar")) {
+    		//btnRendirse.setVisible(true);
+    	}
+    	else {
+    		lblTexto.setText("Selecciona un pokemon");
+        	
+    		btnCancelarCambio.setVisible(false);
+    		btnConfirmarCambio.setVisible(false);
+    	}
+    	prepararPokemonEquipo();
+    	vBoxEquipo.setVisible(true);
+    }
+
+    @FXML
+    void confirmarCambio(ActionEvent event) {
+    	vBoxEquipo.setVisible(false);
+    	btnCancelarCambio.setVisible(false);
+		btnConfirmarCambio.setVisible(false);
+		
+		imgSeleccionAccion.setVisible(false);
+		btnAtacar.setVisible(false);
+    	btnRendirse.setVisible(false);
+    	btnAccionCambiarPokemon.setVisible(false);
+    	btnMochila.setVisible(false);
+    	btnCancelarAccion.setVisible(false);
+		
+    	btnMantenerPokemon.setVisible(false);
+    	btnCambiarPokemon.setVisible(false);
+    	
+		sacarPokemon();
+    }
+
+	private void sacarPokemon() {
+		int pokAnteriorEntr = pokActEntr;
+		
+		lblTexto.setText(equipoEntrenador.get(pokActEntr).getMote() + " has luchado bien");
+		imgPokemonEntrenador.setImage(null);
+		
+		PauseTransition pausa1 = new PauseTransition(Duration.seconds(2));
+    	pausa1.setOnFinished(event1 -> {
+            lblTexto.setText(entrenador.getUsuario() + " saca a " + equipoEntrenador.get(indicePokSeleccionado).getMote());
+        });
+    	
+    	PauseTransition pausa2 = new PauseTransition(Duration.seconds(2));
+    	pausa2.setOnFinished(event2 -> {
+    		pokActEntr = indicePokSeleccionado;
+    		listaMovPokEntr = MovimientoPokemonDAO.buscarPorIdPokemon(con, equipoEntrenador.get(pokActEntr).getIdPokemon());
+    		imgPokemonEntrenador.setImage(new Image(new File("./img/Pokemon/Back/" + equipoEntrenador.get(pokActEntr).getNumPokedex() + ".png").toURI().toString()));
+    		
+    		if (equipoRival.get(pokActRival).getVitalidadAct() <= 0) {
+    			rivalSacaPokemon();
+    		}
+    		else if (equipoEntrenador.get(pokAnteriorEntr).getVitalidadAct() == 0){
+    			imgSeleccionAccion.setVisible(true);
+        		btnAtacar.setVisible(true);
+            	btnRendirse.setVisible(true);
+            	btnAccionCambiarPokemon.setVisible(true);
+            	btnMochila.setVisible(true);
+        		
+        		lblTexto.setText("Elige una accion");
+    		}
+    		else {
+    			Movimiento movRival = MovimientoDAO.buscarPorId(con, listaMovPokRival.get(seleccionarAtaqueRival()).getIdMovimiento());
+            	
+            	realizarAtaquePokemon(movRival, null, equipoRival.get(pokActRival), equipoEntrenador.get(pokActEntr), false, false);
+    		}
+    	});
+    	
+    	SequentialTransition secuencia = new SequentialTransition(pausa1, pausa2);
+        secuencia.play();
+	}
 	
 	private void uiFinalCombate() {
 		btnAtacar.setVisible(false);

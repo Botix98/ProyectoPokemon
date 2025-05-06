@@ -216,52 +216,6 @@ public class PokemonDAO {
 
 		return pokemon;
 	}
-
-	public static LinkedList<Pokemon> cargarPokemonEntrenadorEntreDosIds(Connection con, int idEntrenador, int equipo, int idPokemon1, int idPokemon2) {
-		LinkedList<Pokemon> listaPokemon = new LinkedList<>();
-		
-		String query = "SELECT * FROM POKEMON"
-					+ "	WHERE ID_ENTRENADOR = ?"
-					+ " AND EQUIPO = ?"
-					+ " AND ID_POKEMON BETWEEN ? ADN ?";
-
-		try {
-			PreparedStatement pt = con.prepareStatement(query);
-			pt.setInt(1, idEntrenador);
-			pt.setInt(2, equipo);
-			pt.setInt(3, idPokemon1);
-			pt.setInt(4, idPokemon2);
-			ResultSet rs = pt.executeQuery();
-
-			Pokemon pokemon;
-			
-			while (rs.next()) {
-				pokemon = new Pokemon();
-				pokemon.setIdPokemon(rs.getInt("ID_POKEMON"));
-				pokemon.setIdEntrenador(rs.getInt("ID_ENTRENADOR"));
-				pokemon.setNumPokedex(rs.getInt("NUM_POKEDEX"));
-				pokemon.setMote(rs.getString("MOTE"));
-				pokemon.setVitalidadMax(rs.getInt("VITALIDAD_MAX"));
-				pokemon.setVitalidadAct(rs.getInt("VITALIDAD_ACT"));
-				pokemon.setAtaque(rs.getInt("ATAQUE"));
-				pokemon.setAtEspecial(rs.getInt("AT_ESPECIAL"));
-				pokemon.setDefensa(rs.getInt("DEFENSA"));
-				pokemon.setDefEspecial(rs.getInt("DEF_ESPECIAL"));
-				pokemon.setVelocidad(rs.getInt("VELOCIDAD"));
-				pokemon.setNivel(rs.getInt("NIVEL"));
-				pokemon.setFertilidad(rs.getInt("FERTILIDAD"));
-				pokemon.setSexo(rs.getString("SEXO"));
-				pokemon.setEstado(rs.getString("ESTADO"));
-				pokemon.setEquipo(rs.getInt("EQUIPO"));
-				
-				listaPokemon.add(pokemon);
-			}
-		} catch (SQLException e) {
-			ConexionBD.printSQLException(e);
-		}
-
-		return listaPokemon;
-	}
 	
 	public static boolean anyadirPokemon(Connection con, Pokemon pokemon) {
 		String query = "INSERT INTO POKEMON(ID_POKEMON, ID_ENTRENADOR, NUM_POKEDEX, MOTE, VITALIDAD_MAX, VITALIDAD_ACT, "
@@ -339,7 +293,7 @@ public class PokemonDAO {
 	
 	public static boolean actualizarMotePokemon(Connection con, Pokemon pokemon) {
 		String query = "UPDATE POKEMON "
-						+ "SET MOTE = ?, "
+						+ "SET MOTE = ? "
 						+ "WHERE ID_POKEMON = ?";
 		
 		try {
@@ -361,13 +315,13 @@ public class PokemonDAO {
 	
 	public static boolean actualizarVitalidadPokemon(Connection con, Pokemon pokemon) {
 		String query = "UPDATE POKEMON "
-						+ "SET VITALIDAD_ACT = ?, "
+						+ "SET VITALIDAD_ACT = ? "
 						+ "WHERE ID_POKEMON = ?";
 		
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			
-			ps.setInt(1, pokemon.getVitalidadMax());
+			ps.setInt(1, pokemon.getVitalidadAct());
 			ps.setInt(2, pokemon.getIdPokemon());
 			
 			int filasAfectadas = ps.executeUpdate();
@@ -383,13 +337,14 @@ public class PokemonDAO {
 	
 	public static boolean actualizarEstadoPokemon(Connection con, Pokemon pokemon) {
 		String query = "UPDATE POKEMON "
-						+ "SET ESTADO = NULL, "
+						+ "SET ESTADO = ? "
 						+ "WHERE ID_POKEMON = ?";
 		
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			
-			ps.setInt(1, pokemon.getIdPokemon());
+			ps.setString(1, pokemon.getEstado());
+			ps.setInt(2, pokemon.getIdPokemon());
 			
 			int filasAfectadas = ps.executeUpdate();
 			
@@ -404,7 +359,7 @@ public class PokemonDAO {
 	
 	public static boolean actualizarFertilidadPokemon(Connection con, Pokemon pokemon) {
 		String query = "UPDATE POKEMON "
-						+ "SET FERTILIDAD = ?, "
+						+ "SET FERTILIDAD = ? "
 						+ "WHERE ID_POKEMON = ?";
 		
 		try {
@@ -426,7 +381,7 @@ public class PokemonDAO {
 	
 	public static boolean actualizarEquipoPokemon(Connection con, Pokemon pokemon) {
 		String query = "UPDATE POKEMON "
-						+ "SET EQUIPO = ?, "
+						+ "SET EQUIPO = ? "
 						+ "WHERE ID_POKEMON = ?";
 		
 		try {

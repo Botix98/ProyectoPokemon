@@ -144,10 +144,13 @@ public class CapturaController {
         this.menuController = menuController;
         cargarObjetosMochila();
         
-        //FALTA QUE BAJE LA CANTIDAD DE BOLAS AL USARLAS
-        lblNumeroPokeballs.setText("Tienes: " + MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), 8).getCantidad());
-        lblNumeroSuperballs.setText("Tienes: " + MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), 9).getCantidad());
-        lblNumeroUltraballs.setText("Tienes: " + MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), 10).getCantidad());
+        Mochila pokeball = MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), 8);
+        Mochila superball = MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), 9);
+        Mochila ultraball = MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), 10);
+
+        lblNumeroPokeballs.setText("Tienes: " + (pokeball != null ? pokeball.getCantidad() : 0));
+        lblNumeroSuperballs.setText("Tienes: " + (superball != null ? superball.getCantidad() : 0));
+        lblNumeroUltraballs.setText("Tienes: " + (ultraball != null ? ultraball.getCantidad() : 0));
 
         lblRatioCatchPokeball.setText("Captura: 30%");
         lblRatioCatchSuperball.setText("Captura: 50%");
@@ -162,11 +165,11 @@ public class CapturaController {
       //hacer oscuras las otras bolas
         for (ImageView imageView : imageViews) {
             imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-            	ponerOscuridad(imageView);
+            	ponerOscuridadNoSeleccionado(imageView);
             });
 
             imageView.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
-            	quitarOscuridad();
+            	quitarOscuridadNoSeleccionado();
             });
         }
     }
@@ -187,75 +190,92 @@ public class CapturaController {
     }
     
     private void cargarObjetosMochila() {
+        // Inicializar como cero por si no se encuentran en la mochila
+        int cantidadPokeball = 0;
+        int cantidadSuperball = 0;
+        int cantidadUltraball = 0;
+
         mochila = MochilaDAO.cargarMochilaPorEntrenador(con, entrenador.getIdEntrenador());
 
         for (Mochila m : mochila) {
-        	int idObjeto = m.getIdObjeto();
+            int idObjeto = m.getIdObjeto();
             int cantidad = m.getCantidad();
 
             switch (idObjeto) {
-                case 1:
-                    lblNumeroPokeballs.setText("x" + cantidad);
+                case 8:
+                    cantidadPokeball = cantidad;
                     break;
-                case 2:
-                    lblNumeroSuperballs.setText("x" + cantidad);
+                case 9:
+                    cantidadSuperball = cantidad;
                     break;
-                case 3:
-                    lblNumeroUltraballs.setText("x" + cantidad);
+                case 10:
+                    cantidadUltraball = cantidad;
                     break;
             }
         }
+
+        lblNumeroPokeballs.setText("Tienes: " + cantidadPokeball);
+        lblNumeroSuperballs.setText("Tienes:" + cantidadSuperball);
+        lblNumeroUltraballs.setText("Tienes:" + cantidadUltraball);
+
+        aplicarOscuridadSiNoDisponible(imgPokeball, cantidadPokeball);
+        aplicarOscuridadSiNoDisponible(imgSuperball, cantidadSuperball);
+        aplicarOscuridadSiNoDisponible(imgUltraball, cantidadUltraball);
     }
+    
+    
+    
+    
     
     private void lanzarBolas(int idObjeto, double ratioExito, String nombreBall) {
         Mochila m = MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), idObjeto);
 
-        if (m != null && m.getCantidad() > 0) {
-            // Disminuir la cantidad y actualizarla
-            m.setCantidad(m.getCantidad() - 1);
-            if (m.getCantidad() > 0) {
-                MochilaDAO.actualizarCantidad(con, m);
-            } else {
-                // si hay 0 se elimina
-                MochilaDAO.eliminarDeMochila(con, m.getIdEntrenador(), m.getIdObjeto());
-            }
+        int cantidad = (m != null) ? m.getCantidad() : 0;
 
-            SonidoController.pausarFondo(null);
-
-            // Intentar capturar
-            boolean capturado = Math.random() < ratioExito;
-            String rutaEfecto;
-
-            if (capturado) {
-                capturarPokemon();
-                lblNombrePokemon.setText("¡Capturado!");
-                rutaEfecto = "C:/ProyectoPokemon/sonidos/PokemonCapturado.mp3";
-            } else {
-                lblNombrePokemon.setText("¡Se escapó!");
-                rutaEfecto = "C:/ProyectoPokemon/sonidos/PokemonNoCapturado.mp3";
-            }
-
-            // Reproducir efecto y al finalizar continuar musica de fondo
-            Runnable continuarMusica = new Runnable() {
-                @Override
-                public void run() {
-                    SonidoController.continuarFondo(null);
-                }
-            };
-
-            SonidoController.reproducirEfecto(rutaEfecto, continuarMusica);
-
-            cargarObjetosMochila();
-        } else {
+        if (cantidad <= 0) {
             lblNombrePokemon.setText("¡No tienes " + nombreBall + "s!");
+            return; // salir del método
         }
+
+        // Disminuir la cantidad y actualizarla
+        m.setCantidad(cantidad - 1);
+        if (m.getCantidad() > 0) {
+            MochilaDAO.actualizarCantidad(con, m);
+        } else {
+            MochilaDAO.eliminarDeMochila(con, m.getIdEntrenador(), m.getIdObjeto());
+        }
+
+        SonidoController.pausarFondo(null);
+
+        boolean capturado = Math.random() < ratioExito;
+        String rutaEfecto;
+
+        if (capturado) {
+            capturarPokemon();
+            rutaEfecto = "C:/ProyectoPokemon/sonidos/PokemonCapturado.mp3";
+        } else {
+            rutaEfecto = "C:/ProyectoPokemon/sonidos/PokemonNoCapturado.mp3";
+        }
+
+        Runnable continuarMusica = () -> {
+            PauseTransition pause = new PauseTransition(Duration.seconds(0));
+            pause.setOnFinished(ev -> {
+                lblNombrePokemon.setText(capturado ? "¡Capturado!" : "¡Se escapó!");
+                SonidoController.continuarFondo(null);
+            });
+            pause.play();
+        };
+
+        SonidoController.reproducirEfecto(rutaEfecto, continuarMusica);
+        cargarObjetosMochila();
     }
+    
 	    //que vaya a la caja y no al equipo al ser capturado
     private void capturarPokemon() {
     	 System.out.println("esto es que ha funcionado ahora hay que hacer que se vayan al equipo");
 	}
 
-    private void ponerOscuridad(ImageView hoveredImageView) {
+    private void ponerOscuridadNoSeleccionado(ImageView hoveredImageView) {
         for (ImageView imageView : imageViews) {
             if (imageView != hoveredImageView) {
                 //ajustar la oscuridad
@@ -266,8 +286,18 @@ public class CapturaController {
         }
     }
 
-    private void quitarOscuridad() {
+    private void quitarOscuridadNoSeleccionado() {
         for (ImageView imageView : imageViews) {
+            imageView.setEffect(null);
+        }
+    }
+    
+    private void aplicarOscuridadSiNoDisponible(ImageView imageView, int cantidad) {
+        if (cantidad <= 0) {
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setBrightness(-0.5);
+            imageView.setEffect(colorAdjust);
+        } else {
             imageView.setEffect(null);
         }
     }

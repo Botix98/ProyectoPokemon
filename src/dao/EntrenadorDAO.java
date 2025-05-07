@@ -74,5 +74,33 @@ public class EntrenadorDAO {
             return false;
         }
     }
+    
+    	public static boolean insertarPokemonEnCaja(Connection con, int idEntrenador, String nombre, int nivel) {
+            String sql = "INSERT INTO Caja (idEntrenador, nombrePokemon, nivel) VALUES (?, ?, ?)";
+            try (PreparedStatement stmt = con.prepareStatement(sql)) {
+                stmt.setInt(1, idEntrenador);
+                stmt.setString(2, nombre);
+                stmt.setInt(3, nivel);
+                stmt.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        } 
+    	
+    	public static boolean actualizarPPMovimiento(Connection con, int idPokemon, int idMovimiento, int nuevosPP) {
+    		        String query = "UPDATE MOVIMIENTO_POKEMON SET PP_ACTUALES = ? WHERE ID_POKEMON = ? AND ID_MOVIMIENTO = ?";
+
+    		        try (PreparedStatement ps = con.prepareStatement(query)) {
+    		            ps.setInt(1, nuevosPP);
+    		            ps.setInt(2, idPokemon);
+    		            ps.setInt(3, idMovimiento);
+    		            return ps.executeUpdate() > 0;
+    		        } catch (SQLException e) {
+    		            ConexionBD.printSQLException(e);
+    		            return false;
+    		        }
+    		    }
 }
 

@@ -91,6 +91,8 @@ public class CentroPokemonController {
     
     Connection con = ConexionBD.getConnection();
 
+
+    
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController, TiendaController tiendaController) {
         this.entrenador = entr;
         this.stage = stage;
@@ -158,7 +160,7 @@ public class CentroPokemonController {
 
         for (int i = 0; i < imagenes.length; i++) {
             if (i < equipo.size() && equipo.get(i) != null) {
-                int numPokedex = equipo.get(i).getNumPokedex();
+                int numPokedex = equipo.get(i).getNumPokedex(); // Asegúrate de tener este método
                 String rutaImagen = "./img/Pokemon/Front/" + numPokedex + ".png";
                 imagenes[i].setImage(new Image(new File(rutaImagen).toURI().toString()));
             } else {

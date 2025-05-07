@@ -4,6 +4,8 @@ import java.io.File;
 import java.sql.Connection;
 import java.util.LinkedList;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -48,13 +52,31 @@ public class TiendaController {
     private ImageView imgFondo;
 
     @FXML
+    private ImageView imgObjeto;
+    
+    @FXML
     private ImageView imgSonido;
 
     @FXML
-    private ScrollPane sbMochila;
+    private TableView<Mochila> tvMochila;
 
     @FXML
-    private ScrollPane sbTienda;
+    private TableColumn<Mochila, String> tcObjetoM;
+
+    @FXML
+    private TableColumn<Mochila, Integer> tcCantidadM;
+
+    @FXML
+    private TableColumn<Mochila, Integer> tcValorM;
+
+    @FXML
+    private TableView<Objeto> tvTienda;
+
+    @FXML
+    private TableColumn<Objeto, String> tcObjetoT;
+
+    @FXML
+    private TableColumn<Objeto, Integer> tcPrecioT;
 
     @FXML
     private Text txtMochila;
@@ -73,59 +95,50 @@ public class TiendaController {
         cargarObjetosMochila();
     }
     
-    // Método para cargar los objetos de la tienda en el ScrollPane
+    // Método para cargar los objetos de la tienda en la tabla
     private void cargarObjetosTienda() {
-    	
         Connection con = ConexionBD.getConnection();
-        
-        // Obtener todos los objetos de la tienda desde la base de datos
         LinkedList<Objeto> objetosTienda = ObjetoDAO.cargarObjetos(con);
 
-        // Crear un contenedor para los botones de los objetos
-        VBox tiendaCont = new VBox();
-        
-        // Llenar el contenedor con los objetos de la tienda
-        for (Objeto objeto : objetosTienda) {
-            Button btnTienda = new Button(objeto.getNomObjeto() + " - " + objeto.getPrecio() + " Pokedolares");
-            btnTienda.setOnAction(e -> {
+        // Pasar la lista como ObservableList a la TableView
+        tvTienda.getItems().setAll(objetosTienda);
 
-            	comprarObjeto(objeto);
-            });
-            tiendaCont.getChildren().add(btnTienda);
-        }
+        // Establecer columnas si aún no lo has hecho
+        tcObjetoT.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNomObjeto()));
+        tcPrecioT.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getPrecio()).asObject());
 
-        // Asignar el contenedor al ScrollPane
-        sbTienda.setContent(tiendaCont);
-        sbTienda.setFitToWidth(true);
+        // Manejar evento de clic
+        tvTienda.setOnMouseClicked(event -> {
+            Objeto objeto = tvTienda.getSelectionModel().getSelectedItem();
+            if (objeto != null) {
+                comprarObjeto(objeto);
+            }
+        });
     }
 
- // Método para cargar los objetos de la mochila en el ScrollPane
+ // Método para cargar los objetos de la mochila en la tabla
     private void cargarObjetosMochila() {
         Connection con = ConexionBD.getConnection();
-
-        // Obtener la mochila del entrenador
         LinkedList<Mochila> objetosMochila = MochilaDAO.cargarMochilaPorEntrenador(con, entrenador.getIdEntrenador());
 
-        VBox mochilaCont = new VBox();
+        tvMochila.getItems().setAll(objetosMochila);
 
-        // Llenar el contenedor con los objetos de la mochila
-        for (Mochila mochila : objetosMochila) {
-            // Obtener el objeto desde la base de datos
-            Objeto objeto = ObjetoDAO.buscarObjetoPorId(con, mochila.getIdObjeto());
+        tcObjetoM.setCellValueFactory(data -> {
+            Objeto obj = ObjetoDAO.buscarObjetoPorId(con, data.getValue().getIdObjeto());
+            return new SimpleStringProperty(obj != null ? obj.getNomObjeto() : "Desconocido");
+        });
+        tcCantidadM.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getCantidad()).asObject());
+        tcValorM.setCellValueFactory(data -> {
+            Objeto obj = ObjetoDAO.buscarObjetoPorId(con, data.getValue().getIdObjeto());
+            return new SimpleIntegerProperty(obj != null ? obj.getPrecio() : 0).asObject();
+        });
 
-            // Crear un botón para cada objeto de la mochila
-            Button btnMochila = new Button("Objeto: " + objeto.getNomObjeto() + " - Cantidad: " + mochila.getCantidad() + " - Precio: " + objeto.getPrecio() + " Pokedolares");
-
-            btnMochila.setOnAction(e -> {
+        tvMochila.setOnMouseClicked(event -> {
+            Mochila mochila = tvMochila.getSelectionModel().getSelectedItem();
+            if (mochila != null) {
                 venderObjetoMochila(mochila);
-            });
-
-            mochilaCont.getChildren().add(btnMochila);
-        }
-
-        // Asignar el contenedor al ScrollPane
-        sbMochila.setContent(mochilaCont);
-        sbMochila.setFitToWidth(true);
+            }
+        });
     }
 
     @FXML

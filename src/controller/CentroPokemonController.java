@@ -100,6 +100,7 @@ public class CentroPokemonController {
         this.menuController = menuController;
         this.tiendaController = tiendaController;
 
+        mostrarEquipo();
     }
     
     public void initialize() {
@@ -140,13 +141,32 @@ public class CentroPokemonController {
     @FXML
     void curarEquipo(ActionEvent event) {
     	SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/CurarPokemon.mp3");
-    	List<Pokemon> equipo = Arrays.asList(entrenador.getEquipo());
-    	for(int i = 0; i < 6; i++) {
+        List<Pokemon> equipo = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
+    	for(int i = 0; i  < equipo.size(); i++) {
     		if (equipo.get(i) != null) {
     			PokemonDAO.actualizarVitalidadPokemon(con, equipo.get(i));
     			PokemonDAO.actualizarEstadoPokemon(con, equipo.get(i));
     		}
     	}
+    }
+    
+    private void mostrarEquipo() {
+        List<Pokemon> equipo = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
+
+        ImageView[] imagenes = {
+            imgPokemon1, imgPokemon2, imgPokemon3,
+            imgPokemon4, imgPokemon5, imgPokemon6
+        };
+
+        for (int i = 0; i < imagenes.length; i++) {
+            if (i < equipo.size() && equipo.get(i) != null) {
+                int numPokedex = equipo.get(i).getNumPokedex(); // Asegúrate de tener este método
+                String rutaImagen = "./img/Pokemon/Front/" + numPokedex + ".png";
+                imagenes[i].setImage(new Image(new File(rutaImagen).toURI().toString()));
+            } else {
+                imagenes[i].setImage(null);
+            }
+        }
     }
     
     @FXML

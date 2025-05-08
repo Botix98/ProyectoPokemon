@@ -146,12 +146,7 @@ public class CajaController {
                 }
             });
 
-            iv.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    intercambiarPokemon(event);
-                }
-            });
+            
         }
 
         if (caja != null) {
@@ -160,6 +155,7 @@ public class CajaController {
     }
     
     private void cargarImagenes() {
+    	List<Pokemon> Caja = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 2);
         for (int i = 0; i < caja.size(); i++) {
             Pokemon p = caja.get(i);
             String ruta = "C:/ProyectoPokemon/img/Pokemon/Front/" + p.getNumPokedex() + ".png";
@@ -168,33 +164,32 @@ public class CajaController {
         }
     }
     
-    private void intercambiarPokemon(MouseEvent event) {
-        ImageView seleccionadoActual = (ImageView) event.getSource();
+    private void mostrarEquipo() {
+        List<Pokemon> equipo = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 2);
 
-        if (seleccionadoPrimero == null) {
-            seleccionadoPrimero = seleccionadoActual;
-        } else {
-            Image tempImage = seleccionadoPrimero.getImage();
-            seleccionadoPrimero.setImage(seleccionadoActual.getImage());
-            seleccionadoActual.setImage(tempImage);
+        ImageView[] imagenes = {
+        		imgPokemonCaja1, imgPokemonCaja2, imgPokemonCaja3, imgPokemonCaja4, imgPokemonCaja5,
+                imgPokemonCaja6, imgPokemonCaja7, imgPokemonCaja8, imgPokemonCaja9, imgPokemonCaja10,
+                imgPokemonCaja11, imgPokemonCaja12, imgPokemonCaja13, imgPokemonCaja14, imgPokemonCaja15,
+                imgPokemonCaja16, imgPokemonCaja17, imgPokemonCaja18, imgPokemonCaja19, imgPokemonCaja20,
+                imgPokemonCaja21, imgPokemonCaja22, imgPokemonCaja23, imgPokemonCaja24, imgPokemonCaja25,
+                imgPokemonCaja26, imgPokemonCaja27, imgPokemonCaja28, imgPokemonCaja29, imgPokemonCaja30
+        };
 
-            int indexPrimero = imagenesCaja.indexOf(seleccionadoPrimero);
-            int indexActual = imagenesCaja.indexOf(seleccionadoActual);
-
-            if (indexPrimero >= 0 && indexActual >= 0) {
-                Pokemon tempPokemon = caja.get(indexPrimero);
-                caja.set(indexPrimero, caja.get(indexActual));
-                caja.set(indexActual, tempPokemon);
+        for (int i = 0; i < imagenes.length; i++) {
+            if (i < equipo.size() && equipo.get(i) != null) {
+                int numPokedex = equipo.get(i).getNumPokedex();
+                String rutaImagen = "./img/Pokemon/Front/" + numPokedex + ".png";
+                imagenes[i].setImage(new Image(new File(rutaImagen).toURI().toString()));
+            } else {
+                imagenes[i].setImage(null);
             }
-
-            seleccionadoPrimero = null; // reset
         }
     }
     
     
+    
     //TENGO QUE HACER EL MÉTODO PARA PASAR DE POKEMON ENTRE LA CAJA, EL EQUIPO Y VICEVERSA Y AÑADIR LOS BOTONES AQUÍ
-    
-    
     
     @FXML
     void activarDesactivarSonido(MouseEvent event) {

@@ -234,7 +234,7 @@ public class CapturaController {
 
         if (cantidad <= 0) {
             lblNombrePokemon.setText("¡No tienes " + nombreBall + "s!");
-            return; // salir del método
+            return;
         }
 
         // Disminuir la cantidad y actualizarla
@@ -257,16 +257,14 @@ public class CapturaController {
             rutaEfecto = "C:/ProyectoPokemon/sonidos/PokemonNoCapturado.mp3";
         }
 
-        Runnable continuarMusica = () -> {
-            PauseTransition pause = new PauseTransition(Duration.seconds(0));
-            pause.setOnFinished(ev -> {
-                lblNombrePokemon.setText(capturado ? "¡Capturado!" : "¡Se escapó!");
-                SonidoController.continuarFondo(null);
-            });
-            pause.play();
-        };
-
-        SonidoController.reproducirEfecto(rutaEfecto, continuarMusica);
+        PauseTransition pause = new PauseTransition(Duration.seconds(5));
+		pause.setOnFinished(event -> {
+			lblNombrePokemon.setText(capturado ? "¡Capturado!" : "¡Se escapó!");
+            SonidoController.continuarFondo(null);
+        });
+		pause.play();
+                
+           
         cargarObjetosMochila();
     }
     

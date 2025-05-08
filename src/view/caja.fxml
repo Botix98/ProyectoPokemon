@@ -3,6 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -312,8 +313,10 @@
                </image>
             </ImageView>
             <Button fx:id="btnSalir" layoutX="135.0" layoutY="30.0" mnemonicParsing="false" onAction="#salir" prefHeight="84.0" prefWidth="174.0" text="Salir" />
-            <Button fx:id="btnSalir1" layoutX="482.0" layoutY="55.0" mnemonicParsing="false" onAction="#salir" prefHeight="58.0" prefWidth="142.0" text="Equipo a caja" />
-            <Button fx:id="btnSalir11" layoutX="733.0" layoutY="55.0" mnemonicParsing="false" onAction="#salir" prefHeight="58.0" prefWidth="142.0" text="Caja a equipo" />
+            <Label layoutX="78.0" layoutY="249.0" prefHeight="42.0" prefWidth="51.0" text="Nombre" />
+            <Label layoutX="154.0" layoutY="249.0" prefHeight="42.0" prefWidth="51.0" text="Nivel" />
+            <Label layoutX="222.0" layoutY="249.0" prefHeight="42.0" prefWidth="51.0" text="Mote" />
+            <ProgressBar layoutX="71.0" layoutY="228.0" prefHeight="18.0" prefWidth="209.0" progress="0.0" />
          </children>
       </AnchorPane>
    </children>

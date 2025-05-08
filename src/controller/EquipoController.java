@@ -30,6 +30,7 @@ public class EquipoController {
 	private Entrenador entrenador;
 	private MenuController menuController;
 	private LoginController loginController;
+	private List<ImageView> imagenesEquipo;
 	private LinkedList<Pokemon> equipo;
 
     @FXML
@@ -109,6 +110,7 @@ public class EquipoController {
         this.loginController = loginController;
         this.menuController = menuController;
         pbPokemonSeleccionado.setVisible(false);
+        mostrarEquipo();
     }
     
     public void initialize() {

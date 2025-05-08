@@ -400,4 +400,18 @@ public class PokemonDAO {
 		}
 		return false;
 	}
+	
+	public static void actualizarEquipo(Connection con, int idPokemon, int nuevoEquipo) {
+	    try {
+	        String query = "UPDATE POKEMON SET EQUIPO = ? WHERE ID_POKEMON = ?";
+	        PreparedStatement ps = con.prepareStatement(query);
+	        ps.setInt(1, nuevoEquipo);
+	        ps.setInt(2, idPokemon);
+	        ps.executeUpdate();
+	        ps.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 }

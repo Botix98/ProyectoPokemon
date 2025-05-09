@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dao.ConexionBD;
+import dao.PokedexDAO;
 import dao.PokemonDAO;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -31,23 +33,40 @@ public class CajaController {
     private LoginController loginController;
     
     private List<ImageView> imagenesCaja;
+    private List<Pokemon> equipo;
     private LinkedList<Pokemon> caja;
     Connection con = ConexionBD.getConnection();
     
     @FXML private Button btnSalir;
     @FXML private ImageView imgFondo;
-    @FXML private ImageView imgPokemonCaja1, imgPokemonCaja2, imgPokemonCaja3, imgPokemonCaja4, imgPokemonCaja5;
+    @FXML private ImageView imgSonido;
+    @FXML private Label lblCaja1;
+    
+    @FXML private ImageView imgPokemonCaja1,imgPokemonCaja2, imgPokemonCaja3, imgPokemonCaja4, imgPokemonCaja5;
     @FXML private ImageView imgPokemonCaja6, imgPokemonCaja7, imgPokemonCaja8, imgPokemonCaja9, imgPokemonCaja10;
     @FXML private ImageView imgPokemonCaja11, imgPokemonCaja12, imgPokemonCaja13, imgPokemonCaja14, imgPokemonCaja15;
     @FXML private ImageView imgPokemonCaja16, imgPokemonCaja17, imgPokemonCaja18, imgPokemonCaja19, imgPokemonCaja20;
     @FXML private ImageView imgPokemonCaja21, imgPokemonCaja22, imgPokemonCaja23, imgPokemonCaja24, imgPokemonCaja25;
     @FXML private ImageView imgPokemonCaja26, imgPokemonCaja27, imgPokemonCaja28, imgPokemonCaja29, imgPokemonCaja30;
+    
     @FXML private ImageView imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3;
     @FXML private ImageView imgPokemonEquipo4, imgPokemonEquipo5, imgPokemonEquipo6;
     @FXML private ImageView imgPokemonGrande;
-    @FXML private ImageView imgSonido;
-    @FXML private Label lblCaja1;
+    
+    
+    @FXML private ProgressBar pbPokemonEquipo1, pbPokemonEquipo2, pbPokemonEquipo3;
+    @FXML private ProgressBar pbPokemonEquipo4, pbPokemonEquipo5, pbPokemonEquipo6;
+    @FXML private ProgressBar pbPokemonSeleccionado;
+    
+    @FXML private ImageView imgPokemonSeleccionado;
+    
+    @FXML private Label lblMotePokemonSeleccionado;
 
+    @FXML private Label lblNivelPokemonSeleccionado;
+
+    @FXML private Label lblNombrePokemonSeleccionado;
+
+    
     public void init(Entrenador entrenador, Stage stage, LoginController loginController, MenuController menuController, EquipoController equipoController) {
         this.entrenador = entrenador;
         this.stage = stage;
@@ -57,14 +76,14 @@ public class CajaController {
 
         this.caja = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 2);
         mostrarPokemonCaja();
-        mostrarPokemonEquipo();
+        mostrarEquipo();
 
         List<ImageView> imagenesEquipo = List.of(
                 imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
                 imgPokemonEquipo4, imgPokemonEquipo5, imgPokemonEquipo6
         );
 
-        List<Pokemon> equipo = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
+        equipo = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
 
         for (final ImageView iv : imagenesEquipo) {
             iv.setOnDragDetected(event -> {
@@ -235,8 +254,7 @@ public class CajaController {
                     event.consume();
                 }
             });
-
-            
+ 
         }
         
         //si hay se muestra un pokemon en caja, si no hay se muestra vacio
@@ -245,7 +263,7 @@ public class CajaController {
         }
     }
     
-  //Recorre la caja y muestra las imagenes
+    //Recorre la caja y muestra las imagenes
     private void mostrarPokemonCaja() {
     	List<Pokemon> c = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 2);
         for (int i = 0; i < caja.size(); i++) {
@@ -256,12 +274,14 @@ public class CajaController {
         }
     }
     
-    //Recorre el equipo y muestra las imagenes
-    private void mostrarPokemonEquipo() {
+   
+    //Recorre el equipo y muestra las imagenes del equipo
+    private void mostrarEquipo() {
         List<Pokemon> equipo = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
+
         ImageView[] imagenes = {
-            	imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
-            	imgPokemonEquipo4, imgPokemonEquipo5, imgPokemonEquipo6
+        	imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
+            imgPokemonEquipo4, imgPokemonEquipo5, imgPokemonEquipo6
         };
 
         for (int i = 0; i < imagenes.length; i++) {
@@ -271,6 +291,34 @@ public class CajaController {
                 imagenes[i].setImage(new Image(new File(rutaImagen).toURI().toString()));
             } else {
                 imagenes[i].setImage(null);
+            }
+        }
+    }
+    
+    //Metodo para que se vea en grande el pokemon seleccionado en el equipo
+    @FXML
+    void hacerGrande(MouseEvent event) {
+        ImageView origen = (ImageView) event.getSource();
+        imgPokemonSeleccionado.setImage(origen.getImage());
+        pbPokemonSeleccionado.setVisible(true);
+
+        List<ImageView> imagenesEquipo = List.of(
+            imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
+            imgPokemonEquipo4, imgPokemonEquipo5, imgPokemonEquipo6
+        );
+
+        for (int i = 0; i < imagenesEquipo.size(); i++) {
+            if (origen == imagenesEquipo.get(i) && i < equipo.size()) {
+                Pokemon pokemon = equipo.get(i);
+
+                double progreso = (double) pokemon.getVitalidadAct() / pokemon.getVitalidadMax();
+                pbPokemonSeleccionado.setProgress(progreso);
+
+                
+                lblNombrePokemonSeleccionado.setText(PokedexDAO.cargarPorNumPokedex(con, pokemon.getNumPokedex()).getNomPokemon());
+                lblNivelPokemonSeleccionado.setText("Nvl: " + pokemon.getNivel());
+                lblMotePokemonSeleccionado.setText("Mote: " + pokemon.getMote());
+                break;
             }
         }
     }

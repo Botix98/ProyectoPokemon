@@ -41,66 +41,37 @@ public class EquipoController {
 
     @FXML
     private ImageView imgFondo;
-
-    @FXML
-    private ImageView imgPokemon1;
-
-    @FXML
-    private ImageView imgPokemon2;
-
-    @FXML
-    private ImageView imgPokemon3;
-
-    @FXML
-    private ImageView imgPokemon4;
-
-    @FXML
-    private ImageView imgPokemon5;
-
-    @FXML
-    private ImageView imgPokemon6;
-
-    @FXML
-    private ImageView imgPokemonSeleccionado;
-
+    
     @FXML
     private ImageView imgSonido;
 
     @FXML
     private Label lblEquipo;
+    
+    @FXML
+    private ImageView imgPokemon1, imgPokemon2, imgPokemon3;
+    @FXML
+    private ImageView imgPokemon4, imgPokemon5, imgPokemon6;
+    @FXML
+    private ProgressBar pbPokemon1, pbPokemon2, pbPokemon3;
+    @FXML
+    private ProgressBar pbPokemon4, pbPokemon5, pbPokemon6;
+    
 
     @FXML
     private Label lblMote;
-
     @FXML
     private Label lblNivel;
-
-    @FXML
-    private Label lblNombrePokemonGrande;
-
     @FXML
     private Label lblPokemon;
 
-    @FXML
-    private ProgressBar pbPokemon1;
-
-    @FXML
-    private ProgressBar pbPokemon2;
-    
-    @FXML
-    private ProgressBar pbPokemon3;
-
-    @FXML
-    private ProgressBar pbPokemon4;
-
-    @FXML
-    private ProgressBar pbPokemon5;
-
-    @FXML
-    private ProgressBar pbPokemon6;
     
     @FXML
     private ProgressBar pbPokemonSeleccionado;
+    @FXML
+    private Label lblNombrePokemonSeleccionado;
+    @FXML
+    private ImageView imgPokemonSeleccionado;
     
     Connection con = ConexionBD.getConnection();
     
@@ -114,7 +85,7 @@ public class EquipoController {
     }
     
     public void initialize() {
-    	SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/Equipo.mp3");
+    	SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/Equipo.mp3");	
     }
     
         //falta comprobar cuantos pokemon hay en el equipo o por lo menos eso dijo carlos
@@ -194,10 +165,7 @@ public class EquipoController {
         }
         
     
-    //hace que la barra sea visible o invisible con true o false
-    public final void setVisible(boolean value) {
-    	
-    }
+
     
 	private void mostrarEquipo() {
         List<Pokemon> equipo = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
@@ -216,6 +184,11 @@ public class EquipoController {
                 imagenes[i].setImage(null);
             }
         }
+    }
+	
+    //hace que la barra sea visible o invisible con true o false
+    public final void setVisible(boolean value) {
+    	
     }
 	
     @FXML

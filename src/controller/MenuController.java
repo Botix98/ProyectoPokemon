@@ -95,7 +95,7 @@ public class MenuController {
 	        CentroPokemonController centroPokeController = loader.getController();
 
 	        //inicializar la pantalla
-	        centroPokeController.init(this.entrenador, this.stage, this.loginController, this, null); 
+	        centroPokeController.init(this.entrenador, this.stage, this.loginController, this, null, null); 
 
 	        Scene scene = new Scene(root);
 	        stage.setScene(scene);

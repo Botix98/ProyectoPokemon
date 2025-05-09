@@ -83,9 +83,9 @@
             <ProgressBar fx:id="pbPokemon1" layoutX="106.0" layoutY="151.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
             <ProgressBar fx:id="pbPokemon2" layoutX="396.0" layoutY="151.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
             <ProgressBar fx:id="pbPokemon3" layoutX="700.0" layoutY="151.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
-            <ProgressBar fx:id="pbPokemon4" layoutX="700.0" layoutY="397.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
+            <ProgressBar fx:id="pbPokemon6" layoutX="700.0" layoutY="397.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
             <ProgressBar fx:id="pbPokemon5" layoutX="397.0" layoutY="397.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
-            <ProgressBar fx:id="pbPokemon6" layoutX="106.0" layoutY="397.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
+            <ProgressBar fx:id="pbPokemon4" layoutX="106.0" layoutY="397.0" prefHeight="18.0" prefWidth="181.0" progress="0.0" />
             <ImageView fx:id="imgSonido" fitHeight="99.0" fitWidth="84.0" layoutX="50.0" layoutY="40.0" onMouseClicked="#activarDesactivarSonido" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/conSonido.png" />

@@ -12,6 +12,23 @@ public class Rival {
 	}
 
 	/**
+	 * @param nombre
+	 * @param idRival
+	 * @param fraseVictoria
+	 * @param fraseDerrota
+	 * @param fraseRendicion
+	 */
+	public Rival(String nombre, int idRival, String fraseVictoria, String fraseDerrota, String fraseRendicion) {
+		this.nombre = nombre;
+		this.idRival = idRival;
+		this.fraseVictoria = fraseVictoria;
+		this.fraseDerrota = fraseDerrota;
+		this.fraseRendicion = fraseRendicion;
+	}
+
+
+
+	/**
 	 * @return the nombre
 	 */
 	public String getNombre() {

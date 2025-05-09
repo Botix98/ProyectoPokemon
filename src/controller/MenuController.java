@@ -191,17 +191,17 @@ public class MenuController {
     @FXML
     void irCombate(ActionEvent event) {
     	try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/combate.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/seleccionRival.fxml"));
             Parent root = loader.load();
 
-            CombateController combateController = loader.getController();
+            SeleccionarRivalController seleccionarRivalController = loader.getController();
 
             // Inicializamos la pantalla de Combate
-            combateController.init(this.entrenador, this.stage, this.loginController, this); 
+            seleccionarRivalController.init(this.entrenador, this.stage, this.loginController, this); 
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
-	        stage.setTitle("Combate");
+	        stage.setTitle("Seleccionar rival");
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

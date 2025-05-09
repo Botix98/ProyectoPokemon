@@ -13,6 +13,7 @@ import java.util.Set;
 import dao.ConexionBD;
 import dao.MovimientoDAO;
 import dao.MovimientoPokemonDAO;
+import dao.PokedexDAO;
 import dao.PokemonDAO;
 import dao.RivalDAO;
 import javafx.animation.KeyFrame;
@@ -38,6 +39,7 @@ import javafx.util.Duration;
 import model.Entrenador;
 import model.Movimiento;
 import model.MovimientoPokemon;
+import model.Pokedex;
 import model.Rival;
 import model.Turno;
 import model.Pokemon;
@@ -66,6 +68,8 @@ public class CombateController {
 	private LinkedList<Pokemon> equipoRival;
 	private LinkedList<MovimientoPokemon> listaMovPokEntr;
 	private LinkedList<MovimientoPokemon> listaMovPokRival;
+	private LinkedList<Movimiento> listaMovimientos;
+	private LinkedList<Pokedex> pokedex;
 
 	@FXML
     private Button btnAccionCambiarPokemon;
@@ -262,24 +266,64 @@ public class CombateController {
     @FXML
     public void initialize() {
     	con = ConexionBD.getConnection();
-    	registroCombate = new LinkedList<Turno>();
     }
 
-    public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
+    public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController, LinkedList<Pokemon> equipoRival, Rival rival, String url) {
         this.entrenador = entr;
         this.stage = stage;
         this.loginController = loginController;
         this.menuController = menuController;
+        this.rival = rival;
+        registroCombate = new LinkedList<Turno>();
+        pokedex = PokedexDAO.cargarPokedexCompleta(con);
+        listaMovimientos = MovimientoDAO.cargarTodos(con);
+        pokActEntr = -1;
+    	pokActRival = 0;
+        equipoEntrenador = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
         
-        this.rival = RivalDAO.cargarRival(con, 1); //AQUI HABRA QUE PASARLE LA ID DEL RIVAL SELECCIONADO
+        if (equipoRival != null) {
+        	this.equipoRival = equipoRival;
+        } else {
+        	this.equipoRival = PokemonDAO.cargarPokemonEquipoRival(con, rival.getIdRival());
+        }
         
         calcularPokemonVivos();
         
-        this.listaMovPokEntr = MovimientoPokemonDAO.buscarPorIdPokemon(con, equipoEntrenador.get(0).getIdPokemon());
-        this.listaMovPokRival = MovimientoPokemonDAO.buscarPorIdPokemon(con, equipoRival.get(0).getIdPokemon());
+        listaMovPokEntr = MovimientoPokemonDAO.buscarPorIdPokemon(con, equipoEntrenador.get(pokActEntr).getIdPokemon());
+        
+        imgRival.setImage(new Image(new File(url).toURI().toString()));
+        
+        inicarMovPokRival();
         
         prepararCombate();
     }
+
+	private void inicarMovPokRival() {
+		listaMovPokRival = new LinkedList<MovimientoPokemon>();
+		
+		if (rival.getIdRival() > 0) {
+        	listaMovPokRival = MovimientoPokemonDAO.buscarPorIdPokemon(con, equipoRival.get(pokActRival).getIdPokemon());
+        } else {
+        	String[] tipos = pokedex.get(equipoRival.get(pokActRival).getNumPokedex() - 1).getTipos();
+        	System.out.println("Tipo 1: " + tipos[0]);
+        	LinkedList<Movimiento> listaMovPosibles = MovimientoDAO.buscarPorTipoMov(con, tipos[0]);
+        	if (tipos[1] != null) {
+        		listaMovPosibles.addAll(MovimientoDAO.buscarPorTipoMov(con, tipos[1]));
+        		System.out.println("Tipo 2: " + tipos[1]);
+        	}
+        	
+        	for (Movimiento movimiento : listaMovPosibles) {
+				System.out.println(movimiento.toString());
+			}
+        	
+        	for (int i = 0; i < 4; i++) {
+        		int n = (int) (Math.random() * listaMovPosibles.size());
+        		listaMovPokRival.add(new MovimientoPokemon(equipoRival.get(pokActRival).getIdPokemon(), listaMovPosibles.get(n).getIdMovimiento(), listaMovPosibles.get(n).getPpMax()));
+        		System.out.println(listaMovPokRival.get(i).toString());
+        		System.out.println(listaMovPosibles.get(n).toString());
+        	}
+        }
+	}
     
     private void prepararCombate() {
     	pbVidaPokemonEntrenador.setStyle("-fx-accent: #00a135;");
@@ -352,12 +396,6 @@ public class CombateController {
     }
 
 	private void calcularPokemonVivos() {
-		pokActEntr = -1;
-    	pokActRival = 0;
-    	
-    	equipoEntrenador = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
-    	equipoRival = PokemonDAO.cargarPokemonEquipoRival(con, rival.getIdRival());
-    	
     	for (int i = 0; i < equipoEntrenador.size(); i++) {
     		if (equipoEntrenador.get(i) != null) {
     			if (equipoEntrenador.get(i).getVitalidadAct() > 0) {
@@ -410,7 +448,7 @@ public class CombateController {
             	    Parent root = loader.load();
 
             	    CentroPokemonController centroPokemonController = loader.getController();
-            	    centroPokemonController.init(entrenador, stage, loginController, menuController, null);
+            	    centroPokemonController.init(entrenador, stage, loginController, menuController, null, this);
 
             	    Scene scene = new Scene(root);
             	    stage.setScene(scene);
@@ -666,7 +704,8 @@ public class CombateController {
 
 	private void rivalSacaPokemon() {
 		pokActRival++;
-        listaMovPokRival = MovimientoPokemonDAO.buscarPorIdPokemon(con, equipoRival.get(pokActRival).getIdPokemon());
+		
+		inicarMovPokRival();
 		
 		lblTexto.setText(rival.getNombre() + " ha sacado a " + equipoRival.get(pokActRival).getMote());
 		
@@ -707,8 +746,8 @@ public class CombateController {
     
     private void realizarAtaque(int movPokEntrenador, int movPokRival) {
     	Movimiento movEntr = MovimientoDAO.buscarPorId(con, listaMovPokEntr.get(movPokEntrenador).getIdMovimiento());
-        Movimiento movRival = MovimientoDAO.buscarPorId(con, listaMovPokRival.get(movPokRival).getIdMovimiento());
-        
+    	Movimiento movRival = MovimientoDAO.buscarPorId(con, listaMovPokRival.get(movPokRival).getIdMovimiento());
+    	
         //	QUITAR ESTO MAS A DELANTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (equipoRival.get(pokActRival).getEstado() == null) {
         	equipoRival.get(pokActRival).setEstado("");
@@ -752,9 +791,10 @@ public class CombateController {
         	}
         }
         
+        //HE TOCADO ESTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_-------------------------------------------------------------------
         registroCombate.add(new Turno(0, registroCombate.size() + 1,
-        		equipoEntrenador.get(pokActEntr).getMote() + " usa " + MovimientoDAO.buscarPorId(con, MovimientoPokemonDAO.buscarPorIdPokemon(con, equipoEntrenador.get(pokActEntr).getIdPokemon()).get(movPokEntrenador).getIdMovimiento()).getNombre(),
-        		equipoRival.get(pokActRival).getMote() + " usa " + MovimientoDAO.buscarPorId(con, MovimientoPokemonDAO.buscarPorIdPokemon(con, equipoRival.get(pokActRival).getIdPokemon()).get(movPokRival).getIdMovimiento()).getNombre()));
+        		equipoEntrenador.get(pokActEntr).getMote() + " usa " + MovimientoDAO.buscarPorId(con, listaMovPokEntr.get(movPokEntrenador).getIdMovimiento()).getNombre(),
+        		equipoRival.get(pokActRival).getMote() + " usa " + MovimientoDAO.buscarPorId(con, listaMovPokRival.get(movPokRival).getIdMovimiento()).getNombre()));
     }
 
 	private boolean comprobarEstadoAntesAtaque(Pokemon pokemon, boolean esTurnoEntrenador) {

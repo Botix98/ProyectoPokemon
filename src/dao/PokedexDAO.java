@@ -15,18 +15,7 @@ public class PokedexDAO {
 	public static LinkedList<Pokedex> cargarPokedexCompleta(Connection con) {
 		LinkedList<Pokedex> pokedex = new LinkedList<>();
 		
-		String query = "SELECT NUM_POKEDEX, "
-							+ "NOM_POKEMON, "
-							+ "NIVEL_EVO, "
-							+ "TIPO1, "
-							+ "TIPO2, "
-							+ "VITALIDAD, "
-							+ "ATAQUE, "
-							+ "AT_ESPECIAL, "
-							+ "DEFENSA, "
-							+ "DEF_ESPECIAL, "
-							+ "VELOCIDAD "
-						+ "FROM POKEDEX";
+		String query = "SELECT * FROM POKEDEX ORDER BY NUM_POKEDEX";
 		
 		try {
 			Statement st = con.createStatement();

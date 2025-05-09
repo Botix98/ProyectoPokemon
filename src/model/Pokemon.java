@@ -1,5 +1,8 @@
 package model;
 
+import dao.PokedexDAO;
+import dao.PokemonDAO;
+
 public class Pokemon {
 	private int idPokemon;
 	private int idEntrenador;
@@ -40,6 +43,52 @@ public class Pokemon {
 		this.estado = "";
 		this.equipo = 0;
 	}
+	
+	/**
+	 * @param idPokemon
+	 * @param idEntrenador
+	 * @param idRival
+	 * @param tipoPropietario
+	 * @param numPokedex
+	 * @param mote
+	 * @param vitalidadMax
+	 * @param vitalidadAct
+	 * @param ataque
+	 * @param atEspecial
+	 * @param defensa
+	 * @param defEspecial
+	 * @param velocidad
+	 * @param nivel
+	 * @param fertilidad
+	 * @param sexo
+	 * @param estado
+	 * @param equipo
+	 */
+	public Pokemon(int idPokemon, int idEntrenador, int idRival, String tipoPropietario, int numPokedex, String mote,
+			int vitalidadMax, int vitalidadAct, int ataque, int atEspecial, int defensa, int defEspecial, int velocidad,
+			int nivel, int fertilidad, String sexo, String estado, int equipo) {
+		this.idPokemon = idPokemon;
+		this.idEntrenador = idEntrenador;
+		this.idRival = idRival;
+		this.tipoPropietario = tipoPropietario;
+		this.numPokedex = numPokedex;
+		this.mote = mote;
+		this.vitalidadMax = vitalidadMax;
+		this.vitalidadAct = vitalidadAct;
+		this.ataque = ataque;
+		this.atEspecial = atEspecial;
+		this.defensa = defensa;
+		this.defEspecial = defEspecial;
+		this.velocidad = velocidad;
+		this.nivel = nivel;
+		this.fertilidad = fertilidad;
+		this.sexo = sexo;
+		this.estado = estado;
+		this.equipo = equipo;
+	}
+
+
+
 
 	/**
 	 * @return the idPokemon

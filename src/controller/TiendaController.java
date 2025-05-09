@@ -237,7 +237,7 @@ public class TiendaController {
             Parent root = loader.load();
 
             CentroPokemonController centroPokemonController = loader.getController();
-            centroPokemonController.init(entrenador, stage, loginController, menuController, this);
+            centroPokemonController.init(entrenador, stage, loginController, menuController, this, null);
 
             Scene scene = new Scene(root);
             stage.setScene(scene);

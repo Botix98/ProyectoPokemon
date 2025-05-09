@@ -62,17 +62,17 @@
                </font>
             </Label>
             <Button fx:id="btnSalir" layoutX="1058.0" layoutY="595.0" mnemonicParsing="false" onAction="#salir" prefHeight="76.0" prefWidth="170.0" text="Salir" />
-            <Label fx:id="lblNombrePokemonGrande" layoutX="912.0" layoutY="159.0" text="Nombre Pokemon">
+            <Label fx:id="lblNombrePokemonSeleccionado" layoutX="912.0" layoutY="159.0" text="Nombre Pokemon">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblMote" layoutX="1007.0" layoutY="111.0" prefHeight="25.0" prefWidth="51.0" text="Mote">
+            <Label fx:id="lblMotePokemonSeleccionado" layoutX="1007.0" layoutY="111.0" prefHeight="25.0" prefWidth="51.0" text="Mote">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblNivel" layoutX="1090.0" layoutY="154.0" prefHeight="33.0" prefWidth="64.0" text="Nivel">
+            <Label fx:id="lblNivelPokemonSeleccionado" layoutX="1086.0" layoutY="154.0" prefHeight="33.0" prefWidth="64.0" text="Nivel">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>

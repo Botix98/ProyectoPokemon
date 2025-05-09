@@ -17,17 +17,6 @@ public class Movimiento {
 	private String mejora;
 	private int probabilidad;
 	
-	/**
-	 * @param nombre
-	 * @param ppMax
-	 * @param ppActuales
-	 * @param tipoMov
-	 * @param potencia
-	 * @param tipo
-	 * @param turnos
-	 * @param probabilidad
-	 */
-	
 	public Movimiento() {
 	    this.nombre = "";
 	    this.IdMovimiento = 0;
@@ -36,6 +25,25 @@ public class Movimiento {
 	    this.ppActuales = 0;
 	    this.tipoMov = "";
 	    this.potencia = 0;
+	    this.tipo = "";
+	    this.estado = "";
+	    this.turnos = 0;
+	    this.mejora = "";
+	    this.probabilidad = 0;
+	}
+	
+	/**
+	 * @param potencia
+	 */
+	
+	public Movimiento(int potencia) {
+	    this.nombre = "";
+	    this.IdMovimiento = 0;
+	    this.NivelAprendizaje = 0;
+	    this.ppMax = 0;
+	    this.ppActuales = 0;
+	    this.tipoMov = "";
+	    this.potencia = potencia;
 	    this.tipo = "";
 	    this.estado = "";
 	    this.turnos = 0;

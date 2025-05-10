@@ -127,7 +127,21 @@ public class SeleccionarRivalController {
 
     @FXML
     void salir(ActionEvent event) {
-
+    	try {
+    		SonidoController.detenerFondo(null);
+    	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
+    	    Parent root = loader.load();
+ 
+    	    MenuController menuController = loader.getController();
+    	    menuController.init(entrenador, stage, loginController, null, null, null, null, null, null, null);
+ 
+    	    Scene scene = new Scene(root);
+    	    stage.setScene(scene);
+    	    stage.setTitle("Menu");
+    	    stage.show();
+    	} catch (Exception e) {
+    	    e.printStackTrace();
+    	}
     }
 
     @FXML
@@ -225,14 +239,14 @@ public class SeleccionarRivalController {
     		int numPokedex = (int) (Math.random() * 151) + 1;
     		String mote = pokedex.get(numPokedex - 1).getNomPokemon();
     		int nivel = nivelMedio - (int) (numPokRival * 1.7) + 2 * i;
-    		int vitalidadMax = 10 + (int)((double)(nivel) / 50 * (pokedex.get(numPokedex - 1).getVitalidad() * 2) + (int) (Math.random() * 32)) + nivel;
-    		int ataque = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getAtaque() * 2) + (int) (Math.random() * 32)));
-    		int ataqueEsp = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getAtEspecial() * 2) + (int) (Math.random() * 32)));
-    		int defensa = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getDefensa() * 2) + (int) (Math.random() * 32)));
-    		int defensaEsp = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getDefEspecial() * 2) + (int) (Math.random() * 32)));
-    		int velocidad = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getVelocidad() * 2) + (int) (Math.random() * 32)));
+    		int vitalidadMax = 10 + (int)((double)(nivel) / 100 * (pokedex.get(numPokedex - 1).getVitalidad() * 2) + (int) (Math.random() * 32)) + nivel;
+    		int ataque = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getAtaque() * 2) + (int) (Math.random() * 32)));
+    		int ataqueEsp = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getAtEspecial() * 2) + (int) (Math.random() * 32)));
+    		int defensa = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getDefensa() * 2) + (int) (Math.random() * 32)));
+    		int defensaEsp = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getDefEspecial() * 2) + (int) (Math.random() * 32)));
+    		int velocidad = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getVelocidad() * 2) + (int) (Math.random() * 32)));
     		
-    		Pokemon pokemon = new Pokemon(-i, 0, 0, "RIVAL", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 0, "F", "", 1);
+    		Pokemon pokemon = new Pokemon(-i, 0, 0, "RIVAL", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 0, "F", "SIN_ESTADO", 1, 0);
     		equipoRival.add(pokemon);
     		System.out.println(pokemon.toString());
     	}

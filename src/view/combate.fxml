@@ -61,9 +61,9 @@
                   <Image url="@../../../ProyectoPokemon/img/Pokemon/Back/6.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgRival" fitHeight="299.0" fitWidth="294.0" layoutX="668.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgRival" fitHeight="245.0" fitWidth="245.0" layoutX="686.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../ProyectoPokemon/img/Pokemon/Front/55.png" />
+                  <Image url="@../../img/rivales/lusamine-nihilego.png" />
                </image>
             </ImageView>
             <ImageView fx:id="imgPokemonRival" fitHeight="245.0" fitWidth="245.0" layoutX="728.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true" visible="false">
@@ -119,11 +119,6 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <ImageView fx:id="imgEstadoPokemonEntrenador" fitHeight="28.0" fitWidth="56.0" layoutX="881.0" layoutY="451.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@estado.png" />
-               </image>
-            </ImageView>
             <ProgressBar fx:id="pbVidaPokemonEntrenador" layoutX="1024.0" layoutY="457.0" prefHeight="14.0" prefWidth="204.0" progress="1.0" visible="false" />
             <ProgressBar fx:id="pbXpPokemonEntrenador" layoutX="956.0" layoutY="525.0" prefHeight="10.0" prefWidth="271.0" progress="0.0" visible="false" />
             <ImageView fx:id="imgInfoPokemonRival" fitHeight="131.0" fitWidth="441.0" layoutX="42.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" visible="false">
@@ -131,7 +126,12 @@
                   <Image url="@../../img/combateEntrenamiento/infoPokemonEnemigo.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblNombrePokemonRival" layoutX="68.0" layoutY="53.0" prefHeight="38.0" prefWidth="197.0" text="Nombre Pokemon" visible="false">
+            <Label fx:id="lblNombrePokemonRival" layoutX="68.0" layoutY="53.0" prefHeight="38.0" prefWidth="197.0" text="Kangaskhan" visible="false">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblEstadoPokemonRival" layoutX="68.0" layoutY="92.0" prefHeight="38.0" prefWidth="68.0">
                <font>
                   <Font size="24.0" />
                </font>
@@ -146,12 +146,20 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <ImageView fx:id="imgEstadoPokemonRival" fitHeight="28.0" fitWidth="56.0" layoutX="72.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+            <!--<Label fx:id="lblEstadoRival" layoutX="68.0" layoutY="90.0" prefHeight="38.0" prefWidth="74.0" text="Envenenado">
+               <font>
+                  <Font size="24.0" />
+               </font>
                <image>
                   <Image url="@estado.png" />
                </image>
-            </ImageView>
+            </Label>-->
             <ProgressBar fx:id="pbVidaPokemonRival" layoutX="210.0" layoutY="105.0" prefHeight="14.0" prefWidth="204.0" progress="1.0" visible="false" />
+            <Label fx:id="lblEstadoPokemonEntrenador" layoutX="879.0" layoutY="446.0" prefHeight="38.0" prefWidth="68.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
             <Label fx:id="lblPP" layoutX="823.0" layoutY="572.0" prefHeight="50.0" prefWidth="414.0" text="PP: 230554/239482398" visible="false">
                <font>
                   <Font size="24.0" />

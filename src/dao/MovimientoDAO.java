@@ -3,6 +3,7 @@ package dao;
 import java.sql.*;
 import java.util.LinkedList;
 import model.Movimiento;
+import model.TipoEstados;
 
 public class MovimientoDAO {
 
@@ -23,7 +24,7 @@ public class MovimientoDAO {
         	    m.setTipo(rs.getString("TIPO"));
         	    m.setPotencia(rs.getInt("POTENCIA"));
         	    m.setTipoMov(rs.getString("TIPO_MOV"));
-        	    m.setEstado(rs.getString("ESTADO"));
+        	    m.setEstado(TipoEstados.valueOf(rs.getString("ESTADO")));
         	    m.setTurnos(rs.getInt("TURNOS"));
         	    m.setMejora(rs.getString("MEJORA"));
         	    m.setProbabilidad(rs.getInt("PROBABILIDAD"));
@@ -56,7 +57,7 @@ public class MovimientoDAO {
                 m.setTipo(rs.getString("TIPO"));
                 m.setPotencia(rs.getInt("POTENCIA"));
                 m.setTipoMov(rs.getString("TIPO_MOV"));
-                m.setEstado(rs.getString("ESTADO"));
+                m.setEstado(TipoEstados.valueOf(rs.getString("ESTADO")));
                 m.setTurnos(rs.getInt("TURNOS"));
                 m.setMejora(rs.getString("MEJORA"));
                 m.setProbabilidad(rs.getInt("PROBABILIDAD"));
@@ -88,7 +89,7 @@ public class MovimientoDAO {
                 m.setTipo(rs.getString("TIPO"));
                 m.setPotencia(rs.getInt("POTENCIA"));
                 m.setTipoMov(rs.getString("TIPO_MOV"));
-                m.setEstado(rs.getString("ESTADO"));
+                m.setEstado(TipoEstados.valueOf(rs.getString("ESTADO")));
                 m.setTurnos(rs.getInt("TURNOS"));
                 m.setMejora(rs.getString("MEJORA"));
                 m.setProbabilidad(rs.getInt("PROBABILIDAD"));
@@ -117,7 +118,7 @@ public class MovimientoDAO {
             ps.setString(5, m.getTipo());
             ps.setInt(6, m.getPotencia());
             ps.setString(7, m.getTipoMov());
-            ps.setString(8, m.getEstado());
+            ps.setString(8, m.getEstado().toString());
             ps.setInt(9, m.getTurnos());
             ps.setString(10, m.getMejora());
             ps.setInt(11, m.getProbabilidad());
@@ -141,7 +142,7 @@ public class MovimientoDAO {
             ps.setString(4, m.getTipo());
             ps.setInt(5, m.getPotencia());
             ps.setString(6, m.getTipoMov());
-            ps.setString(7, m.getEstado());
+            ps.setString(7, m.getEstado().toString());
             ps.setInt(8, m.getTurnos());
             ps.setString(9, m.getMejora());
             ps.setInt(10, m.getProbabilidad());

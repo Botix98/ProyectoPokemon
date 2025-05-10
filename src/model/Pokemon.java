@@ -1,7 +1,15 @@
 package model;
 
+import dao.ConexionBD;
 import dao.PokedexDAO;
 import dao.PokemonDAO;
+import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.util.Duration;
 
 public class Pokemon {
 	private int idPokemon;
@@ -20,8 +28,9 @@ public class Pokemon {
 	private int nivel;
 	private int fertilidad;
 	private String sexo;
-	private String estado;
+	private TipoEstados estado;
 	private int equipo;
+	private int experiencia;
 	
 	public Pokemon() {
 		this.idPokemon = 0;
@@ -40,8 +49,9 @@ public class Pokemon {
 		this.nivel = 0;
 		this.fertilidad = 0;
 		this.sexo = "";
-		this.estado = "";
+		this.estado = null;
 		this.equipo = 0;
+		this.experiencia = 0;
 	}
 	
 	/**
@@ -63,10 +73,11 @@ public class Pokemon {
 	 * @param sexo
 	 * @param estado
 	 * @param equipo
+	 * @param experiencia
 	 */
 	public Pokemon(int idPokemon, int idEntrenador, int idRival, String tipoPropietario, int numPokedex, String mote,
 			int vitalidadMax, int vitalidadAct, int ataque, int atEspecial, int defensa, int defEspecial, int velocidad,
-			int nivel, int fertilidad, String sexo, String estado, int equipo) {
+			int nivel, int fertilidad, String sexo, String estado, int equipo, int experiencia) {
 		this.idPokemon = idPokemon;
 		this.idEntrenador = idEntrenador;
 		this.idRival = idRival;
@@ -83,12 +94,10 @@ public class Pokemon {
 		this.nivel = nivel;
 		this.fertilidad = fertilidad;
 		this.sexo = sexo;
-		this.estado = estado;
+		this.estado = TipoEstados.valueOf(estado);
 		this.equipo = equipo;
+		this.experiencia = experiencia;
 	}
-
-
-
 
 	/**
 	 * @return the idPokemon
@@ -287,24 +296,24 @@ public class Pokemon {
 	}
 
 	/**
+	 * @return the equipo
+	 */
+	public int getEquipo() {
+		return equipo;
+	}
+
+	/**
 	 * @return the estado
 	 */
-	public String getEstado() {
+	public TipoEstados getEstado() {
 		return estado;
 	}
 
 	/**
 	 * @param estado the estado to set
 	 */
-	public void setEstado(String estado) {
+	public void setEstado(TipoEstados estado) {
 		this.estado = estado;
-	}
-
-	/**
-	 * @return the equipo
-	 */
-	public int getEquipo() {
-		return equipo;
 	}
 
 	/**
@@ -341,6 +350,127 @@ public class Pokemon {
 	public void setTipoPropietario(String tipoPropietario) {
 		this.tipoPropietario = tipoPropietario;
 	}
+	
+	/**
+	 * @return the experiencia
+	 */
+	public int getExperiencia() {
+		return experiencia;
+	}
+
+	/**
+	 * @param experiencia the experiencia to set
+	 */
+	public void setExperiencia(int experiencia) {
+		this.experiencia = experiencia;
+	}
+
+	public Double comprobarVentajaDesventaja(Movimiento movAtacante) {
+		double res = 1;
+		TipoPokemon tipoAtaque = TipoPokemon.valueOf(movAtacante.getTipoMov());
+    	String[] tipos = PokedexDAO.cargarPorNumPokedex(ConexionBD.getConnection(), this.getNumPokedex()).getTipos();
+    	
+    	res = res * tipoAtaque.efectividadContra(TipoPokemon.valueOf(tipos[0]));
+    	
+    	if (tipos[1] != null) {
+    		res = res * tipoAtaque.efectividadContra(TipoPokemon.valueOf(tipos[1]));
+    	}
+    	
+    	System.out.println("Ventaja: " + res);
+    	
+    	return res;
+	}
+	
+	public void actualizarXP(SimpleBooleanProperty activo, ProgressBar pbXP, ProgressBar pbVidaPokemonEntrenador, Label lblTexto, Label lblVidaPokemonEntrenador, Label lblNivelPokemonEntrenador) {
+		int experienciaLevelUp = 10 * getNivel();
+		double porcentajeFinal;
+		
+		System.out.println("Nivel: " + getNivel());
+		System.out.println("ExperienciaNextLvl: " + experienciaLevelUp);
+		System.out.println("Experiencia acumulada: " + getExperiencia());
+		
+		if (getExperiencia() >= experienciaLevelUp) {
+			porcentajeFinal = 1;
+			setNivel(getNivel() + 1);
+			setExperiencia(getExperiencia() - experienciaLevelUp);
+		} else {
+			porcentajeFinal = (double) (getExperiencia()) / experienciaLevelUp;
+		}
+		
+		int numCiclos = 90;
+		double aumPorPaso = (porcentajeFinal - pbXP.getProgress()) / numCiclos;
+		
+		Timeline timeline = new Timeline(
+		    new KeyFrame(Duration.seconds(0.017), e -> {
+		        double current = pbXP.getProgress();
+		        
+		        if (current < porcentajeFinal) {
+		        	pbXP.setProgress(Math.min(current + aumPorPaso, 1));
+		        }
+		    })
+		);
+		timeline.setCycleCount(numCiclos);
+		timeline.play();
+		
+		timeline.setOnFinished(e -> {
+			lblTexto.setText(getMote() + " ha subido al nivel " + getNivel() + "! Sus estadisticas tambien suben!");
+			
+			int rand = (int) (Math.random() * 5) + 1;
+			
+			setVitalidadMax(getVitalidadMax() + rand);
+			setVitalidadAct(getVitalidadAct() + rand);
+			setAtaque((int) (Math.random() * 5) + 1);
+			setAtEspecial((int) (Math.random() * 5) + 1);
+			setDefensa((int) (Math.random() * 5) + 1);
+			setDefEspecial((int) (Math.random() * 5) + 1);
+			
+			lblVidaPokemonEntrenador.setText(getVitalidadAct() + "/" + getVitalidadMax());
+			pbVidaPokemonEntrenador.setProgress((double) (getVitalidadAct()) / getVitalidadMax());
+			lblNivelPokemonEntrenador.setText(Integer.toString(getNivel()));
+			
+			if (pbVidaPokemonEntrenador.getProgress() < 0.25){
+				pbVidaPokemonEntrenador.setStyle("-fx-accent: red;");
+	        }
+	        else if (pbVidaPokemonEntrenador.getProgress() < 0.5){
+	        	pbVidaPokemonEntrenador.setStyle("-fx-accent: yellow;");
+	        } else {
+	        	pbVidaPokemonEntrenador.setStyle("-fx-accent: #00a135;");
+	        }
+			
+			//Subir las estadisticas del pokemon
+			PauseTransition pausa = new PauseTransition(Duration.seconds(2));
+            pausa.setOnFinished(event -> {
+            	pbXP.setProgress(0.0001);
+            	if (getExperiencia() >= experienciaLevelUp) {
+            		actualizarXP(activo, pbXP, pbVidaPokemonEntrenador, lblTexto, lblVidaPokemonEntrenador, lblNivelPokemonEntrenador);
+            	} else {
+            		double porcentajeFinal2 = (double) (getExperiencia()) / experienciaLevelUp;
+            		double aumPorPaso2 = (porcentajeFinal2 - pbXP.getProgress()) / numCiclos;
+            		
+            		Timeline timeline2 = new Timeline(
+            		    new KeyFrame(Duration.seconds(0.017), e2 -> {
+            		        double current = pbXP.getProgress();
+            		        
+            		        if (current < porcentajeFinal2) {
+            		        	pbXP.setProgress(Math.min(current + aumPorPaso2, 1));
+            		        }
+            		    })
+            		);
+            		timeline2.setCycleCount(numCiclos);
+            		timeline2.play();
+            		
+            		timeline2.setOnFinished(e2 -> {
+            			PauseTransition pausa1 = new PauseTransition(Duration.seconds(2));
+                        pausa1.setOnFinished(event1 -> {
+                        	activo.set(true);
+                        });
+            			pausa1.play();
+            		});
+            	}
+            });
+            pausa.play();
+		});
+	}
 
 	@Override
 	public String toString() {
@@ -349,6 +479,6 @@ public class Pokemon {
 				+ ", vitalidadMax=" + vitalidadMax + ", vitalidadAct=" + vitalidadAct + ", ataque=" + ataque
 				+ ", atEspecial=" + atEspecial + ", defensa=" + defensa + ", defEspecial=" + defEspecial
 				+ ", velocidad=" + velocidad + ", nivel=" + nivel + ", fertilidad=" + fertilidad + ", sexo=" + sexo
-				+ ", estado=" + estado + ", equipo=" + equipo + "]";
+				+ ", estado=" + estado + ", equipo=" + equipo + ", experiencia=" + experiencia + "]";
 	}
 }

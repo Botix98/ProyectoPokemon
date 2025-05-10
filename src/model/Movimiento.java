@@ -2,8 +2,6 @@ package model;
 
 public class Movimiento {
 	
-	
-
 	private String nombre;
 	private int IdMovimiento;
 	private int NivelAprendizaje;
@@ -12,7 +10,7 @@ public class Movimiento {
 	private String tipoMov;
 	private int potencia;
 	private String tipo;
-	private String estado;
+	private TipoEstados estado;
 	private int turnos;
 	private String mejora;
 	private int probabilidad;
@@ -26,7 +24,7 @@ public class Movimiento {
 	    this.tipoMov = "";
 	    this.potencia = 0;
 	    this.tipo = "";
-	    this.estado = "";
+	    this.estado = null;
 	    this.turnos = 0;
 	    this.mejora = "";
 	    this.probabilidad = 0;
@@ -45,7 +43,7 @@ public class Movimiento {
 	    this.tipoMov = "";
 	    this.potencia = potencia;
 	    this.tipo = "";
-	    this.estado = "";
+	    this.estado = null;
 	    this.turnos = 0;
 	    this.mejora = "";
 	    this.probabilidad = 0;
@@ -62,7 +60,7 @@ public class Movimiento {
 		this.tipoMov = tipoMov;
 		this.potencia = potencia;
 		this.tipo = tipo;
-		this.estado = estado;
+		this.estado = TipoEstados.valueOf(estado);
 		this.turnos = turnos;
 		this.mejora = mejora;
 		this.probabilidad = probabilidad;
@@ -198,16 +196,22 @@ public class Movimiento {
 		this.NivelAprendizaje = NivelAprendizaje;
 	}
 
-	public String getEstado() {
+	public String getMejora() {
+		return mejora;
+	}
+
+	/**
+	 * @return the estado
+	 */
+	public TipoEstados getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(TipoEstados estado) {
 		this.estado = estado;
-	}
-
-	public String getMejora() {
-		return mejora;
 	}
 
 	public void setMejora(String mejora) {

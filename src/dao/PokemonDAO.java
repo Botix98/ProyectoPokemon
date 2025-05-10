@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 import model.Pokemon;
+import model.TipoEstados;
 
 public class PokemonDAO {
 	public static LinkedList<Pokemon> cargarPokemonEntrenador(Connection con, int idEntrenador) {
@@ -39,7 +40,7 @@ public class PokemonDAO {
 				pokemon.setNivel(rs.getInt("NIVEL"));
 				pokemon.setFertilidad(rs.getInt("FERTILIDAD"));
 				pokemon.setSexo(rs.getString("SEXO"));
-				pokemon.setEstado(rs.getString("ESTADO"));
+				pokemon.setEstado(TipoEstados.valueOf(rs.getString("ESTADO").toUpperCase()));
 				pokemon.setEquipo(rs.getInt("EQUIPO"));
 				
 				listaPokemon.add(pokemon);
@@ -82,7 +83,7 @@ public class PokemonDAO {
 				pokemon.setNivel(rs.getInt("NIVEL"));
 				pokemon.setFertilidad(rs.getInt("FERTILIDAD"));
 				pokemon.setSexo(rs.getString("SEXO"));
-				pokemon.setEstado(rs.getString("ESTADO"));
+				pokemon.setEstado(TipoEstados.valueOf(rs.getString("ESTADO").toUpperCase()));
 				pokemon.setEquipo(rs.getInt("EQUIPO"));
 				
 				listaPokemon.add(pokemon);
@@ -125,7 +126,7 @@ public class PokemonDAO {
 				pokemon.setNivel(rs.getInt("NIVEL"));
 				pokemon.setFertilidad(rs.getInt("FERTILIDAD"));
 				pokemon.setSexo(rs.getString("SEXO"));
-				pokemon.setEstado(rs.getString("ESTADO"));
+				pokemon.setEstado(TipoEstados.valueOf(rs.getString("ESTADO").toUpperCase()));
 				pokemon.setEquipo(rs.getInt("EQUIPO"));
 				
 				listaPokemon.add(pokemon);
@@ -166,8 +167,9 @@ public class PokemonDAO {
 				pokemon.setNivel(rs.getInt("NIVEL"));
 				pokemon.setFertilidad(rs.getInt("FERTILIDAD"));
 				pokemon.setSexo(rs.getString("SEXO"));
-				pokemon.setEstado(rs.getString("ESTADO"));
+				pokemon.setEstado(TipoEstados.valueOf(rs.getString("ESTADO").toUpperCase()));
 				pokemon.setEquipo(rs.getInt("EQUIPO"));
+				pokemon.setExperiencia(rs.getInt("EXPERIENCIA"));
 				
 				listaPokemon.add(pokemon);
 			}
@@ -206,7 +208,7 @@ public class PokemonDAO {
 				pokemon.setNivel(rs.getInt("NIVEL"));
 				pokemon.setFertilidad(rs.getInt("FERTILIDAD"));
 				pokemon.setSexo(rs.getString("SEXO"));
-				pokemon.setEstado(rs.getString("ESTADO"));
+				pokemon.setEstado(TipoEstados.valueOf(rs.getString("ESTADO").toUpperCase()));
 				pokemon.setEquipo(rs.getInt("EQUIPO"));
 			}
 			
@@ -239,7 +241,7 @@ public class PokemonDAO {
 			ps.setInt(12, pokemon.getNivel());
 			ps.setInt(13, pokemon.getFertilidad());
 			ps.setString(14, pokemon.getSexo());
-			ps.setString(15, pokemon.getEstado());
+			ps.setString(15, pokemon.getEstado().toString());
 			ps.setInt(16, pokemon.getEquipo());
 			ps.setString(17, pokemon.getTipoPropietario());
 
@@ -343,7 +345,7 @@ public class PokemonDAO {
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			
-			ps.setString(1, pokemon.getEstado());
+			ps.setString(1, pokemon.getEstado().toString());
 			ps.setInt(2, pokemon.getIdPokemon());
 			
 			int filasAfectadas = ps.executeUpdate();

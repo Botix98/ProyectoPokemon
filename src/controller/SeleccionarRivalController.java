@@ -228,7 +228,9 @@ public class SeleccionarRivalController {
     	int nivelMedio = 0;
     	int numPokemon = 0;
     	
-    	for (Pokemon pokemon : PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1)) {
+    	LinkedList<Pokemon> equipoEntrenador = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
+    	
+    	for (Pokemon pokemon : equipoEntrenador) {
 			nivelMedio += pokemon.getNivel();
 			numPokemon++;
 		}

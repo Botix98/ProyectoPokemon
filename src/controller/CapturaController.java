@@ -57,8 +57,8 @@ public class CapturaController {
     @FXML private Button btnCambioCueva, btnCambioHierba, btnCambioNieve, btnCambioPlaya; 
     @FXML private Button btnCambioNoche, btnCambioNube, btnCambioPiedra, btnCambioVolcan;
     
-    @FXML private Button imgCambioCueva, imgCambioHierba, imgCambioNieve, imgCambioPlaya; 
-    @FXML private Button imgCambioNoche, imgCambioCascada, imgCambioPiedra, imgCambioVolcan;
+    @FXML private ImageView imgCambioCueva, imgCambioHierba, imgCambioNieve, imgCambioPlaya; 
+    @FXML private ImageView imgCambioNoche, imgCambioCascada, imgCambioPiedra, imgCambioVolcan;
     
     @FXML private Button btnCambiarPokemon;
     @FXML private ImageView imgCambiarPokemon;
@@ -205,7 +205,7 @@ public class CapturaController {
         int defensaEsp = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getDefEspecial() * 2) + (Math.random() * 32)));
         int velocidad = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getVelocidad() * 2) + (Math.random() * 32)));
 
-        return new Pokemon(-1, 0, 0, "SALVAJE", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 0, "F", "", 1);
+        return new Pokemon(-1, 0, 0, "SALVAJE", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 0, "F", "SIN_ESTADO", 1, 0);
     }
     
     private void lanzarBolas(int idObjeto, double ratioExito, String nombreBall) {

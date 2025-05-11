@@ -1,33 +1,34 @@
 package model;
 
-import java.util.Arrays;
-import java.util.Iterator;
-
 public class Entrenador {
 	
 	private String usuario;
 	private String pass;
 	private int pokedolares;
-	private int IdEntrenador;
+	private int idEntrenador;
+	private int rivalesVencidos;
 	
 	/**
 	 * @param usuario
 	 * @param pass
 	 * @param pokedolares
+	 * @param rivalesVencidos
 	 */
 	
 	public Entrenador() {
 	    this.usuario = "";
 	    this.pass = "";
 	    this.pokedolares = 0;
-	    this.IdEntrenador = 1;
+	    this.idEntrenador = 0;
+	    this.rivalesVencidos = 0;
 	}
 	
-	public Entrenador(String usuario, String pass, int pokedolares) {
+	public Entrenador(String usuario, String pass, int pokedolares, int rivalesVencidos) {
 		super();
 		this.usuario = usuario;
 		this.pass = pass;
 		this.pokedolares = pokedolares;
+		this.rivalesVencidos = rivalesVencidos;
 	}
 	/**
 	 * @return the usuario
@@ -67,13 +68,29 @@ public class Entrenador {
 	}
 	
 	public int getIdEntrenador() {
-		return IdEntrenador;
+		return idEntrenador;
 	}
 	public void setIdEntrenador(int idEntrenador) {
-		IdEntrenador = idEntrenador;
+		this.idEntrenador = idEntrenador;
 	}
+
+	/**
+	 * @return the rivalesVencidos
+	 */
+	public int getRivalesVencidos() {
+		return rivalesVencidos;
+	}
+
+	/**
+	 * @param rivalesVencidos the rivalesVencidos to set
+	 */
+	public void setRivalesVencidos(int rivalesVencidos) {
+		this.rivalesVencidos = rivalesVencidos;
+	}
+
 	@Override
 	public String toString() {
-		return "Entrenador [usuario=" + usuario + ", pass=" + pass + ", pokedolares=" + pokedolares + "]";
+		return "Entrenador [usuario=" + usuario + ", pass=" + pass + ", pokedolares=" + pokedolares + ", idEntrenador="
+				+ idEntrenador + ", rivalesVencidos=" + rivalesVencidos + "]";
 	}
 }

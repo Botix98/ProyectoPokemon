@@ -24,6 +24,7 @@ public class EntrenadorDAO {
                 entrenador.setUsuario(rs.getString("USUARIO"));
                 entrenador.setPass(rs.getString("PASS"));
                 entrenador.setPokedolares(rs.getInt("POKEDOLARES"));
+                entrenador.setRivalesVencidos(rs.getInt("RIVALES_VENCIDOS"));
             }
         } catch (SQLException e) {
             ConexionBD.printSQLException(e);
@@ -33,7 +34,7 @@ public class EntrenadorDAO {
     }
 
     public static boolean insertarEntrenador(Connection con, Entrenador entrenador) {
-        String query = "INSERT INTO ENTRENADOR (ID_ENTRENADOR, USUARIO, PASS, POKEDOLARES) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO ENTRENADOR (ID_ENTRENADOR, USUARIO, PASS, POKEDOLARES, RIVALES_VENCIDOS) VALUES (?, ?, ?, ?, ?)";
 
         try
         	(PreparedStatement ps = con.prepareStatement(query)) {
@@ -41,6 +42,7 @@ public class EntrenadorDAO {
             ps.setString(2, entrenador.getUsuario());
             ps.setString(3, entrenador.getPass());
             ps.setInt(4, entrenador.getPokedolares());
+            ps.setInt(5, entrenador.getRivalesVencidos());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             ConexionBD.printSQLException(e);
@@ -54,6 +56,20 @@ public class EntrenadorDAO {
         try
         	(PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, nuevosPokedolares);
+            ps.setInt(2, idEntrenador);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            ConexionBD.printSQLException(e);
+            return false;
+        }
+    }
+    
+    public static boolean actualizarRivalesVencidos(Connection con, int idEntrenador, int rivalesVencidos) {
+        String query = "UPDATE ENTRENADOR SET RIVALES_VENCIDOS = ? WHERE ID_ENTRENADOR = ?";
+
+        try
+        	(PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setInt(1, rivalesVencidos);
             ps.setInt(2, idEntrenador);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -75,32 +91,18 @@ public class EntrenadorDAO {
         }
     }
     
-    	public static boolean insertarPokemonEnCaja(Connection con, int idEntrenador, String nombre, int nivel) {
-            String sql = "INSERT INTO Caja (idEntrenador, nombrePokemon, nivel) VALUES (?, ?, ?)";
-            try (PreparedStatement stmt = con.prepareStatement(sql)) {
-                stmt.setInt(1, idEntrenador);
-                stmt.setString(2, nombre);
-                stmt.setInt(3, nivel);
-                stmt.executeUpdate();
-                return true;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return false;
-            }
-        } 
-    	
-    	public static boolean actualizarPPMovimiento(Connection con, int idPokemon, int idMovimiento, int nuevosPP) {
-    		        String query = "UPDATE MOVIMIENTO_POKEMON SET PP_ACTUALES = ? WHERE ID_POKEMON = ? AND ID_MOVIMIENTO = ?";
-
-    		        try (PreparedStatement ps = con.prepareStatement(query)) {
-    		            ps.setInt(1, nuevosPP);
-    		            ps.setInt(2, idPokemon);
-    		            ps.setInt(3, idMovimiento);
-    		            return ps.executeUpdate() > 0;
-    		        } catch (SQLException e) {
-    		            ConexionBD.printSQLException(e);
-    		            return false;
-    		        }
-    		    }
+	public static boolean insertarPokemonEnCaja(Connection con, int idEntrenador, String nombre, int nivel) {
+        String sql = "INSERT INTO Caja (idEntrenador, nombrePokemon, nivel) VALUES (?, ?, ?)";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, idEntrenador);
+            stmt.setString(2, nombre);
+            stmt.setInt(3, nivel);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
 

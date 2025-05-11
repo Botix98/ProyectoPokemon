@@ -57,8 +57,8 @@ public class CapturaController {
     @FXML private Button btnCambioCueva, btnCambioHierba, btnCambioNieve, btnCambioPlaya; 
     @FXML private Button btnCambioNoche, btnCambioNube, btnCambioPiedra, btnCambioVolcan;
     
-    @FXML private Button imgCambioCueva, imgCambioHierba, imgCambioNieve, imgCambioPlaya; 
-    @FXML private Button imgCambioNoche, imgCambioCascada, imgCambioPiedra, imgCambioVolcan;
+    @FXML private ImageView imgCambioCueva, imgCambioHierba, imgCambioNieve, imgCambioPlaya; 
+    @FXML private ImageView imgCambioNoche, imgCambioCascada, imgCambioPiedra, imgCambioVolcan;
     
     @FXML private Button btnCambiarPokemon;
     @FXML private ImageView imgCambiarPokemon;
@@ -68,6 +68,7 @@ public class CapturaController {
     @FXML private Label lblRatioCatchPokeball, lblRatioCatchSuperball, lblRatioCatchUltraball;
 
     
+    // QUE AL INICIARSE TE DEJE ACCEDER A LOS FONDOS SEGUN HAYAS VENCIDO A LOS RIVALES CON UN IF Y VAN A SER 5
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
         this.entrenador = entr;
         this.stage = stage;
@@ -165,9 +166,9 @@ public class CapturaController {
         lblNumeroSuperballs.setText("Tienes:" + cantidadSuperball);
         lblNumeroUltraballs.setText("Tienes:" + cantidadUltraball);
 
-        aplicarOscuridadSiNoDisponible(imgPokeball, cantidadPokeball);
-        aplicarOscuridadSiNoDisponible(imgSuperball, cantidadSuperball);
-        aplicarOscuridadSiNoDisponible(imgUltraball, cantidadUltraball);
+        OscuridadSiNoEstaDisponible(imgPokeball, cantidadPokeball);
+        OscuridadSiNoEstaDisponible(imgSuperball, cantidadSuperball);
+        OscuridadSiNoEstaDisponible(imgUltraball, cantidadUltraball);
     }
     
     public Pokemon generarPokemonSalvaje() {
@@ -195,7 +196,7 @@ public class CapturaController {
         else nivelMedio = nivelMedio / numPokemon;
 
         String mote = pokedex.get(numPokedex - 1).getNomPokemon();
-        int nivel = Math.max(1, nivelMedio + (int)(Math.random() * 5) - 2); // +-2 del promedio
+        int nivel = Math.max(1, nivelMedio + (int)(Math.random() * 5) - 2); // +-2 niveles o por arriba ao por debajo
 
         // Calcular stats
         int vitalidadMax = 10 + (int)((double)(nivel) / 50 * (pokedex.get(numPokedex - 1).getVitalidad() * 2) + (Math.random() * 32)) + nivel;
@@ -205,7 +206,7 @@ public class CapturaController {
         int defensaEsp = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getDefEspecial() * 2) + (Math.random() * 32)));
         int velocidad = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getVelocidad() * 2) + (Math.random() * 32)));
 
-        return new Pokemon(-1, 0, 0, "SALVAJE", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 0, "F", "", 1);
+        return new Pokemon(-1, 0, 0, "SALVAJE", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 5, "F", "SIN_ESTADO", 1, 0);
     }
     
     private void lanzarBolas(int idObjeto, double ratioExito, String nombreBall) {
@@ -249,7 +250,7 @@ public class CapturaController {
         cargarObjetosMochila();
     }
     
-	    //que vaya a la caja y no al equipo al ser capturado
+	    //QUE VAYAN A LA CAJA Y QUE PASEN A SER NIVEL 1
     private void capturarPokemon() {
     	 System.out.println("esto es que ha funcionado ahora hay que hacer que se vayan al equipo");
 	}
@@ -288,7 +289,7 @@ public class CapturaController {
         }
     }
     
-    private void aplicarOscuridadSiNoDisponible(ImageView imageView, int cantidad) {
+    private void OscuridadSiNoEstaDisponible(ImageView imageView, int cantidad) {
         if (cantidad <= 0) {
             ColorAdjust colorAdjust = new ColorAdjust();
             colorAdjust.setBrightness(-0.5);

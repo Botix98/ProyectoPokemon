@@ -166,6 +166,11 @@ public class CajaController {
     @FXML
     public void initialize() {
         SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/Caja.mp3");
+        lblNombrePokemonSeleccionado.setVisible(false);
+        lblMotePokemonSeleccionado.setVisible(false);
+        lblNivelPokemonSeleccionado.setVisible(false);
+        pbPokemonSeleccionado.setVisible(false);
+        imgPokemonSeleccionado.setVisible(false);
 
         imagenesCaja = List.of(
             imgPokemonCaja1, imgPokemonCaja2, imgPokemonCaja3, imgPokemonCaja4, imgPokemonCaja5,
@@ -301,6 +306,10 @@ public class CajaController {
         ImageView origen = (ImageView) event.getSource();
         imgPokemonSeleccionado.setImage(origen.getImage());
         pbPokemonSeleccionado.setVisible(true);
+        lblNombrePokemonSeleccionado.setVisible(true);
+        lblMotePokemonSeleccionado.setVisible(true);
+        lblNivelPokemonSeleccionado.setVisible(true);
+        imgPokemonSeleccionado.setVisible(true);
 
         List<ImageView> imagenesEquipo = List.of(
             imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
@@ -313,9 +322,11 @@ public class CajaController {
 
                 double progreso = (double) pokemon.getVitalidadAct() / pokemon.getVitalidadMax();
                 pbPokemonSeleccionado.setProgress(progreso);
+                actualizarColorPB(pbPokemonSeleccionado);
 
-                
-                lblNombrePokemonSeleccionado.setText(PokedexDAO.cargarPorNumPokedex(con, pokemon.getNumPokedex()).getNomPokemon());
+                lblNombrePokemonSeleccionado.setText(
+                    PokedexDAO.cargarPorNumPokedex(con, pokemon.getNumPokedex()).getNomPokemon()
+                );
                 lblNivelPokemonSeleccionado.setText("Nvl: " + pokemon.getNivel());
                 lblMotePokemonSeleccionado.setText("Mote: " + pokemon.getMote());
                 break;
@@ -323,6 +334,17 @@ public class CajaController {
         }
     }
       
+    private void actualizarColorPB(ProgressBar pb) {
+        double progreso = pb.getProgress();
+        if (progreso < 0.25) {
+            pb.setStyle("-fx-accent: red;");
+        } else if (progreso < 0.5) {
+            pb.setStyle("-fx-accent: yellow;");
+        } else {
+            pb.setStyle("-fx-accent: green;");
+        }
+    }		
+    
     @FXML
     void activarDesactivarSonido(MouseEvent event) {
         loginController.sonido();

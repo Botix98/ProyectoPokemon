@@ -25,11 +25,15 @@ import java.util.LinkedList;
 
 import dao.MochilaDAO;
 import dao.ObjetoDAO;
+import dao.PokedexDAO;
+import dao.PokemonDAO;
 import dao.EntrenadorDAO;
 import dao.ConexionBD;
 import model.Entrenador;
 import model.Mochila;
 import model.Objeto;
+import model.Pokedex;
+import model.Pokemon;
 
 
 public class CapturaController {
@@ -39,103 +43,30 @@ public class CapturaController {
 	private MenuController menuController;
 	private LoginController loginController;
 	private List<ImageView> imageViews;
-	
-	
+	private List<Pokedex> pokedex;
 	private List<Mochila> mochila;
     Connection con = ConexionBD.getConnection();
-
-	@FXML
-	private Button btnCambiarPokemon;
-
-	@FXML
-	private Button btnCambioCueva;
-	
-	@FXML
-	private Button btnCambioHierba;
-	
-	@FXML
-	private Button btnCambioNieve;
-
-	 @FXML
-	private Button btnCambioNoche;
-
-	@FXML
-	private Button btnCambioNube;
-
-	@FXML
-	private Button btnCambioPiedra;
-
-	@FXML
-	private Button btnCambioPlaya;
-
-	@FXML
-	private Button btnCambioVolcan;
-
-    @FXML
-    private Button btnSalir;
     
-    @FXML
-    private ImageView imgCambiarPokemon;
+    @FXML private Button btnSalir;
+    @FXML private ImageView imgFondo;
+    @FXML private ImageView imgSonido;
     
-    @FXML
-    private ImageView imgCambioCascada;
-
-    @FXML
-    private ImageView imgCambioHierba;
-
-    @FXML
-    private ImageView imgCambioNoche;
-
-    @FXML
-    private ImageView imgCambioPiedra;
-
-    @FXML
-    private ImageView imgCambioPlaya;
-
-    @FXML
-    private ImageView imgCambioVolcan;
-
-    @FXML
-    private ImageView imgFondo;
+    @FXML private ImageView imgPokemon;
+    @FXML private Label lblNombrePokemon, lblNivelPokemon;
     
-    @FXML
-    private ImageView imgPokemon;
-
-    @FXML
-    private ImageView imgSonido;
+    @FXML private Button btnCambioCueva, btnCambioHierba, btnCambioNieve, btnCambioPlaya; 
+    @FXML private Button btnCambioNoche, btnCambioNube, btnCambioPiedra, btnCambioVolcan;
     
-    @FXML
-    private ImageView imgPokeball;
+    @FXML private Button imgCambioCueva, imgCambioHierba, imgCambioNieve, imgCambioPlaya; 
+    @FXML private Button imgCambioNoche, imgCambioCascada, imgCambioPiedra, imgCambioVolcan;
     
-    @FXML
-    private ImageView imgSuperball;
+    @FXML private Button btnCambiarPokemon;
+    @FXML private ImageView imgCambiarPokemon;
 
-    @FXML
-    private ImageView imgUltraball;
+    @FXML private ImageView imgPokeball, imgSuperball, imgUltraball;
+    @FXML private Label lblNumeroPokeballs, lblNumeroSuperballs, lblNumeroUltraballs;
+    @FXML private Label lblRatioCatchPokeball, lblRatioCatchSuperball, lblRatioCatchUltraball;
 
-    @FXML
-    private Label lblNivelPokemon;
-
-    @FXML
-    private Label lblNombrePokemon;
-    
-    @FXML
-    private Label lblNumeroPokeballs;
-
-    @FXML
-    private Label lblNumeroSuperballs;
-
-    @FXML
-    private Label lblNumeroUltraballs;
-
-    @FXML
-    private Label lblRatioCatchPokeball;
-
-    @FXML
-    private Label lblRatioCatchSuperball;
-
-    @FXML
-    private Label lblRatioCatchUltraball;
     
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
         this.entrenador = entr;
@@ -143,6 +74,21 @@ public class CapturaController {
         this.loginController = loginController;
         this.menuController = menuController;
         cargarObjetosMochila();
+        pokedex = PokedexDAO.cargarPokedexCompleta(con);
+        
+        Pokemon pokemonSalvaje = generarPokemonSalvaje();
+        if (pokemonSalvaje != null) {
+            lblNombrePokemon.setText(pokemonSalvaje.getMote());
+            lblNivelPokemon.setText("Nvl: " + pokemonSalvaje.getNivel());
+
+            String rutaImagen = "./img/Pokemon/Front/" + pokemonSalvaje.getNumPokedex() + ".png";
+            File file = new File(rutaImagen);
+            if (file.exists()) {
+                imgPokemon.setImage(new Image(file.toURI().toString()));
+            } else {
+                System.err.println("Imagen no encontrada: " + file.getAbsolutePath());
+            }
+        }
         
         Mochila pokeball = MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), 8);
         Mochila superball = MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), 9);
@@ -155,6 +101,7 @@ public class CapturaController {
         lblRatioCatchPokeball.setText("Captura: 30%");
         lblRatioCatchSuperball.setText("Captura: 50%");
         lblRatioCatchUltraball.setText("Captura: 80%");
+       
     }
     
     @FXML
@@ -223,9 +170,43 @@ public class CapturaController {
         aplicarOscuridadSiNoDisponible(imgUltraball, cantidadUltraball);
     }
     
-    
-    
-    
+    public Pokemon generarPokemonSalvaje() {
+        int nivelMedio = 0;
+        int numPokemon = 0;
+
+        // Elegir Pokémon aleatorio de la pokédex
+        int numPokedex = (int) (Math.random() * 151) + 1;
+
+        // Verifica que la pokedex esté bien cargada
+        if (pokedex == null || pokedex.size() < numPokedex) {
+            System.err.println("No se cargó la pokédex completa");
+            return null;
+        }
+
+        String rutaImagen = "./img/Pokemon/Front/" + numPokedex + ".png";
+        
+        // Obtener nivel promedio del equipo del entrenador
+        for (Pokemon pokemon : PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1)) {
+            nivelMedio += pokemon.getNivel();
+            numPokemon++;
+        }
+
+        if (numPokemon == 0) nivelMedio = 5; // nivel por defecto si no tiene Pokémon
+        else nivelMedio = nivelMedio / numPokemon;
+
+        String mote = pokedex.get(numPokedex - 1).getNomPokemon();
+        int nivel = Math.max(1, nivelMedio + (int)(Math.random() * 5) - 2); // +-2 del promedio
+
+        // Calcular stats
+        int vitalidadMax = 10 + (int)((double)(nivel) / 50 * (pokedex.get(numPokedex - 1).getVitalidad() * 2) + (Math.random() * 32)) + nivel;
+        int ataque = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getAtaque() * 2) + (Math.random() * 32)));
+        int ataqueEsp = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getAtEspecial() * 2) + (Math.random() * 32)));
+        int defensa = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getDefensa() * 2) + (Math.random() * 32)));
+        int defensaEsp = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getDefEspecial() * 2) + (Math.random() * 32)));
+        int velocidad = 5 + (int)((double)(nivel) / 50 * ((pokedex.get(numPokedex - 1).getVelocidad() * 2) + (Math.random() * 32)));
+
+        return new Pokemon(-1, 0, 0, "SALVAJE", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 0, "F", "", 1);
+    }
     
     private void lanzarBolas(int idObjeto, double ratioExito, String nombreBall) {
         Mochila m = MochilaDAO.buscarObjetoEnMochila(con, entrenador.getIdEntrenador(), idObjeto);
@@ -272,7 +253,24 @@ public class CapturaController {
     private void capturarPokemon() {
     	 System.out.println("esto es que ha funcionado ahora hay que hacer que se vayan al equipo");
 	}
+    
+    @FXML
+    private void cambiarPokemon(ActionEvent event) {
+        Pokemon pokemonSalvaje = generarPokemonSalvaje();
+        if (pokemonSalvaje != null) {
+            lblNombrePokemon.setText(pokemonSalvaje.getMote());
+            lblNivelPokemon.setText("Nivel: " + pokemonSalvaje.getNivel());
 
+            String rutaImagen = "./img/Pokemon/Front/" + pokemonSalvaje.getNumPokedex() + ".png";
+            File file = new File(rutaImagen);
+            if (file.exists()) {
+                imgPokemon.setImage(new Image(file.toURI().toString()));
+            } else {
+                System.err.println("Imagen no encontrada: " + file.getAbsolutePath());
+            }
+        }
+    }
+    
     private void ponerOscuridadNoSeleccionado(ImageView hoveredImageView) {
         for (ImageView imageView : imageViews) {
             if (imageView != hoveredImageView) {
@@ -283,7 +281,7 @@ public class CapturaController {
             }
         }
     }
-
+    
     private void quitarOscuridadNoSeleccionado() {
         for (ImageView imageView : imageViews) {
             imageView.setEffect(null);

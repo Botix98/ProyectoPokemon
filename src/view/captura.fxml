@@ -18,7 +18,7 @@
                </image>
             </ImageView>
             <Button fx:id="btnSalir" layoutX="1009.0" layoutY="377.0" mnemonicParsing="false" onAction="#salir" prefHeight="99.0" prefWidth="180.0" text="Salir" />
-            <ImageView fx:id="imgPokemon" fitHeight="441.0" fitWidth="443.0" layoutX="431.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgPokemon" fitHeight="280.0" fitWidth="278.0" layoutX="534.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../ProyectoPokemon/img/Pokemon/Front/70.png" />
                </image>
@@ -28,17 +28,17 @@
                   <Image url="@../../img/conSonido.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblNombrePokemon" layoutX="439.0" layoutY="219.0" prefHeight="51.0" prefWidth="233.0" text="Nombre">
+            <Label fx:id="lblNombrePokemon" layoutX="549.0" layoutY="189.0" prefHeight="51.0" prefWidth="124.0" text="NP">
                <font>
-                  <Font size="21.0" />
+                  <Font name="System Bold" size="21.0" />
                </font></Label>
-            <Label fx:id="lblNivelPokemon" layoutX="683.0" layoutY="229.0" prefHeight="31.0" prefWidth="56.0" text="Nivel">
+            <Label fx:id="lblNivelPokemon" layoutX="680.0" layoutY="199.0" prefHeight="31.0" prefWidth="92.0" text="Nvl">
                <font>
-                  <Font size="21.0" />
+                  <Font name="System Bold" size="21.0" />
                </font></Label>
-            <Button fx:id="btnCambiarPokemon" alignment="CENTER" contentDisplay="CENTER" layoutX="767.0" layoutY="259.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="62.0" style="-fx-background-color: rgba(0,0,0,0);" textAlignment="JUSTIFY" wrapText="true">
+            <Button fx:id="btnCambiarPokemon" alignment="CENTER" contentDisplay="CENTER" layoutX="883.0" layoutY="223.0" mnemonicParsing="false" onAction="#cambiarPokemon" onMouseClicked="#cambiarPokemon" prefHeight="59.0" prefWidth="62.0" style="-fx-background-color: rgba(0,0,0,0);" textAlignment="JUSTIFY" wrapText="true">
                <graphic>
-                  <ImageView fx:id="imgCambiarPokemon" fitHeight="51.0" fitWidth="56.0">
+                  <ImageView fx:id="imgCambiarPokemon" fitHeight="51.0" fitWidth="56.0" onMouseClicked="#cambiarPokemon">
                      <image>
                         <Image url="@../../img/flechasBucle.png" />
                      </image>

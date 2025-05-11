@@ -7,7 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dao.ConexionBD;
+import dao.PokedexDAO;
 import dao.PokemonDAO;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Entrenador;
 import model.Pokemon;
 
@@ -33,45 +37,26 @@ public class EquipoController {
 	private List<ImageView> imagenesEquipo;
 	private LinkedList<Pokemon> equipo;
 
-    @FXML
-    private Button btnCaja;
     
-    @FXML
-    private Button btnSalir;
+	@FXML private Button btnCaja;
+    @FXML private Button btnSalir;
+    @FXML private ImageView imgFondo;
+    @FXML private ImageView imgSonido;
+    @FXML private Label lblEquipo;
+    @FXML private Label lblPokemon;
+    
+    
+    @FXML private ImageView imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3;
+    @FXML private ImageView imgPokemonEquipo4, imgPokemonEquipo5, imgPokemonEquipo6;
 
-    @FXML
-    private ImageView imgFondo;
+    @FXML private ProgressBar pbPokemon1, pbPokemon2, pbPokemon3;
+    @FXML private ProgressBar pbPokemon4, pbPokemon5, pbPokemon6;
     
-    @FXML
-    private ImageView imgSonido;
-
-    @FXML
-    private Label lblEquipo;
-    
-    @FXML
-    private ImageView imgPokemon1, imgPokemon2, imgPokemon3;
-    @FXML
-    private ImageView imgPokemon4, imgPokemon5, imgPokemon6;
-    @FXML
-    private ProgressBar pbPokemon1, pbPokemon2, pbPokemon3;
-    @FXML
-    private ProgressBar pbPokemon4, pbPokemon5, pbPokemon6;
-    
-
-    @FXML
-    private Label lblMote;
-    @FXML
-    private Label lblNivel;
-    @FXML
-    private Label lblPokemon;
-
-    
-    @FXML
-    private ProgressBar pbPokemonSeleccionado;
-    @FXML
-    private Label lblNombrePokemonSeleccionado;
-    @FXML
-    private ImageView imgPokemonSeleccionado;
+    @FXML private Label lblMotePokemonSeleccionado;
+    @FXML private Label lblNivelPokemonSeleccionado;
+    @FXML private Label lblNombrePokemonSeleccionado;
+    @FXML private ProgressBar pbPokemonSeleccionado;
+    @FXML private ImageView imgPokemonSeleccionado;
     
     Connection con = ConexionBD.getConnection();
     
@@ -85,94 +70,53 @@ public class EquipoController {
     }
     
     public void initialize() {
-    	SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/Equipo.mp3");	
+    	SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/Equipo.mp3");
+    	lblNombrePokemonSeleccionado.setVisible(false);
+        lblMotePokemonSeleccionado.setVisible(false);
+        lblNivelPokemonSeleccionado.setVisible(false);
+        pbPokemonSeleccionado.setVisible(false);
+        imgPokemonSeleccionado.setVisible(false);
     }
-    
-        //falta comprobar cuantos pokemon hay en el equipo o por lo menos eso dijo carlos
-    
-    /**
-     
-        @FXML
-        void hacerGrande(MouseEvent event) {
-            ImageView origen = (ImageView) event.getSource();
-            Image imagen = origen.getImage();
-            imgPokemonSeleccionado.setImage(imagen);
-            pbPokemonSeleccionado.setVisible(true);
-            
-            double progreso = 0;
-            
-            if (origen == imgPokemon1) {
-            	pbPokemon1.setProgress(((double) (entrenador.getPokemon(0).getVitalidadAct())) / entrenador.getPokemon(0).getVitalidadMax());
-                
-            } else if (origen == imgPokemon2) {
-            	pbPokemon2.setProgress(((double) (entrenador.getPokemon(0).getVitalidadAct())) / entrenador.getPokemon(0).getVitalidadMax());   
-                
-            } else if (origen == imgPokemon3) {
-                progreso = ((double) entrenador.getPokemon(1).getVitalidadAct()) / entrenador.getPokemon(1).getVitalidadMax();
-                pbPokemon3.setProgress(progreso);
-            
-            } else if (origen == imgPokemon4) {
-                progreso = ((double) entrenador.getPokemon(1).getVitalidadAct()) / entrenador.getPokemon(1).getVitalidadMax();
-                pbPokemon4.setProgress(progreso);
-            
-            } else if (origen == imgPokemon5) {
-                progreso = ((double) entrenador.getPokemon(1).getVitalidadAct()) / entrenador.getPokemon(1).getVitalidadMax();
-                pbPokemon5.setProgress(progreso);
-            
-            } else if (origen == imgPokemon6) {
-                progreso = ((double) entrenador.getPokemon(1).getVitalidadAct()) / entrenador.getPokemon(1).getVitalidadMax();
-                pbPokemon6.setProgress(progreso);     
-            }
-     
-        }
-        
-          * 
-     * @param event
-     */
-        
-        @FXML
-        void hacerGrande(MouseEvent event) {
-            ImageView origen = (ImageView) event.getSource();
-            Image imagen = origen.getImage();
-            imgPokemonSeleccionado.setImage(imagen);
-            pbPokemonSeleccionado.setVisible(true);
-            
-            double progreso = 0;
-            
-            if (origen == imgPokemon1) {
-          
-                
-            } else if (origen == imgPokemon2) {
-         
-                
-            } else if (origen == imgPokemon3) {
-            
-                pbPokemon3.setProgress(progreso);
-            
-            } else if (origen == imgPokemon4) {
 
-                pbPokemon4.setProgress(progreso);
-            
-            } else if (origen == imgPokemon5) {
-            
-                pbPokemon5.setProgress(progreso);
-            
-            } else if (origen == imgPokemon6) {
- 
-                pbPokemon6.setProgress(progreso);     
-            }
-     
-        }
-        
-    
+    @FXML
+    void hacerGrande(MouseEvent event) {
+        ImageView origen = (ImageView) event.getSource();
+        imgPokemonSeleccionado.setImage(origen.getImage());
+        pbPokemonSeleccionado.setVisible(true);
+        lblNombrePokemonSeleccionado.setVisible(true);
+        lblMotePokemonSeleccionado.setVisible(true);
+        lblNivelPokemonSeleccionado.setVisible(true);
+        imgPokemonSeleccionado.setVisible(true);
 
-    
-	private void mostrarEquipo() {
-        List<Pokemon> equipo = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
+        List<ImageView> imagenesEquipo = List.of(
+            imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
+            imgPokemonEquipo4, imgPokemonEquipo5, imgPokemonEquipo6
+        );
+
+        for (int i = 0; i < imagenesEquipo.size(); i++) {
+            if (origen == imagenesEquipo.get(i) && i < equipo.size()) {
+                Pokemon pokemon = equipo.get(i);
+
+                double progreso = (double) pokemon.getVitalidadAct() / pokemon.getVitalidadMax();
+                pbPokemonSeleccionado.setProgress(progreso);
+                actualizarColorPB(pbPokemonSeleccionado);
+
+                lblNombrePokemonSeleccionado.setText(
+                    PokedexDAO.cargarPorNumPokedex(con, pokemon.getNumPokedex()).getNomPokemon()
+                );
+                lblNivelPokemonSeleccionado.setText("Nvl: " + pokemon.getNivel());
+                lblMotePokemonSeleccionado.setText("Mote: " + pokemon.getMote());
+                break;
+            }
+        }
+    }
+        
+        private void mostrarEquipo() {
+            equipo = new LinkedList<>(PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1));
 
         ImageView[] imagenes = {
-            imgPokemon1, imgPokemon2, imgPokemon3,
-            imgPokemon4, imgPokemon5, imgPokemon6
+            imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
+            imgPokemonEquipo4, imgPokemonEquipo5, imgPokemonEquipo6
         };
 
         for (int i = 0; i < imagenes.length; i++) {
@@ -185,7 +129,18 @@ public class EquipoController {
             }
         }
     }
-	
+        
+        private void actualizarColorPB(ProgressBar pb) {
+            double progreso = pb.getProgress();
+            if (progreso < 0.25) {
+                pb.setStyle("-fx-accent: red;");
+            } else if (progreso < 0.5) {
+                pb.setStyle("-fx-accent: yellow;");
+            } else {
+                pb.setStyle("-fx-accent: green;");
+            }
+        }		
+
     //hace que la barra sea visible o invisible con true o false
     public final void setVisible(boolean value) {
     	

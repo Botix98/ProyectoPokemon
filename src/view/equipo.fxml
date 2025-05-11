@@ -35,7 +35,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -62,62 +61,59 @@
                </font>
             </Label>
             <Button fx:id="btnSalir" layoutX="1058.0" layoutY="595.0" mnemonicParsing="false" onAction="#salir" prefHeight="76.0" prefWidth="170.0" text="Salir" />
-            <Label fx:id="lblNombrePokemonSeleccionado" layoutX="912.0" layoutY="159.0" text="Nombre Pokemon">
+            <Label fx:id="lblNombrePokemonSeleccionado" layoutX="966.0" layoutY="176.0" prefHeight="23.0" prefWidth="94.0" text="NP">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblMotePokemonSeleccionado" layoutX="1007.0" layoutY="111.0" prefHeight="25.0" prefWidth="51.0" text="Mote">
+            <Label fx:id="lblMotePokemonSeleccionado" layoutX="966.0" layoutY="141.0" prefHeight="25.0" prefWidth="146.0" text="Mote">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblNivelPokemonSeleccionado" layoutX="1086.0" layoutY="154.0" prefHeight="33.0" prefWidth="64.0" text="Nivel">
+            <Label fx:id="lblNivelPokemonSeleccionado" layoutX="1060.0" layoutY="171.0" prefHeight="33.0" prefWidth="64.0" text="Nvl">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
-            <ImageView fx:id="imgPokemon1" fitHeight="192.0" fitWidth="202.0" layoutX="133.0" layoutY="222.0" onMouseClicked="#hacerGrande" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgPokemonEquipo1" fitHeight="192.0" fitWidth="202.0" layoutX="133.0" layoutY="222.0" onMouseClicked="#hacerGrande" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/Pokemon/Front/6.png" />
                </image>
             </ImageView>
-            <ProgressBar fx:id="pbPokemon1" layoutX="117.0" layoutY="225.0" opacity="0.0" prefWidth="200.0" progress="0.0" />
-            <ImageView fx:id="imgPokemon2" fitHeight="192.0" fitWidth="202.0" layoutX="347.0" layoutY="255.0" onMouseClicked="#hacerGrande" pickOnBounds="true" preserveRatio="true">
+            <ProgressBar fx:id="pbPokemon1" layoutX="117.0" layoutY="225.0" prefWidth="200.0" progress="0.0" visible="false" />
+            <ImageView fx:id="imgPokemonEquipo2" fitHeight="192.0" fitWidth="202.0" layoutX="347.0" layoutY="255.0" onMouseClicked="#hacerGrande" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/Pokemon/Front/146.png" />
                </image>
             </ImageView>
-            <ProgressBar fx:id="pbPokemon2" layoutX="348.0" layoutY="225.0" opacity="0.0" prefWidth="200.0" progress="0.0" />
-            <ImageView fx:id="imgPokemon3" fitHeight="192.0" fitWidth="202.0" layoutX="576.0" layoutY="255.0" onMouseClicked="#hacerGrande" pickOnBounds="true" preserveRatio="true">
+            <ProgressBar fx:id="pbPokemon2" layoutX="348.0" layoutY="225.0" prefWidth="200.0" progress="0.0" visible="false" />
+            <ImageView fx:id="imgPokemonEquipo3" fitHeight="192.0" fitWidth="202.0" layoutX="576.0" layoutY="255.0" onMouseClicked="#hacerGrande" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/Pokemon/Front/130.png" />
                </image>
             </ImageView>
-            <ProgressBar fx:id="pbPokemon3" layoutX="567.0" layoutY="225.0" opacity="0.0" prefWidth="200.0" progress="0.0" />
-            <ImageView fx:id="imgPokemon4" fitHeight="192.0" fitWidth="202.0" layoutX="117.0" layoutY="441.0" onMouseClicked="#hacerGrande" pickOnBounds="true" preserveRatio="true">
+            <ProgressBar fx:id="pbPokemon3" layoutX="567.0" layoutY="225.0" prefWidth="200.0" progress="0.0" visible="false" />
+            <ImageView fx:id="imgPokemonEquipo4" fitHeight="192.0" fitWidth="202.0" layoutX="117.0" layoutY="441.0" onMouseClicked="#hacerGrande" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/Pokemon/Front/145.png" />
                </image>
             </ImageView>
-            <ProgressBar fx:id="pbPokemon4" layoutX="114.0" layoutY="432.0" opacity="0.0" prefWidth="200.0" progress="0.0" />
-            <ImageView fx:id="imgPokemon5" fitHeight="192.0" fitWidth="202.0" layoutX="367.0" layoutY="428.0" onMouseClicked="#hacerGrande" pickOnBounds="true" preserveRatio="true">
+            <ProgressBar fx:id="pbPokemon4" layoutX="114.0" layoutY="432.0" prefWidth="200.0" progress="0.0" visible="false" />
+            <ImageView fx:id="imgPokemonEquipo5" fitHeight="192.0" fitWidth="202.0" layoutX="367.0" layoutY="428.0" onMouseClicked="#hacerGrande" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/Pokemon/Front/150.png" />
                </image>
             </ImageView>
-            <ProgressBar fx:id="pbPokemon5" layoutX="348.0" layoutY="432.0" opacity="0.0" prefWidth="200.0" progress="0.0" />
-            <ImageView fx:id="imgPokemon6" fitHeight="192.0" fitWidth="202.0" layoutX="581.0" layoutY="428.0" onMouseClicked="#hacerGrande" pickOnBounds="true" preserveRatio="true">
+            <ProgressBar fx:id="pbPokemon5" layoutX="348.0" layoutY="432.0" prefWidth="200.0" progress="0.0" visible="false" />
+            <ImageView fx:id="imgPokemonEquipo6" fitHeight="192.0" fitWidth="202.0" layoutX="581.0" layoutY="428.0" onMouseClicked="#hacerGrande" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/Pokemon/Front/143.png" />
                </image>
             </ImageView>
-            <ProgressBar fx:id="pbPokemon6" layoutX="567.0" layoutY="432.0" opacity="0.0" prefWidth="200.0" progress="0.0" />
+            <ProgressBar fx:id="pbPokemon6" layoutX="567.0" layoutY="432.0" prefWidth="200.0" progress="0.0" visible="false" />
             <ImageView fx:id="imgPokemonSeleccionado" fitHeight="376.0" fitWidth="382.0" layoutX="848.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true" />
-            <ProgressBar fx:id="pbPokemonSeleccionado" layoutX="892.0" layoutY="210.0" prefHeight="24.0" prefWidth="294.0" progress="1.0">
-               <effect>
-                  <ColorAdjust hue="-0.5" />
-               </effect></ProgressBar>
+            <ProgressBar fx:id="pbPokemonSeleccionado" layoutX="892.0" layoutY="210.0" prefHeight="24.0" prefWidth="294.0" progress="0.0" />
             <ImageView fx:id="imgSonido" fitHeight="99.0" fitWidth="84.0" layoutX="14.0" layoutY="6.0" onMouseClicked="#activarDesactivarSonido">
                <image>
                   <Image url="@../../img/conSonido.png" />

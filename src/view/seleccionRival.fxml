@@ -96,7 +96,7 @@
                   <ColorAdjust brightness="-1.0" />
                </effect>
             </ImageView>
-            <Label fx:id="lblNombre" layoutX="1017.0" layoutY="105.0" prefHeight="70.0" prefWidth="230.0" text="Nombre del rival">
+            <Label fx:id="lblNombre" layoutX="1017.0" layoutY="205.0" prefHeight="70.0" prefWidth="230.0" text="Nombre del rival" textFill="#f2f2e1">
                <font>
                   <Font size="24.0" />
                </font>
@@ -110,7 +110,7 @@
                   <ColorAdjust brightness="0.79" />
                </effect>
             </ImageView>
-            <Label fx:id="lblNivelRecomendado" layoutX="1017.0" layoutY="235.0" prefHeight="70.0" prefWidth="230.0" text="Nivel minimo recomendado" wrapText="true">
+            <Label fx:id="lblNivelRecomendado" layoutX="1017.0" layoutY="335.0" prefHeight="70.0" prefWidth="230.0" text="Nivel minimo recomendado" textFill="#f2f2e1" wrapText="true">
                <font>
                   <Font size="24.0" />
                </font>

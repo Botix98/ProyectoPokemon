@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Entrenador;
 import model.Pokemon;
+import model.TipoEstados;
  
 public class CentroPokemonController {
  
@@ -188,7 +189,7 @@ public class CentroPokemonController {
                 actualizarBarraVida(pbPokemon, equipo.get(i));
                 
                 equipo.get(i).setVitalidadAct(equipo.get(i).getVitalidadMax());
-                equipo.get(i).setEstado("");
+                equipo.get(i).setEstado(TipoEstados.valueOf("SIN_ESTADO"));
                 PokemonDAO.actualizarVitalidadPokemon(con, equipo.get(i));
         		PokemonDAO.actualizarEstadoPokemon(con, equipo.get(i));
     		}

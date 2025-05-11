@@ -1,5 +1,7 @@
 package model;
 
+import java.io.File;
+
 import dao.ConexionBD;
 import dao.PokedexDAO;
 import dao.PokemonDAO;
@@ -9,6 +11,8 @@ import javafx.animation.Timeline;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class Pokemon {
@@ -381,9 +385,10 @@ public class Pokemon {
     	return res;
 	}
 	
-	public void actualizarXP(SimpleBooleanProperty activo, ProgressBar pbXP, ProgressBar pbVidaPokemonEntrenador, Label lblTexto, Label lblVidaPokemonEntrenador, Label lblNivelPokemonEntrenador) {
+	public void actualizarXP(SimpleBooleanProperty activo, ProgressBar pbXP, ProgressBar pbVidaPokemonEntrenador, Label lblTexto, Label lblVidaPokemonEntrenador, Label lblNivelPokemonEntrenador, ImageView imgPokemonEntrenador) {
 		int experienciaLevelUp = 10 * getNivel();
 		double porcentajeFinal;
+		int nivelAux = getNivel();
 		
 		System.out.println("Nivel: " + getNivel());
 		System.out.println("ExperienciaNextLvl: " + experienciaLevelUp);
@@ -413,36 +418,41 @@ public class Pokemon {
 		timeline.play();
 		
 		timeline.setOnFinished(e -> {
-			lblTexto.setText(getMote() + " ha subido al nivel " + getNivel() + "! Sus estadisticas tambien suben!");
-			
-			int rand = (int) (Math.random() * 5) + 1;
-			
-			setVitalidadMax(getVitalidadMax() + rand);
-			setVitalidadAct(getVitalidadAct() + rand);
-			setAtaque((int) (Math.random() * 5) + 1);
-			setAtEspecial((int) (Math.random() * 5) + 1);
-			setDefensa((int) (Math.random() * 5) + 1);
-			setDefEspecial((int) (Math.random() * 5) + 1);
-			
-			lblVidaPokemonEntrenador.setText(getVitalidadAct() + "/" + getVitalidadMax());
-			pbVidaPokemonEntrenador.setProgress((double) (getVitalidadAct()) / getVitalidadMax());
-			lblNivelPokemonEntrenador.setText(Integer.toString(getNivel()));
-			
-			if (pbVidaPokemonEntrenador.getProgress() < 0.25){
-				pbVidaPokemonEntrenador.setStyle("-fx-accent: red;");
-	        }
-	        else if (pbVidaPokemonEntrenador.getProgress() < 0.5){
-	        	pbVidaPokemonEntrenador.setStyle("-fx-accent: yellow;");
-	        } else {
-	        	pbVidaPokemonEntrenador.setStyle("-fx-accent: #00a135;");
-	        }
+			if (nivelAux != getNivel()) {
+				lblTexto.setText(getMote() + " ha subido al nivel " + getNivel() + "! Sus estadisticas tambien suben!");
+				
+				int rand = (int) (Math.random() * 5) + 1;
+				
+				setVitalidadMax(getVitalidadMax() + rand);
+				setVitalidadAct(getVitalidadAct() + rand);
+				setAtaque(getAtaque() + (int) (Math.random() * 5) + 1);
+				setAtEspecial(getAtEspecial() + (int) (Math.random() * 5) + 1);
+				setDefensa(getDefensa() + (int) (Math.random() * 5) + 1);
+				setDefEspecial(getDefEspecial() + (int) (Math.random() * 5) + 1);
+				
+				lblVidaPokemonEntrenador.setText(getVitalidadAct() + "/" + getVitalidadMax());
+				pbVidaPokemonEntrenador.setProgress((double) (getVitalidadAct()) / getVitalidadMax());
+				lblNivelPokemonEntrenador.setText(Integer.toString(getNivel()));
+				
+				if (pbVidaPokemonEntrenador.getProgress() < 0.25){
+					pbVidaPokemonEntrenador.setStyle("-fx-accent: red;");
+		        }
+		        else if (pbVidaPokemonEntrenador.getProgress() < 0.5){
+		        	pbVidaPokemonEntrenador.setStyle("-fx-accent: yellow;");
+		        } else {
+		        	pbVidaPokemonEntrenador.setStyle("-fx-accent: #00a135;");
+		        }
+			}
 			
 			//Subir las estadisticas del pokemon
 			PauseTransition pausa = new PauseTransition(Duration.seconds(2));
             pausa.setOnFinished(event -> {
             	pbXP.setProgress(0.0001);
-            	if (getExperiencia() >= experienciaLevelUp) {
-            		actualizarXP(activo, pbXP, pbVidaPokemonEntrenador, lblTexto, lblVidaPokemonEntrenador, lblNivelPokemonEntrenador);
+            	if (PokedexDAO.cargarPorNumPokedex(ConexionBD.getConnection(), getNumPokedex()).getNivelEvo() == getNivel()) {
+            		evolucionar(imgPokemonEntrenador);
+            		actualizarXP(activo, pbXP, pbVidaPokemonEntrenador, lblTexto, lblVidaPokemonEntrenador, lblNivelPokemonEntrenador, imgPokemonEntrenador);
+            	} else if (getExperiencia() >= experienciaLevelUp) {
+            		actualizarXP(activo, pbXP, pbVidaPokemonEntrenador, lblTexto, lblVidaPokemonEntrenador, lblNivelPokemonEntrenador, imgPokemonEntrenador);
             	} else {
             		double porcentajeFinal2 = (double) (getExperiencia()) / experienciaLevelUp;
             		double aumPorPaso2 = (porcentajeFinal2 - pbXP.getProgress()) / numCiclos;
@@ -470,6 +480,22 @@ public class Pokemon {
             });
             pausa.play();
 		});
+	}
+
+	private void evolucionar(ImageView imgPokemonEntrenador) {
+		Pokedex pokedex = PokedexDAO.cargarPorNumPokedex(ConexionBD.getConnection(), getNumPokedex());
+		Pokedex pokedexNEW = PokedexDAO.cargarPorNumPokedex(ConexionBD.getConnection(), getNumPokedex() +1);
+		
+		setVelocidad(getVelocidad() - pokedex.getVelocidad() + pokedexNEW.getVelocidad());
+		setAtaque(getAtaque() - pokedex.getAtaque() + pokedexNEW.getAtaque());
+		setAtEspecial(getAtEspecial() - pokedex.getAtEspecial() + pokedexNEW.getAtEspecial());
+		setDefensa(getDefensa() - pokedex.getDefensa() + pokedexNEW.getDefensa());
+		setDefEspecial(getDefEspecial() - pokedex.getDefEspecial() + pokedexNEW.getDefEspecial());
+		setVitalidadMax(getVitalidadMax() - pokedex.getVitalidad() + pokedexNEW.getVitalidad());
+		setVitalidadAct(getVitalidadMax());
+		setNumPokedex(getNumPokedex() + 1);
+
+		imgPokemonEntrenador.setImage(new Image(new File("./img/Pokemon/Back/" + getNumPokedex() + ".png").toURI().toString()));
 	}
 
 	@Override

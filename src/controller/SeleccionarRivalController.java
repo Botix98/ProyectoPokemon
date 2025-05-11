@@ -37,6 +37,7 @@ public class SeleccionarRivalController {
 	private LinkedList<Pokedex> pokedex;
 	private Rival rival;
 	private String url;
+	private LinkedList<Rival> listaLideres;
 	
 	private Connection con;
 	
@@ -80,8 +81,32 @@ public class SeleccionarRivalController {
         imgRival1.setImage(new Image(new File(rivalEnum.getRuta()).toURI().toString()));
         url = rivalEnum.getRuta();
         
+        if (entrenador.getRivalesVencidos() > 4) {
+        	imgRival6.setEffect(null);
+        	imgRival5.setEffect(null);
+        	imgRival4.setEffect(null);
+        	imgRival3.setEffect(null);
+        	imgRival2.setEffect(null);
+        } else {
+        	switch (entrenador.getRivalesVencidos()) {
+		        case 4:
+		        	imgRival6.setEffect(null);
+		        case 3:
+		        	imgRival5.setEffect(null);
+		        case 2:
+		        	imgRival4.setEffect(null);
+		        case 1:
+		        	imgRival3.setEffect(null);
+		        case 0:
+		        	imgRival2.setEffect(null);
+		        	break;
+        	}
+        }
+        
         con = ConexionBD.getConnection();
         pokedex = PokedexDAO.cargarPokedexCompleta(con);
+        
+        listaLideres = RivalDAO.cargarTodosRivales(con);
     }
 
     @FXML
@@ -91,38 +116,64 @@ public class SeleccionarRivalController {
 
     @FXML
     void entrarRival1(MouseEvent event) {
-    	lblNivelRecomendado.setText("Dificultad: Muy facil"); //10 niveles por debajo del tuyo
+    	lblNivelRecomendado.setText("Dificultad: Muy facil");
     	lblNombre.setText("Rival: " + rivalEnum.getNombre());
     }
 
     @FXML
     void entrarRival2(MouseEvent event) {
-    	lblNivelRecomendado.setText("Dificultad: Facil"); //5 niveles por debajo del tuyo
-    	lblNombre.setText("Rival: " + rivalEnum.getNombre());
+    	if (imgRival2.getEffect() == null) {
+    		lblNivelRecomendado.setText("Dificultad: Facil");
+        	lblNombre.setText("Rival: " + listaLideres.get(0).getNombre());
+    	} else {
+    		lblNivelRecomendado.setText("Dificultad: ?????");
+    		lblNombre.setText("Rival: ?????");
+    	}
+    	
     }
 
     @FXML
     void entrarRival3(MouseEvent event) {
-    	lblNivelRecomendado.setText("Dificultad: Medio"); //de tu nivel
-    	lblNombre.setText("Rival: " + rivalEnum.getNombre());
+    	if (imgRival3.getEffect() == null) {
+    		lblNivelRecomendado.setText("Dificultad: Normal");
+        	lblNombre.setText("Rival: " + listaLideres.get(1).getNombre());
+    	} else {
+    		lblNivelRecomendado.setText("Dificultad: ?????");
+    		lblNombre.setText("Rival: ?????");
+    	}
     }
 
     @FXML
     void entrarRival4(MouseEvent event) {
-    	lblNivelRecomendado.setText("Dificultad: Dificil"); //5 niveles por encima del tuyo
-    	lblNombre.setText("Rival: " + rivalEnum.getNombre());
+    	if (imgRival4.getEffect() == null) {
+    		lblNivelRecomendado.setText("Dificultad: Dificil");
+        	lblNombre.setText("Rival: " + listaLideres.get(2).getNombre());
+    	} else {
+    		lblNivelRecomendado.setText("Dificultad: ?????");
+    		lblNombre.setText("Rival: ?????");
+    	}
     }
 
     @FXML
     void entrarRival5(MouseEvent event) {
-    	lblNivelRecomendado.setText("Dificultad: Muy dificil"); //10 niveles por encima del tuyo
-    	lblNombre.setText("Rival: " + rivalEnum.getNombre());
+    	if (imgRival5.getEffect() == null) {
+    		lblNivelRecomendado.setText("Dificultad: Muy dificil");
+        	lblNombre.setText("Rival: " + listaLideres.get(3).getNombre());
+    	} else {
+    		lblNivelRecomendado.setText("Dificultad: ?????");
+    		lblNombre.setText("Rival: ?????");
+    	}
     }
 
     @FXML
     void entrarRival6(MouseEvent event) {
-    	lblNivelRecomendado.setText("Dificultad: Demencial"); //15 niveles por encima del tuyo
-    	lblNombre.setText("Rival: " + rivalEnum.getNombre());
+    	if (imgRival6.getEffect() == null) {
+    		lblNivelRecomendado.setText("Dificultad: Demencial");
+        	lblNombre.setText("Rival: " + listaLideres.get(4).getNombre());
+    	} else {
+    		lblNivelRecomendado.setText("Dificultad: ?????");
+    		lblNombre.setText("Rival: ?????");
+    	}
     }
 
     @FXML
@@ -188,37 +239,47 @@ public class SeleccionarRivalController {
 
     @FXML
     void seleccionarRival2(MouseEvent event) {
-    	rival = RivalDAO.cargarRival(con, 1);
-    	//PILLAR LA URL DEL RIVAL
-    	irCombate(null);
+    	if (imgRival2.getEffect() == null) {
+    		rival = listaLideres.get(0);
+    		url = "C:/ProyectoPokemon/img/lideresGimnasio/LuisRe1.png";
+        	irCombate(null);
+    	}
     }
 
     @FXML
     void seleccionarRival3(MouseEvent event) {
-    	rival = RivalDAO.cargarRival(con, 2);
-    	//PILLAR LA URL DEL RIVAL
-    	irCombate(null);
+    	if (imgRival3.getEffect() == null) {
+    		rival = listaLideres.get(1);
+    		url = "C:/ProyectoPokemon/img/lideresGimnasio/LuisRe1.png";
+        	irCombate(null);
+    	}
     }
 
     @FXML
     void seleccionarRival4(MouseEvent event) {
-    	rival = RivalDAO.cargarRival(con, 3);
-    	//PILLAR LA URL DEL RIVAL
-    	irCombate(null);
+    	if (imgRival4.getEffect() == null) {
+    		rival = listaLideres.get(2);
+    		url = "C:/ProyectoPokemon/img/lideresGimnasio/LuisRe1.png";
+        	irCombate(null);
+    	}
     }
 
     @FXML
     void seleccionarRival5(MouseEvent event) {
-    	rival = RivalDAO.cargarRival(con, 4);
-    	//PILLAR LA URL DEL RIVAL
-    	irCombate(null);
+    	if (imgRival5.getEffect() == null) {
+    		rival = listaLideres.get(3);
+    		url = "C:/ProyectoPokemon/img/lideresGimnasio/LuisRe1.png";
+        	irCombate(null);
+    	}
     }
 
     @FXML
     void seleccionarRival6(MouseEvent event) {
-    	rival = RivalDAO.cargarRival(con, 5);
-    	//PILLAR LA URL DEL RIVAL
-    	irCombate(null);
+    	if (imgRival6.getEffect() == null) {
+    		rival = listaLideres.get(4);
+    		url = "C:/ProyectoPokemon/img/lideresGimnasio/LuisRe1.png";
+        	irCombate(null);
+    	}
     }
 
     public LinkedList<Pokemon> generarEquipoRival() {

@@ -128,6 +128,7 @@ public class PokemonDAO {
 				pokemon.setSexo(rs.getString("SEXO"));
 				pokemon.setEstado(TipoEstados.valueOf(rs.getString("ESTADO").toUpperCase()));
 				pokemon.setEquipo(rs.getInt("EQUIPO"));
+				pokemon.setExperiencia(rs.getInt("EXPERIENCIA"));
 				
 				listaPokemon.add(pokemon);
 			}
@@ -303,6 +304,33 @@ public class PokemonDAO {
 			
 			ps.setString(1, pokemon.getMote());
 			ps.setInt(2, pokemon.getIdPokemon());
+			
+			int filasAfectadas = ps.executeUpdate();
+			
+			if (filasAfectadas > 0) {
+				return true;
+			}
+		} catch(SQLException e) {
+			ConexionBD.printSQLException(e);
+		}
+		return false;
+	}
+	
+	public static boolean actualizarEstadisticasTrasCombate(Connection con, Pokemon pokemon) {
+		String query = "UPDATE POKEMON "
+				+ "SET " 
+			    + "ESTADO = ?, "
+			    + "VITALIDAD_ACT = ?, "
+			    + "EXPERIENCIA = ? "
+			    + "WHERE ID_POKEMON = ?";
+		
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			
+			ps.setString(1, pokemon.getEstado().toString());
+			ps.setInt(2, pokemon.getVitalidadAct());
+			ps.setInt(3, pokemon.getExperiencia());
+			ps.setInt(4, pokemon.getIdPokemon());
 			
 			int filasAfectadas = ps.executeUpdate();
 			

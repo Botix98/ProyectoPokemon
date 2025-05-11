@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.sql.Connection;
 
 import controller.LoginController;
@@ -14,6 +15,18 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+    	
+        File logs = new File("C:/ProyectoPokemon/logs");
+
+        if (!logs.exists()) {
+            if (logs.mkdir()) {
+                System.out.println("Carpeta creada exitosamente.");
+            } else {
+                System.out.println("No se pudo crear la carpeta.");
+            }
+        } else {
+            System.out.println("La carpeta ya existe.");
+        }
     	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/login.fxml"));
     	Parent root = loader.load();

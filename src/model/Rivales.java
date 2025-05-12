@@ -50,6 +50,7 @@ public enum Rivales {
     WULFRIC(47, "Wulfric", "C:/ProyectoPokemon/img/rivales/wulfric.png"),
     FABA(48, "Faba", "C:/ProyectoPokemon/img/rivales/faba.png"),
     CRASHERWAKE(49, "Crasherwake", "C:/ProyectoPokemon/img/rivales/crasherwake.png");
+	//JAVIER(50, "Javier", "C:/ProyectoPokemon/img/rivales/javier.png");
 
     private final String nombre;
     private final String ruta;

@@ -2,6 +2,8 @@ package controller;
 
 import java.io.File;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.swing.JOptionPane;
 
@@ -27,13 +29,13 @@ import model.Movimiento;
 import model.Pokemon;
 
 public class LoginController {
-	//PRUEBA
-	Entrenador entrenador;
+
+	private Entrenador entrenador;
 	
-	public Stage stage;
+	private Stage stage;
 	public boolean sonido = false;
 	
-	Connection con;
+	private Connection con;
 	
 	@FXML
     private ImageView imgSonido;
@@ -90,31 +92,54 @@ public class LoginController {
 	    		lbError.setVisible(true);
 	    		
 	    		abrirPantallaMenu(entrenador);
-    			/*if (entrenador.getUsuario().equals(usuario)) {
-        			if (entrenador.getPass().equals(pass)) {
-        				lbError.setText("Correcto");
-        	    		lbError.setVisible(true);
-        	    		
-        	    		abrirPantallaMenu(entrenador);
-        			} else {
-        				lbError.setText("Error: contrase�a incorrecta");
-        	    		lbError.setVisible(true);
-        			}
-        		} else {
-        			lbError.setText("Error: Usuario no existe");
-            		lbError.setVisible(true);
-        		}*/
     		}
     		else {
-    			lbError.setText("Error: Usuario o contrasexa erroneas");
+    			lbError.setText("Error: Usuario o contrasena erroneas");
         		lbError.setVisible(true);
     		}
     	}
     }
 
     @FXML
-    void registrarUsuario(ActionEvent event) {
+    private void registrarUsuario(ActionEvent event) {
+        String usuario = txtUsuario.getText().trim();
+        String pass = txtContrasena.getText().trim();
 
+        if (usuario.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Usuario y contrasena no pueden estar vacios.");
+            return;
+        }
+
+        try {
+            // Obtiene una nuevo ID
+            int nuevoId = EntrenadorDAO.obtenerSiguienteId(con);
+
+            // Crea un nuevo entrenador
+            Entrenador nuevoEntrenador = new Entrenador();
+            nuevoEntrenador.setIdEntrenador(nuevoId);
+            nuevoEntrenador.setUsuario(usuario);
+            nuevoEntrenador.setPass(pass);
+
+            boolean exito = EntrenadorDAO.insertarEntrenador(con, nuevoEntrenador);
+
+            if (exito) {
+                JOptionPane.showMessageDialog(null, "Usuario registrado correctamente. Ahora puedes iniciar sesion.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo registrar el usuario.");
+            }
+
+        } catch (SQLException e) {
+            // Detecta si el nombre de usuario esta repetido
+            if (e instanceof SQLIntegrityConstraintViolationException || e.getErrorCode() == 1062) {
+                JOptionPane.showMessageDialog(null, "El nombre de usuario ya esta en uso.");
+            } else {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error SQL durante el registro: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error general durante el registro.");
+        }
     }
 
     @FXML

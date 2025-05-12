@@ -4,7 +4,11 @@ import java.io.File;
 import java.sql.Connection;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import dao.ConexionBD;
+import dao.MovimientoDAO;
+import dao.MovimientoPokemonDAO;
 import dao.PokemonDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,10 +22,12 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Entrenador;
+import model.Movimiento;
+import model.MovimientoPokemon;
 import model.Pokemon;
 import model.TipoEstados;
 
@@ -35,7 +41,12 @@ public class CrianzaController {
     private Pokemon pokemonMachoSeleccionado;
     private Pokemon pokemonHembraSeleccionada;
     private Pokemon pokemonHijoGenerado;
+    
+    private boolean incubadoraAbierta = false;
 	
+    @FXML
+    private VBox vbCaja;
+
     @FXML
     private Button btnAtras;
 
@@ -43,16 +54,7 @@ public class CrianzaController {
     private Button btnHembra;
 
     @FXML
-    private Button btnIncubadora;
-
-    @FXML
     private Button btnMacho;
-
-    @FXML
-    private ImageView imgCria;
-
-    @FXML
-    private ImageView imgSonido;
 
     @FXML
     private ImageView imgAdn1;
@@ -67,16 +69,13 @@ public class CrianzaController {
     private ImageView imgAdn4;
 
     @FXML
-    private ImageView imgCable1;
+    private ImageView imgBtnPokeH;
 
     @FXML
-    private ImageView imgCable2;
-    
-    @FXML
-    private ImageView imgPokeH;
+    private ImageView imgBtnPokeM;
 
     @FXML
-    private ImageView imgPokeM;
+    private ImageView imgCria;
 
     @FXML
     private ImageView imgFondo;
@@ -85,13 +84,37 @@ public class CrianzaController {
     private ImageView imgFusionar;
 
     @FXML
-    private ProgressBar pbFusion;
+    private ImageView imgIncubadora;
+
+    @FXML
+    private ImageView imgPokeH;
+
+    @FXML
+    private ImageView imgPokeM;
+
+    @FXML
+    private ImageView imgSonido;
     
+    @FXML
+    private ImageView imgSalir;
+
+    @FXML
+    private ProgressBar pbFusion;
+
     @FXML
     private ScrollPane sbCaja;
     
     @FXML
-    private AnchorPane apCaja;
+    private Text txtSalir;
+
+    @FXML
+    private Text txtFusionar;
+
+    @FXML
+    private Text txtHembra;
+
+    @FXML
+    private Text txtMacho;
     
     Connection con = ConexionBD.getConnection();
     
@@ -119,7 +142,7 @@ public class CrianzaController {
     }
     
     private void mostrarPokemonsSexo(String sexo) {
-        apCaja.getChildren().clear();
+        vbCaja.getChildren().clear();
 
         List<Pokemon> pokemons = PokemonDAO.cargarPokemonEntrenadorPorSexo(con, entrenador.getIdEntrenador(), sexo);
 
@@ -156,7 +179,7 @@ public class CrianzaController {
             vbox.getChildren().add(contenedorPokemon);
         }
 
-        apCaja.getChildren().add(vbox);
+        vbCaja.getChildren().add(vbox);
     }
 
     public void fusionar(MouseEvent event) {
@@ -174,13 +197,27 @@ public class CrianzaController {
     
     private void generarPokemonHijo() {
         if (pokemonHembraSeleccionada == null || pokemonMachoSeleccionado == null) {
-            System.out.println("Debes seleccionar un Pokémon macho y una hembra.");
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un Pokemon macho y una hembra.");
             return;
         }
 
+        // Verificación de fertilidad antes de crear un nuevo pokemon
+        if (pokemonMachoSeleccionado.getFertilidad() == 0 || pokemonHembraSeleccionada.getFertilidad() == 0) {
+            JOptionPane.showMessageDialog(null, "Uno de los Pokemon no puede criar mas debido a su fertilidad.");
+            return;
+        }
+        
         boolean cogerDelMacho = Math.random() < 0.5;
         Pokemon base = cogerDelMacho ? pokemonMachoSeleccionado : pokemonHembraSeleccionada;
 
+        // Pedir al usuario que ingrese el mote del nuevo Pokémon
+        String mote = JOptionPane.showInputDialog(null, "Ingresa el mote del nuevo Pokémon:");
+
+        // Verificar que el usuario haya ingresado un mote
+        if (mote == null || mote.trim().isEmpty()) {
+            mote = pokemonHembraSeleccionada.getMote();
+        }
+        
         //Asigna los valores al pokemon hijo
         pokemonHijoGenerado = new Pokemon();
         int nuevoId = PokemonDAO.obtenerMaxIdPokemon(con) + 1;
@@ -188,7 +225,7 @@ public class CrianzaController {
         pokemonHijoGenerado.setIdPokemon(nuevoId);
         pokemonHijoGenerado.setIdEntrenador(entrenador.getIdEntrenador());
         pokemonHijoGenerado.setNumPokedex(base.getNumPokedex());
-        pokemonHijoGenerado.setMote(pokemonHembraSeleccionada.getMote());
+        pokemonHijoGenerado.setMote(mote);
         pokemonHijoGenerado.setNivel(1);
         pokemonHijoGenerado.setVitalidadMax(calcularStatBase(base.getVitalidadMax(), base.getNivel()));
         pokemonHijoGenerado.setVitalidadAct(pokemonHijoGenerado.getVitalidadMax());
@@ -204,8 +241,31 @@ public class CrianzaController {
         int pokemonsEquipo = PokemonDAO.contarPokemonsEnEquipo(con, entrenador.getIdEntrenador());
         pokemonHijoGenerado.setEquipo(pokemonsEquipo < 6 ? 1 : 2);
         pokemonHijoGenerado.setTipoPropietario("ENTRENADOR");
-
+        
         boolean insertado = PokemonDAO.anyadirPokemon(con, pokemonHijoGenerado);
+        
+        // Obtiene el movimiento especifico usando el MovimientoDAO
+        Movimiento arañazo = MovimientoDAO.buscarPorId(con, 54);
+        if (arañazo != null) {
+
+            MovimientoPokemon movimientoPokemon = new MovimientoPokemon();
+            movimientoPokemon.setIdPokemon(pokemonHijoGenerado.getIdPokemon());
+            movimientoPokemon.setIdMovimiento(arañazo.getIdMovimiento());
+            movimientoPokemon.setPpActuales(arañazo.getPpMax());
+
+            // Insertar el movimiento en la base de datos
+            MovimientoPokemonDAO.insertarMovimientoPokemon(con, movimientoPokemon);
+        } else {
+            System.out.println("No se encuentra el movimiento en la bd.");
+        }
+        
+        // Reducir la fertilidad de los progenitores
+        pokemonMachoSeleccionado.setFertilidad(pokemonMachoSeleccionado.getFertilidad() - 1);
+        pokemonHembraSeleccionada.setFertilidad(pokemonHembraSeleccionada.getFertilidad() - 1);
+
+        // Actualiza la fertilidad en la base de datos para ambos progenitores
+        PokemonDAO.actualizarFertilidadPokemon(con, pokemonMachoSeleccionado);
+        PokemonDAO.actualizarFertilidadPokemon(con, pokemonHembraSeleccionada);
 
         if (insertado) {
             String rutaImagen = "./img/Pokemon/Front/" + pokemonHijoGenerado.getNumPokedex() + ".png";
@@ -218,6 +278,25 @@ public class CrianzaController {
 
     private int calcularStatBase(int statOriginal, int nivelOriginal) {
         return Math.max(1, statOriginal / nivelOriginal);
+    }
+
+    @FXML
+    void habrir(MouseEvent event) {
+        String ruta;
+
+        if (incubadoraAbierta) {
+            // Cerrar incubadora
+            ruta = "C:/ProyectoPokemon/img/crianza/incubadora.png";
+            imgCria.setVisible(false);
+        } else {
+            // Abrir incubadora
+            ruta = "C:/ProyectoPokemon/img/crianza/incubadora2.png";
+            imgCria.setVisible(true);
+        }
+
+        imgIncubadora.setImage(new Image(new File(ruta).toURI().toString()));
+
+        incubadoraAbierta = !incubadoraAbierta;
     }
     
     @FXML

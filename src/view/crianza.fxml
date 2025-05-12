@@ -41,6 +41,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <VBox maxHeight="720.0" maxWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CrianzaController">
   <children>
@@ -51,8 +53,14 @@
                   <Image url="@../../img/crianza/fondo.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnMacho" layoutX="195.0" layoutY="508.0" mnemonicParsing="false" onAction="#ElegirPokeM" prefHeight="41.0" prefWidth="200.0" text="Pokemon macho" />
-            <Button fx:id="btnAtras" layoutX="937.0" layoutY="584.0" mnemonicParsing="false" onAction="#Salir" prefHeight="110.0" prefWidth="314.0" text="Atras" />
+            <Button fx:id="btnAtras" layoutX="937.0" layoutY="568.0" mnemonicParsing="false" onAction="#Salir" prefHeight="143.0" prefWidth="314.0" style="-fx-background-color: rgba(0,0,0,0);">
+               <graphic>
+                  <ImageView fx:id="imgSalir" fitHeight="132.0" fitWidth="222.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../img/btnRojo.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             <ProgressBar fx:id="pbFusion" layoutX="183.0" layoutY="584.0" prefHeight="110.0" prefWidth="708.0" progress="0.0" />
             <ImageView fx:id="imgAdn1" fitHeight="128.0" fitWidth="415.0" layoutX="204.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -74,31 +82,68 @@
                   <Image url="@../../img/crianza/adn.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnHembra" layoutX="691.0" layoutY="515.0" mnemonicParsing="false" onAction="#ElegirPokeH" prefHeight="41.0" prefWidth="200.0" text="Pokemon hembra" />
-            <Button fx:id="btnIncubadora" layoutX="442.0" layoutY="214.0" mnemonicParsing="false" onAction="#abrirIncubadora" prefHeight="128.0" prefWidth="208.0" text="Huevo en incubadora" />
             <ImageView fx:id="imgSonido" fitHeight="99.0" fitWidth="84.0" layoutX="50.0" layoutY="40.0" onMouseClicked="#activarDesactivarSonido" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/conSonido.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgCable1" fitHeight="150.0" fitWidth="200.0" layoutX="187.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgCable2" fitHeight="150.0" fitWidth="200.0" layoutX="687.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgCria" fitHeight="150.0" fitWidth="200.0" layoutX="474.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgFusionar" fitHeight="84.0" fitWidth="152.0" layoutX="16.0" layoutY="602.0" onMouseClicked="#fusionar" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/btnVerde.png" />
+               </image>
+            </ImageView>
+				<ScrollPane fx:id="sbCaja" hbarPolicy="NEVER" layoutX="994.0" layoutY="32.0" prefHeight="535.0" prefWidth="200.0" vbarPolicy="ALWAYS">
+				  <content>
+				    <VBox fx:id="vbCaja" prefWidth="200.0" spacing="5.0" />
+				  </content>
+				</ScrollPane>
+            <ImageView fx:id="imgPokeM" fitHeight="150.0" fitWidth="200.0" layoutX="214.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgPokeH" fitHeight="150.0" fitWidth="200.0" layoutX="708.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgIncubadora" fitHeight="543.0" fitWidth="530.0" layoutX="356.0" layoutY="59.0" onMouseClicked="#habrir" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/crianza/incubadora.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgCria" fitHeight="122.0" fitWidth="132.0" layoutX="476.0" layoutY="323.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
                <rotationAxis>
                   <Point3D />
                </rotationAxis></ImageView>
-            <ImageView fx:id="imgFusionar" fitHeight="118.0" fitWidth="142.0" layoutX="50.0" layoutY="580.0" onMouseClicked="#fusionar" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../img/crianza/unir.jpeg" />
-               </image>
-            </ImageView>
-            <ScrollPane fx:id="sbCaja" hbarPolicy="NEVER" layoutX="994.0" layoutY="32.0" prefHeight="535.0" prefWidth="200.0" vbarPolicy="ALWAYS">
-              <content>
-                <AnchorPane fx:id="apCaja" minHeight="0.0" minWidth="0.0" prefHeight="535.0" prefWidth="200.0" />
-              </content>
-            </ScrollPane>
-            <ImageView fx:id="imgPokeM" fitHeight="150.0" fitWidth="200.0" layoutX="214.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgPokeH" fitHeight="150.0" fitWidth="200.0" layoutX="720.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="btnHembra" layoutX="660.0" layoutY="479.0" mnemonicParsing="false" onAction="#ElegirPokeH" prefHeight="41.0" prefWidth="200.0" style="-fx-background-color: rgba(0,0,0,0);">
+               <graphic>
+                  <ImageView fx:id="imgBtnPokeH" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/btnAmarillo.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="btnMacho" layoutX="175.0" layoutY="479.0" mnemonicParsing="false" onAction="#ElegirPokeM" prefHeight="41.0" prefWidth="163.0" style="-fx-background-color: rgba(0,0,0,0);">
+               <graphic>
+                  <ImageView fx:id="imgBtnPokeM" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/btnAmarillo.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Text fx:id="txtFusionar" fill="WHITE" layoutX="39.0" layoutY="643.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="¡FUSIONAR!">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="txtMacho" layoutX="245.0" layoutY="545.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Macho">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="txtHembra" layoutX="724.0" layoutY="547.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Hembra">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="txtSalir" fill="WHITE" layoutX="1045.0" layoutY="646.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="SALIR" wrappingWidth="115.0">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Text>
       </children>
     </AnchorPane>
   </children>

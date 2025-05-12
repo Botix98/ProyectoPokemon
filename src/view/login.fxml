@@ -34,9 +34,9 @@
             <Button id="btnAceptar" fx:id="btnAceptar" layoutX="402.0" layoutY="478.0" mnemonicParsing="false" onAction="#aceptarLoguin" text="Aceptar" />
             <Button id="btnCancelar" fx:id="btnCancelar" layoutX="492.0" layoutY="478.0" mnemonicParsing="false" onAction="#salir" text="Cancelar" />
             <Button id="btnRegistrar" fx:id="btnRegistrar" layoutX="404.0" layoutY="539.0" mnemonicParsing="false" onAction="#registrarUsuario" prefHeight="52.0" prefWidth="150.0" text="Registrar" />
-            <Label id="lbError" fx:id="lbError" layoutX="235.0" layoutY="232.0" text="ERROR" textFill="RED" visible="false">
+            <Label id="lbError" fx:id="lbError" layoutX="575.0" layoutY="338.0" prefHeight="44.0" prefWidth="51.0" text="ERROR" textFill="RED" visible="false">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Label>
             <ImageView id="Sonido" fx:id="imgSonido" fitHeight="64.0" fitWidth="97.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#activarDesactivarSonido" pickOnBounds="true" preserveRatio="true">

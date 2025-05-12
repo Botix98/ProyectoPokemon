@@ -33,16 +33,14 @@ public class EntrenadorDAO {
         return entrenador;
     }
 
-    public static boolean insertarEntrenador(Connection con, Entrenador entrenador) {
-        String query = "INSERT INTO ENTRENADOR (ID_ENTRENADOR, USUARIO, PASS, POKEDOLARES, RIVALES_VENCIDOS) VALUES (?, ?, ?, ?, ?)";
+    public static boolean insertarEntrenador(Connection con, Entrenador entrenador)  throws SQLException{
+        String query = "INSERT INTO ENTRENADOR (ID_ENTRENADOR, USUARIO, PASS, POKEDOLARES, RIVALES_VENCIDOS) VALUES (?, ?, ?, 0, -3)";
 
         try
         	(PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, entrenador.getIdEntrenador());
             ps.setString(2, entrenador.getUsuario());
             ps.setString(3, entrenador.getPass());
-            ps.setInt(4, entrenador.getPokedolares());
-            ps.setInt(5, entrenador.getRivalesVencidos());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             ConexionBD.printSQLException(e);
@@ -104,5 +102,18 @@ public class EntrenadorDAO {
             return false;
         }
     }
+	
+	public static int obtenerSiguienteId(Connection con) {
+	    String query = "SELECT MAX(ID_ENTRENADOR) FROM ENTRENADOR";
+	    try (PreparedStatement ps = con.prepareStatement(query)) {
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt(1) + 1;
+	        }
+	    } catch (SQLException e) {
+	        ConexionBD.printSQLException(e);
+	    }
+	    return 1;
+	}
 }
 

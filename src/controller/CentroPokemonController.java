@@ -8,6 +8,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import dao.ConexionBD;
+import dao.MovimientoDAO;
+import dao.MovimientoPokemonDAO;
 import dao.PokemonDAO;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,9 +24,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Entrenador;
+import model.Movimiento;
+import model.MovimientoPokemon;
 import model.Pokemon;
 import model.TipoEstados;
  
@@ -38,60 +43,74 @@ public class CentroPokemonController {
 	private CombateController combateController;
 
 	private LinkedList<Pokemon> equipo;
+	
+
     @FXML
     private Button btnAtras;
- 
+
     @FXML
     private Button btnBucle;
+
     @FXML
     private Button btnCurarEquipo;
+
+    @FXML
+    private ImageView imgBtnCurar;
+
     @FXML
     private ImageView imgBucle;
- 
+
     @FXML
     private ImageView imgEnfermera;
- 
+
     @FXML
     private ImageView imgFondo;
- 
+
     @FXML
     private ImageView imgPokemon1;
- 
+
     @FXML
     private ImageView imgPokemon2;
- 
+
     @FXML
     private ImageView imgPokemon3;
- 
+
     @FXML
     private ImageView imgPokemon4;
- 
+
     @FXML
     private ImageView imgPokemon5;
- 
+
     @FXML
     private ImageView imgPokemon6;
- 
+
     @FXML
     private ImageView imgSonido;
- 
+
     @FXML
     private ProgressBar pbPokemon1;
- 
+
     @FXML
     private ProgressBar pbPokemon2;
- 
+
     @FXML
     private ProgressBar pbPokemon3;
- 
+
     @FXML
     private ProgressBar pbPokemon4;
- 
+
     @FXML
     private ProgressBar pbPokemon5;
- 
+
     @FXML
     private ProgressBar pbPokemon6;
+
+    @FXML
+    private Text txtCurarEquipo;
+
+    @FXML
+    private Text txtCurarEquipo1;
+    
     Connection con = ConexionBD.getConnection();
 
 
@@ -188,28 +207,43 @@ public class CentroPokemonController {
     void curarEquipo(ActionEvent event) {
     	curarInit();
     }
-	private void curarInit() {
-	    SonidoController.detenerFondo("C:/ProyectoPokemon/sonidos/CentroPokemon.mp3");
+    private void curarInit() {
+        SonidoController.detenerFondo("C:/ProyectoPokemon/sonidos/CentroPokemon.mp3");
 
-	    SonidoController.reproducirEfecto("C:/ProyectoPokemon/sonidos/CurarPokemon.mp3", () -> {
-
-	        SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/CentroPokemon.mp3");
-	    });
+        SonidoController.reproducirEfecto("C:/ProyectoPokemon/sonidos/CurarPokemon.mp3", () -> {
+            SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/CentroPokemon.mp3");
+        });
 
         List<Pokemon> equipo = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
-    	for(int i = 0; i  < equipo.size(); i++) {
-    		if (equipo.get(i) != null) {
+
+        for (int i = 0; i < equipo.size(); i++) {
+            Pokemon pokemon = equipo.get(i);
+            if (pokemon != null) {
                 ProgressBar pbPokemon = getProgressBarPorIndex(i);
-                actualizarBarraVida(pbPokemon, equipo.get(i));
-                
-                equipo.get(i).setVitalidadAct(equipo.get(i).getVitalidadMax());
-                equipo.get(i).setEstado(TipoEstados.valueOf("SIN_ESTADO"));
-                PokemonDAO.actualizarVitalidadPokemon(con, equipo.get(i));
-        		PokemonDAO.actualizarEstadoPokemon(con, equipo.get(i));
-    		}
-    	}
+                actualizarBarraVida(pbPokemon, pokemon);
+
+                // Curar vida y estado
+                pokemon.setVitalidadAct(pokemon.getVitalidadMax());
+                pokemon.setEstado(TipoEstados.SIN_ESTADO);
+                PokemonDAO.actualizarVitalidadPokemon(con, pokemon);
+                PokemonDAO.actualizarEstadoPokemon(con, pokemon);
+
+                // Restaurar PP de movimientos
+                List<MovimientoPokemon> movimientos = MovimientoPokemonDAO.buscarPorIdPokemon(con, pokemon.getIdPokemon());
+                for (MovimientoPokemon mp : movimientos) {
+                    Movimiento movimiento = MovimientoDAO.buscarPorId(con, mp.getIdMovimiento());
+                    if (movimiento != null) {
+                        mp.setPpActuales(movimiento.getPpMax());
+                        MovimientoPokemonDAO.actualizarPPMovimiento(con, mp.getIdPokemon(), mp.getIdMovimiento(), mp.getPpActuales());
+
+                    }
+                }
+            }
+        }
+
         actualizarEstadoPokemon();
-	}
+    }
+    
     private ProgressBar getProgressBarPorIndex(int index) {
         switch (index) {
             case 0: return pbPokemon1;
@@ -233,16 +267,24 @@ public class CentroPokemonController {
             default: return null;
         }
     }
+    
     private void mostrarEquipo() {
- 
-        for (int i = 0; i < equipo.size(); i++) {
-            if (equipo.get(i) != null) {
-                ImageView imgPokemon = getImageViewPorIndex(i);
+        for (int i = 0; i < 6; i++) {
+            ImageView imgPokemon = getImageViewPorIndex(i);
+            ProgressBar pbPokemon = getProgressBarPorIndex(i);
+
+            if (i < equipo.size() && equipo.get(i) != null) {
                 String rutaImagen = "./img/Pokemon/Front/" + equipo.get(i).getNumPokedex() + ".png";
                 imgPokemon.setImage(new Image(new File(rutaImagen).toURI().toString()));
- 
-                ProgressBar pbPokemon = getProgressBarPorIndex(i);
                 pbPokemon.setProgress((double) equipo.get(i).getVitalidadAct() / equipo.get(i).getVitalidadMax());
+
+                // Mostrar si tiene Pokémon
+                imgPokemon.setVisible(true);
+                pbPokemon.setVisible(true);
+            } else {
+                // Ocultar si no hay Pokémon
+                imgPokemon.setVisible(false);
+                pbPokemon.setVisible(false);
             }
         }
     }

@@ -58,7 +58,7 @@
             </ImageView>
             <ImageView fx:id="imgRival2" fitHeight="200.0" fitWidth="200.0" layoutX="471.0" layoutY="90.0" onMouseClicked="#seleccionarRival2" onMouseEntered="#entrarRival2" onMouseExited="#salirRival2" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../img/rivales/wulfric.png" />
+                  <Image url="@../../img/lideresGimnasio/Carrion1.png" />
                </image>
                <effect>
                   <ColorAdjust brightness="-1.0" />

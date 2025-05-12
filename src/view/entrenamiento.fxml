@@ -76,10 +76,10 @@
                   <Image url="@../../img/combateEntrenamiento/cajetinAtaques.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnAtaque1" layoutX="45.0" layoutY="572.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="320.0" text="Ataque 1" visible="false" />
-            <Button fx:id="btnAtaque3" layoutX="45.0" layoutY="642.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="320.0" text="Ataque 3" visible="false" />
-            <Button fx:id="btnAtaque2" layoutX="425.0" layoutY="572.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="320.0" text="Ataque 2" visible="false" />
-            <Button fx:id="btnAtaque4" layoutX="425.0" layoutY="642.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="320.0" text="Ataque 4" visible="false" />
+            <Button fx:id="btnAtaque1" layoutX="45.0" layoutY="572.0" mnemonicParsing="false" onAction="#ataque1" onMouseEntered="#entrarAtaque1" onMouseExited="#salirAtaque1" prefHeight="50.0" prefWidth="320.0" text="Ataque 1" visible="false" />
+            <Button fx:id="btnAtaque3" layoutX="45.0" layoutY="642.0" mnemonicParsing="false" onAction="#ataque3" onMouseEntered="#entrarAtaque3" onMouseExited="#salirAtaque3" prefHeight="50.0" prefWidth="320.0" text="Ataque 3" visible="false" />
+            <Button fx:id="btnAtaque2" layoutX="425.0" layoutY="572.0" mnemonicParsing="false" onAction="#ataque2" onMouseEntered="#entrarAtaque2" onMouseExited="#salirAtaque2" prefHeight="50.0" prefWidth="320.0" text="Ataque 2" visible="false" />
+            <Button fx:id="btnAtaque4" layoutX="425.0" layoutY="642.0" mnemonicParsing="false" onAction="#ataque4" onMouseEntered="#entrarAtaque4" onMouseExited="#salirAtaque4" prefHeight="50.0" prefWidth="320.0" text="Ataque 4" visible="false" />
             <ImageView fx:id="imgInfoPokemonEntrenador" fitHeight="164.0" fitWidth="448.0" layoutX="823.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/combateEntrenamiento/infoPokemonJugador.png" />
@@ -233,6 +233,10 @@
                </children>
             </VBox>
             <Button fx:id="btnConfirmarCambio" layoutX="815.0" layoutY="572.0" mnemonicParsing="false" onAction="#confirmarCambio" prefHeight="120.0" prefWidth="204.0" text="Cambiar" visible="false" />
+            <Button fx:id="btnCancelarAccion" layoutX="1042.0" layoutY="572.0" mnemonicParsing="false" onAction="#cancelarAccion" prefHeight="120.0" prefWidth="204.0" text="Cancelar" visible="false" />
+            <Button fx:id="btnCambiarRival2" layoutX="815.0" layoutY="572.0" mnemonicParsing="false" onAction="#cambiarRival" prefHeight="120.0" prefWidth="204.0" text="Generar Pokemon" visible="false" />
+            <Button fx:id="btnSalir" layoutX="1042.0" layoutY="572.0" mnemonicParsing="false" onAction="#huir" prefHeight="120.0" prefWidth="204.0" text="Salir" visible="false" />
+            <Button fx:id="btnCambiarPokemon" layoutX="815.0" layoutY="572.0" mnemonicParsing="false" onAction="#cambiarPokemon2" prefHeight="120.0" prefWidth="204.0" text="Cambiar" visible="false" />
          </children>
     </AnchorPane>
   </children>

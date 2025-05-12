@@ -409,26 +409,32 @@ public class PokemonDAO {
 		return false;
 	}
 	
-	public static boolean actualizarEquipoPokemon(Connection con, Pokemon pokemon) {
-		String query = "UPDATE POKEMON "
-						+ "SET EQUIPO = ? "
-						+ "WHERE ID_POKEMON = ?";
-		
-		try {
-			PreparedStatement ps = con.prepareStatement(query);
-			
-			ps.setInt(1, pokemon.getEquipo());
-			ps.setInt(2, pokemon.getIdPokemon());
-			
-			int filasAfectadas = ps.executeUpdate();
-			
-			if (filasAfectadas > 0) {
-				return true;
-			}
-		} catch(SQLException e) {
-			ConexionBD.printSQLException(e);
-		}
-		return false;
+	public static boolean actualizarEquipoPokemon(Connection con, int idPokemon, int equipo) {
+	    String query = "UPDATE POKEMON "
+	                    + "SET EQUIPO = ? "
+	                    + "WHERE ID_POKEMON = ?";
+
+	    try {
+	        if (equipo != 1 && equipo != 2) {
+	            throw new IllegalArgumentException("El valor de equipo debe ser 1 para equipo o 2 para caja");
+	        }
+
+	        PreparedStatement ps = con.prepareStatement(query);
+	        
+	        ps.setInt(1, equipo);
+	        ps.setInt(2, idPokemon);
+
+	        int filasAfectadas = ps.executeUpdate();
+
+	        if (filasAfectadas > 0) {
+	            return true;
+	        }
+	    } catch(SQLException e) {
+	        ConexionBD.printSQLException(e);
+	    } catch(IllegalArgumentException e) {
+	        System.err.println(e.getMessage());
+	    }
+	    return false;
 	}
 	
 	public static void actualizarEquipo(Connection con, int idPokemon, int nuevoEquipo) {
@@ -478,5 +484,24 @@ public class PokemonDAO {
 	    }
 
 	    return total;
+	}
+
+
+public static int contarSoloPokemonsEnEquipo(Connection con, int idEntrenador) {
+    int total = 0;
+    String query = "SELECT COUNT(*) AS total FROM POKEMON WHERE ID_ENTRENADOR = ? AND EQUIPO = 1";
+
+    try (PreparedStatement ps = con.prepareStatement(query)) {
+        ps.setInt(1, idEntrenador);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                total = rs.getInt("total");
+            }
+        }
+    } catch (SQLException e) {
+        ConexionBD.printSQLException(e);
+    }
+
+    return total;
 	}
 }

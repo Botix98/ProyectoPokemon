@@ -81,27 +81,21 @@ public class SeleccionarRivalController {
         imgRival1.setImage(new Image(new File(rivalEnum.getRuta()).toURI().toString()));
         url = rivalEnum.getRuta();
         
-        if (entrenador.getRivalesVencidos() > 4) {
-        	imgRival6.setEffect(null);
-        	imgRival5.setEffect(null);
-        	imgRival4.setEffect(null);
-        	imgRival3.setEffect(null);
-        	imgRival2.setEffect(null);
-        } else {
-        	switch (entrenador.getRivalesVencidos()) {
-		        case 4:
-		        	imgRival6.setEffect(null);
-		        case 3:
-		        	imgRival5.setEffect(null);
-		        case 2:
-		        	imgRival4.setEffect(null);
-		        case 1:
-		        	imgRival3.setEffect(null);
-		        case 0:
-		        	imgRival2.setEffect(null);
-		        	break;
-        	}
-        }
+        
+    	switch (entrenador.getRivalesVencidos()) {
+    		case 5:
+	        case 4:
+	        	imgRival6.setEffect(null);
+	        case 3:
+	        	imgRival5.setEffect(null);
+	        case 2:
+	        	imgRival4.setEffect(null);
+	        case 1:
+	        	imgRival3.setEffect(null);
+	        case 0:
+	        	imgRival2.setEffect(null);
+	        	break;
+    	}
         
         con = ConexionBD.getConnection();
         pokedex = PokedexDAO.cargarPokedexCompleta(con);
@@ -241,7 +235,7 @@ public class SeleccionarRivalController {
     void seleccionarRival2(MouseEvent event) {
     	if (imgRival2.getEffect() == null) {
     		rival = listaLideres.get(0);
-    		url = "C:/ProyectoPokemon/img/lideresGimnasio/LuisRe1.png";
+    		url = "C:/ProyectoPokemon/img/lideresGimnasio/Carrion1.png";
         	irCombate(null);
     	}
     }
@@ -250,7 +244,7 @@ public class SeleccionarRivalController {
     void seleccionarRival3(MouseEvent event) {
     	if (imgRival3.getEffect() == null) {
     		rival = listaLideres.get(1);
-    		url = "C:/ProyectoPokemon/img/lideresGimnasio/LuisRe1.png";
+    		url = "C:/ProyectoPokemon/img/lideresGimnasio/Diego1.png";
         	irCombate(null);
     	}
     }
@@ -259,7 +253,7 @@ public class SeleccionarRivalController {
     void seleccionarRival4(MouseEvent event) {
     	if (imgRival4.getEffect() == null) {
     		rival = listaLideres.get(2);
-    		url = "C:/ProyectoPokemon/img/lideresGimnasio/LuisRe1.png";
+    		url = "C:/ProyectoPokemon/img/lideresGimnasio/Fernando1.png";
         	irCombate(null);
     	}
     }
@@ -268,7 +262,7 @@ public class SeleccionarRivalController {
     void seleccionarRival5(MouseEvent event) {
     	if (imgRival5.getEffect() == null) {
     		rival = listaLideres.get(3);
-    		url = "C:/ProyectoPokemon/img/lideresGimnasio/LuisRe1.png";
+    		url = "C:/ProyectoPokemon/img/lideresGimnasio/Carlos1.png";
         	irCombate(null);
     	}
     }
@@ -285,7 +279,7 @@ public class SeleccionarRivalController {
     public LinkedList<Pokemon> generarEquipoRival() {
     	LinkedList<Pokemon> equipoRival = new LinkedList<Pokemon>();
     	
-    	int numPokRival = (int) (Math.random() * 5) + 2;
+    	int numPokRival = (int) (Math.random() * 4) + 1;
     	int nivelMedio = 0;
     	int numPokemon = 0;
     	

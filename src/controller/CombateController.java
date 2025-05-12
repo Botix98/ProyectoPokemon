@@ -784,7 +784,8 @@ public class CombateController {
         	} else {
         		PauseTransition pausa = new PauseTransition(Duration.seconds(2));
 				pausa.setOnFinished(event -> {
-					activarBotonesAtaque();
+					activarBotonesSeleccionAccion();
+					//activarBotonesAtaque();
 				});
 				pausa.play();
         	}
@@ -796,7 +797,8 @@ public class CombateController {
         	} else {
         		PauseTransition pausa = new PauseTransition(Duration.seconds(2));
 				pausa.setOnFinished(event -> {
-					activarBotonesAtaque();
+					activarBotonesSeleccionAccion();
+					//activarBotonesAtaque();
 				});
 				pausa.play();
         	}
@@ -808,7 +810,8 @@ public class CombateController {
         	} else {
         		PauseTransition pausa = new PauseTransition(Duration.seconds(2));
 				pausa.setOnFinished(event -> {
-					activarBotonesAtaque();
+					activarBotonesSeleccionAccion();
+					//activarBotonesAtaque();
 				});
 				pausa.play();
         	}
@@ -820,7 +823,8 @@ public class CombateController {
         	} else {
         		PauseTransition pausa = new PauseTransition(Duration.seconds(2));
 				pausa.setOnFinished(event -> {
-					activarBotonesAtaque();
+					activarBotonesSeleccionAccion();
+					//activarBotonesAtaque();
 				});
 				pausa.play();
         	}
@@ -918,7 +922,8 @@ public class CombateController {
 			if (!(defensor.getEstado().equals(TipoEstados.valueOf("CONGELADO")) || defensor.getEstado().equals(TipoEstados.valueOf("DORMIDO"))
 					|| defensor.getEstado().equals(TipoEstados.valueOf("PARALIZADO")) || defensor.getEstado().equals(TipoEstados.valueOf("ENAMORADO")))) {turnoDefensor(movAtacante, movDefensor, atacante, defensor, esTurnoEntrenador, primeraParte);
 			} else {
-				activarBotonesAtaque();
+				activarBotonesSeleccionAccion();
+				//activarBotonesAtaque();
 			}
 		});
 		
@@ -1075,19 +1080,20 @@ public class CombateController {
     				} else {
     					PauseTransition pausa1 = new PauseTransition(Duration.seconds(2));
     					pausa1.setOnFinished(event1 -> {
-    						activarBotonesAtaque();
+    						activarBotonesSeleccionAccion();
+    						//activarBotonesAtaque();
     					});
     					pausa1.play();
     				}
     			} else {
-    				activarBotonesAtaque();
+    				activarBotonesSeleccionAccion();
+					//activarBotonesAtaque();
     			}
             });
             pausa.play();
 		} else {
 			manejarPokemonDebilitado(atacante, defensor, esTurnoEntrenador ? false : true); //ESPEREMOS QUE ESTO ESTE BIEN. SI ESTA MAL ME VOY A ENTERAR
 		}
-		
 	}
     
 	private int calcularDano(Movimiento movAtacante, Pokemon atacante, Pokemon defensor) {
@@ -1108,28 +1114,7 @@ public class CombateController {
 		
     	int variacion = (int)(Math.random() * (100 - 85 + 1) + 85);
     	int dano;
-    	
-    	System.out.println("Daño:");
-    	System.out.println("\t- Bonus:          " + bonus);
-    	System.out.println("\t- Efectividad:    " + efectividad);
-    	System.out.println("\t- Variacion:      " + variacion);
-    	System.out.println("\t- Lvl atacante:   " + atacante.getNivel());
-    	System.out.println("\t- Potencia at:    " + movAtacante.getPotencia());
-    	
-    	if(movAtacante.getTipo().equals("FISICO")) {
-    		System.out.println("\t- Ataque fisico:  " + atacante.getAtaque());
-    		System.out.println("\t- Defensa fisica: " + defensor.getDefensa());
-    		System.out.println("\t- Daño total:     " + (int) (0.01 * bonus * efectividad * variacion * (((0.2 * atacante.getNivel() + 1) * atacante.getAtaque() * movAtacante.getPotencia()) / (25 * defensor.getDefensa()) + 2)));
-    	} else {
-    		System.out.println("\t- Ataque esp:     " + atacante.getAtEspecial());
-    		System.out.println("\t- Defensa esp:    " + defensor.getDefEspecial());
-    		System.out.println("\t- Daño total:     " + (int) (0.01 * bonus * efectividad * variacion * (((0.2 * atacante.getNivel() + 1) * atacante.getAtEspecial() * movAtacante.getPotencia()) / (25 * defensor.getDefEspecial()) + 2)));
-    	}
-    	System.out.println(defensor.toString());
-    	System.out.println(atacante.toString());
-    	
-		
-    	
+
     	if (movAtacante.getTipo().equals("FISICO")) {
     		if (atacante.getEstado().equals(TipoEstados.valueOf("QUEMADO"))) { //ataque x 0.5
     			dano = (int) (0.01 * bonus * efectividad * variacion * (((0.2 * atacante.getNivel() + 1) * atacante.getAtaque() * 0.5 * movAtacante.getPotencia()) / (25 * defensor.getDefensa()) + 2));
@@ -1139,7 +1124,13 @@ public class CombateController {
     	} else {
     		dano = (int) (0.01 * bonus * efectividad * variacion * (((0.2 * atacante.getNivel() + 1) * atacante.getAtEspecial() * movAtacante.getPotencia()) / (25 * defensor.getDefEspecial()) + 2));
     	}
-    	System.out.println("Daño: " + dano);
+
+    	//if (OBJETO DEL ATACANTE == ANILLO UNICO && registroCombate.size() < 3) {
+    	//dano += 10;
+    	//} else if (OBJETO DEL DEFENSOR == ANILLO UNICO && registroCombate.size() < 3) {
+    	//dano = 0;
+    	//}
+    	
     	return dano;
 	}
 	
@@ -1191,7 +1182,7 @@ public class CombateController {
     	
     	if (esTurnoEntrenador) {
             numPokVivosRival--;
-            imgPokemonRival.setId(null);
+            imgPokemonRival.setImage(null);
         } else {
             numPokVivosEntr--;
             imgPokemonEntrenador.setImage(null);
@@ -1199,9 +1190,12 @@ public class CombateController {
 
         lblTexto.setText(defensor.getMote() + " ha sido debilitado!");
         
-        System.out.println(esTurnoEntrenador);
+        activo.addListener((observable, oldValue, newValue) -> {
+        	desactivarBotonesAtaque();
+        	comprobarPokemones(esTurnoEntrenador);
+        });
         
-        if (esTurnoEntrenador && atacante.getNivel() < 100) {
+        if (atacante.getNivel() < 100) {
         	int xp = (atacante.getNivel() + defensor.getNivel() * 10) / 4;
         	atacante.setExperiencia(xp + atacante.getExperiencia());
         	
@@ -1209,66 +1203,50 @@ public class CombateController {
             pausa2.setOnFinished(event2 -> {
             	lblTexto.setText(atacante.getMote() + " ha ganado " + xp + " puntos de experiencia");
             });
-            pausa2.play();
             
-            activo.addListener((observable, oldValue, newValue) -> {
-            	if (esTurnoEntrenador && numPokVivosRival == 0 || !esTurnoEntrenador && numPokVivosEntr == 0) {
-                    desactivarBotonesAtaque();
-                    uiFinalCombate();
-                    if (esTurnoEntrenador) {
-                    	lblTexto.setText("Has ganado " + entrenador.getPokedolares() / 3 + " pokedolares");
-                    	entrenador.setPokedolares(entrenador.getPokedolares() + (entrenador.getPokedolares() / 3));
-                    	
-                    	actualizarRivalesVencidos();
-                    	
-                    	PauseTransition pausa = new PauseTransition(Duration.seconds(2));
-                    	pausa.setOnFinished(evento -> {
-                    		lblTexto.setText(rival.getFraseVictoria());
-                    		volverAlMenu();
-                    	});
-                    	pausa.play();
-                    } else {
-                    	lblTexto.setText("Has perdido " + entrenador.getPokedolares() / 3 + " pokedolares");
-                    	entrenador.setPokedolares(entrenador.getPokedolares() - (entrenador.getPokedolares() / 3));
-                    	
-                    	PauseTransition pausa = new PauseTransition(Duration.seconds(2));
-                    	pausa.setOnFinished(evento -> {
-                    		lblTexto.setText(rival.getFraseDerrota());
-                    		volverAlMenu();
-                    	});
-                    	pausa.play();
-                    }
-                } else {
-                    cambiarPokemon(esTurnoEntrenador);
-                }
-            });
             PauseTransition pausa3 = new PauseTransition(Duration.seconds(2));
             pausa3.setOnFinished(event3 -> {
             	atacante.actualizarXP(activo, pbXpPokemonEntrenador, pbVidaPokemonEntrenador, lblTexto, lblVidaPokemonEntrenador, lblNivelPokemonEntrenador, imgPokemonEntrenador);
             	PokemonDAO.actualizarPokemonSubirNivel(con, atacante);
             });
-            pausa3.play();
+            
+            SequentialTransition secuencia = new SequentialTransition(pausa2, pausa3);
+            secuencia.play();
         } else {
-        	PauseTransition pausa3 = new PauseTransition(Duration.seconds(2));
-            pausa3.setOnFinished(event3 -> {
-                if (esTurnoEntrenador && numPokVivosRival == 0 || !esTurnoEntrenador && numPokVivosEntr == 0) {
-                    desactivarBotonesAtaque();
-                    uiFinalCombate();
-                    if (esTurnoEntrenador) {
-                        lblTexto.setText("Como has podido vencerme! Te mereces seguir a delante y enfrentarte a Antonio en segundo.");
-                        
-                        actualizarRivalesVencidos();
-                    } else {
-                        lblTexto.setText("Lo he intentado todo pero desde el principio sabia que no eras merecedor de la matricula. No me queda mas remedio que darsela a Adriano.");
-                    }
-                    volverAlMenu();
-                } else {
-                    cambiarPokemon(esTurnoEntrenador);
-                }
-            });
-            pausa3.play();
+        	desactivarBotonesAtaque();
+        	comprobarPokemones(esTurnoEntrenador);
         }
     }
+
+	private void comprobarPokemones(boolean esTurnoEntrenador) {
+		if (numPokVivosRival == 0) {
+			uiFinalCombate();
+			lblTexto.setText("Has ganado " + entrenador.getPokedolares() / 3 + " pokedolares");
+			entrenador.setPokedolares(entrenador.getPokedolares() + (entrenador.getPokedolares() / 3));
+			
+			actualizarRivalesVencidos();
+			
+			PauseTransition pausa = new PauseTransition(Duration.seconds(2));
+			pausa.setOnFinished(evento -> {
+				lblTexto.setText(rival.getFraseVictoria());
+				volverAlMenu();
+			});
+			pausa.play();
+		} else if (numPokVivosEntr == 0) {
+			uiFinalCombate();
+			lblTexto.setText("Has perdido " + entrenador.getPokedolares() / 3 + " pokedolares");
+			entrenador.setPokedolares(entrenador.getPokedolares() - (entrenador.getPokedolares() / 3));
+			
+			PauseTransition pausa = new PauseTransition(Duration.seconds(2));
+			pausa.setOnFinished(evento -> {
+				lblTexto.setText(rival.getFraseDerrota());
+				volverAlMenu();
+			});
+			pausa.play();
+		} else {
+		    cambiarPokemon(esTurnoEntrenador);
+		}
+	}
 
 	private void actualizarRivalesVencidos() {
 		System.out.println("IdRival: " + rival.getIdRival());
@@ -1490,7 +1468,8 @@ public class CombateController {
     			} else {
     				PauseTransition pausa = new PauseTransition(Duration.seconds(2));
 					pausa.setOnFinished(event -> {
-						activarBotonesAtaque();
+						activarBotonesSeleccionAccion();
+						//activarBotonesAtaque();
 					});
 					pausa.play();
     			}
@@ -1513,6 +1492,7 @@ public class CombateController {
         lblNombrePokemonRival.setVisible(false);
         lblNivelPokemonRival.setVisible(false);
         pbVidaPokemonRival.setVisible(false);
+        lblEstadoPokemonRival.setVisible(false);
         
         imgPokemonEntrenador.setVisible(false);
     	imgEntrenador.setVisible(true);
@@ -1522,6 +1502,7 @@ public class CombateController {
         lblVidaPokemonEntrenador.setVisible(false);
         pbVidaPokemonEntrenador.setVisible(false);
         pbXpPokemonEntrenador.setVisible(false);
+        lblEstadoPokemonEntrenador.setVisible(false);
 	}
     
 	private void desactivarBotonesAtaque() {
@@ -1536,6 +1517,18 @@ public class CombateController {
     	btnAtaque3.setVisible(false);
     	btnAtaque4.setVisible(false);
     }
+	
+	private void activarBotonesSeleccionAccion() {
+    	imgSeleccionAccion.setVisible(true);
+    	
+		lblTexto.setText("Elije una accion.");
+    	lblTexto.setVisible(true);
+		
+    	btnAtacar.setVisible(true);
+		btnMochila.setVisible(true);
+		btnRendirse.setVisible(true);
+		btnAccionCambiarPokemon.setVisible(true);
+	}
     
     private void activarBotonesAtaque() {
     	btnCancelarAccion.setVisible(true);

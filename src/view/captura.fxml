@@ -32,7 +32,7 @@
                   <Image url="@../../img/conSonido.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblNombrePokemon" layoutX="549.0" layoutY="189.0" prefHeight="51.0" prefWidth="124.0" text="NP">
+            <Label fx:id="lblNombrePokemon" layoutX="549.0" layoutY="189.0" prefHeight="51.0" prefWidth="131.0" text="NP">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font></Label>
@@ -209,6 +209,11 @@
                   <Image url="@../../img/objetos/Candado.png" />
                </image>
             </ImageView>
+            <Label fx:id="lblCapturadoNoCapturado" layoutX="548.0" layoutY="132.0" prefHeight="51.0" prefWidth="397.0">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

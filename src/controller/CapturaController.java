@@ -58,8 +58,11 @@ public class CapturaController {
     @FXML private Button btnCambioNoche, btnCambioNube, btnCambioPiedra, btnCambioVolcan;
     
     @FXML private ImageView imgCambioCueva, imgCambioHierba, imgCambioNieve, imgCambioPlaya; 
-    @FXML private ImageView imgCambioNoche, imgCambioCascada, imgCambioPiedra, imgCambioVolcan;
+    @FXML private ImageView imgCambioNoche, imgCambioNube, imgCambioPiedra, imgCambioVolcan;
     
+    @FXML private ImageView imgCandadoCueva, imgCandadoNieve, imgCandadoNoche;
+    @FXML private ImageView imgCandadoNube, imgCandadoPiedra, imgCandadoPlaya, imgCandadoVolcan;
+
     @FXML private Button btnCambiarPokemon;
     @FXML private ImageView imgCambiarPokemon;
 
@@ -68,7 +71,12 @@ public class CapturaController {
     @FXML private Label lblRatioCatchPokeball, lblRatioCatchSuperball, lblRatioCatchUltraball;
 
     
-    // QUE AL INICIARSE TE DEJE ACCEDER A LOS FONDOS SEGUN HAYAS VENCIDO A LOS RIVALES CON UN IF Y VAN A SER 5
+    // QUE AL INICIARSE TE DEJE ACCEDER A LOS FONDOS SEGUN HAYAS VENCIDO A LOS RIVALES CON UN IF Y LOS VALORES VAN DE -3 A 5
+    //QUE SOLO DEJE TIRAR UAN POKEBAL Y HASTA QUE NO DEL RESULTADO QUE NO PUEDA HCER MÁS
+    //PILLAR DE CRIANZA Y POKEMONDAO METODOS DE GUARDAR POKEMON
+    //CUANDO SE CAPTUR QUE TENGA UN MOVIMIENTO A REVISAR EN EL PDF
+    //QUE VAYAN A LA CAJA Y QUE PASEN A SER NIVEL 1
+    //SI ESTA EN FONDO CUEVA QUE LOS LABELS Y TAL SE HAGAN BLANCOS
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
         this.entrenador = entr;
         this.stage = stage;
@@ -102,7 +110,40 @@ public class CapturaController {
         lblRatioCatchPokeball.setText("Captura: 30%");
         lblRatioCatchSuperball.setText("Captura: 50%");
         lblRatioCatchUltraball.setText("Captura: 80%");
-       
+        
+        entrenador.setRivalesVencidos(5);
+
+        switch (entrenador.getRivalesVencidos()) {
+        case 5:
+            
+            imgCandadoNoche.setVisible(false);
+            oscuridadFondoSiNoEstaDesbloqueado(btnCambioNoche);
+        case 4:
+        	imgCandadoVolcan.setVisible(false);
+        	oscuridadFondoSiNoEstaDesbloqueado(btnCambioVolcan);
+        case 3:
+        	imgCandadoNube.setVisible(false);
+        	oscuridadFondoSiNoEstaDesbloqueado(btnCambioNube);
+        case 2:
+            imgCandadoPiedra.setVisible(false);
+            oscuridadFondoSiNoEstaDesbloqueado(btnCambioPiedra);
+        case 1:
+        	imgCandadoCueva.setVisible(false);
+        	oscuridadFondoSiNoEstaDesbloqueado(btnCambioCueva);
+        case 0:
+        	imgCandadoNieve.setVisible(false);
+            oscuridadFondoSiNoEstaDesbloqueado(btnCambioNieve);
+        case -1:
+        	imgCandadoPlaya.setVisible(false);
+        	oscuridadFondoSiNoEstaDesbloqueado(btnCambioPlaya);
+        case -2:
+            break;
+            
+        default:
+            break;
+    
+        }
+        
     }
     
     @FXML
@@ -246,11 +287,10 @@ public class CapturaController {
         });
 		pause.play();
                 
-           
         cargarObjetosMochila();
     }
     
-	    //QUE VAYAN A LA CAJA Y QUE PASEN A SER NIVEL 1
+
     private void capturarPokemon() {
     	 System.out.println("esto es que ha funcionado ahora hay que hacer que se vayan al equipo");
 	}
@@ -299,6 +339,10 @@ public class CapturaController {
         }
     }
     
+    private void oscuridadFondoSiNoEstaDesbloqueado(Button button) {
+        button.setEffect(null);
+    }
+
     @FXML
     void cambiarFondoCueva(ActionEvent event) {
     	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoCueva.png").toURI().toString()));

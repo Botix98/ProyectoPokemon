@@ -233,12 +233,12 @@
             </ImageView>
             <Button fx:id="btnSalir" layoutX="135.0" layoutY="30.0" mnemonicParsing="false" onAction="#salir" prefHeight="84.0" prefWidth="174.0" text="Salir" />
             <ProgressBar fx:id="pbPokemonSeleccionado" layoutX="65.0" layoutY="227.0" prefHeight="24.0" prefWidth="216.0" progress="1.0" />
-            <Label fx:id="lblNombrePokemonSeleccionado" layoutX="112.0" layoutY="169.0" prefHeight="24.0" prefWidth="68.0" text="NP">
+            <Label fx:id="lblNombrePokemonSeleccionado" layoutX="112.0" layoutY="169.0" prefHeight="24.0" prefWidth="84.0" text="NP">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="lblNivelPokemonSeleccionado" layoutX="180.0" layoutY="165.0" prefHeight="33.0" prefWidth="76.0" text="Nivel">
+            <Label fx:id="lblNivelPokemonSeleccionado" layoutX="196.0" layoutY="165.0" prefHeight="33.0" prefWidth="76.0" text="Nivel">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>

@@ -444,4 +444,39 @@ public class PokemonDAO {
 	    }
 	}
 	
+	public static int obtenerMaxIdPokemon(Connection con) {
+	    int maxId = 0;
+	    String query = "SELECT MAX(ID_POKEMON) AS MAX_ID FROM POKEMON";
+
+	    try (PreparedStatement ps = con.prepareStatement(query);
+	         ResultSet rs = ps.executeQuery()) {
+
+	        if (rs.next()) {
+	            maxId = rs.getInt("MAX_ID");
+	        }
+
+	    } catch (SQLException e) {
+	        ConexionBD.printSQLException(e);
+	    }
+
+	    return maxId;
+	}
+	
+	public static int contarPokemonsEnEquipo(Connection con, int idEntrenador) {
+	    int total = 0;
+	    String query = "SELECT COUNT(*) AS total FROM POKEMON WHERE ID_ENTRENADOR = ? AND EQUIPO IS NOT NULL";
+
+	    try (PreparedStatement ps = con.prepareStatement(query)) {
+	        ps.setInt(1, idEntrenador);
+	        try (ResultSet rs = ps.executeQuery()) {
+	            if (rs.next()) {
+	                total = rs.getInt("total");
+	            }
+	        }
+	    } catch (SQLException e) {
+	        ConexionBD.printSQLException(e);
+	    }
+
+	    return total;
+	}
 }

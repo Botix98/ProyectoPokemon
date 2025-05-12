@@ -36,6 +36,7 @@
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -50,7 +51,7 @@
                   <Image url="@../../img/crianza/fondo.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnMacho" layoutX="183.0" layoutY="428.0" mnemonicParsing="false" prefHeight="128.0" prefWidth="208.0" text="Pokemon macho" />
+            <Button fx:id="btnMacho" layoutX="195.0" layoutY="508.0" mnemonicParsing="false" onAction="#ElegirPokeM" prefHeight="41.0" prefWidth="200.0" text="Pokemon macho" />
             <Button fx:id="btnAtras" layoutX="937.0" layoutY="584.0" mnemonicParsing="false" onAction="#Salir" prefHeight="110.0" prefWidth="314.0" text="Atras" />
             <ProgressBar fx:id="pbFusion" layoutX="183.0" layoutY="584.0" prefHeight="110.0" prefWidth="708.0" progress="0.0" />
             <ImageView fx:id="imgAdn1" fitHeight="128.0" fitWidth="415.0" layoutX="204.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
@@ -73,7 +74,7 @@
                   <Image url="@../../img/crianza/adn.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnHembra" layoutX="683.0" layoutY="428.0" mnemonicParsing="false" prefHeight="128.0" prefWidth="208.0" text="Pokemon hembra" />
+            <Button fx:id="btnHembra" layoutX="691.0" layoutY="515.0" mnemonicParsing="false" onAction="#ElegirPokeH" prefHeight="41.0" prefWidth="200.0" text="Pokemon hembra" />
             <Button fx:id="btnIncubadora" layoutX="442.0" layoutY="214.0" mnemonicParsing="false" onAction="#abrirIncubadora" prefHeight="128.0" prefWidth="208.0" text="Huevo en incubadora" />
             <ImageView fx:id="imgSonido" fitHeight="99.0" fitWidth="84.0" layoutX="50.0" layoutY="40.0" onMouseClicked="#activarDesactivarSonido" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -82,15 +83,22 @@
             </ImageView>
             <ImageView fx:id="imgCable1" fitHeight="150.0" fitWidth="200.0" layoutX="187.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="imgCable2" fitHeight="150.0" fitWidth="200.0" layoutX="687.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgHuevo" fitHeight="150.0" fitWidth="200.0" layoutX="446.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgCria" fitHeight="150.0" fitWidth="200.0" layoutX="474.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
                <rotationAxis>
                   <Point3D />
                </rotationAxis></ImageView>
-            <ImageView fx:id="imgFusionar" fitHeight="118.0" fitWidth="142.0" layoutX="50.0" layoutY="580.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgFusionar" fitHeight="118.0" fitWidth="142.0" layoutX="50.0" layoutY="580.0" onMouseClicked="#fusionar" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/crianza/unir.jpeg" />
                </image>
             </ImageView>
+            <ScrollPane fx:id="sbCaja" hbarPolicy="NEVER" layoutX="994.0" layoutY="32.0" prefHeight="535.0" prefWidth="200.0" vbarPolicy="ALWAYS">
+              <content>
+                <AnchorPane fx:id="apCaja" minHeight="0.0" minWidth="0.0" prefHeight="535.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+            <ImageView fx:id="imgPokeM" fitHeight="150.0" fitWidth="200.0" layoutX="214.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgPokeH" fitHeight="150.0" fitWidth="200.0" layoutX="720.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true" />
       </children>
     </AnchorPane>
   </children>

@@ -4,7 +4,9 @@ import java.io.File;
 import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
- 
+
+import javax.swing.JOptionPane;
+
 import dao.ConexionBD;
 import dao.PokemonDAO;
 import javafx.animation.KeyFrame;
@@ -101,8 +103,11 @@ public class CentroPokemonController {
         this.tiendaController = tiendaController;
         this.combateController = combateController;
         
+        equipo = new LinkedList<>(PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1));
+
         if (combateController != null) {
-        	
+    		JOptionPane.showMessageDialog(null, "Tu equipo Pokemon a sido derrotado, se estan recuperando pero a uno le falta una pierna");
+    		curarInit();
         }
         mostrarEquipo();
         actualizarColorPB();
@@ -181,7 +186,16 @@ public class CentroPokemonController {
 	}
     @FXML
     void curarEquipo(ActionEvent event) {
-    	SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/CurarPokemon.mp3");
+    	curarInit();
+    }
+	private void curarInit() {
+	    SonidoController.detenerFondo("C:/ProyectoPokemon/sonidos/CentroPokemon.mp3");
+
+	    SonidoController.reproducirEfecto("C:/ProyectoPokemon/sonidos/CurarPokemon.mp3", () -> {
+
+	        SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/CentroPokemon.mp3");
+	    });
+
         List<Pokemon> equipo = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
     	for(int i = 0; i  < equipo.size(); i++) {
     		if (equipo.get(i) != null) {
@@ -195,7 +209,7 @@ public class CentroPokemonController {
     		}
     	}
         actualizarEstadoPokemon();
-    }
+	}
     private ProgressBar getProgressBarPorIndex(int index) {
         switch (index) {
             case 0: return pbPokemon1;
@@ -220,7 +234,6 @@ public class CentroPokemonController {
         }
     }
     private void mostrarEquipo() {
-        equipo = new LinkedList<>(PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1));
  
         for (int i = 0; i < equipo.size(); i++) {
             if (equipo.get(i) != null) {

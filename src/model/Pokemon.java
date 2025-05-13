@@ -385,104 +385,9 @@ public class Pokemon {
     	return res;
 	}
 	
-	public void actualizarXP(SimpleBooleanProperty activo, ProgressBar pbXP, ProgressBar pbVidaPokemonEntrenador, Label lblTexto, Label lblVidaPokemonEntrenador, Label lblNivelPokemonEntrenador, ImageView imgPokemonEntrenador) {
-		int experienciaLevelUp = 10 * getNivel();
-		double porcentajeFinal;
-		int nivelAux = getNivel();
-		
-		System.out.println("Nivel: " + getNivel());
-		System.out.println("ExperienciaNextLvl: " + experienciaLevelUp);
-		System.out.println("Experiencia acumulada: " + getExperiencia());
-		
-		if (getExperiencia() >= experienciaLevelUp) {
-			porcentajeFinal = 1;
-			setNivel(getNivel() + 1);
-			setExperiencia(getExperiencia() - experienciaLevelUp);
-		} else {
-			porcentajeFinal = (double) (getExperiencia()) / experienciaLevelUp;
-		}
-		
-		int numCiclos = 90;
-		double aumPorPaso = (porcentajeFinal - pbXP.getProgress()) / numCiclos;
-		
-		Timeline timeline = new Timeline(
-		    new KeyFrame(Duration.seconds(0.017), e -> {
-		        double current = pbXP.getProgress();
-		        
-		        if (current < porcentajeFinal) {
-		        	pbXP.setProgress(Math.min(current + aumPorPaso, 1));
-		        }
-		    })
-		);
-		timeline.setCycleCount(numCiclos);
-		timeline.play();
-		
-		timeline.setOnFinished(e -> {
-			if (nivelAux != getNivel()) {
-				lblTexto.setText(getMote() + " ha subido al nivel " + getNivel() + "! Sus estadisticas tambien suben!");
-				
-				int rand = (int) (Math.random() * 5) + 1;
-				
-				setVitalidadMax(getVitalidadMax() + rand);
-				setVitalidadAct(getVitalidadAct() + rand);
-				setAtaque(getAtaque() + (int) (Math.random() * 5) + 1);
-				setAtEspecial(getAtEspecial() + (int) (Math.random() * 5) + 1);
-				setDefensa(getDefensa() + (int) (Math.random() * 5) + 1);
-				setDefEspecial(getDefEspecial() + (int) (Math.random() * 5) + 1);
-				
-				lblVidaPokemonEntrenador.setText(getVitalidadAct() + "/" + getVitalidadMax());
-				pbVidaPokemonEntrenador.setProgress((double) (getVitalidadAct()) / getVitalidadMax());
-				lblNivelPokemonEntrenador.setText(Integer.toString(getNivel()));
-				
-				if (pbVidaPokemonEntrenador.getProgress() < 0.25){
-					pbVidaPokemonEntrenador.setStyle("-fx-accent: red;");
-		        }
-		        else if (pbVidaPokemonEntrenador.getProgress() < 0.5){
-		        	pbVidaPokemonEntrenador.setStyle("-fx-accent: yellow;");
-		        } else {
-		        	pbVidaPokemonEntrenador.setStyle("-fx-accent: #00a135;");
-		        }
-			}
-			
-			//Subir las estadisticas del pokemon
-			PauseTransition pausa = new PauseTransition(Duration.seconds(2));
-            pausa.setOnFinished(event -> {
-            	pbXP.setProgress(0.0001);
-            	if (PokedexDAO.cargarPorNumPokedex(ConexionBD.getConnection(), getNumPokedex()).getNivelEvo() == getNivel()) {
-            		evolucionar(imgPokemonEntrenador);
-            		actualizarXP(activo, pbXP, pbVidaPokemonEntrenador, lblTexto, lblVidaPokemonEntrenador, lblNivelPokemonEntrenador, imgPokemonEntrenador);
-            	} else if (getExperiencia() >= experienciaLevelUp) {
-            		actualizarXP(activo, pbXP, pbVidaPokemonEntrenador, lblTexto, lblVidaPokemonEntrenador, lblNivelPokemonEntrenador, imgPokemonEntrenador);
-            	} else {
-            		double porcentajeFinal2 = (double) (getExperiencia()) / experienciaLevelUp;
-            		double aumPorPaso2 = (porcentajeFinal2 - pbXP.getProgress()) / numCiclos;
-            		
-            		Timeline timeline2 = new Timeline(
-            		    new KeyFrame(Duration.seconds(0.017), e2 -> {
-            		        double current = pbXP.getProgress();
-            		        
-            		        if (current < porcentajeFinal2) {
-            		        	pbXP.setProgress(Math.min(current + aumPorPaso2, 1));
-            		        }
-            		    })
-            		);
-            		timeline2.setCycleCount(numCiclos);
-            		timeline2.play();
-            		
-            		timeline2.setOnFinished(e2 -> {
-            			PauseTransition pausa1 = new PauseTransition(Duration.seconds(2));
-                        pausa1.setOnFinished(event1 -> {
-                        	activo.set(true);
-                        });
-            			pausa1.play();
-            		});
-            	}
-            });
-            pausa.play();
-		});
-	}
+	
 
-	private void evolucionar(ImageView imgPokemonEntrenador) {
+	public Image evolucionar() {
 		Pokedex pokedex = PokedexDAO.cargarPorNumPokedex(ConexionBD.getConnection(), getNumPokedex());
 		Pokedex pokedexNEW = PokedexDAO.cargarPorNumPokedex(ConexionBD.getConnection(), getNumPokedex() +1);
 		
@@ -495,7 +400,7 @@ public class Pokemon {
 		setVitalidadAct(getVitalidadMax());
 		setNumPokedex(getNumPokedex() + 1);
 
-		imgPokemonEntrenador.setImage(new Image(new File("./img/Pokemon/Back/" + getNumPokedex() + ".png").toURI().toString()));
+		return new Image(new File("./img/Pokemon/Back/" + getNumPokedex() + ".png").toURI().toString());
 	}
 
 	@Override

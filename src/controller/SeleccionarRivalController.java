@@ -296,7 +296,8 @@ public class SeleccionarRivalController {
     		int numPokedex = (int) (Math.random() * 151) + 1;
     		String mote = pokedex.get(numPokedex - 1).getNomPokemon();
     		int nivel = nivelMedio - (int) (numPokRival * 1.7) + 2 * i;
-    		int vitalidadMax = 10 + (int)((double)(nivel) / 100 * (pokedex.get(numPokedex - 1).getVitalidad() * 2) + (int) (Math.random() * 32)) + nivel;
+    		int vitalidadMax = 1;
+    		//int vitalidadMax = 10 + (int)((double)(nivel) / 100 * (pokedex.get(numPokedex - 1).getVitalidad() * 2) + (int) (Math.random() * 32)) + nivel;
     		int ataque = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getAtaque() * 2) + (int) (Math.random() * 32)));
     		int ataqueEsp = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getAtEspecial() * 2) + (int) (Math.random() * 32)));
     		int defensa = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getDefensa() * 2) + (int) (Math.random() * 32)));
@@ -323,6 +324,7 @@ public class SeleccionarRivalController {
             Scene scene = new Scene(root);
             stage.setScene(scene);
 	        stage.setTitle("Combate");
+	        stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

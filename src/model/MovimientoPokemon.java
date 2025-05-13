@@ -11,6 +11,12 @@ public class MovimientoPokemon {
         this.ppActuales = 0;
     }
     
+    /**
+     * 
+     * @param idPokemon
+     * @param idMovimiento
+     * @param ppActuales
+     */
     public MovimientoPokemon(int idPokemon, int idMovimiento, int ppActuales) {
 		super();
 		this.idPokemon = idPokemon;
@@ -18,6 +24,10 @@ public class MovimientoPokemon {
 		this.ppActuales = ppActuales;
 	}
 
+    /**
+     * 
+     * @param otro
+     */
     public MovimientoPokemon(MovimientoPokemon otro) {
         this.idPokemon = otro.idPokemon;
         this.idMovimiento = otro.idMovimiento;

@@ -4,7 +4,11 @@ public class Turno {
 	private int numeroCombate;
 	private int numeroTurno;
 	private String accionEntrenador;
+	private String efectoAccionEntrenador;
+	private String actualizacionEstadoEntrenador;
 	private String accionRival;
+	private String efectoAccionRival;
+	private String actualizacionEstadoRival;
 	
 	/**
 	 * @param numeroCombate

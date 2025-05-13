@@ -58,6 +58,9 @@ public class EquipoController {
     @FXML private ProgressBar pbPokemonSeleccionado;
     @FXML private ImageView imgPokemonSeleccionado;
     
+    @FXML private Button btnLiberarPokemon;
+    @FXML private Button btnMandarPokemonaCaja;
+    
     Connection con = ConexionBD.getConnection();
     
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
@@ -141,6 +144,20 @@ public class EquipoController {
             }
         }		
 
+        
+        @FXML
+        void liberarPokemon(ActionEvent event) {
+
+        }
+
+        @FXML
+        void mandarPokemonaCaja(ActionEvent event) {
+
+        }
+        
+        
+        
+        
     //hace que la barra sea visible o invisible con true o false
     public final void setVisible(boolean value) {
     	

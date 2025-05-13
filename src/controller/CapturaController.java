@@ -20,6 +20,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Entrenador;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -66,22 +69,26 @@ public class CapturaController {
     @FXML private ImageView imgCandadoCueva, imgCandadoNieve, imgCandadoNoche;
     @FXML private ImageView imgCandadoNube, imgCandadoPiedra, imgCandadoPlaya, imgCandadoVolcan;
 
-    @FXML private Button btnCambiarPokemon;
     @FXML private ImageView imgCambiarPokemon;
 
     @FXML private ImageView imgPokeball, imgSuperball, imgUltraball;
     @FXML private Label lblNumeroPokeballs, lblNumeroSuperballs, lblNumeroUltraballs;
     @FXML private Label lblRatioCatchPokeball, lblRatioCatchSuperball, lblRatioCatchUltraball;
     
+    //CUANDO EL POKEMON SE CAPTURE METERLE EL MOVIMIENTO_POKEMON PLACAJE (CRIANZA)
+    //CUANDO HAY EL MAXIMO EN LA CAJA QUE SALGA UN MENSAJE PARA LIBERAR
     //EN LA LINEA 120 DESCOMENTAR PARA USAR LO DE LOS RIVALES VENCIDOS
-    //LINEA 300 Y 302 BORRAR QUE SON PRUEBAS DE CAPTURA
-    //EN LA LINEA 249 HACER QUE EL ENTRENADOR ID POKEMON, NUM POKEDEX Y LO QUE PONE SALVAJE TOD0 ESO SE AUTOMATICE
-    //COGER EL ID ENTRENADRO DEL POKEMON QUE CAPTURA
-    //LLAMAR AL METODO LLAMAR ID MAX AGREGAR 1 CUANDO FUNCIONE LA CAPTURA
     //PILLAR DE CRIANZA Y POKEMONDAO METODOS DE GUARDAR POKEMON Y QUE PASEN A SER NIVEL 1
-    //CUANDO CAPTURAS PUEDES PONERLE UN MOTE Y COMPROBAR QUE NO TENGA PALABRAS MALAS, ESPACIOS NI NUMEROS
-    //QUE AL CAPTURARLO TENGA UN ATAQUE ALEATORIO DE SU TIPO
+    
+    //COMPROBAR QUE NO TENGA PALABRAS MALAS, ESPACIOS NI NUMEROS AL MOTE
+    
+    //QUE AL CAPTURARLO TENGA UN ATAQUE ALEATORIO DE SU TIPO Y PLACAJE
+    
     //PODER CAMBIAR ENTRE POKEMON EN EL EQUIPO, PODER EQUIPAR OBJETOS
+    //QUE EN CAJA SE PUEDA LIBERAR
+    //BOTON EN CAJA IR A CAJA 1 O 2
+    
+    //EN EQUIPO BOTONES DE LIBERAR MANDAR A CAJA QUE APAREZCAN EN EL ONCLICK DE LA IMAGEN QUE ESTABAN OCULTOS
     
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
         this.entrenador = entr;
@@ -228,8 +235,7 @@ public class CapturaController {
         if (numPokemon == 0) nivelMedio = 5; // nivel por defecto si no tiene Pokémon
         else nivelMedio = nivelMedio / numPokemon;
 
-        // Determinar el nivel del Pokémon salvaje (basado en el nivel medio)
-        int nivel = Math.max(1, nivelMedio + (int)(Math.random() * 5) - 2); // +-2 niveles o por arriba o por debajo
+        int nivel = 1;
 
         // Calcular los stats del Pokémon
         int vitalidadMax = 10 + (int)((double)(nivel) / 50 * (pokemonData.getVitalidad() * 2) + (Math.random() * 32)) + nivel;
@@ -247,7 +253,7 @@ public class CapturaController {
 
         // Crear el Pokémon con la información generada
         String mote = pokemonData.getNomPokemon();
-        return new Pokemon(0, 2, 0, "SALVAJE", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 5, sexo, "SIN_ESTADO", 1, 0);
+        return new Pokemon(0, 0, 0, "ENTRENADOR", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 5, sexo, "SIN_ESTADO", 1, 0);
     }
     
     private void lanzarBolas(int idObjeto, double ratioExito, String nombreBall) {
@@ -298,18 +304,23 @@ public class CapturaController {
     }
     
     private void capturarPokemon() {
-
-        System.out.println("ID Pokémon: " + pokemonSalvaje.getIdPokemon());
-
-        // Contar cuantos Pokémon hay en el equipo, el getIdEntrenador() con el () vacío es porque usa el actual
+        // Contar cuantos Pokémon hay en el equipo
         int cantidadPokemonsEnEquipo = PokemonDAO.contarSoloPokemonsEnEquipo(con, entrenador.getIdEntrenador());
         int limiteEquipo = 6;  // Límite máximo de Pokémon en el equipo
+
+     // Pedir al usuario que ingrese el mote del nuevo Pokémon
+        String mote = JOptionPane.showInputDialog(null, "Ingresa el mote del nuevo Pokémon:");
+
+        // Verificar que el usuario haya ingresado un mote
+        if (mote == null || mote.trim().isEmpty()) {
+        }
 
         // Obtener y asignar ID manual
         int nuevoId = PokemonDAO.obtenerMaxIdPokemon(con) + 1;
         pokemonSalvaje.setIdPokemon(nuevoId);
         pokemonSalvaje.setIdEntrenador(entrenador.getIdEntrenador());
         pokemonSalvaje.setTipoPropietario("ENTRENADOR");
+        pokemonSalvaje.setMote(mote);
 
         // Insertar el Pokémon capturado en la base de datos
         boolean insertado = PokemonDAO.anyadirPokemon(con, pokemonSalvaje);
@@ -318,7 +329,7 @@ public class CapturaController {
             lblCapturadoNoCapturado.setText("Error al capturar el Pokémon.");
             return;
         }
-
+        
         // Mostrar info para debug
         System.out.println("Se captura bien. ID Pokémon: " + pokemonSalvaje.getIdPokemon());
 
@@ -330,13 +341,20 @@ public class CapturaController {
             PokemonDAO.actualizarEquipoPokemon(con, pokemonSalvaje.getIdPokemon(), 2);  // 2 es la caja
             lblCapturadoNoCapturado.setText("¡" + pokemonSalvaje.getMote() + " se ha enviado a la caja!");
         }
+        
+        System.out.println("ID Entrenador: " + pokemonSalvaje.getIdEntrenador());
+	    System.out.println("Numero Pokédex: " + pokemonSalvaje.getNumPokedex());
+	    System.out.println("Sexo: " + pokemonSalvaje.getSexo());
+	    System.out.println("----------------------------");
+	    
+	    System.out.println(pokemonSalvaje.toString());
     }
     
     @FXML
-    private void cambiarPokemon(ActionEvent event) {
-        pokemonSalvaje = generarPokemonSalvaje();  //Genera el Pokémon salvaje de nuevo
-        if (pokemonSalvaje != null) {
-            lblNombrePokemon.setText(pokemonSalvaje.getMote());
+    void cambiarPokemon(MouseEvent event) {
+    	pokemonSalvaje = generarPokemonSalvaje();  // Genera el Pokémon salvaje de nuevo
+    	lblNombrePokemon.setText(PokedexDAO.cargarPorNumPokedex(con, pokemonSalvaje.getNumPokedex()).getNomPokemon());
+        if (pokemonSalvaje != null) { 
             lblNivelPokemon.setText("Nivel: " + pokemonSalvaje.getNivel());
 
             // Asignar la imagen
@@ -345,9 +363,8 @@ public class CapturaController {
             if (file.exists()) {
                 imgPokemon.setImage(new Image(file.toURI().toString()));
             } else {
-            	System.out.println("algo esta fallando porque no pilla imagen");
+                System.out.println("Imagen no encontrada para: " + rutaImagen);
             }
-
         }
     }
     

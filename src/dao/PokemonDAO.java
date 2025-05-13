@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
+import java.util.List;
 
 import model.Pokemon;
 import model.TipoEstados;
@@ -504,4 +505,44 @@ public static int contarSoloPokemonsEnEquipo(Connection con, int idEntrenador) {
 
     return total;
 	}
+
+public static boolean eliminarPokemon(Connection con, int idPokemon) {
+    String query = "DELETE FROM POKEMON WHERE ID_POKEMON = ?";
+    
+    try {
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, idPokemon);
+        
+        int filasAfectadas = ps.executeUpdate();
+        
+        return filasAfectadas > 0;
+    } catch (SQLException e) {
+        ConexionBD.printSQLException(e);
+    }
+    
+    return false;
+	}
+
+	public static boolean cajaLlena(Connection con, int idEntrenador) {
+    List<Pokemon> caja = cargarPokemonEquipoEntrenador(con, idEntrenador, 2);
+    return caja.size() >= 30;
+	}
+
+	public static int contarSoloPokemonsEnCaja(Connection con, int idEntrenador) {
+		int total = 0;
+	    String query = "SELECT COUNT(*) AS total FROM POKEMON WHERE ID_ENTRENADOR = ? AND EQUIPO = 2";
+
+	    try (PreparedStatement ps = con.prepareStatement(query)) {
+	        ps.setInt(1, idEntrenador);
+	        try (ResultSet rs = ps.executeQuery()) {
+	            if (rs.next()) {
+	                total = rs.getInt("total");
+	            }
+	        }
+	    } catch (SQLException e) {
+	        ConexionBD.printSQLException(e);
+	    }
+
+	    return total;
+		}
 }

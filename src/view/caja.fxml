@@ -76,152 +76,7 @@
                   <Font size="21.0" />
                </font>
             </Label>
-            <ImageView fx:id="imgPokemonCaja1" layoutX="372.0" layoutY="174.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja2" layoutX="468.0" layoutY="174.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja3" layoutX="564.0" layoutY="174.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja4" layoutX="660.0" layoutY="174.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja5" layoutX="756.0" layoutY="174.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja6" layoutX="852.0" layoutY="174.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja7" layoutX="372.0" layoutY="258.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja13" layoutX="372.0" layoutY="354.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja19" layoutX="372.0" layoutY="445.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja25" layoutX="372.0" layoutY="540.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja8" layoutX="468.0" layoutY="258.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja9" layoutX="564.0" layoutY="258.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja10" layoutX="660.0" layoutY="258.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja11" layoutX="756.0" layoutY="258.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja12" layoutX="852.0" layoutY="258.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja14" layoutX="468.0" layoutY="354.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja20" layoutX="468.0" layoutY="445.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja26" layoutX="468.0" layoutY="540.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja15" layoutX="564.0" layoutY="354.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja21" layoutX="564.0" layoutY="445.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja16" layoutX="660.0" layoutY="354.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja17" layoutX="756.0" layoutY="354.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja18" layoutX="852.0" layoutY="354.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja22" layoutX="660.0" layoutY="445.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja27" layoutX="564.0" layoutY="540.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja28" layoutX="660.0" layoutY="540.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja23" layoutX="756.0" layoutY="445.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja24" layoutX="852.0" layoutY="445.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja29" layoutX="756.0" layoutY="540.0" pickOnBounds="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="imgPokemonCaja30" layoutX="852.0" layoutY="540.0" pickOnBounds="true">
+            <ImageView fx:id="imgPokemonCaja1" fitHeight="84.0" fitWidth="96.0" layoutX="386.0" layoutY="183.0" pickOnBounds="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -254,6 +109,182 @@
             <ProgressBar fx:id="pbPokemonEquipo4" layoutX="200.0" layoutY="493.0" opacity="0.0" prefHeight="18.0" prefWidth="68.0" progress="0.0" />
             <ProgressBar fx:id="pbPokemonEquipo5" layoutX="78.0" layoutY="570.0" opacity="0.0" prefHeight="18.0" prefWidth="68.0" progress="0.0" />
             <ProgressBar fx:id="pbPokemonEquipo6" layoutX="200.0" layoutY="570.0" opacity="0.0" prefHeight="18.0" prefWidth="68.0" progress="0.0" />
+            <Button fx:id="btnLiberarPokemon" layoutX="743.0" layoutY="56.0" mnemonicParsing="false" onAction="#liberarPokemon" prefHeight="56.0" prefWidth="151.0" text="Liberar" />
+            <ImageView fx:id="imgPokemonCaja18" fitHeight="84.0" fitWidth="84.0" layoutX="392.0" layoutY="185.0" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja1" fitHeight="84.0" fitWidth="84.0" layoutX="382.0" layoutY="185.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja1811" fitHeight="84.0" fitWidth="84.0" layoutX="386.0" layoutY="276.0" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja1812" fitHeight="84.0" fitWidth="84.0" layoutX="386.0" layoutY="366.0" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja1813" fitHeight="84.0" fitWidth="84.0" layoutX="386.0" layoutY="451.0" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja1814" fitHeight="84.0" fitWidth="84.0" layoutX="386.0" layoutY="535.0" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja2" fitHeight="84.0" fitWidth="84.0" layoutX="482.0" layoutY="185.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja3" fitHeight="84.0" fitWidth="84.0" layoutX="582.0" layoutY="183.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja4" fitHeight="84.0" fitWidth="84.0" layoutX="682.0" layoutY="183.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja5" fitHeight="84.0" fitWidth="84.0" layoutX="782.0" layoutY="183.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja7" fitHeight="84.0" fitWidth="84.0" layoutX="382.0" layoutY="269.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja6" fitHeight="84.0" fitWidth="84.0" layoutX="882.0" layoutY="183.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja13" fitHeight="84.0" fitWidth="84.0" layoutX="382.0" layoutY="360.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja19" fitHeight="84.0" fitWidth="84.0" layoutX="382.0" layoutY="451.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja25" fitHeight="84.0" fitWidth="84.0" layoutX="382.0" layoutY="537.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja26" fitHeight="84.0" fitWidth="84.0" layoutX="482.0" layoutY="537.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja27" fitHeight="84.0" fitWidth="84.0" layoutX="582.0" layoutY="537.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja28" fitHeight="84.0" fitWidth="84.0" layoutX="682.0" layoutY="537.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja29" fitHeight="84.0" fitWidth="84.0" layoutX="782.0" layoutY="537.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja30" fitHeight="84.0" fitWidth="84.0" layoutX="882.0" layoutY="535.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja8" fitHeight="84.0" fitWidth="84.0" layoutX="482.0" layoutY="269.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja9" fitHeight="84.0" fitWidth="84.0" layoutX="582.0" layoutY="269.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja14" fitHeight="84.0" fitWidth="84.0" layoutX="482.0" layoutY="360.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja20" fitHeight="84.0" fitWidth="84.0" layoutX="482.0" layoutY="451.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja21" fitHeight="84.0" fitWidth="84.0" layoutX="582.0" layoutY="451.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja15" fitHeight="84.0" fitWidth="84.0" layoutX="582.0" layoutY="360.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja10" fitHeight="84.0" fitWidth="84.0" layoutX="682.0" layoutY="269.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja11" fitHeight="84.0" fitWidth="84.0" layoutX="782.0" layoutY="269.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja12" fitHeight="84.0" fitWidth="84.0" layoutX="882.0" layoutY="269.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja16" fitHeight="84.0" fitWidth="84.0" layoutX="682.0" layoutY="360.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja22" fitHeight="84.0" fitWidth="84.0" layoutX="682.0" layoutY="451.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja23" fitHeight="84.0" fitWidth="84.0" layoutX="782.0" layoutY="451.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja24" fitHeight="84.0" fitWidth="84.0" layoutX="882.0" layoutY="453.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja17" fitHeight="84.0" fitWidth="84.0" layoutX="782.0" layoutY="360.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imgPokemonCaja18" fitHeight="84.0" fitWidth="84.0" layoutX="882.0" layoutY="366.0" onMouseClicked="#aplicarGlowAImagen" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

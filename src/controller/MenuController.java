@@ -137,7 +137,7 @@ public class MenuController {
             EquipoController equipoController = loader.getController();
 
             // Inicializamos la pantalla de Equipo
-            equipoController.init(this.entrenador, this.stage, this.loginController, this); 
+            equipoController.init(this.entrenador, this.stage, this.loginController, this, null); 
 
             Scene scene = new Scene(root);
             stage.setScene(scene);

@@ -50,6 +50,8 @@ public class CapturaController {
 	private List<Mochila> mochila;
 	private Pokemon pokemonSalvaje;
 	private boolean estaLanzandoPokeball = false;
+	private String tipoFondo1 = "PLANTA";
+	private String tipoFondo2 = "BICHO";
     Connection con = ConexionBD.getConnection();
     
     @FXML private Button btnSalir;
@@ -75,20 +77,17 @@ public class CapturaController {
     @FXML private Label lblNumeroPokeballs, lblNumeroSuperballs, lblNumeroUltraballs;
     @FXML private Label lblRatioCatchPokeball, lblRatioCatchSuperball, lblRatioCatchUltraball;
     
+    
+    //CUANDO TIENES MAS DE 30 POKES EN CAJA QUE NO PUEDAN MANDARSE DESDE CAPTURA NI DESDE CAJA JOptionPane.showMessageDialog(null, "No puedes tener MAS DE 30 Pokemon en LA CAJA");
     //CUANDO EL POKEMON SE CAPTURE METERLE EL MOVIMIENTO_POKEMON PLACAJE (CRIANZA)
-    //CUANDO HAY EL MAXIMO EN LA CAJA QUE SALGA UN MENSAJE PARA LIBERAR
-    //EN LA LINEA 120 DESCOMENTAR PARA USAR LO DE LOS RIVALES VENCIDOS
-    //PILLAR DE CRIANZA Y POKEMONDAO METODOS DE GUARDAR POKEMON Y QUE PASEN A SER NIVEL 1
-    
-    //COMPROBAR QUE NO TENGA PALABRAS MALAS, ESPACIOS NI NUMEROS AL MOTE
-    
-    //QUE AL CAPTURARLO TENGA UN ATAQUE ALEATORIO DE SU TIPO Y PLACAJE
-    
+    //QUE AL CAPTURARLO TENGA UN ATAQUE ALEATORIO DE SU TIPO
+    //CUANDO HAY EL MAXIMO EN LA CAJA QUE SALGA UN MENSAJE PARA LIBERAR QUE CUANDO HAYA 30 QUE NO SE PUEDAN METER MAS
+    //QUE EL TEXTO QUE DESAPARECE EN 2 SEGUNDO SE PONGA BLANCO SI ESTA EN LAS VISTAS ESAS
+    //COMPROBAR QUE NO TENGA PALABRAS MALAS, ESPACIOS NI NUMEROS AL MOTE en la linea 300 y algo hayq que meterlo
     //PODER CAMBIAR ENTRE POKEMON EN EL EQUIPO, PODER EQUIPAR OBJETOS
-    //QUE EN CAJA SE PUEDA LIBERAR
     //BOTON EN CAJA IR A CAJA 1 O 2
     
-    //EN EQUIPO BOTONES DE LIBERAR MANDAR A CAJA QUE APAREZCAN EN EL ONCLICK DE LA IMAGEN QUE ESTABAN OCULTOS
+  //EN LA LINEA 120 DESCOMENTAR PARA USAR LO DE LOS RIVALES VENCIDOS
     
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
         this.entrenador = entr;
@@ -97,7 +96,7 @@ public class CapturaController {
         this.menuController = menuController;
         cargarObjetosMochila();
         pokedex = PokedexDAO.cargarPokedexCompleta(con);
-        
+        LinkedList<Pokedex> posibles = PokedexDAO.cargarPorVariosTipos(con, tipoFondo1, tipoFondo2);
         pokemonSalvaje = generarPokemonSalvaje();
         if (pokemonSalvaje != null) {
             lblNombrePokemon.setText(pokemonSalvaje.getMote());
@@ -211,33 +210,21 @@ public class CapturaController {
     }
     
     public Pokemon generarPokemonSalvaje() {
-        int nivelMedio = 5;
-        int numPokemon = 5;
+        //usar los pokemon por tipo
+        LinkedList<Pokedex> posibles = PokedexDAO.cargarPorVariosTipos(con, tipoFondo1, tipoFondo2);
 
-        // Elegir Pokémon aleatorio de la pokédex
-        int numPokedex = (int) (Math.random() * 151) + 1;
-
-        // Verifica que la pokedex esté bien cargada
-        if (pokedex == null || pokedex.size() < numPokedex) {
-            System.err.println("No se cargó la pokédex completa");
+        if (posibles == null || posibles.isEmpty()) {
+            System.err.println("No hay Pokémon disponibles para los tipos: " + tipoFondo1 + ", " + tipoFondo2);
             return null;
         }
 
-        // Obtener el Pokémon de la pokédex
-        Pokedex pokemonData = pokedex.get(numPokedex - 1);  // Obtener datos del Pokémon en la pokédex
-
-        // Obtener nivel promedio del equipo del entrenador
-        for (Pokemon pokemon : PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1)) {
-            nivelMedio += pokemon.getNivel();
-            numPokemon++;
-        }
-
-        if (numPokemon == 0) nivelMedio = 5; // nivel por defecto si no tiene Pokémon
-        else nivelMedio = nivelMedio / numPokemon;
+        // uno aleatorio de la lista filtrada por los tipos
+        int indice = (int) (Math.random() * posibles.size());
+        Pokedex pokemonData = posibles.get(indice);
 
         int nivel = 1;
 
-        // Calcular los stats del Pokémon
+        // Calcular los stats como antes
         int vitalidadMax = 10 + (int)((double)(nivel) / 50 * (pokemonData.getVitalidad() * 2) + (Math.random() * 32)) + nivel;
         int ataque = 5 + (int)((double)(nivel) / 50 * ((pokemonData.getAtaque() * 2) + (Math.random() * 32)));
         int ataqueEsp = 5 + (int)((double)(nivel) / 50 * ((pokemonData.getAtEspecial() * 2) + (Math.random() * 32)));
@@ -245,14 +232,10 @@ public class CapturaController {
         int defensaEsp = 5 + (int)((double)(nivel) / 50 * ((pokemonData.getDefEspecial() * 2) + (Math.random() * 32)));
         int velocidad = 5 + (int)((double)(nivel) / 50 * ((pokemonData.getVelocidad() * 2) + (Math.random() * 32)));
 
-        // Configurar imagen
-        String rutaImagen = "./img/Pokemon/Front/" + numPokedex + ".png";
-        
-        //50/50 de que sea macho o hembra
         String sexo = Math.random() < 0.5 ? "H" : "M";
-
-        // Crear el Pokémon con la información generada
         String mote = pokemonData.getNomPokemon();
+        int numPokedex = pokemonData.getNumPokedex();
+
         return new Pokemon(0, 0, 0, "ENTRENADOR", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 5, sexo, "SIN_ESTADO", 1, 0);
     }
     
@@ -293,7 +276,7 @@ public class CapturaController {
             if (capturado) {
                 capturarPokemon();  //llamar al metodo para meterlo al equipo si se captura
             } else {
-            	lblCapturadoNoCapturado.setText(pokemonSalvaje.getMote() + "¡Se escapó!");
+            	mostrarMensajeTemporal(pokemonSalvaje.getMote() + " ¡Se escapó!", 2);
             }
             SonidoController.continuarFondo(null);
             estaLanzandoPokeball = false;
@@ -304,50 +287,48 @@ public class CapturaController {
     }
     
     private void capturarPokemon() {
-        // Contar cuantos Pokémon hay en el equipo
+    	 // Contar cuantos Pokémon hay en el equipo
         int cantidadPokemonsEnEquipo = PokemonDAO.contarSoloPokemonsEnEquipo(con, entrenador.getIdEntrenador());
-        int limiteEquipo = 6;  // Límite máximo de Pokémon en el equipo
+        int cantidadPokemonsEnCaja = PokemonDAO.contarSoloPokemonsEnCaja(con, entrenador.getIdEntrenador());
+        int limiteEquipo = 6;  
+        int limiteCaja = 30;
 
-     // Pedir al usuario que ingrese el mote del nuevo Pokémon
-        String mote = JOptionPane.showInputDialog(null, "Ingresa el mote del nuevo Pokémon:");
-
-        // Verificar que el usuario haya ingresado un mote
-        if (mote == null || mote.trim().isEmpty()) {
+        // Verificar si la caja está llena
+        if (cantidadPokemonsEnEquipo >= limiteEquipo && cantidadPokemonsEnCaja >= limiteCaja) {
+            JOptionPane.showMessageDialog(null, "No puedes tener mas de 30 Pokémon en la caja. Libera alguno antes de capturar mas.");
+            mostrarMensajeTemporal("¡No puedes capturar más Pokemon!", 2);
+            return;
         }
 
-        // Obtener y asignar ID manual
+        // Pedir al usuario que ingrese el mote del nuevo Pokémon
+        String mote = JOptionPane.showInputDialog(null, "Ingresa el mote del nuevo Pokémon:");
+
+        if (mote == null || mote.trim().isEmpty()) {
+            mostrarMensajeTemporal("Captura cancelada. Mote inválido.", 2);
+            return;
+        }
+
         int nuevoId = PokemonDAO.obtenerMaxIdPokemon(con) + 1;
         pokemonSalvaje.setIdPokemon(nuevoId);
         pokemonSalvaje.setIdEntrenador(entrenador.getIdEntrenador());
         pokemonSalvaje.setTipoPropietario("ENTRENADOR");
         pokemonSalvaje.setMote(mote);
 
-        // Insertar el Pokémon capturado en la base de datos
         boolean insertado = PokemonDAO.anyadirPokemon(con, pokemonSalvaje);
-
         if (!insertado) {
-            lblCapturadoNoCapturado.setText("Error al capturar el Pokémon.");
+            mostrarMensajeTemporal("¡Error al capturar " + pokemonSalvaje.getMote() + "!", 2);
             return;
         }
-        
-        // Mostrar info para debug
-        System.out.println("Se captura bien. ID Pokémon: " + pokemonSalvaje.getIdPokemon());
 
-        // Decidir si va al equipo o a la caja según el espacio
         if (cantidadPokemonsEnEquipo < limiteEquipo) {
-            PokemonDAO.actualizarEquipoPokemon(con, pokemonSalvaje.getIdPokemon(), 1);  // 1 es el equipo
-            lblCapturadoNoCapturado.setText("¡" + pokemonSalvaje.getMote() + " se ha unido a tu equipo!");
+            PokemonDAO.actualizarEquipoPokemon(con, pokemonSalvaje.getIdPokemon(), 1);
+            mostrarMensajeTemporal("¡" + pokemonSalvaje.getMote() + " se ha unido a tu equipo!", 2);
         } else {
-            PokemonDAO.actualizarEquipoPokemon(con, pokemonSalvaje.getIdPokemon(), 2);  // 2 es la caja
-            lblCapturadoNoCapturado.setText("¡" + pokemonSalvaje.getMote() + " se ha enviado a la caja!");
+            PokemonDAO.actualizarEquipoPokemon(con, pokemonSalvaje.getIdPokemon(), 2);
+            mostrarMensajeTemporal("¡" + pokemonSalvaje.getMote() + " se ha enviado a la caja!", 2);
         }
-        
-        System.out.println("ID Entrenador: " + pokemonSalvaje.getIdEntrenador());
-	    System.out.println("Numero Pokédex: " + pokemonSalvaje.getNumPokedex());
-	    System.out.println("Sexo: " + pokemonSalvaje.getSexo());
-	    System.out.println("----------------------------");
-	    
-	    System.out.println(pokemonSalvaje.toString());
+
+        cambiarPokemon(null);
     }
     
     @FXML
@@ -397,8 +378,17 @@ public class CapturaController {
         lblRatioCatchPokeball.setStyle("-fx-text-fill: " + color + ";");
         lblRatioCatchSuperball.setStyle("-fx-text-fill: " + color + ";");
         lblRatioCatchUltraball.setStyle("-fx-text-fill: " + color + ";");
-        
     }
+    
+    private void mostrarMensajeTemporal(String mensaje, int segundos) {
+        lblCapturadoNoCapturado.setText(mensaje);
+        lblCapturadoNoCapturado.setVisible(true);
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(segundos));
+        pause.setOnFinished(event -> lblCapturadoNoCapturado.setText(""));
+        pause.play();
+    }
+
     private void ponerOscuridadNoSeleccionado(ImageView hoveredImageView) {
         for (ImageView imageView : imageViews) {
             if (imageView != hoveredImageView) {
@@ -434,6 +424,9 @@ public class CapturaController {
     void cambiarFondoCueva(ActionEvent event) {
         imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoCueva.png").toURI().toString()));
         cambiarColorTextoFondo(true); //letra blanca
+        tipoFondo1 = "ELECTRICO";
+        tipoFondo2 = "VENENO";
+        cambiarPokemon(null); 
     }
 
 
@@ -441,36 +434,54 @@ public class CapturaController {
     void cambiarFondoHierba(ActionEvent event) {
         imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoHierba.png").toURI().toString()));
         cambiarColorTextoFondo(false); //letra negra
+        tipoFondo1 = "PLANTA";
+        tipoFondo2 = "BICHO";
+        cambiarPokemon(null); 
     }
     
     @FXML
     void cambiarFondoNoche(ActionEvent event) {
     	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoNoche.png").toURI().toString()));
         cambiarColorTextoFondo(false); //letra negra
+        tipoFondo1 = "FANTASMA";
+        tipoFondo2 = "PSIQUICO";
+        cambiarPokemon(null); 
     }
 
     @FXML
     void cambiarFondoNube(ActionEvent event) {
     	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoNube.png").toURI().toString()));
         cambiarColorTextoFondo(false); //letra negra
+        tipoFondo1 = "VOLADOR";
+        tipoFondo2 = "DRAGON";
+        cambiarPokemon(null); 
     	}
     
     @FXML
     void cambiarFondoPiedra(ActionEvent event) {
     	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoPiedra.png").toURI().toString()));
         cambiarColorTextoFondo(false); //letra negra
+        tipoFondo1 = "TIERRA";
+        tipoFondo2 = "LUCHA";
+        cambiarPokemon(null); 
     }
 
     @FXML
     void cambiarFondoPlaya(ActionEvent event) {
     	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoPlaya.png").toURI().toString()));
         cambiarColorTextoFondo(false); //letra negra
+        tipoFondo1 = "AGUA";
+        tipoFondo2 = "NORMAL";
+        cambiarPokemon(null); 
     }
 
     @FXML
     void cambiarFondoVolcan(ActionEvent event) {
     	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoVolcan.png").toURI().toString()));
         cambiarColorTextoFondo(true); //letra blanca
+        tipoFondo1 = "FUEGO";
+        tipoFondo2 = "ROCA";
+        cambiarPokemon(null); 
     }
 
 
@@ -478,6 +489,9 @@ public class CapturaController {
     void cambiarFondoNieve(ActionEvent event) {
     	imgFondo.setImage(new Image(new File("C:/ProyectoPokemon/img/captura/fondoNieve.png").toURI().toString()));
         cambiarColorTextoFondo(false); //letra negra
+        tipoFondo1 = "HIELO";
+        tipoFondo2 = "NULL";
+        cambiarPokemon(null); 
 	}
 
 	@FXML

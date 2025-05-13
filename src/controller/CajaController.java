@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import dao.ConexionBD;
 import dao.PokedexDAO;
 import dao.PokemonDAO;
@@ -24,6 +26,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Entrenador;
 import model.Pokemon;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 
 public class CajaController {
 
@@ -31,17 +35,21 @@ public class CajaController {
     private Entrenador entrenador;
     private MenuController menuController;
     private LoginController loginController;
-    
+    private Pokemon pokemonSeleccionado;
     private List<ImageView> imagenesCaja;
+    private List<ImageView> imagenesEquipo;
     private List<Pokemon> equipo;
     private LinkedList<Pokemon> caja;
+    private boolean pokemonSeleccionadoEsDeCaja = false;
+    private DropShadow efectoGlow = new DropShadow(20, Color.YELLOW);
     Connection con = ConexionBD.getConnection();
     
     @FXML private Button btnSalir;
     @FXML private ImageView imgFondo;
     @FXML private ImageView imgSonido;
     @FXML private Label lblCaja1;
-    
+    @FXML private Button btnLiberarPokemon;
+
     @FXML private ImageView imgPokemonCaja1,imgPokemonCaja2, imgPokemonCaja3, imgPokemonCaja4, imgPokemonCaja5;
     @FXML private ImageView imgPokemonCaja6, imgPokemonCaja7, imgPokemonCaja8, imgPokemonCaja9, imgPokemonCaja10;
     @FXML private ImageView imgPokemonCaja11, imgPokemonCaja12, imgPokemonCaja13, imgPokemonCaja14, imgPokemonCaja15;
@@ -77,15 +85,40 @@ public class CajaController {
         this.caja = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 2);
         mostrarPokemonCaja();
         mostrarEquipo();
+        btnLiberarPokemon.setVisible(false);
 
-        List<ImageView> imagenesEquipo = List.of(
-                imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
-                imgPokemonEquipo4, imgPokemonEquipo5, imgPokemonEquipo6
-        );
+        imagenesEquipo = List.of(
+        	    imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
+        	    imgPokemonEquipo4, imgPokemonEquipo5, imgPokemonEquipo6
+        	);
 
         equipo = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
 
         for (final ImageView iv : imagenesEquipo) {
+        	
+        	iv.setOnMouseClicked(event -> {
+        	    btnLiberarPokemon.setVisible(true);
+        	    int index = imagenesEquipo.indexOf(iv);
+
+        	    // Limpiar efectos anteriores tanto en caja como en equipo
+        	    for (ImageView img : imagenesCaja) {
+        	        img.setEffect(null);
+        	    }
+        	    for (ImageView img : imagenesEquipo) {
+        	        img.setEffect(null);
+        	    }
+
+        	    hacerGrande(event);
+
+        	    // Aplicar efecto glow al seleccionado
+        	    iv.setEffect(efectoGlow);
+
+        	    if (index >= 0 && index < equipo.size()) {
+        	        pokemonSeleccionado = equipo.get(index);
+        	        pokemonSeleccionadoEsDeCaja = false;
+        	    }
+        	});
+        	
             iv.setOnDragDetected(event -> {
                 if (iv.getImage() != null) {
                     javafx.scene.input.Dragboard db = iv.startDragAndDrop(javafx.scene.input.TransferMode.MOVE);
@@ -182,6 +215,20 @@ public class CajaController {
         );
        
         for (final ImageView iv : imagenesCaja) {
+        	
+        	//listener para cuando haces click en alguna imagen de caja
+        	iv.setOnMouseClicked(event -> {
+        	    btnLiberarPokemon.setVisible(true);
+        	    int index = imagenesCaja.indexOf(iv);
+
+        	    aplicarGlowAImagen(event);
+
+        	    if (index >= 0 && index < caja.size()) {
+        	        pokemonSeleccionado = caja.get(index);
+        	        pokemonSeleccionadoEsDeCaja = true;
+        	    }
+        	});
+
         	
         	//Se activa cuando se empieza a arrastrar la imagen
             iv.setOnDragDetected(new EventHandler<MouseEvent>() {
@@ -334,6 +381,82 @@ public class CajaController {
         }
     }
       
+    @FXML
+    void liberarPokemon(ActionEvent event) {
+        if (pokemonSeleccionado == null) {
+            System.out.println("No se ha seleccionado ningún Pokémon.");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(null,
+            "¿Estás seguro de que quieres liberar a " + pokemonSeleccionado.getMote() + "?",
+            "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) return;
+
+        boolean eliminado = PokemonDAO.eliminarPokemon(con, pokemonSeleccionado.getIdPokemon());
+
+        if (eliminado) {
+            if (pokemonSeleccionadoEsDeCaja) {
+                caja.remove(pokemonSeleccionado);
+                mostrarPokemonCaja();
+            } else {
+                if (equipo.size() <= 1) {
+                    JOptionPane.showMessageDialog(null, "No puedes tener menos de 1 Pokémon en el equipo");
+                    return;
+                }
+
+                equipo.remove(pokemonSeleccionado);
+                mostrarEquipo();
+            }
+
+            //limpia el glow anterior en caja y equipo
+            for (ImageView img : imagenesCaja) {
+                img.setEffect(null);
+            }
+            for (ImageView img : imagenesEquipo) {
+                img.setEffect(null);
+            }
+
+            pokemonSeleccionado = null;
+            btnLiberarPokemon.setVisible(false);
+            imgPokemonSeleccionado.setVisible(false);
+            lblNombrePokemonSeleccionado.setVisible(false);
+            lblMotePokemonSeleccionado.setVisible(false);
+            lblNivelPokemonSeleccionado.setVisible(false);
+            pbPokemonSeleccionado.setVisible(false);
+
+            System.out.println("Pokémon liberado correctamente.");
+        } else {
+            System.out.println("No se pudo liberar el Pokémon.");
+        }
+    }
+
+    @FXML
+    void aplicarGlowAImagen(MouseEvent event) {
+        ImageView imgClicada = (ImageView) event.getSource();
+
+        // Verificar que la imagen corresponde a un Pokémon en la caja
+        if (!imagenesCaja.contains(imgClicada)) {
+            return; // No aplicar glow si no es una imagen de la caja
+        }
+
+        // Crea un efecto de luz
+        DropShadow glow = new DropShadow();
+        glow.setColor(Color.YELLOW);
+        glow.setRadius(20);
+        glow.setSpread(0.5);
+
+     // Limpiar efectos anteriores de todos (caja y equipo)
+        for (ImageView img : imagenesCaja) {
+            img.setEffect(null);
+        }
+        for (ImageView img : imagenesEquipo) {
+            img.setEffect(null);
+        }
+        // Aplicar el efecto glow solo a esa imagen
+        imgClicada.setEffect(glow);
+    }
+
     private void actualizarColorPB(ProgressBar pb) {
         double progreso = pb.getProgress();
         if (progreso < 0.25) {
@@ -344,7 +467,7 @@ public class CajaController {
             pb.setStyle("-fx-accent: green;");
         }
     }		
-    
+
     @FXML
     void activarDesactivarSonido(MouseEvent event) {
         loginController.sonido();

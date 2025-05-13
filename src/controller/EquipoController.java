@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import dao.ConexionBD;
 import dao.PokedexDAO;
 import dao.PokemonDAO;
@@ -34,9 +36,10 @@ public class EquipoController {
 	private Entrenador entrenador;
 	private MenuController menuController;
 	private LoginController loginController;
+	private LinkedList<Pokemon> caja;
 	private List<ImageView> imagenesEquipo;
 	private LinkedList<Pokemon> equipo;
-
+	private Pokemon pokemonSeleccionado;
     
 	@FXML private Button btnCaja;
     @FXML private Button btnSalir;
@@ -63,12 +66,14 @@ public class EquipoController {
     
     Connection con = ConexionBD.getConnection();
     
-    public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
+    public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController, CajaController cajaController) {
         this.entrenador = entr;
         this.stage = stage;
         this.loginController = loginController;
         this.menuController = menuController;
         pbPokemonSeleccionado.setVisible(false);
+        btnLiberarPokemon.setVisible(false);
+        btnMandarPokemonaCaja.setVisible(false);
         mostrarEquipo();
     }
     
@@ -90,6 +95,8 @@ public class EquipoController {
         lblMotePokemonSeleccionado.setVisible(true);
         lblNivelPokemonSeleccionado.setVisible(true);
         imgPokemonSeleccionado.setVisible(true);
+        btnLiberarPokemon.setVisible(true);
+        btnMandarPokemonaCaja.setVisible(true);
 
         List<ImageView> imagenesEquipo = List.of(
             imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
@@ -99,6 +106,7 @@ public class EquipoController {
         for (int i = 0; i < imagenesEquipo.size(); i++) {
             if (origen == imagenesEquipo.get(i) && i < equipo.size()) {
                 Pokemon pokemon = equipo.get(i);
+                pokemonSeleccionado = pokemon;
 
                 double progreso = (double) pokemon.getVitalidadAct() / pokemon.getVitalidadMax();
                 pbPokemonSeleccionado.setProgress(progreso);
@@ -147,22 +155,73 @@ public class EquipoController {
         
         @FXML
         void liberarPokemon(ActionEvent event) {
+        	
+        	int confirm = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres liberar a " + pokemonSeleccionado.getMote() + "?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        	if (confirm != JOptionPane.YES_OPTION) return;
+        	
+            if (pokemonSeleccionado == null) {
+                System.out.println("No se ha seleccionado ningún Pokémon.");
+                return;
+            }
+            if (equipo.size() <= 1) {
+    	        JOptionPane.showMessageDialog(null, "No puedes tener menos de 1 Pokemon en el equipo");
+    	        return;
+    	    }
+            boolean eliminado = PokemonDAO.eliminarPokemon(con, pokemonSeleccionado.getIdPokemon());
 
+            if (eliminado) {
+                equipo.remove(pokemonSeleccionado);
+                pokemonSeleccionado = null;
+                System.out.println("Pokémon liberado correctamente.");
+                mostrarEquipo();
+                lblNombrePokemonSeleccionado.setVisible(false);
+                lblMotePokemonSeleccionado.setVisible(false);
+                lblNivelPokemonSeleccionado.setVisible(false);
+                pbPokemonSeleccionado.setVisible(false);
+                imgPokemonSeleccionado.setVisible(false);
+                btnLiberarPokemon.setVisible(false);
+                btnMandarPokemonaCaja.setVisible(false);
+                
+            } else {
+                System.out.println("No se pudo liberar el Pokémon.");
+            }
         }
 
         @FXML
         void mandarPokemonaCaja(ActionEvent event) {
+        	    if (pokemonSeleccionado == null) {
+        	        JOptionPane.showMessageDialog(null, "Debes seleccionar un Pokemon");
+        	        return;
+        	    }
 
-        }
-        
-        
-        
-        
-    //hace que la barra sea visible o invisible con true o false
-    public final void setVisible(boolean value) {
-    	
-    }
-	
+        	    if (equipo.size() <= 1) {
+        	        JOptionPane.showMessageDialog(null, "No puedes tener menos de 1 Pokemon en el equipo");
+        	        return;
+        	    }
+        	    int cantidadEnCaja = PokemonDAO.contarSoloPokemonsEnCaja(con, entrenador.getIdEntrenador());
+        	    if (cantidadEnCaja >= 30) {
+        	        JOptionPane.showMessageDialog(null, "La caja ya tiene 30 Pokémon. No puedes enviar más, libera a alguno");
+        	        return;
+        	    }
+        	    // Actualizar el valor de equipo a 2
+        	    PokemonDAO.actualizarEquipo(con, pokemonSeleccionado.getIdPokemon(), 2);
+
+        	    // Eliminar el Pokémon del equipo en memoria
+        	    equipo.remove(pokemonSeleccionado);
+        	    System.out.println("Pokémon enviado a la caja.");
+        	    mostrarEquipo();
+
+        	    // Ocultamos los datos del Pokémon
+        	    pokemonSeleccionado = null;
+        	    lblNombrePokemonSeleccionado.setVisible(false);
+        	    lblMotePokemonSeleccionado.setVisible(false);
+        	    lblNivelPokemonSeleccionado.setVisible(false);
+        	    pbPokemonSeleccionado.setVisible(false);
+        	    imgPokemonSeleccionado.setVisible(false);
+        	    btnLiberarPokemon.setVisible(false);
+        	    btnMandarPokemonaCaja.setVisible(false);
+        	}
+        	   	
     @FXML
     void activarDesactivarSonido(MouseEvent event) {
     	loginController.sonido();

@@ -24,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Text;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -45,6 +46,11 @@ public class EquipoController {
     @FXML private Button btnSalir;
     @FXML private ImageView imgFondo;
     @FXML private ImageView imgSonido;
+    @FXML private ImageView imLiberar;
+    @FXML private ImageView imgCaja;
+    @FXML private ImageView imgMandarCaja;
+
+    @FXML private ImageView imgSalir;
     @FXML private Label lblEquipo;
     @FXML private Label lblPokemon;
     
@@ -63,6 +69,12 @@ public class EquipoController {
     
     @FXML private Button btnLiberarPokemon;
     @FXML private Button btnMandarPokemonaCaja;
+    
+
+    @FXML private Text txtLiberar;
+    @FXML private Text txtMovCaja;
+    @FXML private Text txtSalir;
+    @FXML private Text txtCaja;
     
     Connection con = ConexionBD.getConnection();
     

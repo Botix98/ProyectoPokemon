@@ -84,6 +84,12 @@ public class TiendaController {
     @FXML
     private Text txtTienda;
     
+    @FXML
+    private Text txtSalir;
+    
+    @FXML
+    private ImageView imgSalir;
+    
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController, CentroPokemonController centroPokemonController) {
         this.entrenador = entr;
         this.stage = stage;

@@ -28,6 +28,7 @@ import model.Entrenador;
 import model.Pokemon;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class CajaController {
 
@@ -45,10 +46,14 @@ public class CajaController {
     Connection con = ConexionBD.getConnection();
     
     @FXML private Button btnSalir;
+    @FXML private ImageView imgSalir;
+    @FXML private Text txtSalir;
     @FXML private ImageView imgFondo;
     @FXML private ImageView imgSonido;
     @FXML private Label lblCaja1;
     @FXML private Button btnLiberarPokemon;
+    @FXML private ImageView imgLiberar;
+    @FXML private Text txtLiberar;
 
     @FXML private ImageView imgPokemonCaja1,imgPokemonCaja2, imgPokemonCaja3, imgPokemonCaja4, imgPokemonCaja5;
     @FXML private ImageView imgPokemonCaja6, imgPokemonCaja7, imgPokemonCaja8, imgPokemonCaja9, imgPokemonCaja10;

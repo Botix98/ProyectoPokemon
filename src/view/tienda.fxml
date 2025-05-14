@@ -64,7 +64,14 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnSalir" layoutX="54.0" layoutY="567.0" mnemonicParsing="false" onAction="#salir" prefHeight="100.0" prefWidth="140.0" text="Salir" />
+            <Button fx:id="btnSalir" layoutX="54.0" layoutY="567.0" mnemonicParsing="false" onAction="#salir" prefHeight="100.0" prefWidth="140.0" style="-fx-background-color: rgba(0,0,0,0);">
+               <graphic>
+                  <ImageView fx:id="imgSalir" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/btnRojo.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             <Text fx:id="txtMochila" layoutX="299.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mochila">
                <font>
                   <Font name="Arial Bold" size="42.0" />
@@ -88,6 +95,11 @@
                   <TableColumn fx:id="tcPrecioT" prefWidth="71.0" text="Precio" />
                </columns>
             </TableView>
+            <Text fx:id="txtSalir" fill="WHITE" layoutX="121.0" layoutY="626.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="SALIR">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Text>
          </children>
     </AnchorPane>
   </children>

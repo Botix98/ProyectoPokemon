@@ -40,6 +40,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EquipoController">
   <children>
@@ -60,7 +61,14 @@
                   <Font name="Arial Black" size="30.0" />
                </font>
             </Label>
-            <Button fx:id="btnSalir" layoutX="1047.0" layoutY="595.0" mnemonicParsing="false" onAction="#salir" prefHeight="59.0" prefWidth="146.0" text="Salir" />
+            <Button fx:id="btnSalir" layoutX="1058.0" layoutY="595.0" mnemonicParsing="false" onAction="#salir" prefHeight="59.0" prefWidth="146.0" style="-fx-background-color: rgba(0,0,0,0);" textFill="WHITE">
+               <graphic>
+                  <ImageView fx:id="imgSalir" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/btnRojo.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             <Label fx:id="lblNombrePokemonSeleccionado" layoutX="966.0" layoutY="176.0" prefHeight="23.0" prefWidth="94.0" text="NP">
                <font>
                   <Font name="Arial" size="20.0" />
@@ -95,9 +103,50 @@
                   <Image url="@../../img/conSonido.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnCaja" layoutX="869.0" layoutY="595.0" mnemonicParsing="false" onAction="#irCaja" prefHeight="59.0" prefWidth="146.0" text="Caja" />
-            <Button fx:id="btnMandarPokemonaCaja" layoutX="869.0" layoutY="524.0" mnemonicParsing="false" onAction="#mandarPokemonaCaja" prefHeight="59.0" prefWidth="146.0" text="Mandar Pokemon a Caja" />
-            <Button fx:id="btnLiberarPokemon" layoutX="1047.0" layoutY="524.0" mnemonicParsing="false" onAction="#liberarPokemon" prefHeight="59.0" prefWidth="146.0" text="Liberar Pokemon" />
+            <Button fx:id="btnCaja" layoutX="828.0" layoutY="595.0" mnemonicParsing="false" onAction="#irCaja" prefHeight="59.0" prefWidth="146.0" style="-fx-background-color: rgba(0,0,0,0);">
+               <graphic>
+                  <ImageView fx:id="imgCaja" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/btnAzul.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="btnMandarPokemonaCaja" layoutX="823.0" layoutY="487.0" mnemonicParsing="false" onAction="#mandarPokemonaCaja" prefHeight="118.0" prefWidth="216.0" style="-fx-background-color: rgba(0,0,0,0);">
+               <graphic>
+                  <ImageView fx:id="imgMandarCaja" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/btnRosa.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="btnLiberarPokemon" layoutX="1049.0" layoutY="494.0" mnemonicParsing="false" onAction="#liberarPokemon" prefHeight="108.0" prefWidth="231.0" style="-fx-background-color: rgba(0,0,0,0);">
+               <graphic>
+                  <ImageView fx:id="imLiberar" fitHeight="96.0" fitWidth="215.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../img/btnMorado.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Text fx:id="txtSalir" fill="WHITE" layoutX="1112.0" layoutY="656.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="SALIR">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Text>
+            <Text fx:id="txtCaja" fill="WHITE" layoutX="888.0" layoutY="655.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="CAJA" wrappingWidth="94.0">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Text>
+            <Text fx:id="txtLiberar" fill="WHITE" layoutX="1085.0" layoutY="557.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="LIBERAR" wrappingWidth="162.0">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Text>
+            <Text fx:id="txtMovCaja" fill="WHITE" layoutX="862.0" layoutY="557.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="MOV_CAJA" wrappingWidth="146.0">
+               <font>
+                  <Font name="Arial Bold" size="26.0" />
+               </font>
+            </Text>
       </children>
     </AnchorPane>
   </children>

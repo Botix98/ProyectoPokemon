@@ -210,27 +210,6 @@ public class MenuController {
         }
     }
     
-    @FXML
-    void irCaja(ActionEvent event) {
-    	try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Caja.fxml"));
-            Parent root = loader.load();
-
-            CajaController cajaController = loader.getController();
-
-            // Inicializamos la pantalla de Caja
-            cajaController.init(this.entrenador, this.stage, this.loginController, this, equipoController); 
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-	        stage.setTitle("Caja");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-    
 	@FXML
     void salir(ActionEvent event) {
 		SonidoController.detenerFondo(null);

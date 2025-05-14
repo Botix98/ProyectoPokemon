@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Entrenador;
@@ -55,6 +56,8 @@ public class CapturaController {
     Connection con = ConexionBD.getConnection();
     
     @FXML private Button btnSalir;
+    @FXML private ImageView imgSalir;
+    @FXML private Text txtSalir;
     @FXML private ImageView imgFondo;
     @FXML private ImageView imgSonido;
     

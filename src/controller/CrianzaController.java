@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.sql.Connection;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -9,6 +10,7 @@ import javax.swing.JOptionPane;
 import dao.ConexionBD;
 import dao.MovimientoDAO;
 import dao.MovimientoPokemonDAO;
+import dao.PokedexDAO;
 import dao.PokemonDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +30,7 @@ import javafx.stage.Stage;
 import model.Entrenador;
 import model.Movimiento;
 import model.MovimientoPokemon;
+import model.Pokedex;
 import model.Pokemon;
 import model.TipoEstados;
 
@@ -221,19 +224,44 @@ public class CrianzaController {
         //Asigna los valores al pokemon hijo
         pokemonHijoGenerado = new Pokemon();
         int nuevoId = PokemonDAO.obtenerMaxIdPokemon(con) + 1;
+        
+        int numPokedex = base.getNumPokedex();
+        int nivel = 1;
+
+        int baseVitalidad = base.getVitalidadMax();
+        int baseAtaque = base.getAtaque();
+        int baseAtEspecial = base.getAtEspecial();
+        int baseDefensa = base.getDefensa();
+        int baseDefEspecial = base.getDefEspecial();
+        int baseVelocidad = base.getVelocidad();
 
         pokemonHijoGenerado.setIdPokemon(nuevoId);
         pokemonHijoGenerado.setIdEntrenador(entrenador.getIdEntrenador());
         pokemonHijoGenerado.setNumPokedex(base.getNumPokedex());
         pokemonHijoGenerado.setMote(mote);
         pokemonHijoGenerado.setNivel(1);
-        pokemonHijoGenerado.setVitalidadMax(calcularStatBase(base.getVitalidadMax(), base.getNivel()));
+        
+        LinkedList<Pokedex> pokedex = PokedexDAO.cargarPokedexCompleta(con);
+
+        int vitalidad = 10 + (int)(1.0D / 100 * ((pokedex.get(pokemonHijoGenerado.getNumPokedex() - 1).getVitalidad() * 2) + (int) (Math.random() * 32))) + 1;
+        pokemonHijoGenerado.setVitalidadMax(vitalidad);
         pokemonHijoGenerado.setVitalidadAct(pokemonHijoGenerado.getVitalidadMax());
-        pokemonHijoGenerado.setAtaque(calcularStatBase(base.getAtaque(), base.getNivel()));
-        pokemonHijoGenerado.setAtEspecial(calcularStatBase(base.getAtEspecial(), base.getNivel()));
-        pokemonHijoGenerado.setDefensa(calcularStatBase(base.getDefensa(), base.getNivel()));
-        pokemonHijoGenerado.setDefEspecial(calcularStatBase(base.getDefEspecial(), base.getNivel()));
-        pokemonHijoGenerado.setVelocidad(calcularStatBase(base.getVelocidad(), base.getNivel()));
+        
+        int ataque = 5 + (int)(1.0D / 100 * ((pokedex.get(pokemonHijoGenerado.getNumPokedex() - 1).getAtaque() * 2) + (int) (Math.random() * 32)));
+        pokemonHijoGenerado.setAtaque(ataque);
+        
+        int ataqueEsp = 5 + (int)(1.0D / 100 * ((pokedex.get(pokemonHijoGenerado.getNumPokedex() - 1).getAtEspecial() * 2) + (int) (Math.random() * 32)));
+        pokemonHijoGenerado.setAtEspecial(ataqueEsp);
+        
+        int defensa = 5 + (int)(1.0D / 100 * ((pokedex.get(pokemonHijoGenerado.getNumPokedex() - 1).getDefensa() * 2) + (int) (Math.random() * 32)));
+        pokemonHijoGenerado.setDefensa(defensa);
+        
+        int defensaEsp = 5 + (int)(1.0D / 100 * ((pokedex.get(pokemonHijoGenerado.getNumPokedex() - 1).getDefEspecial() * 2) + (int) (Math.random() * 32)));
+        pokemonHijoGenerado.setDefEspecial(defensaEsp);
+        
+        int velocidad = 5 + (int)(1.0D / 100 * ((pokedex.get(pokemonHijoGenerado.getNumPokedex() - 1).getVelocidad() * 2) + (int) (Math.random() * 32)));
+        pokemonHijoGenerado.setVelocidad(velocidad);
+        
         pokemonHijoGenerado.setFertilidad(5);
         pokemonHijoGenerado.setSexo(Math.random() < 0.5 ? "H" : "M");
         pokemonHijoGenerado.setEstado(TipoEstados.valueOf("SIN_ESTADO"));
@@ -274,10 +302,6 @@ public class CrianzaController {
         } else {
             System.out.println("Error al añadir el nuevo Pokémon.");
         }
-    }
-
-    private int calcularStatBase(int statOriginal, int nivelOriginal) {
-        return Math.max(1, statOriginal / nivelOriginal);
     }
 
     @FXML

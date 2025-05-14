@@ -322,27 +322,31 @@ public class CajaController {
     
     //Recorre la caja y muestra las imagenes
     private void mostrarPokemonCaja() {
-    	List<Pokemon> c = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 2);
-        for (int i = 0; i < caja.size(); i++) {
-            Pokemon p = caja.get(i);
-            String ruta = "C:/ProyectoPokemon/img/Pokemon/Front/" + p.getNumPokedex() + ".png";
-            File archivo = new File(ruta);
-            imagenesCaja.get(i).setImage(new Image(archivo.toURI().toString()));
+        caja = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 2);
+
+        for (int i = 0; i < imagenesCaja.size(); i++) {
+            if (i < caja.size()) {
+                Pokemon p = caja.get(i);
+                String ruta = "C:/ProyectoPokemon/img/Pokemon/Front/" + p.getNumPokedex() + ".png";
+                File archivo = new File(ruta);
+                imagenesCaja.get(i).setImage(new Image(archivo.toURI().toString()));
+            } else {
+                imagenesCaja.get(i).setImage(null);
+            }
         }
     }
-    
    
     //Recorre el equipo y muestra las imagenes del equipo
     private void mostrarEquipo() {
-        List<Pokemon> equipo = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
+        equipo = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
 
         ImageView[] imagenes = {
-        	imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
+            imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
             imgPokemonEquipo4, imgPokemonEquipo5, imgPokemonEquipo6
         };
 
         for (int i = 0; i < imagenes.length; i++) {
-            if (i < equipo.size() && equipo.get(i) != null) {
+            if (i < equipo.size()) {
                 int numPokedex = equipo.get(i).getNumPokedex();
                 String rutaImagen = "./img/Pokemon/Front/" + numPokedex + ".png";
                 imagenes[i].setImage(new Image(new File(rutaImagen).toURI().toString()));

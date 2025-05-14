@@ -28,6 +28,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import dao.MochilaDAO;
+import dao.MovimientoDAO;
+import dao.MovimientoPokemonDAO;
 import dao.ObjetoDAO;
 import dao.PokedexDAO;
 import dao.PokemonDAO;
@@ -35,6 +37,8 @@ import dao.EntrenadorDAO;
 import dao.ConexionBD;
 import model.Entrenador;
 import model.Mochila;
+import model.Movimiento;
+import model.MovimientoPokemon;
 import model.Objeto;
 import model.Pokedex;
 import model.Pokemon;
@@ -80,8 +84,7 @@ public class CapturaController {
     @FXML private Label lblNumeroPokeballs, lblNumeroSuperballs, lblNumeroUltraballs;
     @FXML private Label lblRatioCatchPokeball, lblRatioCatchSuperball, lblRatioCatchUltraball;
     
-    
-    //CUANDO TIENES MAS DE 30 POKES EN CAJA QUE NO PUEDAN MANDARSE DESDE CAPTURA NI DESDE CAJA JOptionPane.showMessageDialog(null, "No puedes tener MAS DE 30 Pokemon en LA CAJA");
+    //CUANDO POKEMON TIENE UN ATAQUE NO SE BORRA LA IMAGEN HASTA QUE RECARGO
     //CUANDO EL POKEMON SE CAPTURE METERLE EL MOVIMIENTO_POKEMON PLACAJE (CRIANZA)
     //QUE AL CAPTURARLO TENGA UN ATAQUE ALEATORIO DE SU TIPO
     //CUANDO HAY EL MAXIMO EN LA CAJA QUE SALGA UN MENSAJE PARA LIBERAR QUE CUANDO HAYA 30 QUE NO SE PUEDAN METER MAS
@@ -90,7 +93,7 @@ public class CapturaController {
     //PODER CAMBIAR ENTRE POKEMON EN EL EQUIPO, PODER EQUIPAR OBJETOS
     //BOTON EN CAJA IR A CAJA 1 O 2
     
-  //EN LA LINEA 120 DESCOMENTAR PARA USAR LO DE LOS RIVALES VENCIDOS
+    //EN LA LINEA 120 DESCOMENTAR PARA USAR LO DE LOS RIVALES VENCIDOS
     
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
         this.entrenador = entr;
@@ -330,7 +333,20 @@ public class CapturaController {
             PokemonDAO.actualizarEquipoPokemon(con, pokemonSalvaje.getIdPokemon(), 2);
             mostrarMensajeTemporal("¡" + pokemonSalvaje.getMote() + " se ha enviado a la caja!", 2);
         }
+     // Obtiene el movimiento especifico usando el MovimientoDAO
+        Movimiento arañazo = MovimientoDAO.buscarPorId(con, 54);
+        if (arañazo != null) {
 
+            MovimientoPokemon movimientoPokemon = new MovimientoPokemon();
+            movimientoPokemon.setIdPokemon(pokemonSalvaje.getIdPokemon());
+            movimientoPokemon.setIdMovimiento(arañazo.getIdMovimiento());
+            movimientoPokemon.setPpActuales(arañazo.getPpMax());
+
+            // Insertar el movimiento en la base de datos
+            MovimientoPokemonDAO.insertarMovimientoPokemon(con, movimientoPokemon);
+        } else {
+            System.out.println("No se encuentra el movimiento en la bd.");
+        }
         cambiarPokemon(null);
     }
     

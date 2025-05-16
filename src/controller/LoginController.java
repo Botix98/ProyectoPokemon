@@ -124,6 +124,17 @@ public class LoginController {
 
             if (exito) {
                 JOptionPane.showMessageDialog(null, "Usuario registrado correctamente. Ahora puedes iniciar sesion.");
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/seleccion.fxml"));
+                Parent root = loader.load();
+
+                SeleccionController seleccionController = loader.getController();
+                seleccionController.init(nuevoEntrenador, stage, this);
+
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setTitle("Selecciona tu Pokémon inicial");
+                stage.show();
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo registrar el usuario.");
             }
@@ -208,4 +219,5 @@ public class LoginController {
     		imgSonido.setImage(new Image(new File("./img/sinSonido.png").toURI().toString()));
     	}
     }
+
 }

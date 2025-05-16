@@ -37,39 +37,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SeleccionController">
+<VBox maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreditosController">
   <children>
-    <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
+      <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0">
          <children>
             <ImageView fx:id="imgFondo" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../img/seleccion/fondoSeleccion.jpeg" />
+                  <Image url="@../../img/creditos/creditos.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgPokemon1" fitHeight="240.0" fitWidth="291.0" layoutX="544.0" layoutY="170.0" onMouseClicked="#elegirPoke1" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="imgtxt3" fitHeight="82.0" fitWidth="741.0" layoutX="588.0" layoutY="267.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/1.png" />
+                  <Image url="@../../img/creditos/txt3creditos.PNG" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgPokemon2" fitHeight="260.0" fitWidth="305.0" layoutX="534.0" layoutY="165.0" onMouseClicked="#elegirPoke2" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="imgTxt2" fitHeight="371.0" fitWidth="488.0" layoutX="7.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/4.png" />
+                  <Image url="@../../img/creditos/txt2creditos.PNG" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgPokemon3" fitHeight="230.0" fitWidth="236.0" layoutX="544.0" layoutY="175.0" onMouseClicked="#elegirPoke3" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="imgTxt3" fitHeight="357.0" fitWidth="644.0" layoutX="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../img/Pokemon/Front/7.png" />
+                  <Image url="@../../img/creditos/txt1creditos.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgSonido" fitHeight="115.0" fitWidth="115.0" layoutX="26.0" layoutY="23.0" onMouseClicked="#activarDesactivarSonido" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../img/conSonido.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="imgPokeball1" fitHeight="150.0" fitWidth="144.0" layoutX="150.0" layoutY="360.0" onMouseClicked="#elegirPoke1" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgPokeball2" fitHeight="150.0" fitWidth="144.0" layoutX="585.0" layoutY="534.0" onMouseClicked="#elegirPoke2" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="imgPokeball3" fitHeight="150.0" fitWidth="144.0" layoutX="1015.0" layoutY="363.0" onMouseClicked="#elegirPoke3" pickOnBounds="true" preserveRatio="true" />
          </children>
-    </AnchorPane>
+      </AnchorPane>
   </children>
 </VBox>

@@ -334,13 +334,13 @@ public class CapturaController {
             mostrarMensajeTemporal("¡" + pokemonSalvaje.getMote() + " se ha enviado a la caja!", 2);
         }
      // Obtiene el movimiento especifico usando el MovimientoDAO
-        Movimiento arañazo = MovimientoDAO.buscarPorId(con, 54);
-        if (arañazo != null) {
+        Movimiento placaje = MovimientoDAO.buscarPorId(con, 60);
+        if (placaje != null) {
 
             MovimientoPokemon movimientoPokemon = new MovimientoPokemon();
             movimientoPokemon.setIdPokemon(pokemonSalvaje.getIdPokemon());
-            movimientoPokemon.setIdMovimiento(arañazo.getIdMovimiento());
-            movimientoPokemon.setPpActuales(arañazo.getPpMax());
+            movimientoPokemon.setIdMovimiento(placaje.getIdMovimiento());
+            movimientoPokemon.setPpActuales(placaje.getPpMax());
 
             // Insertar el movimiento en la base de datos
             MovimientoPokemonDAO.insertarMovimientoPokemon(con, movimientoPokemon);

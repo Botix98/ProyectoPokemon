@@ -224,16 +224,6 @@ public class CrianzaController {
         //Asigna los valores al pokemon hijo
         pokemonHijoGenerado = new Pokemon();
         int nuevoId = PokemonDAO.obtenerMaxIdPokemon(con) + 1;
-        
-        int numPokedex = base.getNumPokedex();
-        int nivel = 1;
-
-        int baseVitalidad = base.getVitalidadMax();
-        int baseAtaque = base.getAtaque();
-        int baseAtEspecial = base.getAtEspecial();
-        int baseDefensa = base.getDefensa();
-        int baseDefEspecial = base.getDefEspecial();
-        int baseVelocidad = base.getVelocidad();
 
         pokemonHijoGenerado.setIdPokemon(nuevoId);
         pokemonHijoGenerado.setIdEntrenador(entrenador.getIdEntrenador());
@@ -273,13 +263,13 @@ public class CrianzaController {
         boolean insertado = PokemonDAO.anyadirPokemon(con, pokemonHijoGenerado);
         
         // Obtiene el movimiento especifico usando el MovimientoDAO
-        Movimiento arañazo = MovimientoDAO.buscarPorId(con, 54);
-        if (arañazo != null) {
+        Movimiento placaje = MovimientoDAO.buscarPorId(con, 60);
+        if (placaje != null) {
 
             MovimientoPokemon movimientoPokemon = new MovimientoPokemon();
             movimientoPokemon.setIdPokemon(pokemonHijoGenerado.getIdPokemon());
-            movimientoPokemon.setIdMovimiento(arañazo.getIdMovimiento());
-            movimientoPokemon.setPpActuales(arañazo.getPpMax());
+            movimientoPokemon.setIdMovimiento(placaje.getIdMovimiento());
+            movimientoPokemon.setPpActuales(placaje.getPpMax());
 
             // Insertar el movimiento en la base de datos
             MovimientoPokemonDAO.insertarMovimientoPokemon(con, movimientoPokemon);

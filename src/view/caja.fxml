@@ -117,14 +117,6 @@
             <ProgressBar fx:id="pbPokemonEquipo4" layoutX="200.0" layoutY="493.0" opacity="0.0" prefHeight="18.0" prefWidth="68.0" progress="0.0" />
             <ProgressBar fx:id="pbPokemonEquipo5" layoutX="78.0" layoutY="570.0" opacity="0.0" prefHeight="18.0" prefWidth="68.0" progress="0.0" />
             <ProgressBar fx:id="pbPokemonEquipo6" layoutX="200.0" layoutY="570.0" opacity="0.0" prefHeight="18.0" prefWidth="68.0" progress="0.0" />
-            <Button fx:id="btnLiberarPokemon" layoutX="743.0" layoutY="46.0" mnemonicParsing="false" onAction="#liberarPokemon" prefHeight="56.0" prefWidth="151.0" style="-fx-background-color: rgba(0,0,0,0);">
-               <graphic>
-                  <ImageView fx:id="imgLiberar" fitHeight="68.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../img/btnAzul.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
             <ImageView fx:id="imgPokemonCaja18" fitHeight="84.0" fitWidth="84.0" layoutX="392.0" layoutY="185.0" pickOnBounds="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -300,14 +292,22 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
+            <Button fx:id="btnLiberarPokemon" layoutX="743.0" layoutY="46.0" mnemonicParsing="false" onAction="#liberarPokemon" prefHeight="56.0" prefWidth="151.0" style="-fx-background-color: rgba(0,0,0,0);">
+               <graphic>
+                  <ImageView fx:id="imgLiberar" fitHeight="68.0" fitWidth="223.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/btnAzul.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Text fx:id="txtLiberar" fill="WHITE" layoutX="776.0" layoutY="50.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="LIBERAR" y="40.0">
+               <font>
+                  <Font name="Arial Bold" size="20.0" />
+               </font>
+            </Text>
             <Text fx:id="txtSalir" fill="WHITE" layoutX="183.0" layoutY="89.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="SALIR">
                <font>
                   <Font name="Arial Bold" size="36.0" />
-               </font>
-            </Text>
-            <Text fx:id="txtLiberar" fill="WHITE" layoutX="777.0" layoutY="89.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="LIBERAR" wrappingWidth="96.0">
-               <font>
-                  <Font name="Arial Bold" size="20.0" />
                </font>
             </Text>
          </children>

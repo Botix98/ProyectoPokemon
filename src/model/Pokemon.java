@@ -35,6 +35,7 @@ public class Pokemon {
 	private TipoEstados estado;
 	private int equipo;
 	private int experiencia;
+	private int idObjeto;
 	
 	public Pokemon() {
 		this.idPokemon = 0;
@@ -367,6 +368,14 @@ public class Pokemon {
 	 */
 	public void setExperiencia(int experiencia) {
 		this.experiencia = experiencia;
+	}
+	
+	public int getIdObjeto() {
+		return idObjeto;
+	}
+
+	public void setIdObjeto(int idObjeto) {
+		this.idObjeto = idObjeto;
 	}
 
 	public Double comprobarVentajaDesventaja(Movimiento movAtacante) {

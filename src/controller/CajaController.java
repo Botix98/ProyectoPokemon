@@ -91,6 +91,7 @@ public class CajaController {
         mostrarPokemonCaja();
         mostrarEquipo();
         btnLiberarPokemon.setVisible(false);
+        txtLiberar.setVisible(false);
 
         imagenesEquipo = List.of(
         	    imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
@@ -102,6 +103,7 @@ public class CajaController {
         for (final ImageView iv : imagenesEquipo) {
         	
         	iv.setOnMouseClicked(event -> {
+        		txtLiberar.setVisible(true);
         	    btnLiberarPokemon.setVisible(true);
         	    int index = imagenesEquipo.indexOf(iv);
 
@@ -225,7 +227,8 @@ public class CajaController {
         	iv.setOnMouseClicked(event -> {
         	    btnLiberarPokemon.setVisible(true);
         	    int index = imagenesCaja.indexOf(iv);
-
+        	    txtLiberar.setVisible(true);
+        	    btnLiberarPokemon.setVisible(true);
         	    aplicarGlowAImagen(event);
 
         	    if (index >= 0 && index < caja.size()) {
@@ -433,6 +436,7 @@ public class CajaController {
             lblMotePokemonSeleccionado.setVisible(false);
             lblNivelPokemonSeleccionado.setVisible(false);
             pbPokemonSeleccionado.setVisible(false);
+            txtLiberar.setVisible(false);
 
             System.out.println("Pokémon liberado correctamente.");
         } else {

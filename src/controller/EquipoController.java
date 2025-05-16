@@ -9,10 +9,14 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import dao.ConexionBD;
+import dao.MochilaDAO;
+import dao.ObjetoDAO;
 import dao.PokedexDAO;
 import dao.PokemonDAO;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +24,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -29,6 +35,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Entrenador;
+import model.Mochila;
+import model.Objeto;
 import model.Pokemon;
 
 public class EquipoController {
@@ -54,7 +62,6 @@ public class EquipoController {
     @FXML private Label lblEquipo;
     @FXML private Label lblPokemon;
     
-    
     @FXML private ImageView imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3;
     @FXML private ImageView imgPokemonEquipo4, imgPokemonEquipo5, imgPokemonEquipo6;
 
@@ -70,11 +77,14 @@ public class EquipoController {
     @FXML private Button btnLiberarPokemon;
     @FXML private Button btnMandarPokemonaCaja;
     
-
     @FXML private Text txtLiberar;
     @FXML private Text txtMovCaja;
     @FXML private Text txtSalir;
     @FXML private Text txtCaja;
+    
+    @FXML private TableView<Mochila> tvMochila;
+    @FXML private TableColumn<Mochila, String> tcObjetoM;
+    @FXML private TableColumn<Mochila, Integer> tcCantidadM;
     
     Connection con = ConexionBD.getConnection();
     
@@ -86,7 +96,9 @@ public class EquipoController {
         pbPokemonSeleccionado.setVisible(false);
         btnLiberarPokemon.setVisible(false);
         btnMandarPokemonaCaja.setVisible(false);
+        tvMochila.setVisible(false);
         mostrarEquipo();
+        cargarObjetosMochila();
     }
     
     public void initialize() {
@@ -96,6 +108,14 @@ public class EquipoController {
         lblNivelPokemonSeleccionado.setVisible(false);
         pbPokemonSeleccionado.setVisible(false);
         imgPokemonSeleccionado.setVisible(false);
+        txtLiberar.setVisible(false);
+        txtMovCaja.setVisible(false);
+        tvMochila.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2 && tvMochila.getSelectionModel().getSelectedItem() != null) {
+                Mochila mochilaSeleccionada = tvMochila.getSelectionModel().getSelectedItem();
+                usarYEquiparObjeto(mochilaSeleccionada);
+            }
+        });
     }
 
     @FXML
@@ -109,6 +129,9 @@ public class EquipoController {
         imgPokemonSeleccionado.setVisible(true);
         btnLiberarPokemon.setVisible(true);
         btnMandarPokemonaCaja.setVisible(true);
+        txtLiberar.setVisible(true);
+        txtMovCaja.setVisible(true);
+        tvMochila.setVisible(true);
 
         List<ImageView> imagenesEquipo = List.of(
             imgPokemonEquipo1, imgPokemonEquipo2, imgPokemonEquipo3,
@@ -133,7 +156,133 @@ public class EquipoController {
             }
         }
     }
-        
+
+ // Método para cargar los objetos de la mochila en la tabla
+    private void cargarObjetosMochila() {
+        Connection con = ConexionBD.getConnection();
+        LinkedList<Mochila> objetosMochila = MochilaDAO.cargarMochilaPorEntrenador(con, entrenador.getIdEntrenador());
+
+        tvMochila.getItems().setAll(objetosMochila);
+
+        tcObjetoM.setCellValueFactory(data -> {
+            Objeto obj = ObjetoDAO.buscarObjetoPorId(con, data.getValue().getIdObjeto());
+            return new SimpleStringProperty(obj != null ? obj.getNomObjeto() : "Desconocido");
+        });
+
+        tcCantidadM.setCellValueFactory(data -> 
+            new SimpleIntegerProperty(data.getValue().getCantidad()).asObject()
+        );
+    }
+    
+    private void usarYEquiparObjeto(Mochila mochila) {
+        if (pokemonSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un Pokémon para equipar el objeto.");
+            return;
+        }
+
+        Objeto objeto = ObjetoDAO.buscarObjetoPorId(con, mochila.getIdObjeto());
+        if (objeto == null) {
+            JOptionPane.showMessageDialog(null, "Objeto no encontrado.");
+            return;
+        }
+
+        if (!objeto.isEquipable()) {
+            JOptionPane.showMessageDialog(null, objeto.getNomObjeto() + " no se puede equipar.");
+            return;
+        }
+
+        if (pokemonSeleccionado.getEquipo() != 0) {
+            Objeto objetoEquipado = ObjetoDAO.buscarObjetoPorId(con, pokemonSeleccionado.getEquipo());
+            String nombreObjetoEquipado = objetoEquipado != null ? objetoEquipado.getNomObjeto() : "otro objeto";
+            JOptionPane.showMessageDialog(null, pokemonSeleccionado.getMote() + " ya tiene equipado " + nombreObjetoEquipado + ". Retíralo antes de equipar otro.");
+            return;
+        }
+
+        equiparObjeto(pokemonSeleccionado, objeto);
+        restarUnoObjetoMochila(mochila);
+
+        JOptionPane.showMessageDialog(null, "Has equipado " + objeto.getNomObjeto() + " a " + pokemonSeleccionado.getMote());
+    }
+    
+    
+    
+    
+    private void restarUnoObjetoMochila(Mochila mochila) {
+        // Verificar si hay más de una unidad
+        if (mochila.getCantidad() > 1) {
+            mochila.setCantidad(mochila.getCantidad() - 1);
+
+            // Actualizar cantidad en la base de datos
+            boolean exito = MochilaDAO.actualizarCantidad(ConexionBD.getConnection(), mochila);
+
+            if (exito) {
+                cargarObjetosMochila();
+                System.out.println("Se ha restado 1 unidad del objeto.");
+            } else {
+                System.out.println("No se pudo actualizar la cantidad.");
+            }
+
+        } else {
+            // Si solo queda una, eliminar el objeto de la mochila
+            boolean exito = MochilaDAO.eliminarDeMochila(ConexionBD.getConnection(), mochila.getIdEntrenador(), mochila.getIdObjeto());
+
+            if (exito) {
+                cargarObjetosMochila();
+                System.out.println("Se ha eliminado el objeto de la mochila.");
+            } else {
+                System.out.println("No se pudo eliminar el objeto.");
+            }
+        }
+    }
+/**
+ 
+    @FXML
+    private void usarObjeto(Mochila mochila) {
+        if (pokemonSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un Pokémon para usar el objeto.");
+            return;
+        }
+
+        // Buscar objeto en la base de datos
+        Objeto objeto = ObjetoDAO.buscarObjetoPorId(con, mochila.getIdObjeto());
+        if (objeto == null) {
+            JOptionPane.showMessageDialog(null, "Objeto no encontrado.");
+            return;
+        }
+
+        // Verificamos si el objeto tiene efecto de curación
+        int vidaActual = pokemonSeleccionado.getVitalidadAct();
+        int vidaMax = pokemonSeleccionado.getVitalidadMax();
+
+        if (vidaActual >= vidaMax) {
+            JOptionPane.showMessageDialog(null, pokemonSeleccionado.getMote() + " ya tiene la vitalidad completa.");
+            return;
+        }
+
+        // Curar vida (por ejemplo, objeto.getCuracion() puede ser un atributo que define cuánto cura)
+        int nuevaVida = vidaActual + objeto.getCuracion();
+        if (nuevaVida > vidaMax) nuevaVida = vidaMax;
+        pokemonSeleccionado.setVitalidadAct(nuevaVida);
+
+        // Actualizar en la base de datos
+        PokemonDAO.actualizarVitalidad(con, pokemonSeleccionado.getIdPokemon(), nuevaVida);
+
+        // Restar objeto de la mochila
+        restarUnoObjetoMochila(mochila);
+
+        // Actualizar interfaz
+        double progreso = (double) nuevaVida / vidaMax;
+        pbPokemonSeleccionado.setProgress(progreso);
+        actualizarColorPB(pbPokemonSeleccionado);
+
+        JOptionPane.showMessageDialog(null, "Has usado " + objeto.getNomObjeto() + " en " + pokemonSeleccionado.getMote());
+    }
+    
+    * 
+ * @param mochila
+ */
+    
+    
         private void mostrarEquipo() {
             equipo = new LinkedList<>(PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1));
 
@@ -153,6 +302,30 @@ public class EquipoController {
         }
     }
         
+        public void equiparObjeto(Pokemon pokemon, Objeto nuevoObjeto) {
+            int idObjeto = pokemon.getIdObjeto();
+            Objeto objetoActual = null;
+
+            if (idObjeto != 0) {
+                objetoActual = ObjetoDAO.buscarObjetoPorId(con, idObjeto);
+            }
+
+            
+            if (objetoActual != null && objetoActual.getIdObjeto() != 0) {
+            	objetoActual.eliminarBonificacionEstadisticas(pokemon);
+            }
+
+            // Equipar nuevo objeto
+            pokemon.setIdObjeto(nuevoObjeto.getIdObjeto());
+
+           nuevoObjeto.aplicarBonificacionEstadisticas(pokemon);
+
+            // Actualizar Pokémon en BD
+            PokemonDAO.actualizarPokemonParaObjeto(con, pokemon);
+
+            System.out.println("Objeto " + nuevoObjeto.getNomObjeto() + " equipado correctamente a " + pokemon.getMote());
+        }
+
         private void actualizarColorPB(ProgressBar pb) {
             double progreso = pb.getProgress();
             if (progreso < 0.25) {

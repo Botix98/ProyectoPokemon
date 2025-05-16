@@ -545,4 +545,24 @@ public static boolean eliminarPokemon(Connection con, int idPokemon) {
 
 	    return total;
 		}
+	
+	public static boolean actualizarPokemonParaObjeto(Connection con, Pokemon pokemon) {
+	    String sql = "UPDATE POKEMON SET ATAQUE = ?, AT_ESPECIAL = ?, DEFENSA = ?, DEF_ESPECIAL = ?, VELOCIDAD = ?, EQUIPO = ? WHERE ID_POKEMON = ?";
+	    try (PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setInt(1, pokemon.getAtaque());
+	        ps.setInt(2, pokemon.getAtEspecial());
+	        ps.setInt(3, pokemon.getDefensa());
+	        ps.setInt(4, pokemon.getDefEspecial());
+	        ps.setInt(5, pokemon.getVelocidad());
+	        ps.setInt(6, pokemon.getEquipo());
+	        ps.setInt(7, pokemon.getIdPokemon());
+
+	        int filasAfectadas = ps.executeUpdate();
+	        return filasAfectadas > 0;
+	    } catch (SQLException e) {
+	        ConexionBD.printSQLException(e);
+	    }
+	    return false;
+	}
 }
+

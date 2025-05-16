@@ -1,8 +1,14 @@
 package model;
 
+import java.sql.Connection;
+import java.util.LinkedList;
+
+import dao.ConexionBD;
+import dao.ObjetoDAO;
+
 public class Objeto {
 	
-	private int  idObjeto;
+	private int idObjeto;
 	private String nomObjeto;
     private int ataque;
     private int ataqueEsp;
@@ -10,7 +16,9 @@ public class Objeto {
     private int defensaEsp;
     private int velocidad;
 	private int precio;
-	
+	private boolean equipable;
+	private LinkedList<String> bonificaciones = new LinkedList<>();
+	Connection con = ConexionBD.getConnection();
 	/**
 	 * @param idObjeto
 	 * @param nomObjeto
@@ -21,6 +29,7 @@ public class Objeto {
 	 * @param velocidad
 	 * @param precio
 	 */
+	
 	public Objeto(int idObjeto, String nomObjeto, int ataque, int ataqueEsp, int defensa, int defensaEsp, int velocidad,
 			int precio) {
 		super();
@@ -45,6 +54,42 @@ public class Objeto {
 		this.velocidad = 0;
 		this.precio = 0;
 	}
+	
+	public void aplicarBonificacionEstadisticas(Pokemon pokemon) {
+        if (this.getAtaque() != 0) {
+            pokemon.setAtaque((int) (pokemon.getAtaque() * this.getAtaque()));
+        }
+        if (this.getAtaqueEsp() != 0) {
+            pokemon.setAtEspecial((int) (pokemon.getAtEspecial() * this.getAtaqueEsp()));
+        }
+        if (this.getDefensa() != 0) {
+            pokemon.setDefensa((int) (pokemon.getDefensa() * this.getDefensa()));
+        }
+        if (this.getDefensaEsp() != 0) {
+            pokemon.setDefEspecial((int) (pokemon.getDefEspecial() * this.getDefensaEsp()));
+        }
+        if (this.getVelocidad() != 0) {
+            pokemon.setVelocidad((int) (pokemon.getVelocidad() * this.getVelocidad()));
+        }
+    }
+
+    public void eliminarBonificacionEstadisticas(Pokemon pokemon) {
+        if (this.getAtaque() != 0) {
+            pokemon.setAtaque((int) (pokemon.getAtaque() / this.getAtaque()));
+        }
+        if (this.getAtaqueEsp() != 0) {
+            pokemon.setAtEspecial((int) (pokemon.getAtEspecial() / this.getAtaqueEsp()));
+        }
+        if (this.getDefensa() != 0) {
+            pokemon.setDefensa((int) (pokemon.getDefensa() / this.getDefensa()));
+        }
+        if (this.getDefensaEsp() != 0) {
+            pokemon.setDefEspecial((int) (pokemon.getDefEspecial() / this.getDefensaEsp()));
+        }
+        if (this.getVelocidad() != 0) {
+            pokemon.setVelocidad((int) (pokemon.getVelocidad() / this.getVelocidad()));
+        }
+    }
 
 	/**
 	 * @return the idObjeto
@@ -158,13 +203,26 @@ public class Objeto {
 		this.precio = precio;
 	}
 
-	@Override
-	public String toString() {
-		return "Objeto [idObjeto=" + idObjeto + ", nomObjeto=" + nomObjeto + ", ataque=" + ataque + ", ataqueEsp="
-				+ ataqueEsp + ", defensa=" + defensa + ", defensaEsp=" + defensaEsp + ", velocidad=" + velocidad
-				+ ", precio=" + precio + "]";
+	public boolean isEquipable() {
+	    return equipable;
 	}
 
+	public void setEquipable(boolean equipable) {
+	    this.equipable = equipable;
+	}
 	
-	
+	public LinkedList<String> getBonificaciones() {
+        return bonificaciones;
+    }
+
+    public void setBonificaciones(LinkedList<String> bonificaciones) {
+        this.bonificaciones = bonificaciones;
+    }
+    
+@Override
+public String toString() {
+    return "Objeto [idObjeto=" + idObjeto + ", nomObjeto=" + nomObjeto + ", ataque=" + ataque + ", ataqueEsp="
+            + ataqueEsp + ", defensa=" + defensa + ", defensaEsp=" + defensaEsp + ", velocidad=" + velocidad
+            + ", precio=" + precio + "]";
+	}
 }

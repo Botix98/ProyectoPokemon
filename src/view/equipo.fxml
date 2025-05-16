@@ -32,9 +32,12 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -46,10 +49,13 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="690.0" prefWidth="1112.0" VBox.vgrow="ALWAYS">
       <children>
-            <ImageView fx:id="imgFondo" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true">
+            <ImageView fx:id="imgFondo" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" x="1.0">
                <image>
                   <Image url="@../../img/equipo/fondo.png" />
                </image>
+               <rotationAxis>
+                  <Point3D />
+               </rotationAxis>
             </ImageView>
         <Label fx:id="lblEquipo" alignment="CENTER" layoutX="117.0" layoutY="105.0" prefHeight="59.0" prefWidth="146.0" style="&#10;" text="EQUIPO" textAlignment="CENTER" wrapText="false">
           <font>
@@ -69,17 +75,17 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Label fx:id="lblNombrePokemonSeleccionado" layoutX="966.0" layoutY="176.0" prefHeight="23.0" prefWidth="94.0" text="NP">
+            <Label fx:id="lblNombrePokemonSeleccionado" layoutX="1084.0" layoutY="155.0" prefHeight="23.0" prefWidth="94.0" text="NP">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblMotePokemonSeleccionado" layoutX="966.0" layoutY="141.0" prefHeight="25.0" prefWidth="162.0" text="Mote">
+            <Label fx:id="lblMotePokemonSeleccionado" layoutX="1084.0" layoutY="124.0" prefHeight="25.0" prefWidth="162.0" text="Mote">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblNivelPokemonSeleccionado" layoutX="1060.0" layoutY="171.0" prefHeight="33.0" prefWidth="64.0" text="Nvl">
+            <Label fx:id="lblNivelPokemonSeleccionado" layoutX="1188.0" layoutY="150.0" prefHeight="33.0" prefWidth="64.0" text="Nvl">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
@@ -96,8 +102,8 @@
             <ProgressBar fx:id="pbPokemon5" layoutX="348.0" layoutY="432.0" prefWidth="200.0" progress="0.0" visible="false" />
             <ImageView fx:id="imgPokemonEquipo6" fitHeight="192.0" fitWidth="202.0" layoutX="581.0" layoutY="428.0" onMouseClicked="#hacerGrande" pickOnBounds="true" preserveRatio="true" />
             <ProgressBar fx:id="pbPokemon6" layoutX="567.0" layoutY="432.0" prefWidth="200.0" progress="0.0" visible="false" />
-            <ImageView fx:id="imgPokemonSeleccionado" fitHeight="340.0" fitWidth="355.0" layoutX="870.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true" />
-            <ProgressBar fx:id="pbPokemonSeleccionado" layoutX="892.0" layoutY="210.0" prefHeight="24.0" prefWidth="294.0" progress="0.0" />
+            <ImageView fx:id="imgPokemonSeleccionado" fitHeight="192.0" fitWidth="200.0" layoutX="1074.0" layoutY="213.0" pickOnBounds="true" preserveRatio="true" />
+            <ProgressBar fx:id="pbPokemonSeleccionado" layoutX="1066.0" layoutY="189.0" prefHeight="24.0" prefWidth="216.0" progress="0.0" />
             <ImageView fx:id="imgSonido" fitHeight="99.0" fitWidth="84.0" layoutX="14.0" layoutY="6.0" onMouseClicked="#activarDesactivarSonido">
                <image>
                   <Image url="@../../img/conSonido.png" />
@@ -147,6 +153,12 @@
                   <Font name="Arial Bold" size="26.0" />
                </font>
             </Text>
+            <TableView fx:id="tvMochila" layoutX="842.0" layoutY="124.0" prefHeight="371.0" prefWidth="216.0">
+               <columns>
+                  <TableColumn fx:id="tcObjetoM" prefWidth="75.0" text="Objeto" />
+                  <TableColumn fx:id="tcCantidadM" prefWidth="174.0" text="Cantidad" />
+               </columns>
+            </TableView>
       </children>
     </AnchorPane>
   </children>

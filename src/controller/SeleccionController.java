@@ -44,7 +44,23 @@ public class SeleccionController {
     @FXML private ImageView imgSonido;
 
     private Connection con = ConexionBD.getConnection();
+    
+    private static final String[] PALABRAS_PROHIBIDAS = {
+            "puta", "puto", "mierda", "idiota", "gilipollas", "tonto", "imbecil", "cabron", "perra", "subnormal", "maricon", "zorra",
+            "culo", "caca", "teta", "polla", "pene", "rabo", "follar", "verga", "sexo"
+        };
 
+    private boolean contienePalabrasProhibidas(String texto) {
+        if (texto == null) return false;
+        String lower = texto.toLowerCase();
+        for (String palabra : PALABRAS_PROHIBIDAS) {
+            if (lower.contains(palabra)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private int seleccionado = -1;
 
     // IDs de Pokedex de los starters
@@ -142,13 +158,27 @@ public class SeleccionController {
         nuevo.setIdEntrenador(entrenador.getIdEntrenador());
         nuevo.setNumPokedex(numPokedex);
 
-        // Pedir mote
-        String mote = JOptionPane.showInputDialog(null, "Escribe un mote para tu nuevo Pokémon:");
-        if (mote == null || mote.trim().isEmpty()) {
-            LinkedList<Pokedex> pokedex = PokedexDAO.cargarPokedexCompleta(con);
-            mote = pokedex.get(numPokedex - 1).getNomPokemon();
+        // Pedir mote y confirmar que es valido
+        String mote;
+        while (true) {
+            mote = JOptionPane.showInputDialog(null, "Escribe un mote para tu nuevo Pokémon:");
+            if (mote == null) {
+                // Usa nombre por defecto si cierra el diálogo
+                LinkedList<Pokedex> pd = PokedexDAO.cargarPokedexCompleta(con);
+                mote = pd.get(numPokedex - 1).getNomPokemon();
+                break;
+            }
+            mote = mote.trim();
+            if (mote.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El mote no puede estar vacío.");
+            } else if (contienePalabrasProhibidas(mote)) {
+                JOptionPane.showMessageDialog(null, "El mote contiene palabras inapropiadas.");
+            } else {
+                break;
+            }
         }
         nuevo.setMote(mote);
+
 
         // Nivel inicial
         int nivel = 1;

@@ -84,6 +84,23 @@ public class CapturaController {
     @FXML private Label lblNumeroPokeballs, lblNumeroSuperballs, lblNumeroUltraballs;
     @FXML private Label lblRatioCatchPokeball, lblRatioCatchSuperball, lblRatioCatchUltraball;
     
+    // Lista de palabras prohibidas
+    private static final String[] PALABRAS_PROHIBIDAS = {
+        "puta","puto","mierda","idiota","gilipollas","tonto","imbecil","cabron",
+        "perra","subnormal","maricon","zorra","culo","caca","teta","polla",
+        "pene","rabo","follar","verga","sexo"
+    };
+
+    // Método para detectar malas palabras
+    private boolean contienePalabrasProhibidias(String texto) {
+        if (texto == null) return false;
+        String lower = texto.toLowerCase();
+        for (String palabra : PALABRAS_PROHIBIDAS) {
+            if (lower.contains(palabra)) return true;
+        }
+        return false;
+    }
+    
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
         this.entrenador = entr;
         this.stage = stage;
@@ -307,11 +324,24 @@ public class CapturaController {
             return;
         }
 
-        // Pedir al usuario que ingrese el mote del nuevo Pokémon
-        String mote = JOptionPane.showInputDialog(null, "Ingresa el mote del nuevo Pokémon:");
+        //Filtra por malas palabras
+        String nombrePorDefecto = pokemonSalvaje.getMote();
+        String mote;
 
-        if (mote == null || mote.trim().isEmpty()) {
-            mote = pokemonSalvaje.getMote();
+        while (true) {
+            mote = JOptionPane.showInputDialog(null, "Ingresa el mote del nuevo Pokémon:");
+            if (mote == null) {
+                mote = nombrePorDefecto;
+                break;
+            }
+            mote = mote.trim();
+            if (mote.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El mote no puede estar vacío.");
+            } else if (contienePalabrasProhibidias(mote)) {
+                JOptionPane.showMessageDialog(null, "El mote contiene palabras inapropiadas.");
+            } else {
+                break;
+            }
         }
 
         int nuevoId = PokemonDAO.obtenerMaxIdPokemon(con) + 1;

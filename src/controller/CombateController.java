@@ -2,8 +2,10 @@ package controller;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,16 +27,22 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -802,6 +810,7 @@ public class CombateController {
             	    stage.setTitle("Centro Pokemon");
             	    stage.centerOnScreen();
             	    stage.show();
+                    modificacionCursor("C:/ProyectoPokemon/img/menu/rojoChivi.png");
             	} catch (Exception e) {
             	    e.printStackTrace();
             	}
@@ -818,6 +827,7 @@ public class CombateController {
             	    stage.setTitle("Creditos");
             	    stage.centerOnScreen();
             	    stage.show();
+                    modificacionCursor("C:/ProyectoPokemon/img/menu/rojoChivi.png");
             	} catch (Exception e) {
             	    e.printStackTrace();
             	}
@@ -834,6 +844,7 @@ public class CombateController {
             	    stage.setTitle("Menu");
             	    stage.centerOnScreen();
             	    stage.show();
+                    modificacionCursor("C:/ProyectoPokemon/img/menu/rojoChivi.png");
             	} catch (Exception e) {
             	    e.printStackTrace();
             	}
@@ -1728,14 +1739,14 @@ public class CombateController {
 	        			lblEfectoNuevo.setText("Efecto: " + movimientoNuevo.getEstado());
 	        			break;
 	        		case "FISICO":
-	        			lblEfectoNuevo.setText("Efecto: daña al rival con ataque fisico");
+	        			lblEfectoNuevo.setText("Efecto: daï¿½a al rival con ataque fisico");
 	        			break;
 	        		case "ESPECIAL":
-	        			lblEfectoNuevo.setText("Efecto: daña al rival con ataque especial");
+	        			lblEfectoNuevo.setText("Efecto: daï¿½a al rival con ataque especial");
 	        			break;
 	        		}
 	        		
-	        		lblTexto.setText(equipoEntrenador.get(pokActEntr).getMote() + " quiere aprender " + movimientoNuevo.getNombre() + " pero ya tiene 4 movimientos. ¿Quieres que olvide uno?");
+	        		lblTexto.setText(equipoEntrenador.get(pokActEntr).getMote() + " quiere aprender " + movimientoNuevo.getNombre() + " pero ya tiene 4 movimientos. ï¿½Quieres que olvide uno?");
 	        		btnOlvidarMovimiento.setVisible(true);
 	        		imgConfirmar.setVisible(true);
 	        		btnNoAprender.setVisible(true);
@@ -2204,10 +2215,10 @@ public class CombateController {
 			lblEfectoSelec.setText("Efecto: " + listaMovPokEntrAUX.get(n).getEstado());
 			break;
 		case "FISICO":
-			lblEfectoSelec.setText("Efecto: daña al rival con ataque fisico");
+			lblEfectoSelec.setText("Efecto: daï¿½a al rival con ataque fisico");
 			break;
 		case "ESPECIAL":
-			lblEfectoSelec.setText("Efecto: daña al rival con ataque especial");
+			lblEfectoSelec.setText("Efecto: daï¿½a al rival con ataque especial");
 			break;
 		}
 	}
@@ -2328,4 +2339,47 @@ public class CombateController {
 	        	break;
     	}
     }
+    
+	public void modificacionCursor(String ruta) {
+	    try {
+	        InputStream is = getClass().getResourceAsStream(ruta);
+	        if (is == null) {
+	            is = new FileInputStream(ruta);
+	        }
+	        Image originalImage = new Image(is);
+
+	        // Tamano deseado
+	        int width  = 55;
+	        int height = 69;
+
+	        // Canvas para escalar
+	        Canvas canvas = new Canvas(width, height);
+	        GraphicsContext gc = canvas.getGraphicsContext2D();
+	        gc.clearRect(0, 0, width, height);
+
+	        // Dibujar la imagen escalada
+	        gc.drawImage(originalImage, 0, 0, width, height);
+
+	        // Ajusta la transpariencia del fondo para evitar fondos blancos
+	        SnapshotParameters sp = new SnapshotParameters();
+	        sp.setFill(Color.TRANSPARENT);
+	        WritableImage scaledImage = new WritableImage(width, height);
+	        canvas.snapshot(sp, scaledImage);
+
+	        // Crear cursor centrado
+	        ImageCursor customCursor = new ImageCursor(scaledImage, width/2.0, height/2.0);
+
+	        // Aplicar a la escena
+	        if (stage.getScene() != null) {
+	            stage.getScene().setCursor(customCursor);
+	        } else {
+	            stage.sceneProperty().addListener((obs, o, n) -> {
+	                if (n != null) n.setCursor(customCursor);
+	            });
+	        }
+	    } catch (Exception e) {
+	        System.err.println("No se pudo cargar el cursor desde: " + ruta);
+	        e.printStackTrace();
+	    }
+	}
 }

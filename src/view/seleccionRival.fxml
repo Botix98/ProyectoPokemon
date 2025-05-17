@@ -41,6 +41,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <VBox alignment="CENTER" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SeleccionarRivalController">
   <children>
@@ -104,7 +105,14 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="btnSalir" layoutX="1049.0" layoutY="582.0" mnemonicParsing="false" onAction="#salir" prefHeight="60.0" prefWidth="181.0" text="Salir" />
+            <Button fx:id="btnSalir" layoutX="1049.0" layoutY="582.0" mnemonicParsing="false" onAction="#salir" prefHeight="60.0" prefWidth="181.0" style="-fx-background-color: rgba(0,0,0,0);">
+               <graphic>
+                  <ImageView fx:id="imgSalir" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/btnAzul.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             <ImageView fx:id="imgSonido" fitHeight="87.0" fitWidth="83.0" layoutX="32.0" layoutY="30.0" onMouseClicked="#activarDesactivarSonido" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/conSonido.png" />
@@ -123,6 +131,11 @@
                   <Image url="@../../img/combateEntrenamiento/missingno.png" />
                </image>
             </ImageView>
+            <Text fx:id="txtSalir" fill="WHITE" layoutX="1106.0" layoutY="643.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="SALIR">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Text>
       </children>
          <opaqueInsets>
             <Insets />

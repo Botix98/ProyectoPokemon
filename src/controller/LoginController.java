@@ -101,67 +101,85 @@ public class LoginController {
     		}
     	}
     }
+    
+    //Aqui se almacenan las palabras prohibidas
+    private static final String[] PALABRAS_PROHIBIDAS = {
+            "puta", "puto", "mierda", "idiota", "gilipollas", "tonto", "imbecil", "cabron", "perra", "subnormal", "maricon", "zorra",
+            "culo", "caca", "teta", "polla", "pene", "rabo", "follar", "verga", "sexo"
+        };
 
-    @FXML
+    	private boolean contienePalabrasProhibidas(String texto) {
+    	    for (String palabra : PALABRAS_PROHIBIDAS) {
+    	        if (texto.toLowerCase().contains(palabra)) {
+    	            return true;
+    	        }
+    	    }
+    	    return false;
+    	}
+
+    	@FXML
     private void registrarUsuario(ActionEvent event) {
-        String usuario = txtUsuario.getText().trim();
-        String pass = txtContrasena.getText().trim();
+    	    String usuario = txtUsuario.getText().trim();
+    	    String pass = txtContrasena.getText().trim();
 
-        if (usuario.isEmpty() || pass.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Usuario y contrasena no pueden estar vacios.");
-            return;
-        }
+    	    if (usuario.isEmpty() || pass.isEmpty()) {
+    	        JOptionPane.showMessageDialog(null, "Usuario y contraseña no pueden estar vacíos.");
+    	        return;
+    	    }
 
-        try {
-            // Obtiene una nuevo ID
-            int nuevoId = EntrenadorDAO.obtenerSiguienteId(con);
+    	    // ❗Validación de malas palabras
+    	    if (contienePalabrasProhibidas(usuario)) {
+    	        JOptionPane.showMessageDialog(null, "El nombre de usuario contiene palabras inapropiadas.");
+    	        return;
+    	    }
 
-            // Crea un nuevo entrenador
-            Entrenador nuevoEntrenador = new Entrenador();
-            nuevoEntrenador.setIdEntrenador(nuevoId);
-            nuevoEntrenador.setUsuario(usuario);
-            nuevoEntrenador.setPass(pass);
-            nuevoEntrenador.setRivalesVencidos(-3);
-            nuevoEntrenador.setPokedolares((int)(Math.random() * 201) + 800);
-            nuevoEntrenador.setPokebolas(20);
+    	    try {
+    	        int nuevoId = EntrenadorDAO.obtenerSiguienteId(con);
 
-            boolean exito = EntrenadorDAO.insertarEntrenador(con, nuevoEntrenador);
+    	        Entrenador nuevoEntrenador = new Entrenador();
+    	        nuevoEntrenador.setIdEntrenador(nuevoId);
+    	        nuevoEntrenador.setUsuario(usuario);
+    	        nuevoEntrenador.setPass(pass);
+    	        nuevoEntrenador.setRivalesVencidos(-3);
+    	        nuevoEntrenador.setPokedolares((int)(Math.random() * 201) + 800);
+    	        nuevoEntrenador.setPokebolas(20);
 
-            if (exito) {
-                JOptionPane.showMessageDialog(null, "Usuario registrado correctamente. Ahora puedes iniciar sesion.");
+    	        boolean exito = EntrenadorDAO.insertarEntrenador(con, nuevoEntrenador);
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/seleccion.fxml"));
-                Parent root = loader.load();
+    	        if (exito) {
+    	            JOptionPane.showMessageDialog(null, "Usuario registrado correctamente. Ahora puedes iniciar sesión.");
 
-                SeleccionController seleccionController = loader.getController();
-                seleccionController.init(nuevoEntrenador, stage, this);
+    	            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/seleccion.fxml"));
+    	            Parent root = loader.load();
 
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Selecciona tu Pokémon inicial");
-                stage.show();
-                //20 pokebolas al inicio
-                Mochila pokebolasIniciales = new Mochila();
-                pokebolasIniciales.setIdEntrenador(nuevoId);
-                pokebolasIniciales.setIdObjeto(8);
-                pokebolasIniciales.setCantidad(20);
-                MochilaDAO.insertarEnMochila(con, pokebolasIniciales);
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo registrar el usuario.");
-            }
+    	            SeleccionController seleccionController = loader.getController();
+    	            seleccionController.init(nuevoEntrenador, stage, this);
 
-        } catch (SQLException e) {
-            // Detecta si el nombre de usuario esta repetido
-            if (e instanceof SQLIntegrityConstraintViolationException || e.getErrorCode() == 1062) {
-                JOptionPane.showMessageDialog(null, "El nombre de usuario ya esta en uso.");
-            } else {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Error SQL durante el registro: " + e.getMessage());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error general durante el registro.");
-        }
+    	            Scene scene = new Scene(root);
+    	            stage.setScene(scene);
+    	            stage.setTitle("Selecciona tu Pokémon inicial");
+    	            stage.show();
+
+    	            Mochila pokebolasIniciales = new Mochila();
+    	            pokebolasIniciales.setIdEntrenador(nuevoId);
+    	            pokebolasIniciales.setIdObjeto(8);
+    	            pokebolasIniciales.setCantidad(20);
+    	            MochilaDAO.insertarEnMochila(con, pokebolasIniciales);
+    	        } else {
+    	            JOptionPane.showMessageDialog(null, "No se pudo registrar el usuario.");
+    	        }
+
+    	    } catch (SQLException e) {
+    	        if (e instanceof SQLIntegrityConstraintViolationException || e.getErrorCode() == 1062) {
+    	            JOptionPane.showMessageDialog(null, "El nombre de usuario ya está en uso.");
+    	        } else {
+    	            e.printStackTrace();
+    	            JOptionPane.showMessageDialog(null, "Error SQL durante el registro: " + e.getMessage());
+    	        }
+    	    } catch (Exception e) {
+    	        e.printStackTrace();
+    	        JOptionPane.showMessageDialog(null, "Error general durante el registro.");
+    	    }
     }
 
     @FXML

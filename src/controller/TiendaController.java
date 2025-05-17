@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.util.LinkedList;
 
@@ -9,8 +11,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -18,8 +24,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -281,9 +289,53 @@ public class TiendaController {
     	    stage.setScene(scene);
     	    stage.setTitle("Menú");
     	    stage.show();
+            modificacionCursor("C:/ProyectoPokemon/img/menu/rojoChivi.png");
     	} catch (Exception e) {
     	    e.printStackTrace();
     	}
     }
+    
+	public void modificacionCursor(String ruta) {
+	    try {
+	        InputStream is = getClass().getResourceAsStream(ruta);
+	        if (is == null) {
+	            is = new FileInputStream(ruta);
+	        }
+	        Image originalImage = new Image(is);
+
+	        // Tamano deseado
+	        int width  = 55;
+	        int height = 69;
+
+	        // Canvas para escalar
+	        Canvas canvas = new Canvas(width, height);
+	        GraphicsContext gc = canvas.getGraphicsContext2D();
+	        gc.clearRect(0, 0, width, height);
+
+	        // Dibujar la imagen escalada
+	        gc.drawImage(originalImage, 0, 0, width, height);
+
+	        // Ajusta la transpariencia del fondo para evitar fondos blancos
+	        SnapshotParameters sp = new SnapshotParameters();
+	        sp.setFill(Color.TRANSPARENT);
+	        WritableImage scaledImage = new WritableImage(width, height);
+	        canvas.snapshot(sp, scaledImage);
+
+	        // Crear cursor centrado
+	        ImageCursor customCursor = new ImageCursor(scaledImage, width/2.0, height/2.0);
+
+	        // Aplicar a la escena
+	        if (stage.getScene() != null) {
+	            stage.getScene().setCursor(customCursor);
+	        } else {
+	            stage.sceneProperty().addListener((obs, o, n) -> {
+	                if (n != null) n.setCursor(customCursor);
+	            });
+	        }
+	    } catch (Exception e) {
+	        System.err.println("No se pudo cargar el cursor desde: " + ruta);
+	        e.printStackTrace();
+	    }
+	}
 
 }

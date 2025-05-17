@@ -134,7 +134,13 @@ public class SeleccionarRivalController {
 
     @FXML
     void activarDesactivarSonido(MouseEvent event) {
-
+    	loginController.sonido();
+    	if (loginController.sonido) {
+    		imgSonido.setImage(new Image(new File("./img/conSonido.png").toURI().toString()));
+    	}
+    	else {
+    		imgSonido.setImage(new Image(new File("./img/sinSonido.png").toURI().toString()));
+    	}
     }
     
     @FXML

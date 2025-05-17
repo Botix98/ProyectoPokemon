@@ -10,7 +10,7 @@ public enum TipoEstados {
 	HELADO("HEL"),
 	SOMNOLIENTO("SOM"),
 	POKERUS(""),
-	DEBILITADO(""),
+	DEBILITADO("OUT"),
 	CONFUSO("CONF"),
 	ENAMORADO("ENM"),
 	ATRAPADO("ATR"),

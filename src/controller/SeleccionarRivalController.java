@@ -247,7 +247,7 @@ public class SeleccionarRivalController {
     @FXML
     void seleccionarRival1(MouseEvent event) {
     	if (imgRival1.getEffect() == null) {
-    		rival = new Rival(rivalEnum.getNombre(), 0, "Bien hecho. Has conseguido vencerme", "Necesitas entrenar mas. Pasate por el entrenamiento para mejorar a tus pojemon", "Hay que saber cuando rendirse");
+    		rival = new Rival(rivalEnum.getNombre(), 0, "Bien hecho. Has conseguido vencerme", "Necesitas entrenar mas. Pasate por el entrenamiento para mejorar a tus pokemon", "Hay que saber cuando rendirse");
             irCombate(generarEquipoRival());
     	}
     }

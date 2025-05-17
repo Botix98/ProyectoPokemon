@@ -463,6 +463,9 @@ public class EntrenamientoController {
         } else {
         	pbVidaPokemonEntrenador.setStyle("-fx-accent: #00a135;");
         }
+		
+		String ruta = "C:/ProyectoPokemon/sonidos/Pokemon/" + equipoEntrenador.get(pokActEntr).getNumPokedex() + ".wav";
+		SonidoController.reproducirEfecto(ruta, null);
 	}
     
     private void generarPokemonRival() {
@@ -477,6 +480,9 @@ public class EntrenamientoController {
 		int velocidad = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getVelocidad() * 2) + (int) (Math.random() * 32)));
         
 		pokemonRival = new Pokemon(0, 0, 0, "RIVAL", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 0, "F", "SIN_ESTADO", 1, 0, 0);
+		
+		String ruta = "C:/ProyectoPokemon/sonidos/Pokemon/" + numPokedex + ".wav";
+		SonidoController.reproducirEfecto(ruta, null);
 		
 		lblNombrePokemonRival.setText(pokemonRival.getMote());
 		lblNivelPokemonRival.setText(Integer.toString(pokemonRival.getNivel()));
@@ -657,7 +663,7 @@ public class EntrenamientoController {
         } else if (!btnAtaque1.isVisible() && comprobarEstadoAntesAtaque(defensor, atacante, !esTurnoEntrenador)) {
             tipoDeMovimiento(movDefensor, movAtacante, defensor, atacante, !esTurnoEntrenador, false);
         } else {
-        	PauseTransition pausa = new PauseTransition(Duration.seconds(2));
+        	PauseTransition pausa = new PauseTransition(Duration.seconds(1));
             pausa.setOnFinished(event -> {
                 //activarBotonesMovimientos();
             	activarBotonesSeleccionAccion();
@@ -705,8 +711,7 @@ public class EntrenamientoController {
 				return quitarEstado(pokemon, esTurnoEntrenador);
 			} else if ((int) (Math.random() * 100) + 1 > 67){
 				lblTexto.setText(pokemon.getMote() + " se ha golpeado a si mismo!");
-				//ESTO PUEDE ESTAR MAL PUEDE QUE SALGA DEL METODO SIN HACER LO DE LA TRANSICION --------------------------------------------------------
-				PauseTransition pausa = new PauseTransition(Duration.seconds(2));
+				PauseTransition pausa = new PauseTransition(Duration.seconds(1));
 				pausa.setOnFinished(event -> {
 					actualizarVida(pokemon, esTurnoEntrenador ? false : true, calcularDano(null, pokemon, pokemon));
 					
@@ -739,14 +744,14 @@ public class EntrenamientoController {
     private void realizarAtaquePokemon(Movimiento movAtacante, Movimiento movDefensor, Pokemon atacante, Pokemon defensor, boolean esTurnoEntrenador, boolean primeraParte) {
     	lblTexto.setText(atacante.getMote() + " ha usado " + movAtacante.getNombre());
 
-        PauseTransition pausa1 = new PauseTransition(Duration.seconds(2));
+        PauseTransition pausa1 = new PauseTransition(Duration.seconds(1));
         pausa1.setOnFinished(event1 -> {
             if (movAtacante.getProbabilidad() > ((int) (Math.random() * 100) + 1)) {
                 lblTexto.setText(atacante.getMote() + " ha golpeado a " + defensor.getMote());
                 
                 actualizarVida(defensor, esTurnoEntrenador, calcularDano(movAtacante, atacante, defensor));
                 
-                PauseTransition pausa2 = new PauseTransition(Duration.seconds(2));
+                PauseTransition pausa2 = new PauseTransition(Duration.seconds(1));
                 pausa2.setOnFinished(event2 -> {
                     if (defensor.getVitalidadAct() == 0) {
                         manejarPokemonDebilitado(defensor, atacante, esTurnoEntrenador);
@@ -758,7 +763,7 @@ public class EntrenamientoController {
             } else {
                 lblTexto.setText(atacante.getMote() + " ha fallado!");
                 
-                PauseTransition pausa2 = new PauseTransition(Duration.seconds(2));
+                PauseTransition pausa2 = new PauseTransition(Duration.seconds(1));
                 pausa2.setOnFinished(event2 -> {
                 	turnoDefensor(movAtacante, movDefensor, atacante, defensor, esTurnoEntrenador, primeraParte);
                 });
@@ -771,7 +776,7 @@ public class EntrenamientoController {
     private void movimientoMejora(Movimiento movAtacante, Movimiento movDefensor, Pokemon atacante, Pokemon defensor, boolean esTurnoEntrenador, boolean primeraParte) {
 		lblTexto.setText(atacante.getMote() + " ha usado " + movAtacante.getNombre());
 		
-		PauseTransition pausa1 = new PauseTransition(Duration.seconds(2));
+		PauseTransition pausa1 = new PauseTransition(Duration.seconds(1));
 		pausa1.setOnFinished(event1 -> {
 			switch (movAtacante.getMejora()) {
 			case "SUBIR_ATAQUE":
@@ -821,7 +826,7 @@ public class EntrenamientoController {
 			}	  
 		});
 		
-		PauseTransition pausa2 = new PauseTransition(Duration.seconds(2));
+		PauseTransition pausa2 = new PauseTransition(Duration.seconds(1));
 		pausa2.setOnFinished(event2 -> {
 			turnoDefensor(movAtacante, movDefensor, atacante, defensor, esTurnoEntrenador, primeraParte);
 		});
@@ -834,17 +839,17 @@ public class EntrenamientoController {
 			boolean esTurnoEntrenador, boolean primeraParte) {
 		//Antes de que le toque al defensor vemos si el atacante ha sido debilitado por algun efecto
 		if (efectoEstadoFinalTurno(atacante, esTurnoEntrenador ? false : true)) {//he cambiado esto. antes era solo esTurnoEntrenador
-			PauseTransition pausa = new PauseTransition(Duration.seconds(2));
+			PauseTransition pausa = new PauseTransition(Duration.seconds(1));
             pausa.setOnFinished(event -> {
             	if (primeraParte) {
     				if (comprobarEstadoAntesAtaque(defensor, atacante, esTurnoEntrenador ? false : true)) {
-    					PauseTransition pausa1 = new PauseTransition(Duration.seconds(2));
+    					PauseTransition pausa1 = new PauseTransition(Duration.seconds(1));
     					pausa1.setOnFinished(event1 -> {
     						tipoDeMovimiento(movDefensor, movAtacante, defensor, atacante, esTurnoEntrenador ? false : true, false);
     					});
     					pausa1.play();
     				} else {
-    					PauseTransition pausa1 = new PauseTransition(Duration.seconds(2));
+    					PauseTransition pausa1 = new PauseTransition(Duration.seconds(1));
     					pausa1.setOnFinished(event1 -> {
     						activarBotonesSeleccionAccion();
     						//activarBotonesMovimientos();
@@ -904,7 +909,7 @@ public class EntrenamientoController {
 		
 		defensor.setEstado(movAtacante.getEstado());
 		
-		PauseTransition pausa1 = new PauseTransition(Duration.seconds(2));
+		PauseTransition pausa1 = new PauseTransition(Duration.seconds(1));
 		pausa1.setOnFinished(event1 -> {
 			lblTexto.setText(defensor.getMote() + " ha sido " + movAtacante.getEstado().toString().toLowerCase());
 			
@@ -915,7 +920,7 @@ public class EntrenamientoController {
 			}
 		});
 		
-		PauseTransition pausa2 = new PauseTransition(Duration.seconds(2));
+		PauseTransition pausa2 = new PauseTransition(Duration.seconds(1));
 		pausa2.setOnFinished(event2 -> {
 			if (!(defensor.getEstado().equals(TipoEstados.valueOf("CONGELADO")) || defensor.getEstado().equals(TipoEstados.valueOf("DORMIDO"))
 					|| defensor.getEstado().equals(TipoEstados.valueOf("PARALIZADO")) || defensor.getEstado().equals(TipoEstados.valueOf("ENAMORADO")))) {
@@ -950,7 +955,7 @@ public class EntrenamientoController {
         });
         
         if (equipoEntrenador.get(pokActEntr).getNivel() < 100 && pokemonRival.getVitalidadAct() == 0) {
-        	int xp = (atacante.getNivel() + defensor.getNivel() * 10) / 4 + 100000; //---------------------------------------
+        	int xp = Math.max((atacante.getNivel() + defensor.getNivel() * 10) / 4 + 100000, 50);
         	
         	System.out.println("Experiencia antes: " + equipoEntrenador.get(pokActEntr).getExperiencia());
         	
@@ -958,12 +963,12 @@ public class EntrenamientoController {
         	
         	System.out.println("Experiencia despues: " + equipoEntrenador.get(pokActEntr).getExperiencia());
         	
-        	PauseTransition pausa2 = new PauseTransition(Duration.seconds(2));
+        	PauseTransition pausa2 = new PauseTransition(Duration.seconds(1));
             pausa2.setOnFinished(event2 -> {
             	lblTexto.setText(equipoEntrenador.get(pokActEntr).getMote() + " ha ganado " + xp + " puntos de experiencia");
             });
             
-            PauseTransition pausa3 = new PauseTransition(Duration.seconds(2));
+            PauseTransition pausa3 = new PauseTransition(Duration.seconds(1));
             pausa3.setOnFinished(event3 -> {
             	actualizarXP(activo);
             	PokemonDAO.actualizarPokemonSubirNivel(con, equipoEntrenador.get(pokActEntr));
@@ -998,7 +1003,7 @@ public class EntrenamientoController {
 		double aumPorPaso = (porcentajeFinal - pbXpPokemonEntrenador.getProgress()) / numCiclos;
 		
 		Timeline timeline = new Timeline(
-		    new KeyFrame(Duration.seconds(0.017), e -> {
+		    new KeyFrame(Duration.seconds(0.01), e -> {
 		        double current = pbXpPokemonEntrenador.getProgress();
 		        
 		        if (current < porcentajeFinal) {
@@ -1035,7 +1040,7 @@ public class EntrenamientoController {
 				
 				vBoxEstadisticas.setVisible(true);
 				
-				PauseTransition pausa = new PauseTransition(Duration.seconds(2));
+				PauseTransition pausa = new PauseTransition(Duration.seconds(1));
 		        pausa.setOnFinished(event1 -> {
 		        	vBoxEstadisticas.setVisible(false);
 		        });
@@ -1058,8 +1063,15 @@ public class EntrenamientoController {
 	        	listaMovPosiblesEntr = MovimientoDAO.buscarPorTipoMov(con, TipoPokemon.NORMAL.toString());
 	        	listaMovPosiblesEntr.addAll(MovimientoDAO.buscarPorTipoMov(con, PokedexDAO.cargarPorNumPokedex(con, equipoEntrenador.get(pokActEntr).getNumPokedex()).getTipo(0)));
 	        	if (PokedexDAO.cargarPorNumPokedex(con, equipoEntrenador.get(pokActEntr).getNumPokedex()).getTipo(1) != null) {
-	        		listaMovPosiblesEntr.addAll(MovimientoDAO.buscarPorTipoMov(con, PokedexDAO.cargarPorNumPokedex(con, equipoEntrenador.get(pokActEntr).getNumPokedex()).getTipo(0)));
+	        		listaMovPosiblesEntr.addAll(MovimientoDAO.buscarPorTipoMov(con, PokedexDAO.cargarPorNumPokedex(con, equipoEntrenador.get(pokActEntr).getNumPokedex()).getTipo(1)));
 	        	}
+	        	
+	        	System.out.println(PokedexDAO.cargarPorNumPokedex(con, equipoEntrenador.get(pokActEntr).getNumPokedex()).getTipo(0));
+	        	System.out.println(PokedexDAO.cargarPorNumPokedex(con, equipoEntrenador.get(pokActEntr).getNumPokedex()).getTipo(1));
+	        	for (Movimiento mov : listaMovPosiblesEntr) {
+					System.out.println(mov.toString());
+				}
+	        	
 	        	do {
 	        		movimientoNuevo = listaMovPosiblesEntr.get((int) (Math.random() * listaMovPosiblesEntr.size()));
 	        	} while(comprobarMovimientos(movimientoNuevo));
@@ -1150,7 +1162,7 @@ public class EntrenamientoController {
 			actualizarBarraVida(pbVidaPokemonEntrenador, defensor);
 			
 			//BAJAR POCO A POCO EL TEXTO DE LA VIDA DEL POKEMON DEL ENTRENADOR
-			double tiempoPorCiclo = 1.5 / dano;
+			double tiempoPorCiclo = 1 / dano;
 			
 			Timeline timeline = new Timeline(
 			    new KeyFrame(Duration.seconds(tiempoPorCiclo), e -> {
@@ -1174,7 +1186,7 @@ public class EntrenamientoController {
 			timeline.setCycleCount(dano);
 			timeline.play();
 			
-			PauseTransition pausa1 = new PauseTransition(Duration.seconds(1.5));
+			PauseTransition pausa1 = new PauseTransition(Duration.seconds(1));
 	        pausa1.setOnFinished(event1 -> {
 	        	lblVidaPokemonEntrenador.setText(defensor.getVitalidadAct() + "/" + defensor.getVitalidadMax());
 	        });
@@ -1189,7 +1201,7 @@ public class EntrenamientoController {
 		double decrPorPaso = (pb.getProgress() - porcentajeFinal) / numCiclos;
 		
 		Timeline timeline = new Timeline(
-		    new KeyFrame(Duration.seconds(0.017), e -> {
+		    new KeyFrame(Duration.seconds(0.01), e -> {
 		        double current = pb.getProgress();
 		        
 		        if (current < 0.25){
@@ -1294,7 +1306,7 @@ public class EntrenamientoController {
     	lblTexto.setVisible(false);
     	lblTexto.setText("El ataque " + movimiento + " no tiene PPs");
     	
-    	PauseTransition pausa = new PauseTransition(Duration.seconds(2));
+    	PauseTransition pausa = new PauseTransition(Duration.seconds(1));
     	pausa.setOnFinished(evento -> {
             activarBotonesMovimientos();
         });
@@ -1508,7 +1520,7 @@ public class EntrenamientoController {
 			equipoEntrenador.get(pokActEntr).setExperiencia(0);
 		}
     	pbXpPokemonEntrenador.setProgress(0.0001);
-		PauseTransition pausa = new PauseTransition(Duration.seconds(2));
+		PauseTransition pausa = new PauseTransition(Duration.seconds(1));
         pausa.setOnFinished(event1 -> {
         	if (PokedexDAO.cargarPorNumPokedex(ConexionBD.getConnection(), equipoEntrenador.get(pokActEntr).getNumPokedex()).getNivelEvo() == equipoEntrenador.get(pokActEntr).getNivel()) {
         		imgPokemonEntrenador.setImage(equipoEntrenador.get(pokActEntr).evolucionar());
@@ -1520,7 +1532,7 @@ public class EntrenamientoController {
         		double aumPorPaso2 = (porcentajeFinal2 - pbXpPokemonEntrenador.getProgress()) / 90;
         		
         		Timeline timeline2 = new Timeline(
-        		    new KeyFrame(Duration.seconds(0.017), e2 -> {
+        		    new KeyFrame(Duration.seconds(0.01), e2 -> {
         		        double current = pbXpPokemonEntrenador.getProgress();
         		        
         		        if (current < porcentajeFinal2) {
@@ -1532,7 +1544,7 @@ public class EntrenamientoController {
         		timeline2.play();
         		
         		timeline2.setOnFinished(e2 -> {
-        			PauseTransition pausa1 = new PauseTransition(Duration.seconds(2));
+        			PauseTransition pausa1 = new PauseTransition(Duration.seconds(1));
                     pausa1.setOnFinished(event2 -> {
                     	activo.set(true);
                     });
@@ -1690,6 +1702,7 @@ public class EntrenamientoController {
     	vBoxEquipo.setVisible(false);
     	btnCambiarPokemon.setVisible(false);
     	imgSeleccionAccion.setVisible(false);
+    	btnCambiarRival2.setVisible(false);
     	
     	lblTexto.setVisible(true);
     	lblTexto.setText("Has huido con exito!");
@@ -1705,7 +1718,7 @@ public class EntrenamientoController {
 		EntrenadorDAO.actualizarPokedolares(con, entrenador.getIdEntrenador(), entrenador.getPokedolares() - (entrenador.getPokedolares() / 3));
 		EntrenadorDAO.actualizarRivalesVencidos(con, entrenador.getIdEntrenador(), entrenador.getRivalesVencidos());
     	
-    	PauseTransition pausa = new PauseTransition(Duration.seconds(2));
+    	PauseTransition pausa = new PauseTransition(Duration.seconds(1));
 		pausa.setOnFinished(evento -> {
 			try {
 	    		SonidoController.detenerFondo("C:/ProyectoPokemon/sonidos/Entrenamiento.mp3");

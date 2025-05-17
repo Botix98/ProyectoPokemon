@@ -17,7 +17,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Entrenador;
+import model.Pokemon;
+
 import java.io.InputStream;
+import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
+
+import dao.ConexionBD;
+import dao.PokemonDAO;
+
 import java.io.File;
 import java.io.FileInputStream;
 import javafx.scene.paint.Color;
@@ -195,42 +204,68 @@ public class MenuController {
     
     @FXML
     void irEntrenamiento(ActionEvent event) {
-    	try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/entrenamiento.fxml"));
-            Parent root = loader.load();
-
-            EntrenamientoController entrenamientoController = loader.getController();
-
-            // Inicializamos la pantalla de Entrenamiento
-            entrenamientoController.init(this.entrenador, this.stage, this.loginController, this); 
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-	        stage.setTitle("Entrenamiento");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    	LinkedList<Pokemon> pokemonEntrenador = PokemonDAO.cargarPokemonEquipoEntrenador(ConexionBD.getConnection(), entrenador.getIdEntrenador(), 1);
+    	int cont = 0;
+    	
+    	for (Pokemon pokemon : pokemonEntrenador) {
+			if (pokemon.getVitalidadAct() == 0) {
+				cont++;
+			}
+		}
+    	
+    	if (cont != pokemonEntrenador.size()) {
+	    	try {
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/entrenamiento.fxml"));
+	            Parent root = loader.load();
+	
+	            EntrenamientoController entrenamientoController = loader.getController();
+	
+	            // Inicializamos la pantalla de Entrenamiento
+	            entrenamientoController.init(this.entrenador, this.stage, this.loginController, this); 
+	
+	            Scene scene = new Scene(root);
+	            stage.setScene(scene);
+		        stage.setTitle("Entrenamiento");
+	            stage.show();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+    	} else {
+    		JOptionPane.showMessageDialog(null, "Tienes todos los pokemon debilitados. Pasate por el centro pokemon.");
+    	}
     }
     
     @FXML
     void irCombate(ActionEvent event) {
-    	try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/seleccionRival.fxml"));
-            Parent root = loader.load();
+    	LinkedList<Pokemon> pokemonEntrenador = PokemonDAO.cargarPokemonEquipoEntrenador(ConexionBD.getConnection(), entrenador.getIdEntrenador(), 1);
+    	int cont = 0;
+    	
+    	for (Pokemon pokemon : pokemonEntrenador) {
+			if (pokemon.getVitalidadAct() == 0) {
+				cont++;
+			}
+		}
+    	
+    	if (cont != pokemonEntrenador.size()) {
+    		try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/seleccionRival.fxml"));
+                Parent root = loader.load();
 
-            SeleccionarRivalController seleccionarRivalController = loader.getController();
+                SeleccionarRivalController seleccionarRivalController = loader.getController();
 
-            // Inicializamos la pantalla de Combate
-            seleccionarRivalController.init(this.entrenador, this.stage, this.loginController, this); 
+                // Inicializamos la pantalla de Combate
+                seleccionarRivalController.init(this.entrenador, this.stage, this.loginController, this); 
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-	        stage.setTitle("Seleccionar rival");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+    	        stage.setTitle("Seleccionar rival");
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+    	} else {
+    		JOptionPane.showMessageDialog(null, "Tienes todos los pokemon debilitados. Pasate por el centro pokemon.");
+    	}
     }
     
     @FXML

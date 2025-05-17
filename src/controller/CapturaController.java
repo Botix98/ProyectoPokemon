@@ -207,7 +207,18 @@ public class CapturaController {
     
     public Pokemon generarPokemonSalvaje() {
         //usar los pokemon por tipo
-        LinkedList<Pokedex> posibles = PokedexDAO.cargarPorVariosTipos(con, tipoFondo1, tipoFondo2);
+        LinkedList<Pokedex> pokedex = PokedexDAO.cargarPorVariosTipos(con, tipoFondo1, tipoFondo2);
+        LinkedList<Pokedex> posibles = new LinkedList<Pokedex>();
+        
+        for (Pokedex pokedex2 : pokedex) {
+			if (pokedex2.getTipos()[0].equals(tipoFondo1) || pokedex2.getTipos()[0].equals(tipoFondo2)) {
+				posibles.add(pokedex2);
+			} else if (pokedex2.getTipos()[1] != null) {
+				if (pokedex2.getTipos()[1].equals(tipoFondo1) || pokedex2.getTipos()[1].equals(tipoFondo2)) {
+					posibles.add(pokedex2);
+				}
+			}
+		}
 
         if (posibles == null || posibles.isEmpty()) {
             System.err.println("No hay Pokémon disponibles para los tipos: " + tipoFondo1 + ", " + tipoFondo2);
@@ -300,8 +311,7 @@ public class CapturaController {
         String mote = JOptionPane.showInputDialog(null, "Ingresa el mote del nuevo Pokémon:");
 
         if (mote == null || mote.trim().isEmpty()) {
-            mostrarMensajeTemporal("Captura cancelada. Mote inválido.", 2);
-            return;
+            mote = pokemonSalvaje.getMote();
         }
 
         int nuevoId = PokemonDAO.obtenerMaxIdPokemon(con) + 1;

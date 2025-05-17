@@ -29,6 +29,25 @@ public class PokedexDAO {
 		return pokedex;
 	}
 	
+	public static LinkedList<Pokedex> cargarPokedexEntreNumsPokedex(Connection con, int num1, int num2) {
+		LinkedList<Pokedex> pokedex = new LinkedList<>();
+		
+		String query = "SELECT * FROM POKEDEX WHERE NUM_POKEDEX BETWEEN ? AND ? ORDER BY NUM_POKEDEX";
+		
+		try {
+			PreparedStatement pt = con.prepareStatement(query);
+			pt.setInt(1, num1);
+			pt.setInt(2, num2);
+			ResultSet rs = pt.executeQuery();
+
+			recorrerRS(pokedex, rs);
+		} catch (SQLException e) {
+			ConexionBD.printSQLException(e);
+		}
+
+		return pokedex;
+	}
+	
 	public static Pokedex cargarPorNumPokedex(Connection con, int numPokedex) {
 		
 		String query = "SELECT NUM_POKEDEX, "

@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import dao.ConexionBD;
 import dao.EntrenadorDAO;
+import dao.MochilaDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +26,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import model.Entrenador;
+import model.Mochila;
 import model.Movimiento;
 import model.Pokemon;
 
@@ -121,6 +123,7 @@ public class LoginController {
             nuevoEntrenador.setPass(pass);
             nuevoEntrenador.setRivalesVencidos(-3);
             nuevoEntrenador.setPokedolares((int)(Math.random() * 201) + 800);
+            nuevoEntrenador.setPokebolas(20);
 
             boolean exito = EntrenadorDAO.insertarEntrenador(con, nuevoEntrenador);
 
@@ -137,6 +140,12 @@ public class LoginController {
                 stage.setScene(scene);
                 stage.setTitle("Selecciona tu Pokémon inicial");
                 stage.show();
+                //20 pokebolas al inicio
+                Mochila pokebolasIniciales = new Mochila();
+                pokebolasIniciales.setIdEntrenador(nuevoId);
+                pokebolasIniciales.setIdObjeto(8);
+                pokebolasIniciales.setCantidad(20);
+                MochilaDAO.insertarEnMochila(con, pokebolasIniciales);
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo registrar el usuario.");
             }

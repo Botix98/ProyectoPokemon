@@ -276,8 +276,6 @@ public class EquipoController {
         // Verificar si hay más de una unidad
         if (mochila.getCantidad() > 1) {
             mochila.setCantidad(mochila.getCantidad() - 1);
-
-            // Actualizar cantidad en la base de datos
             boolean exito = MochilaDAO.actualizarCantidad(ConexionBD.getConnection(), mochila);
 
             if (exito) {
@@ -299,55 +297,7 @@ public class EquipoController {
             }
         }
     }
-/**
- 
-    @FXML
-    private void usarObjeto(Mochila mochila) {
-        if (pokemonSeleccionado == null) {
-            JOptionPane.showMessageDialog(null, "Debes seleccionar un Pokémon para usar el objeto.");
-            return;
-        }
 
-        // Buscar objeto en la base de datos
-        Objeto objeto = ObjetoDAO.buscarObjetoPorId(con, mochila.getIdObjeto());
-        if (objeto == null) {
-            JOptionPane.showMessageDialog(null, "Objeto no encontrado.");
-            return;
-        }
-
-        // Verificamos si el objeto tiene efecto de curación
-        int vidaActual = pokemonSeleccionado.getVitalidadAct();
-        int vidaMax = pokemonSeleccionado.getVitalidadMax();
-
-        if (vidaActual >= vidaMax) {
-            JOptionPane.showMessageDialog(null, pokemonSeleccionado.getMote() + " ya tiene la vitalidad completa.");
-            return;
-        }
-
-        // Curar vida (por ejemplo, objeto.getCuracion() puede ser un atributo que define cuánto cura)
-        int nuevaVida = vidaActual + objeto.getCuracion();
-        if (nuevaVida > vidaMax) nuevaVida = vidaMax;
-        pokemonSeleccionado.setVitalidadAct(nuevaVida);
-
-        // Actualizar en la base de datos
-        PokemonDAO.actualizarVitalidad(con, pokemonSeleccionado.getIdPokemon(), nuevaVida);
-
-        // Restar objeto de la mochila
-        restarUnoObjetoMochila(mochila);
-
-        // Actualizar interfaz
-        double progreso = (double) nuevaVida / vidaMax;
-        pbPokemonSeleccionado.setProgress(progreso);
-        actualizarColorPB(pbPokemonSeleccionado);
-
-        JOptionPane.showMessageDialog(null, "Has usado " + objeto.getNomObjeto() + " en " + pokemonSeleccionado.getMote());
-    }
-    
-    * 
- * @param mochila
- */
-    
-    
     private void mostrarEquipo() {
         equipo = new LinkedList<>(PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1));
 
@@ -459,7 +409,7 @@ public class EquipoController {
 	    // Actualizar el valor de equipo a 2
 	    PokemonDAO.actualizarEquipo(con, pokemonSeleccionado.getIdPokemon(), 2);
 
-	    // Eliminar el Pokémon del equipo en memoria
+	    // Eliminar el Pokémon del equipo
 	    equipo.remove(pokemonSeleccionado);
 	    System.out.println("Pokémon enviado a la caja.");
 	    mostrarEquipo();

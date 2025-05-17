@@ -118,6 +118,7 @@ public class CapturaController {
         lblRatioCatchSuperball.setText("Captura: 50%");
         lblRatioCatchUltraball.setText("Captura: 80%");
         
+        //comentar/descomentar para pruebas
         //entrenador.setRivalesVencidos(5);
 
         switch (entrenador.getRivalesVencidos()) {
@@ -219,7 +220,7 @@ public class CapturaController {
 
         int nivel = 1;
 
-        // Calcular los stats como antes
+        // Calcular los stats
         int vitalidadMax = 10 + (int)((double)(nivel) / 50 * (pokemonData.getVitalidad() * 2) + (Math.random() * 32)) + nivel;
         int ataque = 5 + (int)((double)(nivel) / 50 * ((pokemonData.getAtaque() * 2) + (Math.random() * 32)));
         int ataqueEsp = 5 + (int)((double)(nivel) / 50 * ((pokemonData.getAtEspecial() * 2) + (Math.random() * 32)));

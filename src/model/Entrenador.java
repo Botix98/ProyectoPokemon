@@ -7,7 +7,8 @@ public class Entrenador {
 	private int pokedolares;
 	private int idEntrenador;
 	private int rivalesVencidos;
-	
+	private int pokebolas;
+
 	/**
 	 * @param usuario
 	 * @param pass
@@ -88,6 +89,14 @@ public class Entrenador {
 		this.rivalesVencidos = rivalesVencidos;
 	}
 
+	public int getPokebolas() {
+	    return pokebolas;
+	}
+
+	public void setPokebolas(int pokebolas) {
+	    this.pokebolas = pokebolas;
+	}
+	
 	@Override
 	public String toString() {
 		return "Entrenador [usuario=" + usuario + ", pass=" + pass + ", pokedolares=" + pokedolares + ", idEntrenador="

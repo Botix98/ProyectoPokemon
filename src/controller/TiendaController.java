@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -88,7 +89,15 @@ public class TiendaController {
     private Text txtSalir;
     
     @FXML
+    private Text txtTienes;
+    
+    @FXML
+    private Label lblDienero;
+    
+    @FXML
     private ImageView imgSalir;
+    
+    Connection con = ConexionBD.getConnection();
     
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController, CentroPokemonController centroPokemonController) {
         this.entrenador = entr;
@@ -97,13 +106,16 @@ public class TiendaController {
         this.menuController = menuController;
         this.centroPokemonController = centroPokemonController;
         
+        lblDienero.setText(entrenador.getPokedolares() + "");
+
+        
         cargarObjetosTienda();
         cargarObjetosMochila();
     }
     
     // Método para cargar los objetos de la tienda en la tabla
     private void cargarObjetosTienda() {
-        Connection con = ConexionBD.getConnection();
+
         LinkedList<Objeto> objetosTienda = ObjetoDAO.cargarObjetos(con);
 
         // Pasar la lista como ObservableList a la TableView
@@ -124,7 +136,6 @@ public class TiendaController {
 
  // Método para cargar los objetos de la mochila en la tabla
     private void cargarObjetosMochila() {
-        Connection con = ConexionBD.getConnection();
         LinkedList<Mochila> objetosMochila = MochilaDAO.cargarMochilaPorEntrenador(con, entrenador.getIdEntrenador());
 
         tvMochila.getItems().setAll(objetosMochila);
@@ -194,6 +205,7 @@ public class TiendaController {
         } else {
             System.out.println("ID_ENTRENADOR no válido.");
         }
+        lblDienero.setText(entrenador.getPokedolares() + "");
     }
     
     private void venderObjetoMochila(Mochila mochila) {
@@ -234,6 +246,7 @@ public class TiendaController {
                 System.out.println("Has vendido el último objeto de tu mochila: " + objeto.getNomObjeto());
             }
         }
+        lblDienero.setText(entrenador.getPokedolares() + "");
     }
     
     @FXML

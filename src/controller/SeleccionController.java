@@ -186,11 +186,11 @@ public class SeleccionController {
         }
 
      // Anadir placaje (ID 54)
-        Movimiento placaje = MovimientoDAO.buscarPorId(con, 60);
+        Movimiento placaje = MovimientoDAO.buscarPorId(con, 50);
         if (placaje != null) {
             MovimientoPokemon mp1 = new MovimientoPokemon();
             mp1.setIdPokemon(nuevo.getIdPokemon());
-            mp1.setIdMovimiento(60);
+            mp1.setIdMovimiento(50);
             mp1.setPpActuales(placaje.getPpMax());
             MovimientoPokemonDAO.insertarMovimientoPokemon(con, mp1);
         }

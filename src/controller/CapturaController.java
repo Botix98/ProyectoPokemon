@@ -323,7 +323,7 @@ public class CapturaController {
             mostrarMensajeTemporal("¡" + pokemonSalvaje.getMote() + " se ha enviado a la caja!", 2);
         }
      // Obtiene el movimiento especifico usando el MovimientoDAO
-        Movimiento placaje = MovimientoDAO.buscarPorId(con, 60);
+        Movimiento placaje = MovimientoDAO.buscarPorId(con, 50);
         if (placaje != null) {
 
             MovimientoPokemon movimientoPokemon = new MovimientoPokemon();

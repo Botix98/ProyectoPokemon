@@ -33,6 +33,7 @@
 -->
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -98,6 +99,15 @@
             <Text fx:id="txtSalir" fill="WHITE" layoutX="121.0" layoutY="626.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="SALIR">
                <font>
                   <Font name="System Bold" size="30.0" />
+               </font>
+            </Text>
+            <Label fx:id="lblDienero" layoutX="657.0" layoutY="61.0" prefHeight="47.0" prefWidth="216.0" text="Label">
+               <font>
+                  <Font name="Arial Bold" size="42.0" />
+               </font></Label>
+            <Text fx:id="txtTienes" layoutX="503.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tienes:">
+               <font>
+                  <Font name="Arial Bold" size="42.0" />
                </font>
             </Text>
          </children>

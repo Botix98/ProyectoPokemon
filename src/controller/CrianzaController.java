@@ -129,7 +129,7 @@ public class CrianzaController {
     }
 
     public void initialize() {
-    	SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/Crianza.mp3");
+    	SonidoController.reproducirFondo("C:/ProyectoPokemon/sonidos/Laboratorio.mp3");
 
         imgFusionar.setOnMouseClicked(this::fusionar);
     }
@@ -263,7 +263,7 @@ public class CrianzaController {
         boolean insertado = PokemonDAO.anyadirPokemon(con, pokemonHijoGenerado);
         
         // Obtiene el movimiento especifico usando el MovimientoDAO
-        Movimiento placaje = MovimientoDAO.buscarPorId(con, 60);
+        Movimiento placaje = MovimientoDAO.buscarPorId(con, 50);
         if (placaje != null) {
 
             MovimientoPokemon movimientoPokemon = new MovimientoPokemon();
@@ -288,9 +288,9 @@ public class CrianzaController {
         if (insertado) {
             String rutaImagen = "./img/Pokemon/Front/" + pokemonHijoGenerado.getNumPokedex() + ".png";
             imgCria.setImage(new Image(new File(rutaImagen).toURI().toString()));
-            System.out.println("Pokémon generado y añadido a la base de datos");
+            System.out.println("Pokémon generado y anadido a la base de datos");
         } else {
-            System.out.println("Error al añadir el nuevo Pokémon.");
+            System.out.println("Error al anadir el nuevo Pokémon.");
         }
     }
 
@@ -332,7 +332,7 @@ public class CrianzaController {
     @FXML
     void Salir(ActionEvent event) {
     	try {
-    		SonidoController.detenerFondo("C:/ProyectoPokemon/sonidos/Crianza.mp3");
+    		SonidoController.detenerFondo("C:/ProyectoPokemon/sonidos/Laboratorio.mp3");
     	    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Menu.fxml"));
     	    Parent root = loader.load();
 

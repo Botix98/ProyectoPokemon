@@ -119,6 +119,8 @@ public class LoginController {
             nuevoEntrenador.setIdEntrenador(nuevoId);
             nuevoEntrenador.setUsuario(usuario);
             nuevoEntrenador.setPass(pass);
+            nuevoEntrenador.setRivalesVencidos(-3);
+            nuevoEntrenador.setPokedolares((int)(Math.random() * 201) + 800);
 
             boolean exito = EntrenadorDAO.insertarEntrenador(con, nuevoEntrenador);
 

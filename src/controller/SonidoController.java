@@ -79,4 +79,13 @@ public class SonidoController {
         return sonidoActivo;
     }
 
+	/**
+	 * @return the rutaActualFondo
+	 */
+	public static String getRutaActualFondo() {
+		return rutaActualFondo;
+	}
+    
+    
+
 }

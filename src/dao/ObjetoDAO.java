@@ -23,11 +23,11 @@ public class ObjetoDAO {
                 Objeto objeto = new Objeto();
                 objeto.setIdObjeto(rs.getInt("ID_OBJETO"));
                 objeto.setNomObjeto(rs.getString("NOM_OBJETO"));
-                objeto.setAtaque(rs.getInt("ATAQUE"));
-                objeto.setAtaqueEsp(rs.getInt("AT_ESPECIAL"));
-                objeto.setDefensa(rs.getInt("DEFENSA"));
-                objeto.setDefensaEsp(rs.getInt("DEF_ESPECIAL"));
-                objeto.setVelocidad(rs.getInt("VELOCIDAD"));
+                objeto.setAtaque(rs.getDouble("ATAQUE"));
+                objeto.setAtaqueEsp(rs.getDouble("AT_ESPECIAL"));
+                objeto.setDefensa(rs.getDouble("DEFENSA"));
+                objeto.setDefensaEsp(rs.getDouble("DEF_ESPECIAL"));
+                objeto.setVelocidad(rs.getDouble("VELOCIDAD"));
                 objeto.setPrecio(rs.getInt("PRECIO"));
                 objeto.setEquipable(rs.getBoolean("EQUIPABLE"));
 
@@ -53,11 +53,11 @@ public class ObjetoDAO {
                 objeto = new Objeto();
                 objeto.setIdObjeto(rs.getInt("ID_OBJETO"));
                 objeto.setNomObjeto(rs.getString("NOM_OBJETO"));
-                objeto.setAtaque(rs.getInt("ATAQUE"));
-                objeto.setAtaqueEsp(rs.getInt("AT_ESPECIAL"));
-                objeto.setDefensa(rs.getInt("DEFENSA"));
-                objeto.setDefensaEsp(rs.getInt("DEF_ESPECIAL"));
-                objeto.setVelocidad(rs.getInt("VELOCIDAD"));
+                objeto.setAtaque(rs.getDouble("ATAQUE"));
+                objeto.setAtaqueEsp(rs.getDouble("AT_ESPECIAL"));
+                objeto.setDefensa(rs.getDouble("DEFENSA"));
+                objeto.setDefensaEsp(rs.getDouble("DEF_ESPECIAL"));
+                objeto.setVelocidad(rs.getDouble("VELOCIDAD"));
                 objeto.setPrecio(rs.getInt("PRECIO"));
                 objeto.setEquipable(rs.getBoolean("EQUIPABLE"));
             }
@@ -75,11 +75,11 @@ public class ObjetoDAO {
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, objeto.getNomObjeto());
-            ps.setInt(2, objeto.getAtaque());
-            ps.setInt(3, objeto.getAtaqueEsp());
-            ps.setInt(4, objeto.getDefensa());
-            ps.setInt(5, objeto.getDefensaEsp());
-            ps.setInt(6, objeto.getVelocidad());
+            ps.setDouble(2, objeto.getAtaque());
+            ps.setDouble(3, objeto.getAtaqueEsp());
+            ps.setDouble(4, objeto.getDefensa());
+            ps.setDouble(5, objeto.getDefensaEsp());
+            ps.setDouble(6, objeto.getVelocidad());
             ps.setInt(7, objeto.getPrecio());
             ps.setBoolean(8, objeto.isEquipable());
 
@@ -98,11 +98,11 @@ public class ObjetoDAO {
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, objeto.getNomObjeto());
-            ps.setInt(2, objeto.getAtaque());
-            ps.setInt(3, objeto.getAtaqueEsp());
-            ps.setInt(4, objeto.getDefensa());
-            ps.setInt(5, objeto.getDefensaEsp());
-            ps.setInt(6, objeto.getVelocidad());
+            ps.setDouble(2, objeto.getAtaque());
+            ps.setDouble(3, objeto.getAtaqueEsp());
+            ps.setDouble(4, objeto.getDefensa());
+            ps.setDouble(5, objeto.getDefensaEsp());
+            ps.setDouble(6, objeto.getVelocidad());
             ps.setInt(7, objeto.getPrecio());
             ps.setBoolean(8, objeto.isEquipable());
             ps.setInt(9, objeto.getIdObjeto());

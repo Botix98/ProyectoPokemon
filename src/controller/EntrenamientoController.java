@@ -55,6 +55,7 @@ public class EntrenamientoController {
 	private int pokActEntr;
 	private int numPokVivosEntr;
 	private int indicePokSeleccionado;
+	private int turnosAnillo;
 	
 	private Movimiento movimientoNuevo;
 	private MovimientoPokemon movimientoViejo;
@@ -158,6 +159,9 @@ public class EntrenamientoController {
     private ImageView imgFondoEquipo1;
 
     @FXML
+    private ImageView imgFondoEquipo111;
+
+    @FXML
     private ImageView imgFondoEquipo2;
 
     @FXML
@@ -228,6 +232,18 @@ public class EntrenamientoController {
 
     @FXML
     private ImageView imgSonido;
+
+    @FXML
+    private Label lblAtaque;
+
+    @FXML
+    private Label lblAtaqueEsp;
+
+    @FXML
+    private Label lblDefensa;
+
+    @FXML
+    private Label lblDefensaEsp;
 
     @FXML
     private Label lblEfectoNuevo;
@@ -323,7 +339,13 @@ public class EntrenamientoController {
     private Label lblType;
 
     @FXML
+    private Label lblVelocidad;
+
+    @FXML
     private Label lblVidaPokemonEntrenador;
+
+    @FXML
+    private Label lblVitalidad;
 
     @FXML
     private ProgressBar pbVidaPokemonEntrenador;
@@ -338,6 +360,9 @@ public class EntrenamientoController {
     private VBox vBoxEquipo;
 
     @FXML
+    private VBox vBoxEstadisticas;
+
+    @FXML
     private VBox vBoxMovimientos;
 
     @FXML
@@ -350,6 +375,7 @@ public class EntrenamientoController {
         this.stage = stage;
         this.loginController = loginController;
         this.menuController = menuController;
+        turnosAnillo = 0;
         
         con = ConexionBD.getConnection();
         equipoEntrenador = PokemonDAO.cargarPokemonEquipoEntrenador(con, entrenador.getIdEntrenador(), 1);
@@ -450,7 +476,7 @@ public class EntrenamientoController {
 		int defensaEsp = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getDefEspecial() * 2) + (int) (Math.random() * 32)));
 		int velocidad = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getVelocidad() * 2) + (int) (Math.random() * 32)));
         
-		pokemonRival = new Pokemon(0, 0, 0, "RIVAL", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 0, "F", "SIN_ESTADO", 1, 0);
+		pokemonRival = new Pokemon(0, 0, 0, "RIVAL", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 0, "F", "SIN_ESTADO", 1, 0, 0);
 		
 		lblNombrePokemonRival.setText(pokemonRival.getMote());
 		lblNivelPokemonRival.setText(Integer.toString(pokemonRival.getNivel()));
@@ -613,7 +639,7 @@ public class EntrenamientoController {
     private void realizarAtaque(int movPokEntrenador, int movPokRival) {
         Movimiento movEntr = MovimientoDAO.buscarPorId(con, listaMovPokEntr.get(movPokEntrenador).getIdMovimiento());
         Movimiento movRival = movimientosRival.get(movPokRival);
-
+        
         // Compara velocidades y realiza los ataques en consecuencia
         if (equipoEntrenador.get(pokActEntr).getVelocidad() > pokemonRival.getVelocidad()) {
             realizarAtaqueSiPrimerAtacante(movEntr, movRival, equipoEntrenador.get(pokActEntr), pokemonRival, true);
@@ -924,7 +950,7 @@ public class EntrenamientoController {
         });
         
         if (equipoEntrenador.get(pokActEntr).getNivel() < 100 && pokemonRival.getVitalidadAct() == 0) {
-        	int xp = (atacante.getNivel() + defensor.getNivel() * 10) / 4;
+        	int xp = (atacante.getNivel() + defensor.getNivel() * 10) / 4 + 100000; //---------------------------------------
         	
         	System.out.println("Experiencia antes: " + equipoEntrenador.get(pokActEntr).getExperiencia());
         	
@@ -987,14 +1013,33 @@ public class EntrenamientoController {
 			if (nivelAux != equipoEntrenador.get(pokActEntr).getNivel()) {
 				lblTexto.setText(equipoEntrenador.get(pokActEntr).getMote() + " ha subido al nivel " + equipoEntrenador.get(pokActEntr).getNivel() + "! Sus estadisticas tambien suben!");
 				
-				int rand = (int) (Math.random() * 5) + 1;
+				int vitalidad = (int) (Math.random() * 5) + 1;
+				lblVitalidad.setText("Vitalidad: " + equipoEntrenador.get(pokActEntr).getVitalidadMax() + " + " + vitalidad);
+				equipoEntrenador.get(pokActEntr).setVitalidadMax(equipoEntrenador.get(pokActEntr).getVitalidadMax() + vitalidad);
+				equipoEntrenador.get(pokActEntr).setVitalidadAct(equipoEntrenador.get(pokActEntr).getVitalidadAct() + vitalidad);
+				int ataque = (int) (Math.random() * 5) + 1;
+				lblAtaque.setText("Ataque: " + equipoEntrenador.get(pokActEntr).getAtaque() + " + " + ataque);
+				equipoEntrenador.get(pokActEntr).setAtaque(equipoEntrenador.get(pokActEntr).getAtaque() + ataque);
+				int ataqueEsp = (int) (Math.random() * 5) + 1;
+				lblAtaqueEsp.setText("Ataque Esp: " + equipoEntrenador.get(pokActEntr).getAtEspecial() + " + " + ataqueEsp);
+				equipoEntrenador.get(pokActEntr).setAtEspecial(equipoEntrenador.get(pokActEntr).getAtEspecial() + ataqueEsp);
+				int defensa = (int) (Math.random() * 5) + 1;
+				lblDefensa.setText("Defensa: " + equipoEntrenador.get(pokActEntr).getDefensa() + " + " + defensa);
+				equipoEntrenador.get(pokActEntr).setDefensa(equipoEntrenador.get(pokActEntr).getDefensa() + defensa);
+				int defensaEsp = (int) (Math.random() * 5) + 1;
+				lblDefensaEsp.setText("Defensa Esp: " + equipoEntrenador.get(pokActEntr).getDefEspecial() + " + " + defensaEsp);
+				equipoEntrenador.get(pokActEntr).setDefEspecial(equipoEntrenador.get(pokActEntr).getDefEspecial() + defensaEsp);
+				int velocidad = (int) (Math.random() * 5) + 1;
+				lblVelocidad.setText("Velocidad: " + equipoEntrenador.get(pokActEntr).getVelocidad() + " + " + velocidad);
+				equipoEntrenador.get(pokActEntr).setVelocidad(equipoEntrenador.get(pokActEntr).getVelocidad() + velocidad);
 				
-				equipoEntrenador.get(pokActEntr).setVitalidadMax(equipoEntrenador.get(pokActEntr).getVitalidadMax() + rand);
-				equipoEntrenador.get(pokActEntr).setVitalidadAct(equipoEntrenador.get(pokActEntr).getVitalidadAct() + rand);
-				equipoEntrenador.get(pokActEntr).setAtaque(equipoEntrenador.get(pokActEntr).getAtaque() + (int) (Math.random() * 5) + 1);
-				equipoEntrenador.get(pokActEntr).setAtEspecial(equipoEntrenador.get(pokActEntr).getAtEspecial() + (int) (Math.random() * 5) + 1);
-				equipoEntrenador.get(pokActEntr).setDefensa(equipoEntrenador.get(pokActEntr).getDefensa() + (int) (Math.random() * 5) + 1);
-				equipoEntrenador.get(pokActEntr).setDefEspecial(equipoEntrenador.get(pokActEntr).getDefEspecial() + (int) (Math.random() * 5) + 1);
+				vBoxEstadisticas.setVisible(true);
+				
+				PauseTransition pausa = new PauseTransition(Duration.seconds(2));
+		        pausa.setOnFinished(event1 -> {
+		        	vBoxEstadisticas.setVisible(false);
+		        });
+		        pausa.play();
 				
 				lblVidaPokemonEntrenador.setText(equipoEntrenador.get(pokActEntr).getVitalidadAct() + "/" + equipoEntrenador.get(pokActEntr).getVitalidadMax());
 				pbVidaPokemonEntrenador.setProgress((double) (equipoEntrenador.get(pokActEntr).getVitalidadAct()) / equipoEntrenador.get(pokActEntr).getVitalidadMax());
@@ -1206,11 +1251,13 @@ public class EntrenamientoController {
     		dano = (int) (0.01 * bonus * efectividad * variacion * (((0.2 * atacante.getNivel() + 1) * atacante.getAtEspecial() * movAtacante.getPotencia()) / (25 * defensor.getDefEspecial()) + 2));
     	}
     	
-    	//if (OBJETO DEL ATACANTE == ANILLO UNICO && registroCombate.size() < 3) {
-    	//dano += 10;
-    	//} else if (OBJETO DEL DEFENSOR == ANILLO UNICO && registroCombate.size() < 3) {
-    	//dano = 0;
-    	//}
+    	if (atacante.getIdObjeto() == 7 && turnosAnillo < 3) {
+	    	dano = (int) (dano * 1.1);
+	    	turnosAnillo++;
+    	} else if (defensor.getIdObjeto() == 7 && turnosAnillo < 3) {
+	    	dano = 0;
+	    	turnosAnillo++;
+    	}
     	
     	return dano;
 	}
@@ -1457,12 +1504,12 @@ public class EntrenamientoController {
     }
     
     private void siguienteNivel() {
-		/*if (equipoEntrenador.get(numPokVivosEntr).getNivel() == 100) {
-			equipoEntrenador.get(numPokVivosEntr).setExperiencia(0);
-		}*/
+		if (equipoEntrenador.get(pokActEntr).getNivel() == 100) {
+			equipoEntrenador.get(pokActEntr).setExperiencia(0);
+		}
+    	pbXpPokemonEntrenador.setProgress(0.0001);
 		PauseTransition pausa = new PauseTransition(Duration.seconds(2));
         pausa.setOnFinished(event1 -> {
-        	pbXpPokemonEntrenador.setProgress(0.0001); //ESTO GENERA UN BUG
         	if (PokedexDAO.cargarPorNumPokedex(ConexionBD.getConnection(), equipoEntrenador.get(pokActEntr).getNumPokedex()).getNivelEvo() == equipoEntrenador.get(pokActEntr).getNivel()) {
         		imgPokemonEntrenador.setImage(equipoEntrenador.get(pokActEntr).evolucionar());
         		actualizarXP(activo);

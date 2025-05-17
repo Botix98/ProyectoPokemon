@@ -51,7 +51,7 @@
                   <Image url="@../../img/combateEntrenamiento/imagenFondoCombate.png" />
                </image>
             </ImageView>
-            <AnchorPane layoutX="-7.0" layoutY="51.0" prefHeight="400.0" prefWidth="884.0">
+            <AnchorPane layoutX="-7.0" layoutY="51.0" prefHeight="400.0" prefWidth="1279.0">
                <children>
                   <ImageView fx:id="img1" fitHeight="82.0" fitWidth="263.0" layoutX="978.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
@@ -63,7 +63,7 @@
                         <Image url="@../../img/combateEntrenamiento/publico/2.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="img3" fitHeight="100.0" fitWidth="115.0" layoutX="1206.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                  <ImageView fx:id="img3" fitHeight="100.0" fitWidth="115.0" layoutX="1176.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
                         <Image url="@../../img/combateEntrenamiento/publico/3.png" />
                      </image>
@@ -88,7 +88,7 @@
                         <Image url="@../../img/combateEntrenamiento/publico/7.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="img8" fitHeight="82.0" fitWidth="263.0" layoutX="1214.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                  <ImageView fx:id="img8" fitHeight="82.0" fitWidth="263.0" layoutX="1184.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
                         <Image url="@../../img/combateEntrenamiento/publico/moñeco.png" />
                      </image>
@@ -98,7 +98,7 @@
                         <Image url="@../../img/combateEntrenamiento/publico/7.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="img10" fitHeight="100.0" fitWidth="115.0" layoutX="1164.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                  <ImageView fx:id="img10" fitHeight="100.0" fitWidth="115.0" layoutX="1134.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
                         <Image url="@../../img/combateEntrenamiento/publico/4.png" />
                      </image>
@@ -135,9 +135,9 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <ImageView fx:id="imgEntrenador" fitHeight="310.0" fitWidth="329.0" layoutX="191.0" layoutY="249.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgEntrenador" fitHeight="310.0" fitWidth="329.0" layoutX="191.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../ProyectoPokemon/img/Pokemon/Back/67.png" />
+                  <Image url="@../../img/Entrenador.png" />
                </image>
             </ImageView>
             <ImageView fx:id="imgPokemonEntrenador" fitHeight="310.0" fitWidth="329.0" layoutX="191.0" layoutY="249.0" pickOnBounds="true" preserveRatio="true" visible="false">
@@ -487,19 +487,45 @@
                      </children></AnchorPane>
                </children>
             </VBox>
-            <VBox fx:id="vBoxEstadisticas" layoutX="278.0" layoutY="74.0" prefHeight="292.0" prefWidth="320.0" visible="false">
+            <VBox fx:id="vBoxEstadisticas" layoutX="1075.0" layoutY="290.0" prefHeight="236.0" prefWidth="204.0" visible="false">
                <children>
-                  <AnchorPane prefHeight="292.0" prefWidth="320.0">
+                  <AnchorPane prefHeight="234.0" prefWidth="204.0">
                      <children>
-                        <ImageView fx:id="imgFondoEquipo111" fitHeight="477.0" fitWidth="695.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgFondoEquipo111" fitHeight="253.0" fitWidth="471.0" layoutX="-267.0" pickOnBounds="true">
                            <image>
-                              <Image url="@../../../Users/user/Desktop/cajetinMovimientos.png" />
+                              <Image url="@../../img/combateEntrenamiento/cajetinOpciones.png" />
                            </image>
                         </ImageView>
-                        <Button layoutX="35.0" layoutY="106.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="131.0" text="Mov1" />
-                        <Button layoutX="35.0" layoutY="316.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="131.0" text="Mov4" />
-                        <Button layoutX="35.0" layoutY="246.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="131.0" text="Mov3" />
-                        <Button layoutX="35.0" layoutY="176.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="131.0" text="Mov2" />
+                        <Label fx:id="lblVitalidad" layoutX="-230.0" layoutY="38.0" text="Vitalidad: " textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblAtaque" layoutX="-230.0" layoutY="68.0" text="Ataque:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblAtaqueEsp" layoutX="-230.0" layoutY="98.0" text="Ataque esp:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblDefensa" layoutX="-230.0" layoutY="128.0" text="Defensa:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblDefensaEsp" layoutX="-230.0" layoutY="158.0" text="Defensa esp:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblVelocidad" layoutX="-230.0" layoutY="188.0" text="Velocidad:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </children>

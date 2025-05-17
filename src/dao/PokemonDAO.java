@@ -43,6 +43,8 @@ public class PokemonDAO {
 				pokemon.setSexo(rs.getString("SEXO"));
 				pokemon.setEstado(TipoEstados.valueOf(rs.getString("ESTADO").toUpperCase()));
 				pokemon.setEquipo(rs.getInt("EQUIPO"));
+				pokemon.setExperiencia(rs.getInt("EXPERIENCIA"));
+				pokemon.setIdObjeto(rs.getInt("ID_OBJETO"));
 				
 				listaPokemon.add(pokemon);
 			}
@@ -86,6 +88,8 @@ public class PokemonDAO {
 				pokemon.setSexo(rs.getString("SEXO"));
 				pokemon.setEstado(TipoEstados.valueOf(rs.getString("ESTADO").toUpperCase()));
 				pokemon.setEquipo(rs.getInt("EQUIPO"));
+				pokemon.setExperiencia(rs.getInt("EXPERIENCIA"));
+				pokemon.setIdObjeto(rs.getInt("ID_OBJETO"));
 				
 				listaPokemon.add(pokemon);
 			}
@@ -130,6 +134,7 @@ public class PokemonDAO {
 				pokemon.setEstado(TipoEstados.valueOf(rs.getString("ESTADO").toUpperCase()));
 				pokemon.setEquipo(rs.getInt("EQUIPO"));
 				pokemon.setExperiencia(rs.getInt("EXPERIENCIA"));
+				pokemon.setIdObjeto(rs.getInt("ID_OBJETO"));
 				
 				listaPokemon.add(pokemon);
 			}
@@ -172,6 +177,7 @@ public class PokemonDAO {
 				pokemon.setEstado(TipoEstados.valueOf(rs.getString("ESTADO").toUpperCase()));
 				pokemon.setEquipo(rs.getInt("EQUIPO"));
 				pokemon.setExperiencia(rs.getInt("EXPERIENCIA"));
+				pokemon.setIdObjeto(rs.getInt("ID_OBJETO"));
 				
 				listaPokemon.add(pokemon);
 			}
@@ -212,6 +218,8 @@ public class PokemonDAO {
 				pokemon.setSexo(rs.getString("SEXO"));
 				pokemon.setEstado(TipoEstados.valueOf(rs.getString("ESTADO").toUpperCase()));
 				pokemon.setEquipo(rs.getInt("EQUIPO"));
+				pokemon.setExperiencia(rs.getInt("EXPERIENCIA"));
+				pokemon.setIdObjeto(rs.getInt("ID_OBJETO"));
 			}
 			
 		} catch (SQLException e) {
@@ -223,8 +231,8 @@ public class PokemonDAO {
 	
 	public static boolean anyadirPokemon(Connection con, Pokemon pokemon) {
 		String query = "INSERT INTO POKEMON(ID_POKEMON, ID_ENTRENADOR, NUM_POKEDEX, MOTE, VITALIDAD_MAX, VITALIDAD_ACT, "
-				+ "ATAQUE, AT_ESPECIAL, DEFENSA, DEF_ESPECIAL, VELOCIDAD, NIVEL, FERTILIDAD, SEXO, ESTADO, EQUIPO, TIPO_PROPIETARIO) "
-				+ "VALUES(? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?, ?)";
+				+ "ATAQUE, AT_ESPECIAL, DEFENSA, DEF_ESPECIAL, VELOCIDAD, NIVEL, FERTILIDAD, SEXO, ESTADO, EQUIPO, TIPO_PROPIETARIO, EXPERIENCIA, ID_OBJETO) "
+				+ "VALUES(? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?, ?, ?, ?)";
 		
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
@@ -246,6 +254,9 @@ public class PokemonDAO {
 			ps.setString(15, pokemon.getEstado().toString());
 			ps.setInt(16, pokemon.getEquipo());
 			ps.setString(17, pokemon.getTipoPropietario());
+			ps.setInt(18, pokemon.getExperiencia());
+			ps.setInt(19, pokemon.getIdObjeto());
+			
 
 			int filasAfectadas = ps.executeUpdate();
 
@@ -547,7 +558,7 @@ public static boolean eliminarPokemon(Connection con, int idPokemon) {
 		}
 	
 	public static boolean actualizarPokemonParaObjeto(Connection con, Pokemon pokemon) {
-	    String sql = "UPDATE POKEMON SET ATAQUE = ?, AT_ESPECIAL = ?, DEFENSA = ?, DEF_ESPECIAL = ?, VELOCIDAD = ?, EQUIPO = ? WHERE ID_POKEMON = ?";
+	    String sql = "UPDATE POKEMON SET ATAQUE = ?, AT_ESPECIAL = ?, DEFENSA = ?, DEF_ESPECIAL = ?, VELOCIDAD = ?, EQUIPO = ?, ID_OBJETO = ? WHERE ID_POKEMON = ?";
 	    try (PreparedStatement ps = con.prepareStatement(sql)) {
 	        ps.setInt(1, pokemon.getAtaque());
 	        ps.setInt(2, pokemon.getAtEspecial());
@@ -555,7 +566,8 @@ public static boolean eliminarPokemon(Connection con, int idPokemon) {
 	        ps.setInt(4, pokemon.getDefEspecial());
 	        ps.setInt(5, pokemon.getVelocidad());
 	        ps.setInt(6, pokemon.getEquipo());
-	        ps.setInt(7, pokemon.getIdPokemon());
+	        ps.setInt(7, pokemon.getIdObjeto());
+	        ps.setInt(8, pokemon.getIdPokemon());
 
 	        int filasAfectadas = ps.executeUpdate();
 	        return filasAfectadas > 0;

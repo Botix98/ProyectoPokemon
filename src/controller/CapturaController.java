@@ -84,17 +84,6 @@ public class CapturaController {
     @FXML private Label lblNumeroPokeballs, lblNumeroSuperballs, lblNumeroUltraballs;
     @FXML private Label lblRatioCatchPokeball, lblRatioCatchSuperball, lblRatioCatchUltraball;
     
-    //CUANDO POKEMON TIENE UN ATAQUE NO SE BORRA LA IMAGEN HASTA QUE RECARGO
-    //CUANDO EL POKEMON SE CAPTURE METERLE EL MOVIMIENTO_POKEMON PLACAJE (CRIANZA)
-    //QUE AL CAPTURARLO TENGA UN ATAQUE ALEATORIO DE SU TIPO
-    //CUANDO HAY EL MAXIMO EN LA CAJA QUE SALGA UN MENSAJE PARA LIBERAR QUE CUANDO HAYA 30 QUE NO SE PUEDAN METER MAS
-    //QUE EL TEXTO QUE DESAPARECE EN 2 SEGUNDO SE PONGA BLANCO SI ESTA EN LAS VISTAS ESAS
-    //COMPROBAR QUE NO TENGA PALABRAS MALAS, ESPACIOS NI NUMEROS AL MOTE en la linea 300 y algo hayq que meterlo
-    //PODER CAMBIAR ENTRE POKEMON EN EL EQUIPO, PODER EQUIPAR OBJETOS
-    //BOTON EN CAJA IR A CAJA 1 O 2
-    
-    //EN LA LINEA 120 DESCOMENTAR PARA USAR LO DE LOS RIVALES VENCIDOS
-    
     public void init(Entrenador entr, Stage stage, LoginController loginController, MenuController menuController) {
         this.entrenador = entr;
         this.stage = stage;
@@ -242,7 +231,7 @@ public class CapturaController {
         String mote = pokemonData.getNomPokemon();
         int numPokedex = pokemonData.getNumPokedex();
 
-        return new Pokemon(0, 0, 0, "ENTRENADOR", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 5, sexo, "SIN_ESTADO", 1, 0);
+        return new Pokemon(0, 0, 0, "ENTRENADOR", numPokedex, mote, vitalidadMax, vitalidadMax, ataque, ataqueEsp, defensa, defensaEsp, velocidad, nivel, 5, sexo, "SIN_ESTADO", 1, 0, 0);
     }
     
     private void lanzarBolas(int idObjeto, double ratioExito, String nombreBall) {

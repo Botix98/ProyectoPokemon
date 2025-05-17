@@ -10,11 +10,11 @@ public class Objeto {
 	
 	private int idObjeto;
 	private String nomObjeto;
-    private int ataque;
-    private int ataqueEsp;
-    private int defensa;
-    private int defensaEsp;
-    private int velocidad;
+    private double ataque;
+    private double ataqueEsp;
+    private double defensa;
+    private double defensaEsp;
+    private double velocidad;
 	private int precio;
 	private boolean equipable;
 	
@@ -29,7 +29,7 @@ public class Objeto {
 	 * @param precio
 	 */
 	
-	public Objeto(int idObjeto, String nomObjeto, int ataque, int ataqueEsp, int defensa, int defensaEsp, int velocidad,
+	public Objeto(int idObjeto, String nomObjeto, double ataque, double ataqueEsp, double defensa, double defensaEsp, double velocidad,
 			int precio, boolean equipable) {
 		this.idObjeto = idObjeto;
 		this.nomObjeto = nomObjeto;
@@ -55,7 +55,14 @@ public class Objeto {
 	}
 	
 	public void aplicarBonificacionEstadisticas(Pokemon pokemon) {
-		
+		System.out.println(this.toString());
+		System.out.println("Pokemon: " + pokemon.getMote());
+		System.out.println("\tAtaque:    " + pokemon.getAtaque());
+		System.out.println("\tAt esp:    " + pokemon.getAtEspecial());
+		System.out.println("\tDefensa:   " + pokemon.getDefensa());
+		System.out.println("\tDef esp:   " + pokemon.getDefEspecial());
+		System.out.println("\tVelocidad: " + pokemon.getVelocidad());
+		System.out.println("\tId objeto: " + pokemon.getIdObjeto());
 		
         if (this.getAtaque() != 0) {
             pokemon.setAtaque((int) (pokemon.getAtaque() * this.getAtaque()));
@@ -72,9 +79,27 @@ public class Objeto {
         if (this.getVelocidad() != 0) {
             pokemon.setVelocidad((int) (pokemon.getVelocidad() * this.getVelocidad()));
         }
+        
+        System.out.println(this.toString());
+        System.out.println("Pokemon: " + pokemon.getMote());
+		System.out.println("\tAtaque:    " + pokemon.getAtaque());
+		System.out.println("\tAt esp:    " + pokemon.getAtEspecial());
+		System.out.println("\tDefensa:   " + pokemon.getDefensa());
+		System.out.println("\tDef esp:   " + pokemon.getDefEspecial());
+		System.out.println("\tVelocidad: " + pokemon.getVelocidad());
+		System.out.println("\tId objeto: " + pokemon.getIdObjeto());
     }
 
     public void eliminarBonificacionEstadisticas(Pokemon pokemon) {
+    	System.out.println(this.toString());
+    	System.out.println("Pokemon: " + pokemon.getMote());
+		System.out.println("\tAtaque:    " + pokemon.getAtaque());
+		System.out.println("\tAt esp:    " + pokemon.getAtEspecial());
+		System.out.println("\tDefensa:   " + pokemon.getDefensa());
+		System.out.println("\tDef esp:   " + pokemon.getDefEspecial());
+		System.out.println("\tVelocidad: " + pokemon.getVelocidad());
+		System.out.println("\tId objeto: " + pokemon.getIdObjeto());
+    	
         if (this.getAtaque() != 0) {
             pokemon.setAtaque((int) (pokemon.getAtaque() / this.getAtaque()));
         }
@@ -90,6 +115,15 @@ public class Objeto {
         if (this.getVelocidad() != 0) {
             pokemon.setVelocidad((int) (pokemon.getVelocidad() / this.getVelocidad()));
         }
+        
+        System.out.println(this.toString());
+        System.out.println("Pokemon: " + pokemon.getMote());
+		System.out.println("\tAtaque:    " + pokemon.getAtaque());
+		System.out.println("\tAt esp:    " + pokemon.getAtEspecial());
+		System.out.println("\tDefensa:   " + pokemon.getDefensa());
+		System.out.println("\tDef esp:   " + pokemon.getDefEspecial());
+		System.out.println("\tVelocidad: " + pokemon.getVelocidad());
+		System.out.println("\tId objeto: " + pokemon.getIdObjeto());
     }
 
 	/**
@@ -123,70 +157,70 @@ public class Objeto {
 	/**
 	 * @return the ataque
 	 */
-	public int getAtaque() {
+	public double getAtaque() {
 		return ataque;
 	}
 
 	/**
 	 * @param ataque the ataque to set
 	 */
-	public void setAtaque(int ataque) {
+	public void setAtaque(double ataque) {
 		this.ataque = ataque;
 	}
 
 	/**
 	 * @return the ataqueEsp
 	 */
-	public int getAtaqueEsp() {
+	public double getAtaqueEsp() {
 		return ataqueEsp;
 	}
 
 	/**
 	 * @param ataqueEsp the ataqueEsp to set
 	 */
-	public void setAtaqueEsp(int ataqueEsp) {
+	public void setAtaqueEsp(double ataqueEsp) {
 		this.ataqueEsp = ataqueEsp;
 	}
 
 	/**
 	 * @return the defensa
 	 */
-	public int getDefensa() {
+	public double getDefensa() {
 		return defensa;
 	}
 
 	/**
 	 * @param defensa the defensa to set
 	 */
-	public void setDefensa(int defensa) {
+	public void setDefensa(double defensa) {
 		this.defensa = defensa;
 	}
 
 	/**
 	 * @return the defensaEsp
 	 */
-	public int getDefensaEsp() {
+	public double getDefensaEsp() {
 		return defensaEsp;
 	}
 
 	/**
 	 * @param defensaEsp the defensaEsp to set
 	 */
-	public void setDefensaEsp(int defensaEsp) {
+	public void setDefensaEsp(double defensaEsp) {
 		this.defensaEsp = defensaEsp;
 	}
 
 	/**
 	 * @return the velocidad
 	 */
-	public int getVelocidad() {
+	public double getVelocidad() {
 		return velocidad;
 	}
 
 	/**
 	 * @param velocidad the velocidad to set
 	 */
-	public void setVelocidad(int velocidad) {
+	public void setVelocidad(double velocidad) {
 		this.velocidad = velocidad;
 	}
 
@@ -204,12 +238,18 @@ public class Objeto {
 		this.precio = precio;
 	}
 
+	/**
+	 * @return the equipable
+	 */
 	public boolean isEquipable() {
-	    return equipable;
+		return equipable;
 	}
 
+	/**
+	 * @param equipable the equipable to set
+	 */
 	public void setEquipable(boolean equipable) {
-	    this.equipable = equipable;
+		this.equipable = equipable;
 	}
 
 	@Override

@@ -32,7 +32,7 @@ public class Main extends Application {
     	Parent root = loader.load();
     	Scene scene = new Scene(root);
     	
-    	primaryStage.setTitle("Pokemon Abogado");
+    	primaryStage.setTitle("Proyecto Pokemon: Los Apendices");
     	primaryStage.setScene(scene);
     	
     	LoginController controller = loader.getController();

@@ -239,6 +239,49 @@
             <Button fx:id="btnCambiarPokemon" layoutX="815.0" layoutY="572.0" mnemonicParsing="false" onAction="#cambiarPokemon2" prefHeight="120.0" prefWidth="204.0" text="Cambiar" visible="false" />
             <Button fx:id="btnOlvidarMovimiento" layoutX="815.0" layoutY="572.0" mnemonicParsing="false" onAction="#olvidarMovimiento" prefHeight="120.0" prefWidth="204.0" text="Olvidar movimiento" visible="false" />
             <Button fx:id="btnNoAprender" layoutX="1042.0" layoutY="572.0" mnemonicParsing="false" onAction="#noAprender" prefHeight="120.0" prefWidth="204.0" text="No aprender" visible="false" />
+            <VBox fx:id="vBoxEstadisticas" layoutX="804.0" layoutY="290.0" prefHeight="254.0" prefWidth="474.0" visible="false">
+               <children>
+                  <AnchorPane prefHeight="254.0" prefWidth="815.0">
+                     <children>
+                        <ImageView fx:id="imgFondoEquipo111" fitHeight="253.0" fitWidth="474.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../../img/combateEntrenamiento/cajetinOpciones.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="lblVitalidad" layoutX="20.0" layoutY="38.0" text="Vitalidad: " textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblAtaque" layoutX="20.0" layoutY="68.0" text="Ataque:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblAtaqueEsp" layoutX="20.0" layoutY="98.0" text="Ataque esp:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblDefensa" layoutX="20.0" layoutY="128.0" text="Defensa:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblDefensaEsp" layoutX="20.0" layoutY="158.0" text="Defensa esp:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblVelocidad" layoutX="20.0" layoutY="188.0" text="Velocidad:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
             <VBox fx:id="vBoxMovimientos" layoutX="101.0" layoutY="6.0" prefHeight="556.0" prefWidth="750.0" visible="false">
                <children>
                   <AnchorPane prefHeight="714.0" prefWidth="1268.0">

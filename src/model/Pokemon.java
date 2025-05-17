@@ -57,6 +57,7 @@ public class Pokemon {
 		this.estado = null;
 		this.equipo = 0;
 		this.experiencia = 0;
+		this.idObjeto = 0;
 	}
 	
 	/**
@@ -82,7 +83,7 @@ public class Pokemon {
 	 */
 	public Pokemon(int idPokemon, int idEntrenador, int idRival, String tipoPropietario, int numPokedex, String mote,
 			int vitalidadMax, int vitalidadAct, int ataque, int atEspecial, int defensa, int defEspecial, int velocidad,
-			int nivel, int fertilidad, String sexo, String estado, int equipo, int experiencia) {
+			int nivel, int fertilidad, String sexo, String estado, int equipo, int experiencia, int idObjeto) {
 		this.idPokemon = idPokemon;
 		this.idEntrenador = idEntrenador;
 		this.idRival = idRival;
@@ -102,6 +103,7 @@ public class Pokemon {
 		this.estado = TipoEstados.valueOf(estado);
 		this.equipo = equipo;
 		this.experiencia = experiencia;
+		this.idObjeto = idObjeto;
 	}
 
 	/**
@@ -419,6 +421,7 @@ public class Pokemon {
 				+ ", vitalidadMax=" + vitalidadMax + ", vitalidadAct=" + vitalidadAct + ", ataque=" + ataque
 				+ ", atEspecial=" + atEspecial + ", defensa=" + defensa + ", defEspecial=" + defEspecial
 				+ ", velocidad=" + velocidad + ", nivel=" + nivel + ", fertilidad=" + fertilidad + ", sexo=" + sexo
-				+ ", estado=" + estado + ", equipo=" + equipo + ", experiencia=" + experiencia + "]";
+				+ ", estado=" + estado + ", equipo=" + equipo + ", experiencia=" + experiencia + ", idObjeto="
+				+ idObjeto + "]";
 	}
 }

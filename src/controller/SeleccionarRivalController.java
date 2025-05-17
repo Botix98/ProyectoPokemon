@@ -17,6 +17,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.DisplacementMap;
+import javafx.scene.effect.FloatMap;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -63,7 +66,13 @@ public class SeleccionarRivalController {
     private ImageView imgRival6;
 
     @FXML
+    private ImageView imgFondo;
+    
+    @FXML
     private ImageView imgSonido;
+    
+    @FXML
+    private ImageView imgSecreto;
 
     @FXML
     private Label lblNivelRecomendado;
@@ -81,9 +90,9 @@ public class SeleccionarRivalController {
         imgRival1.setImage(new Image(new File(rivalEnum.getRuta()).toURI().toString()));
         url = rivalEnum.getRuta();
         
-        
     	switch (entrenador.getRivalesVencidos()) {
     		case 5:
+    			imgSecreto.setVisible(true);
 	        case 4:
 	        	imgRival6.setEffect(null);
 	        case 3:
@@ -107,11 +116,16 @@ public class SeleccionarRivalController {
     void activarDesactivarSonido(MouseEvent event) {
 
     }
-
+    
     @FXML
     void entrarRival1(MouseEvent event) {
-    	lblNivelRecomendado.setText("Dificultad: Muy facil");
-    	lblNombre.setText("Rival: " + rivalEnum.getNombre());
+    	if (imgRival2.getEffect() == null) {
+    		lblNivelRecomendado.setText("Dificultad: Muy facil");
+        	lblNombre.setText("Rival: " + rivalEnum.getNombre());
+    	} else {
+    		lblNivelRecomendado.setText("Dificultad: ?????");
+    		lblNombre.setText("Rival: ?????");
+    	}
     }
 
     @FXML
@@ -227,8 +241,10 @@ public class SeleccionarRivalController {
     
     @FXML
     void seleccionarRival1(MouseEvent event) {
-    	rival = new Rival(rivalEnum.getNombre(), 0, "Bien hecho. Has conseguido vencerme", "Necesitas entrenar mas. Pasate por el entrenamiento para mejorar a tus pojemon", "Hay que saber cuando rendirse");
-        irCombate(generarEquipoRival());
+    	if (imgRival1.getEffect() == null) {
+    		rival = new Rival(rivalEnum.getNombre(), 0, "Bien hecho. Has conseguido vencerme", "Necesitas entrenar mas. Pasate por el entrenamiento para mejorar a tus pojemon", "Hay que saber cuando rendirse");
+            irCombate(generarEquipoRival());
+    	}
     }
 
     @FXML
@@ -275,6 +291,87 @@ public class SeleccionarRivalController {
         	irCombate(null);
     	}
     }
+    
+    @FXML
+    void combatFinal(MouseEvent event) {
+		rival = listaLideres.get(5);
+		url = "C:/ProyectoPokemon/img/lideresGimnasio/juanan_y_victoria.png";
+    	irCombate(null);
+    }
+    
+    @FXML
+    void secreto(MouseEvent event) {
+    	ColorAdjust color1 = new ColorAdjust();
+    	imgRival1.setLayoutX(130 + (int) (Math.random() * 101) - 50);
+    	imgRival1.setLayoutY(90 + (int) (Math.random() * 101) - 50);
+    	color1.setHue(Math.random());
+    	color1.setContrast(Math.random());
+    	color1.setSaturation(Math.random());
+    	imgRival1.setEffect(color1);
+    	imgRival1.setFitHeight(200 + (int) (Math.random() * 100) - 50);
+    	imgRival1.setFitHeight(200 + (int) (Math.random() * 100) - 50);
+    	imgRival1.setRotate((int) (Math.random() * 365));
+    	
+    	ColorAdjust color2 = new ColorAdjust();
+    	imgRival2.setLayoutX(471 + (int) (Math.random() * 101) - 50);
+    	imgRival2.setLayoutY(90 + (int) (Math.random() * 101) - 50);
+    	color2.setHue(Math.random());
+    	color2.setContrast(Math.random());
+    	color2.setSaturation(Math.random());
+    	imgRival2.setEffect(color2);
+    	imgRival2.setFitHeight(200 + (int) (Math.random() * 100) - 50);
+    	imgRival2.setFitHeight(200 + (int) (Math.random() * 100) - 50);
+    	imgRival2.setRotate((int) (Math.random() * 365));
+    	
+    	ColorAdjust color3 = new ColorAdjust();
+    	imgRival3.setLayoutX(799 + (int) (Math.random() * 101) - 50);
+    	imgRival3.setLayoutY(90 + (int) (Math.random() * 101) - 50);
+    	color3.setHue(Math.random());
+    	color3.setContrast(Math.random());
+    	color3.setSaturation(Math.random());
+    	imgRival3.setEffect(color3);
+    	imgRival3.setFitHeight(200 + (int) (Math.random() * 100) - 50);
+    	imgRival3.setFitHeight(200 + (int) (Math.random() * 100) - 50);
+    	imgRival3.setRotate((int) (Math.random() * 365));
+    	
+    	ColorAdjust color4 = new ColorAdjust();
+    	imgRival4.setLayoutX(130 + (int) (Math.random() * 101) - 50);
+    	imgRival4.setLayoutY(420 + (int) (Math.random() * 101) - 50);
+    	color4.setHue(Math.random());
+    	color4.setContrast(Math.random());
+    	color4.setSaturation(Math.random());
+    	imgRival4.setEffect(color4);
+    	imgRival4.setFitHeight(200 + (int) (Math.random() * 100) - 50);
+    	imgRival4.setFitHeight(200 + (int) (Math.random() * 100) - 50);
+    	imgRival4.setRotate((int) (Math.random() * 365));
+    	
+    	ColorAdjust color5 = new ColorAdjust();
+    	imgRival5.setLayoutX(444 + (int) (Math.random() * 101) - 50);
+    	imgRival5.setLayoutY(420 + (int) (Math.random() * 101) - 50);
+    	color5.setHue(Math.random());
+    	color5.setContrast(Math.random());
+    	color5.setSaturation(Math.random());
+    	imgRival5.setEffect(color5);
+    	imgRival5.setFitHeight(200 + (int) (Math.random() * 100) - 50);
+    	imgRival5.setFitHeight(200 + (int) (Math.random() * 100) - 50);
+    	imgRival5.setRotate((int) (Math.random() * 365));
+    	
+    	ColorAdjust color6 = new ColorAdjust();
+    	imgRival6.setLayoutX(799 + (int) (Math.random() * 101) - 50);
+    	imgRival6.setLayoutY(420 + (int) (Math.random() * 101) - 50);
+    	color6.setHue(Math.random());
+    	color6.setContrast(Math.random());
+    	color6.setSaturation(Math.random());
+    	imgRival6.setEffect(color6);
+    	imgRival6.setFitHeight(200 + (int) (Math.random() * 100) - 50);
+    	imgRival6.setFitHeight(200 + (int) (Math.random() * 100) - 50);
+    	imgRival6.setRotate((int) (Math.random() * 365));
+    	
+    	ColorAdjust color7 = new ColorAdjust();
+    	color7.setHue(Math.random());
+    	color7.setSaturation(Math.random());
+    	imgFondo.setEffect(color7);
+    }
 
     public LinkedList<Pokemon> generarEquipoRival() {
     	LinkedList<Pokemon> equipoRival = new LinkedList<Pokemon>();
@@ -296,8 +393,7 @@ public class SeleccionarRivalController {
     		int numPokedex = (int) (Math.random() * 151) + 1;
     		String mote = pokedex.get(numPokedex - 1).getNomPokemon();
     		int nivel = nivelMedio - (int) (numPokRival * 1.7) + 2 * i;
-    		int vitalidadMax = 1;
-    		//int vitalidadMax = 10 + (int)((double)(nivel) / 100 * (pokedex.get(numPokedex - 1).getVitalidad() * 2) + (int) (Math.random() * 32)) + nivel;
+    		int vitalidadMax = 10 + (int)((double)(nivel) / 100 * (pokedex.get(numPokedex - 1).getVitalidad() * 2) + (int) (Math.random() * 32)) + nivel;
     		int ataque = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getAtaque() * 2) + (int) (Math.random() * 32)));
     		int ataqueEsp = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getAtEspecial() * 2) + (int) (Math.random() * 32)));
     		int defensa = 5 + (int)((double)(nivel) / 100 * ((pokedex.get(numPokedex - 1).getDefensa() * 2) + (int) (Math.random() * 32)));

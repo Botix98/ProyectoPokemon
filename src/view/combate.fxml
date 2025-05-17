@@ -51,6 +51,90 @@
                   <Image url="@../../img/combateEntrenamiento/imagenFondoCombate.png" />
                </image>
             </ImageView>
+            <AnchorPane layoutX="-7.0" layoutY="51.0" prefHeight="400.0" prefWidth="884.0">
+               <children>
+                  <ImageView fx:id="img1" fitHeight="82.0" fitWidth="263.0" layoutX="978.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img2" fitHeight="82.0" fitWidth="263.0" layoutX="1047.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img3" fitHeight="100.0" fitWidth="115.0" layoutX="1206.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img4" fitHeight="82.0" fitWidth="263.0" layoutX="1063.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/4.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img5" fitHeight="82.0" fitWidth="263.0" layoutX="956.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/5.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img6" fitHeight="82.0" fitWidth="263.0" layoutX="988.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/6.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img7" fitHeight="82.0" fitWidth="263.0" layoutX="1126.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/7.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img8" fitHeight="82.0" fitWidth="263.0" layoutX="1214.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/moñeco.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img9" fitHeight="82.0" fitWidth="263.0" layoutX="1063.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/7.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img10" fitHeight="100.0" fitWidth="115.0" layoutX="1164.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/4.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img11" fitHeight="100.0" fitWidth="115.0" layoutX="898.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/5.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img12" fitHeight="100.0" fitWidth="115.0" layoutX="17.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/4.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img13" fitHeight="100.0" fitWidth="115.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/11.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img14" fitHeight="100.0" fitWidth="115.0" layoutX="76.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/14.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img15" fitHeight="123.0" fitWidth="132.0" layoutX="114.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/16.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="img16" fitHeight="123.0" fitWidth="132.0" layoutX="65.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/combateEntrenamiento/publico/12.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
             <ImageView fx:id="imgEntrenador" fitHeight="310.0" fitWidth="329.0" layoutX="191.0" layoutY="249.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../ProyectoPokemon/img/Pokemon/Back/67.png" />

@@ -17,8 +17,7 @@ public class Objeto {
     private int velocidad;
 	private int precio;
 	private boolean equipable;
-	private LinkedList<String> bonificaciones = new LinkedList<>();
-	Connection con = ConexionBD.getConnection();
+	
 	/**
 	 * @param idObjeto
 	 * @param nomObjeto
@@ -31,8 +30,7 @@ public class Objeto {
 	 */
 	
 	public Objeto(int idObjeto, String nomObjeto, int ataque, int ataqueEsp, int defensa, int defensaEsp, int velocidad,
-			int precio) {
-		super();
+			int precio, boolean equipable) {
 		this.idObjeto = idObjeto;
 		this.nomObjeto = nomObjeto;
 		this.ataque = ataque;
@@ -41,10 +39,10 @@ public class Objeto {
 		this.defensaEsp = defensaEsp;
 		this.velocidad = velocidad;
 		this.precio = precio;
+		this.equipable = equipable;
 	}
 
 	public Objeto() {
-		super();
 		this.idObjeto = 0;
 		this.nomObjeto = "";
 		this.ataque = 0;
@@ -53,9 +51,12 @@ public class Objeto {
 		this.defensaEsp = 0;
 		this.velocidad = 0;
 		this.precio = 0;
+		this.equipable = true;
 	}
 	
 	public void aplicarBonificacionEstadisticas(Pokemon pokemon) {
+		
+		
         if (this.getAtaque() != 0) {
             pokemon.setAtaque((int) (pokemon.getAtaque() * this.getAtaque()));
         }
@@ -210,19 +211,11 @@ public class Objeto {
 	public void setEquipable(boolean equipable) {
 	    this.equipable = equipable;
 	}
-	
-	public LinkedList<String> getBonificaciones() {
-        return bonificaciones;
-    }
 
-    public void setBonificaciones(LinkedList<String> bonificaciones) {
-        this.bonificaciones = bonificaciones;
-    }
-    
-@Override
-public String toString() {
-    return "Objeto [idObjeto=" + idObjeto + ", nomObjeto=" + nomObjeto + ", ataque=" + ataque + ", ataqueEsp="
-            + ataqueEsp + ", defensa=" + defensa + ", defensaEsp=" + defensaEsp + ", velocidad=" + velocidad
-            + ", precio=" + precio + "]";
+	@Override
+	public String toString() {
+		return "Objeto [idObjeto=" + idObjeto + ", nomObjeto=" + nomObjeto + ", ataque=" + ataque + ", ataqueEsp="
+				+ ataqueEsp + ", defensa=" + defensa + ", defensaEsp=" + defensaEsp + ", velocidad=" + velocidad
+				+ ", precio=" + precio + ", equipable=" + equipable + "]";
 	}
 }

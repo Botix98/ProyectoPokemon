@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+import model.Pokedex;
 import model.Rival;
 
 public class RivalDAO {
@@ -36,17 +37,16 @@ public class RivalDAO {
 		return rival;
 	}
 	
-public static LinkedList<Rival> cargarTodosRivales(Connection con) {
+	public static LinkedList<Rival> cargarTodosRivales(Connection con) {
+		LinkedList<Rival> rivales = new LinkedList<Rival>();
 		
 		String query = "SELECT * FROM RIVAL ORDER BY ID_RIVAL";
-
-		LinkedList<Rival> rivales = new LinkedList<Rival>();
 		
 		try {
 			Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
 			
-			if (rs.next()) {
+			while (rs.next()) {
 				Rival rival = new Rival();
 				rival.setNombre(rs.getString("NOMBRE"));
 				rival.setIdRival(rs.getInt("ID_RIVAL"));

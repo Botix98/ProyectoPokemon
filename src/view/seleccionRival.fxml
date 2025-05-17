@@ -46,10 +46,13 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0">
       <children>
-            <ImageView fitHeight="867.0" fitWidth="1449.0" layoutX="-20.0" layoutY="-144.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgFondo" fitHeight="867.0" fitWidth="1449.0" layoutX="-20.0" layoutY="-144.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/combateEntrenamiento/fondoSeleccionarRival.png" />
                </image>
+               <effect>
+                  <ColorAdjust />
+               </effect>
             </ImageView>
             <ImageView fx:id="imgRival1" fitHeight="200.0" fitWidth="200.0" layoutX="130.0" layoutY="90.0" onMouseClicked="#seleccionarRival1" onMouseEntered="#entrarRival1" onMouseExited="#salirRival1" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -115,6 +118,11 @@
                   <Font size="24.0" />
                </font>
             </Label>
+            <ImageView fx:id="imgSecreto" fitHeight="95.0" fitWidth="37.0" layoutX="1212.0" layoutY="28.0" onMouseClicked="#combatFinal" onMouseEntered="#secreto" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../../img/combateEntrenamiento/missingno.png" />
+               </image>
+            </ImageView>
       </children>
          <opaqueInsets>
             <Insets />

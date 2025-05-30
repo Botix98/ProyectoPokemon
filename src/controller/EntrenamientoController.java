@@ -963,7 +963,7 @@ public class EntrenamientoController {
         });
         
         if (equipoEntrenador.get(pokActEntr).getNivel() < 100 && pokemonRival.getVitalidadAct() == 0) {
-        	int xp = Math.max((atacante.getNivel() + defensor.getNivel() * 10) / 4 + 100000, 50);
+        	int xp = Math.max((atacante.getNivel() + defensor.getNivel() * 10) / 4, 50);
         	
         	System.out.println("Experiencia antes: " + equipoEntrenador.get(pokActEntr).getExperiencia());
         	

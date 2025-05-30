@@ -55,14 +55,6 @@ public class Objeto {
 	}
 	
 	public void aplicarBonificacionEstadisticas(Pokemon pokemon) {
-		System.out.println(this.toString());
-		System.out.println("Pokemon: " + pokemon.getMote());
-		System.out.println("\tAtaque:    " + pokemon.getAtaque());
-		System.out.println("\tAt esp:    " + pokemon.getAtEspecial());
-		System.out.println("\tDefensa:   " + pokemon.getDefensa());
-		System.out.println("\tDef esp:   " + pokemon.getDefEspecial());
-		System.out.println("\tVelocidad: " + pokemon.getVelocidad());
-		System.out.println("\tId objeto: " + pokemon.getIdObjeto());
 		
         if (this.getAtaque() != 0) {
             pokemon.setAtaque((int) (pokemon.getAtaque() * this.getAtaque()));
@@ -79,26 +71,9 @@ public class Objeto {
         if (this.getVelocidad() != 0) {
             pokemon.setVelocidad((int) (pokemon.getVelocidad() * this.getVelocidad()));
         }
-        
-        System.out.println(this.toString());
-        System.out.println("Pokemon: " + pokemon.getMote());
-		System.out.println("\tAtaque:    " + pokemon.getAtaque());
-		System.out.println("\tAt esp:    " + pokemon.getAtEspecial());
-		System.out.println("\tDefensa:   " + pokemon.getDefensa());
-		System.out.println("\tDef esp:   " + pokemon.getDefEspecial());
-		System.out.println("\tVelocidad: " + pokemon.getVelocidad());
-		System.out.println("\tId objeto: " + pokemon.getIdObjeto());
     }
 
     public void eliminarBonificacionEstadisticas(Pokemon pokemon) {
-    	System.out.println(this.toString());
-    	System.out.println("Pokemon: " + pokemon.getMote());
-		System.out.println("\tAtaque:    " + pokemon.getAtaque());
-		System.out.println("\tAt esp:    " + pokemon.getAtEspecial());
-		System.out.println("\tDefensa:   " + pokemon.getDefensa());
-		System.out.println("\tDef esp:   " + pokemon.getDefEspecial());
-		System.out.println("\tVelocidad: " + pokemon.getVelocidad());
-		System.out.println("\tId objeto: " + pokemon.getIdObjeto());
     	
         if (this.getAtaque() != 0) {
             pokemon.setAtaque((int) (pokemon.getAtaque() / this.getAtaque()));
@@ -115,15 +90,6 @@ public class Objeto {
         if (this.getVelocidad() != 0) {
             pokemon.setVelocidad((int) (pokemon.getVelocidad() / this.getVelocidad()));
         }
-        
-        System.out.println(this.toString());
-        System.out.println("Pokemon: " + pokemon.getMote());
-		System.out.println("\tAtaque:    " + pokemon.getAtaque());
-		System.out.println("\tAt esp:    " + pokemon.getAtEspecial());
-		System.out.println("\tDefensa:   " + pokemon.getDefensa());
-		System.out.println("\tDef esp:   " + pokemon.getDefEspecial());
-		System.out.println("\tVelocidad: " + pokemon.getVelocidad());
-		System.out.println("\tId objeto: " + pokemon.getIdObjeto());
     }
 
 	/**
